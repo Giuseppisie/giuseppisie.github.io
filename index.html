@@ -9,7 +9,7 @@
     :root{
       --bg: #a0c0bc;
       --card: #427b76;
-      --accent: #b0ab52;
+      --accent: #b0ab52; /* main page color as you requested */
       --overlay-alpha: 0.55;
       --page-padding: 40px;
     }
@@ -71,25 +71,15 @@
       max-width: 1100px;
     }
 
-    /* ----------  NAME (first) ---------- */
     .hero-name {
-        margin: 0 0 6px 0;
-        font-weight: 800;
-        line-height: 1;
-        color: #fff;
-        text-shadow: 0 6px 20px rgba(0,0,0,0.45);
-        font-size: clamp(48px, 10vw, 96px);
-      }
-
-
-    @keyframes typing-name {
-      to { width: 15ch; } /* matches "Sienna Giuseppi" (approx 15 chars) */
-    }
-    @keyframes blink-caret-name {
-      50% { border-color: transparent; }
+      margin: 0 0 6px 0;
+      font-weight: 800;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      font-size: clamp(48px, 10vw, 96px);
     }
 
-    /* ---------- Typewriter for SUBTITLE (starts after name) ---------- */
     .hero-sub {
       margin: 0;
       color: #fff;
@@ -100,27 +90,16 @@
       overflow: hidden;
       border-right: .12em solid rgba(255,255,255,0.9);
       width: 0ch;
-      /* start after the name animation ends (1.6s) + small delay */
-      animation: typing-sub 2.6s steps(54,end) 1.85s forwards,
-                 blink-caret-sub .8s step-end 1.85s infinite;
+      animation: typing-sub 2.6s steps(54,end) 0.25s forwards,
+                 blink-caret-sub .8s step-end 0.25s infinite;
       opacity: 0.99;
       text-shadow: 0 4px 12px rgba(0,0,0,0.35);
     }
 
-    @keyframes typing-sub {
-      to { width: 53ch; } /* matches "Duke University Mechanical Engineering, Class of 2028" (~53 chars) */
-    }
-    @keyframes blink-caret-sub {
-      50% { border-color: transparent; }
-    }
-
-    /* Respect reduced motion preference */
+    @keyframes typing-sub { to { width: 53ch; } }
+    @keyframes blink-caret-sub { 50% { border-color: transparent; } }
     @media (prefers-reduced-motion: reduce) {
-      .hero-name, .hero-sub {
-        animation: none;
-        width: auto;
-        border-right: none;
-      }
+      .hero-sub { animation: none; width: auto; border-right: none; }
     }
 
     /* ---------- PAGE CONTENT ---------- */
@@ -132,7 +111,6 @@
       transform: translateY(-40px);
     }
 
-    /* small profile header: headshot only (no name) */
     header.small {
       text-align: center;
       padding: 24px 20px 6px 20px;
@@ -143,20 +121,19 @@
       display:inline-block; margin-bottom:8px; border:3px solid rgba(255,255,255,0.12);
       box-shadow:0 6px 20px rgba(0,0,0,0.12);
     }
-    /* remove name under headshot - keep subtitle & intro */
     .subtitle { color:#666; margin:0 0 8px 0; font-size:14px; }
-    .intro { color:#427b76; max-width:760px; margin:18px auto 0; font-size:15px; line-height:1.5; }
+    .intro { color:#333; max-width:760px; margin:18px auto 0; font-size:15px; line-height:1.5; }
 
     /* Section title */
     .section-title {
       margin: 28px 0 12px;
       font-size: 20px;
       font-weight: 700;
-      color: #fff;
-      text-align: left;
+      color: #111;
+      text-align: right;
     }
 
-    /* Grid + card styles using palette */
+    /* Grid + card styles using palette (cards use --card) */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -173,6 +150,7 @@
       text-decoration: none;
       transition: transform .18s ease, box-shadow .18s ease;
       display:block;
+      cursor: pointer;
     }
     .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
     .card img { width:100%; height:170px; object-fit:cover; display:block; filter: brightness(0.95); }
@@ -182,17 +160,126 @@
 
     .meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; gap:12px; }
     .year { font-weight:700; font-size:13px; color: rgba(255,255,255,0.95); }
-    .status { font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; color:#fff; background: rgba(176,171,82,0.95); }
-    .status.in-progress { background: rgba(176,171,82,0.75); }
+    .status {
+      font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; color:#fff;
+      background: var(--accent);
+    }
+    .status.in-progress { opacity:0.95; }
 
     .experiences .card { box-shadow: 0 6px 14px rgba(0,0,0,0.10); }
 
     footer { text-align:center; color:#333; margin:40px 0 80px; }
 
+    /* ======= LIGHTBOX / MODAL ======= */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none; /* shown via .is-open */
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+    .modal.is-open { display: flex; }
+
+    .modal-backdrop {
+      position:absolute; inset:0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(2px);
+      transition: opacity 180ms ease;
+    }
+
+    .modal-card {
+      position: relative;
+      max-width: 1100px;
+      width: calc(100% - 40px);
+      max-height: calc(100% - 80px);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      z-index: 2;
+      background: #000;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .modal-img {
+      width:100%;
+      height: 60vh;
+      min-height: 320px;
+      object-fit: cover;
+      display:block;
+      background: #111;
+    }
+
+    .modal-title {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      z-index: 3;
+      color: white;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: clamp(20px, 3.6vw, 36px);
+      font-weight: 800;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      pointer-events: none;
+    }
+
+    .modal-actions {
+      padding: 12px 16px;
+      display:flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.04), rgba(255,255,255,0));
+    }
+
+    .close-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight:700;
+    }
+
+    .close-x {
+      position:absolute;
+      right:10px;
+      top:10px;
+      z-index:4;
+      background: rgba(0,0,0,0.45);
+      border-radius:50%;
+      width:36px;height:36px;
+      color:#fff;border:0;cursor:pointer;font-size:20px;
+      display:flex;align-items:center;justify-content:center;
+    }
+
+    /* CONTACT block (solid) */
+    .contact-block {
+      background: var(--accent);
+      color: #0f0f0f;
+      padding: 28px 20px;
+      border-radius: 8px;
+      margin-top: 28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .contact-left { font-weight:700; font-size:18px; color:#072; } /* subtle dark text */
+    .contact-right a { color: #072; font-weight:700; margin-left:14px; text-decoration:underline; }
+
+    /* small screens */
     @media (max-width:720px){
       .hero { height:60vh; }
       .page-inner { padding:20px; transform: translateY(-20px); }
-      .hero-name { font-size: clamp(40px, 12vw, 72px); }
+      .modal-img { height: 45vh; }
+      .modal-title { font-size: 20px; }
+      .contact-block { flex-direction:column; align-items:flex-start; }
     }
   </style>
 </head>
@@ -202,10 +289,7 @@
   <!-- HERO -->
   <header class="hero" role="banner" aria-label="Hero image of Duke University">
     <div class="hero-content" role="figure" aria-label="School photo with overlay">
-      <!-- Name types first -->
       <h1 class="hero-name">Sienna Giuseppi</h1>
-
-      <!-- Then this types the full subtitle -->
       <p class="hero-sub">Duke University Mechanical Engineering, Class of 2028</p>
     </div>
   </header>
@@ -216,16 +300,19 @@
     <!-- small profile header (headshot + subtitle only) -->
     <header class="small">
       <img src="images/headshot.jpg" alt="Headshot of Sienna Giuseppi" class="headshot">
+      <p class="subtitle">Mechanical Engineer · Duke University 2028</p>
 
       <p class="intro">
-        Hi! My name is Sienna Giuseppi and I am a mechanical engineer at Duke University, minoring in Computer Science and Visual Arts. I have a strong interests in product design, and...
+        I am a mechanical engineer at Duke University with interests in engineering
+        design, analysis, and hands-on problem solving. This portfolio highlights
+        selected academic, technical, and project-based work.
       </p>
     </header>
 
     <!-- Projects -->
     <h2 class="section-title">Engineering Projects</h2>
 
-    <section class="projects">
+    <section class="projects" id="projects-grid">
       <a class="card" href="projects/Eswatini.html">
         <img src="images/eswatini/full.jpeg" alt="Nyakuza bridge preview">
         <div class="card-content">
@@ -277,10 +364,90 @@
       </a>
     </section>
 
+    <!-- contact block -->
+    <div class="contact-block" role="contentinfo" aria-label="Contact information">
+      <div class="contact-left">
+        Contact Me
+      </div>
+
+      <div class="contact-right">
+        <a href="mailto:youremail@duke.edu" aria-label="Email Sienna">youremail@duke.edu</a>
+        <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener" aria-label="Sienna on LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+
     <footer>
-      <p>GitHub: <a href="https://github.com/giuseppisie">github.com/giuseppisie</a></p>
+      <p style="margin-top:18px">GitHub: <a href="https://github.com/giuseppisie">github.com/giuseppisie</a></p>
     </footer>
   </div>
+
+  <!-- Modal / Lightbox -->
+  <div id="lightbox" class="modal" aria-hidden="true" role="dialog" aria-label="Project preview">
+    <div class="modal-backdrop" data-close="true"></div>
+
+    <div class="modal-card" role="document">
+      <button class="close-x" id="lightbox-close" aria-label="Close preview">&times;</button>
+      <img id="lightbox-img" class="modal-img" src="" alt="">
+      <div class="modal-title" id="lightbox-title"></div>
+
+      <div class="modal-actions">
+        <button class="close-btn" id="lightbox-close-2">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Lightbox behavior
+    (function(){
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxTitle = document.getElementById('lightbox-title');
+      const closeBtns = [document.getElementById('lightbox-close'), document.getElementById('lightbox-close-2')];
+      const backdrop = document.querySelector('.modal-backdrop');
+
+      // open modal with image and title
+      function openLightbox(imgSrc, imgAlt, titleText) {
+        lightboxImg.src = imgSrc;
+        lightboxImg.alt = imgAlt || titleText;
+        lightboxTitle.textContent = titleText || '';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden','false');
+        // lock scroll
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden','true');
+        lightboxImg.src = '';
+        lightboxTitle.textContent = '';
+        document.body.style.overflow = '';
+      }
+
+      // click on every card
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', function(e){
+          // prevent default navigation so modal appears first
+          e.preventDefault();
+          const img = card.querySelector('img');
+          const title = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.trim() : '';
+          // use image src (if relative, browser will resolve)
+          const src = img ? img.getAttribute('src') : '';
+          const alt = img ? img.getAttribute('alt') : '';
+          openLightbox(src, alt, title);
+        });
+      });
+
+      // close on close button(s)
+      closeBtns.forEach(b => b && b.addEventListener('click', closeLightbox));
+      // close on backdrop click
+      backdrop.addEventListener('click', closeLightbox);
+      // close on esc
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') closeLightbox();
+      });
+    })();
+  </script>
 
 </body>
 </html>
