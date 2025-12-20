@@ -7,9 +7,9 @@
 
   <style>
     :root{
-      --bg: #a0c0bc;    /* lighter blue - page background */
-      --card: #427b76;  /* project card background */
-      --accent: #b0ab52;/* green accent (highlights, done/in-progress) */
+      --bg: #a0c0bc;
+      --card: #427b76;
+      --accent: #b0ab52;
       --overlay-alpha: 0.55;
       --page-padding: 40px;
     }
@@ -24,7 +24,7 @@
       scroll-behavior: smooth;
     }
 
-    /* ---------- HERO (full-screen background image) ---------- */
+    /* ---------- HERO ---------- */
     .hero {
       position: relative;
       width: 100%;
@@ -39,7 +39,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url("images/dukeshot.jpg"); /* <-- replace if filename differs */
+      background-image: url("images/dukeshot.jpg");
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -47,7 +47,7 @@
       transform: scale(1.02);
     }
 
-    /* translucent overlay using page palette */
+    /* translucent overlay that gradients to background */
     .hero::after {
       content: "";
       position: absolute;
@@ -60,7 +60,6 @@
           rgba(160,192,188,0.45) 70%,
           rgba(160,192,188,1) 100%
         );
-
     }
 
     .hero-content {
@@ -72,17 +71,35 @@
       max-width: 1100px;
     }
 
-    /* Name: white and twice as big (responsive) */
+    /* ---------- Typewriter for NAME (first) ---------- */
     .hero-name {
-      margin: 0 0 8px 0;
+      margin: 0 0 6px 0;
       font-weight: 800;
       line-height: 1;
       color: #fff;
       text-shadow: 0 6px 20px rgba(0,0,0,0.45);
-      font-size: clamp(48px, 10vw, 96px); /* bigger than before */
+      /* responsive big sizing */
+      font-size: clamp(48px, 10vw, 96px);
+
+      /* typewriter base */
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: .12em solid rgba(255,255,255,0.95);
+      width: 0ch;
+      /* typing animation: 15 characters */
+      animation: typing-name 1.6s steps(15,end) forwards,
+                 blink-caret-name .8s step-end infinite;
     }
 
-    /* Italic typewriter for subtitle */
+    @keyframes typing-name {
+      to { width: 15ch; } /* matches "Sienna Giuseppi" (approx 15 chars) */
+    }
+    @keyframes blink-caret-name {
+      50% { border-color: transparent; }
+    }
+
+    /* ---------- Typewriter for SUBTITLE (starts after name) ---------- */
     .hero-sub {
       margin: 0;
       color: #fff;
@@ -93,19 +110,27 @@
       overflow: hidden;
       border-right: .12em solid rgba(255,255,255,0.9);
       width: 0ch;
-      animation: typing 2.2s steps(26,end) forwards, blink-caret .7s step-end infinite;
-      opacity: 0.98;
+      /* start after the name animation ends (1.6s) + small delay */
+      animation: typing-sub 2.6s steps(54,end) 1.85s forwards,
+                 blink-caret-sub .8s step-end 1.85s infinite;
+      opacity: 0.99;
       text-shadow: 0 4px 12px rgba(0,0,0,0.35);
     }
 
-    @keyframes typing {
-      to { width: 24ch; } /* number of characters to reveal (approx) */
+    @keyframes typing-sub {
+      to { width: 53ch; } /* matches "Duke University Mechanical Engineering, Class of 2028" (~53 chars) */
     }
-    @keyframes blink-caret {
+    @keyframes blink-caret-sub {
       50% { border-color: transparent; }
     }
+
+    /* Respect reduced motion preference */
     @media (prefers-reduced-motion: reduce) {
-      .hero-sub { animation: none; width: auto; border-right: none; }
+      .hero-name, .hero-sub {
+        animation: none;
+        width: auto;
+        border-right: none;
+      }
     }
 
     /* ---------- PAGE CONTENT ---------- */
@@ -117,6 +142,7 @@
       transform: translateY(-40px);
     }
 
+    /* small profile header: headshot only (no name) */
     header.small {
       text-align: center;
       padding: 24px 20px 6px 20px;
@@ -127,7 +153,7 @@
       display:inline-block; margin-bottom:8px; border:3px solid rgba(255,255,255,0.12);
       box-shadow:0 6px 20px rgba(0,0,0,0.12);
     }
-    h1 { margin:6px 0; font-size:22px; color:#111; }
+    /* remove name under headshot - keep subtitle & intro */
     .subtitle { color:#666; margin:0 0 8px 0; font-size:14px; }
     .intro { color:#333; max-width:760px; margin:18px auto 0; font-size:15px; line-height:1.5; }
 
@@ -149,7 +175,7 @@
     }
 
     .card {
-      background: var(--card); /* #427b76 */
+      background: var(--card);
       color: #fff;
       border-radius: 12px;
       overflow: hidden;
@@ -166,14 +192,10 @@
 
     .meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; gap:12px; }
     .year { font-weight:700; font-size:13px; color: rgba(255,255,255,0.95); }
-    .status {
-      font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; color:#fff;
-      background: rgba(176,171,82,0.95); /* --accent approx */
-    }
-    /* If you want a lighter 'in-progress' shade, override with a class */
+    .status { font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; color:#fff; background: rgba(176,171,82,0.95); }
     .status.in-progress { background: rgba(176,171,82,0.75); }
 
-    .experiences .card { /* visually slightly different if desired */ box-shadow: 0 6px 14px rgba(0,0,0,0.10); }
+    .experiences .card { box-shadow: 0 6px 14px rgba(0,0,0,0.10); }
 
     footer { text-align:center; color:#333; margin:40px 0 80px; }
 
@@ -190,18 +212,21 @@
   <!-- HERO -->
   <header class="hero" role="banner" aria-label="Hero image of Duke University">
     <div class="hero-content" role="figure" aria-label="School photo with overlay">
-      <!--<h1 class="hero-name">Sienna Giuseppi</h1> -->
-      <p class="hero-sub">Duke University Mechanical Engineering, Class of 2028e</p>
+      <!-- Name types first -->
+      <h1 class="hero-name">Sienna Giuseppi</h1>
+
+      <!-- Then this types the full subtitle -->
+      <p class="hero-sub">Duke University Mechanical Engineering, Class of 2028</p>
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
   <div class="page-inner">
 
-    <!-- small profile header -->
+    <!-- small profile header (headshot + subtitle only) -->
     <header class="small">
       <img src="images/headshot.jpg" alt="Headshot of Sienna Giuseppi" class="headshot">
-      <h1>Sienna Giuseppi</h1>
+      <!-- name removed per your request -->
       <p class="subtitle">Mechanical Engineer · Duke University 2028</p>
 
       <p class="intro">
