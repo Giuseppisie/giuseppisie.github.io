@@ -9,7 +9,7 @@
     :root{
       --bg: #a0c0bc;
       --card: #427b76;
-      --accent: #b0ab52; /* main page color as you requested */
+      --accent: #b0ab52;
       --overlay-alpha: 0.55;
       --page-padding: 40px;
     }
@@ -24,7 +24,7 @@
       scroll-behavior: smooth;
     }
 
-    /* ---------- HERO ---------- */
+    /* HERO */
     .hero {
       position: relative;
       width: 100%;
@@ -34,7 +34,6 @@
       justify-content:center;
       overflow:hidden;
     }
-
     .hero::before {
       content: "";
       position: absolute;
@@ -46,8 +45,6 @@
       z-index: 0;
       transform: scale(1.02);
     }
-
-    /* translucent overlay that gradients to background */
     .hero::after {
       content: "";
       position: absolute;
@@ -61,25 +58,8 @@
           rgba(160,192,188,1) 100%
         );
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align:center;
-      color: #fff;
-      padding: 0 20px;
-      max-width: 1100px;
-    }
-
-    .hero-name {
-      margin: 0 0 6px 0;
-      font-weight: 800;
-      line-height: 1;
-      color: #fff;
-      text-shadow: 0 6px 20px rgba(0,0,0,0.45);
-      font-size: clamp(48px, 10vw, 96px);
-    }
-
+    .hero-content { position: relative; z-index: 2; text-align:center; color: #fff; padding: 0 20px; max-width: 1100px; }
+    .hero-name { margin: 0 0 6px 0; font-weight: 800; line-height: 1; color: #fff; text-shadow: 0 6px 20px rgba(0,0,0,0.45); font-size: clamp(48px, 10vw, 96px); }
     .hero-sub {
       margin: 0;
       color: #fff;
@@ -95,52 +75,24 @@
       opacity: 0.99;
       text-shadow: 0 4px 12px rgba(0,0,0,0.35);
     }
-
     @keyframes typing-sub { to { width: 53ch; } }
     @keyframes blink-caret-sub { 50% { border-color: transparent; } }
     @media (prefers-reduced-motion: reduce) {
       .hero-sub { animation: none; width: auto; border-right: none; }
     }
 
-    /* ---------- PAGE CONTENT ---------- */
-    .page-inner {
-      padding: var(--page-padding);
-      max-width: 1100px;
-      margin: 0 auto;
-      background: transparent;
-      transform: translateY(-40px);
-    }
-
-    header.small {
-      text-align: center;
-      padding: 24px 20px 6px 20px;
-      margin-top: 0;
-    }
-    .headshot {
-      width: 240px; height:240px; border-radius:50%; object-fit:cover;
-      display:inline-block; margin-bottom:8px; border:3px solid rgba(255,255,255,0.12);
-      box-shadow:0 6px 20px rgba(0,0,0,0.12);
-    }
+    /* PAGE CONTENT */
+    .page-inner { padding: var(--page-padding); max-width: 1100px; margin: 0 auto; background: transparent; transform: translateY(-40px); }
+    header.small { text-align: center; padding: 24px 20px 6px 20px; margin-top: 0; }
+    .headshot { width: 240px; height:240px; border-radius:50%; object-fit:cover; display:inline-block; margin-bottom:8px; border:3px solid rgba(255,255,255,0.12); box-shadow:0 6px 20px rgba(0,0,0,0.12); }
     .subtitle { color:#666; margin:0 0 8px 0; font-size:14px; }
     .intro { color:#333; max-width:760px; margin:18px auto 0; font-size:15px; line-height:1.5; }
 
     /* Section title */
-    .section-title {
-      margin: 28px 0 12px;
-      font-size: 20px;
-      font-weight: 700;
-      color: #111;
-      text-align: right;
-    }
+    .section-title { margin: 28px 0 12px; font-size: 20px; font-weight: 700; color: #111; text-align: right; }
 
     /* Grid + card styles using palette (cards use --card) */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      margin-bottom: 28px;
-    }
-
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 28px; }
     .card {
       background: var(--card);
       color: #fff;
@@ -150,7 +102,6 @@
       text-decoration: none;
       transition: transform .18s ease, box-shadow .18s ease;
       display:block;
-      cursor: pointer;
     }
     .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
     .card img { width:100%; height:170px; object-fit:cover; display:block; filter: brightness(0.95); }
@@ -160,106 +111,15 @@
 
     .meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; gap:12px; }
     .year { font-weight:700; font-size:13px; color: rgba(255,255,255,0.95); }
-    .status {
-      font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; color:#fff;
-      background: var(--accent);
-    }
+    .status { font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; color:#fff; background: var(--accent); }
     .status.in-progress { opacity:0.95; }
 
     .experiences .card { box-shadow: 0 6px 14px rgba(0,0,0,0.10); }
 
-    footer { text-align:center; color:#333; margin:40px 0 80px; }
-
-    /* ======= LIGHTBOX / MODAL ======= */
-    .modal {
-      position: fixed;
-      inset: 0;
-      display: none; /* shown via .is-open */
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-    }
-    .modal.is-open { display: flex; }
-
-    .modal-backdrop {
-      position:absolute; inset:0;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(2px);
-      transition: opacity 180ms ease;
-    }
-
-    .modal-card {
-      position: relative;
-      max-width: 1100px;
-      width: calc(100% - 40px);
-      max-height: calc(100% - 80px);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      z-index: 2;
-      background: #000;
-      display:flex;
-      flex-direction:column;
-    }
-
-    .modal-img {
-      width:100%;
-      height: 60vh;
-      min-height: 320px;
-      object-fit: cover;
-      display:block;
-      background: #111;
-    }
-
-    .modal-title {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-      z-index: 3;
-      color: white;
-      text-align: center;
-      padding: 8px 16px;
-      font-size: clamp(20px, 3.6vw, 36px);
-      font-weight: 800;
-      text-shadow: 0 6px 20px rgba(0,0,0,0.6);
-      pointer-events: none;
-    }
-
-    .modal-actions {
-      padding: 12px 16px;
-      display:flex;
-      justify-content: flex-end;
-      gap: 10px;
-      background: linear-gradient(to top, rgba(0,0,0,0.04), rgba(255,255,255,0));
-    }
-
-    .close-btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight:700;
-    }
-
-    .close-x {
-      position:absolute;
-      right:10px;
-      top:10px;
-      z-index:4;
-      background: rgba(0,0,0,0.45);
-      border-radius:50%;
-      width:36px;height:36px;
-      color:#fff;border:0;cursor:pointer;font-size:20px;
-      display:flex;align-items:center;justify-content:center;
-    }
-
-    /* CONTACT block (solid) */
+    /* CONTACT block: changed to #427b76 with white text */
     .contact-block {
-      background: var(--accent);
-      color: #0f0f0f;
+      background: var(--card); /* #427b76 */
+      color: #ffffff;
       padding: 28px 20px;
       border-radius: 8px;
       margin-top: 28px;
@@ -269,18 +129,17 @@
       gap:16px;
       flex-wrap:wrap;
     }
+    .contact-left { font-weight:700; font-size:18px; color:#fff; }
+    .contact-right a { color: #fff; font-weight:700; margin-left:14px; text-decoration:underline; }
 
-    .contact-left { font-weight:700; font-size:18px; color:#072; } /* subtle dark text */
-    .contact-right a { color: #072; font-weight:700; margin-left:14px; text-decoration:underline; }
+    footer { text-align:center; color:#333; margin:40px 0 80px; }
 
-    /* small screens */
     @media (max-width:720px){
       .hero { height:60vh; }
       .page-inner { padding:20px; transform: translateY(-20px); }
-      .modal-img { height: 45vh; }
-      .modal-title { font-size: 20px; }
       .contact-block { flex-direction:column; align-items:flex-start; }
     }
+
   </style>
 </head>
 
@@ -364,12 +223,9 @@
       </a>
     </section>
 
-    <!-- contact block -->
+    <!-- contact block (now #427b76 with white text) -->
     <div class="contact-block" role="contentinfo" aria-label="Contact information">
-      <div class="contact-left">
-        Contact Me
-      </div>
-
+      <div class="contact-left">Contact Me</div>
       <div class="contact-right">
         <a href="mailto:youremail@duke.edu" aria-label="Email Sienna">youremail@duke.edu</a>
         <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener" aria-label="Sienna on LinkedIn">LinkedIn</a>
@@ -381,73 +237,6 @@
     </footer>
   </div>
 
-  <!-- Modal / Lightbox -->
-  <div id="lightbox" class="modal" aria-hidden="true" role="dialog" aria-label="Project preview">
-    <div class="modal-backdrop" data-close="true"></div>
-
-    <div class="modal-card" role="document">
-      <button class="close-x" id="lightbox-close" aria-label="Close preview">&times;</button>
-      <img id="lightbox-img" class="modal-img" src="" alt="">
-      <div class="modal-title" id="lightbox-title"></div>
-
-      <div class="modal-actions">
-        <button class="close-btn" id="lightbox-close-2">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Lightbox behavior
-    (function(){
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      const lightboxTitle = document.getElementById('lightbox-title');
-      const closeBtns = [document.getElementById('lightbox-close'), document.getElementById('lightbox-close-2')];
-      const backdrop = document.querySelector('.modal-backdrop');
-
-      // open modal with image and title
-      function openLightbox(imgSrc, imgAlt, titleText) {
-        lightboxImg.src = imgSrc;
-        lightboxImg.alt = imgAlt || titleText;
-        lightboxTitle.textContent = titleText || '';
-        lightbox.classList.add('is-open');
-        lightbox.setAttribute('aria-hidden','false');
-        // lock scroll
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeLightbox() {
-        lightbox.classList.remove('is-open');
-        lightbox.setAttribute('aria-hidden','true');
-        lightboxImg.src = '';
-        lightboxTitle.textContent = '';
-        document.body.style.overflow = '';
-      }
-
-      // click on every card
-      document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', function(e){
-          // prevent default navigation so modal appears first
-          e.preventDefault();
-          const img = card.querySelector('img');
-          const title = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.trim() : '';
-          // use image src (if relative, browser will resolve)
-          const src = img ? img.getAttribute('src') : '';
-          const alt = img ? img.getAttribute('alt') : '';
-          openLightbox(src, alt, title);
-        });
-      });
-
-      // close on close button(s)
-      closeBtns.forEach(b => b && b.addEventListener('click', closeLightbox));
-      // close on backdrop click
-      backdrop.addEventListener('click', closeLightbox);
-      // close on esc
-      document.addEventListener('keydown', function(e){
-        if (e.key === 'Escape') closeLightbox();
-      });
-    })();
-  </script>
-
+  <!-- Note: NO modal/lightbox JavaScript here — clicking a card will open the project page normally -->
 </body>
 </html>
