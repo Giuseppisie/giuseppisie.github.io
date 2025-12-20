@@ -71,26 +71,16 @@
       max-width: 1100px;
     }
 
-    /* ---------- Typewriter for NAME (first) ---------- */
+    /* ----------  NAME (first) ---------- */
     .hero-name {
-      margin: 0 0 6px 0;
-      font-weight: 800;
-      line-height: 1;
-      color: #fff;
-      text-shadow: 0 6px 20px rgba(0,0,0,0.45);
-      /* responsive big sizing */
-      font-size: clamp(48px, 10vw, 96px);
+        margin: 0 0 6px 0;
+        font-weight: 800;
+        line-height: 1;
+        color: #fff;
+        text-shadow: 0 6px 20px rgba(0,0,0,0.45);
+        font-size: clamp(48px, 10vw, 96px);
+      }
 
-      /* typewriter base */
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: .12em solid rgba(255,255,255,0.95);
-      width: 0ch;
-      /* typing animation: 15 characters */
-      animation: typing-name 1.6s steps(15,end) forwards,
-                 blink-caret-name .8s step-end infinite;
-    }
 
     @keyframes typing-name {
       to { width: 15ch; } /* matches "Sienna Giuseppi" (approx 15 chars) */
