@@ -6,18 +6,19 @@
   <title>Sienna Giuseppi | Mechanical Engineering Portfolio</title>
 
   <style>
-    /* ---------- Base ---------- */
     :root{
-      --accent: #2c6e7c; /* site accent (used for overlay tint) */
-      --overlay-alpha: 0.45; /* adjust to make overlay darker/lighter */
+      --bg: #a0c0bc;    /* lighter blue - page background */
+      --card: #427b76;  /* project card background */
+      --accent: #b0ab52;/* green accent (highlights, done/in-progress) */
+      --overlay-alpha: 0.55;
       --page-padding: 40px;
     }
 
     html,body { height:100%; margin:0; }
     body {
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
       color: #111;
-      background: #f4f6f8;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       scroll-behavior: smooth;
@@ -27,77 +28,78 @@
     .hero {
       position: relative;
       width: 100%;
-      height: 100vh;               /* full viewport height */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      height: 100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
     }
 
-    /* background image — change the path if your filename differs */
     .hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url("images/dukeshot.jpg"); /* <-- replace with your school photo filename if different */
+      background-image: url("images/school.jpg"); /* <-- replace if filename differs */
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
       z-index: 0;
-      transform-origin: center;
-      /* subtle parallax-like scale to avoid seam */
-      transform: scale(1.03);
-      filter: saturate(0.95);
+      transform: scale(1.02);
     }
 
-    /* translucent overlay tinted with accent color */
+    /* translucent overlay using page palette */
     .hero::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(44,110,124,var(--overlay-alpha)); /* uses --accent color */
+      background: rgba(160,192,188,var(--overlay-alpha)); /* rgba of #a0c0bc */
       z-index: 1;
       mix-blend-mode: normal;
     }
 
-    /* hero content centered */
     .hero-content {
       position: relative;
       z-index: 2;
-      text-align: center;
-      color: white;
+      text-align:center;
+      color: #fff;
       padding: 0 20px;
       max-width: 1100px;
     }
 
+    /* Name: white and twice as big (responsive) */
     .hero-name {
-      font-size: clamp(28px, 6vw, 64px); /* responsive sizing */
-      line-height: 1;
       margin: 0 0 8px 0;
-      font-weight: 700;
+      font-weight: 800;
+      line-height: 1;
+      color: #fff;
       text-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      font-size: clamp(48px, 10vw, 96px); /* bigger than before */
     }
 
+    /* Italic typewriter for subtitle */
     .hero-sub {
-      font-size: clamp(16px, 2.6vw, 24px);
       margin: 0;
-      font-style: normal;
-      color: rgba(255,255,255,0.95);
-      /* cursive style using generic family (works without external fonts) */
-      font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
-      font-family: cursive;
+      color: #fff;
+      font-style: italic;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(16px, 3vw, 28px);
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: .12em solid rgba(255,255,255,0.9);
+      width: 0ch;
+      animation: typing 2.2s steps(26,end) forwards, blink-caret .7s step-end infinite;
       opacity: 0.98;
       text-shadow: 0 4px 12px rgba(0,0,0,0.35);
-      transform: translateY(2px);
     }
 
-    /* optional small "scroll down" hint */
-    .scroll-hint {
-      margin-top: 18px;
-      display: inline-block;
-      color: rgba(255,255,255,0.9);
-      font-size: 13px;
-      opacity: 0.9;
+    @keyframes typing {
+      to { width: 24ch; } /* number of characters to reveal (approx) */
+    }
+    @keyframes blink-caret {
+      50% { border-color: transparent; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-sub { animation: none; width: auto; border-right: none; }
     }
 
     /* ---------- PAGE CONTENT ---------- */
@@ -106,41 +108,25 @@
       max-width: 1100px;
       margin: 0 auto;
       background: transparent;
-      transform: translateY(-40px); /* small overlap under hero for seamless transition */
+      transform: translateY(-40px);
     }
 
-    header {
+    header.small {
       text-align: center;
       padding: 24px 20px 6px 20px;
       margin-top: 0;
     }
-
     .headshot {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      display:inline-block;
-      margin-bottom: 8px;
-      object-position: center 20%;
-      border: 3px solid rgba(255,255,255,0.12);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      width: 120px; height:120px; border-radius:50%; object-fit:cover;
+      display:inline-block; margin-bottom:8px; border:3px solid rgba(255,255,255,0.12);
+      box-shadow:0 6px 20px rgba(0,0,0,0.12);
     }
+    h1 { margin:6px 0; font-size:22px; color:#111; }
+    .subtitle { color:#666; margin:0 0 8px 0; font-size:14px; }
+    .intro { color:#333; max-width:760px; margin:18px auto 0; font-size:15px; line-height:1.5; }
 
-    h1 { margin: 6px 0; font-size: 22px; color: #111; }
-    .subtitle { color: #666; margin:0 0 8px 0; font-size:14px; }
-
-    .intro {
-      color: #333;
-      max-width: 760px;
-      margin: 18px auto 0;
-      font-size:15px;
-      line-height:1.5;
-    }
-
-    /* projects grid (keeps previous card styles) */
+    /* Section title */
     .section-title {
-      max-width: 1100px;
       margin: 28px 0 12px;
       font-size: 20px;
       font-weight: 700;
@@ -148,6 +134,7 @@
       text-align: right;
     }
 
+    /* Grid + card styles using palette */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -156,55 +143,57 @@
     }
 
     .card {
-      background: #fff;
+      background: var(--card); /* #427b76 */
+      color: #fff;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
       text-decoration: none;
-      color: inherit;
       transition: transform .18s ease, box-shadow .18s ease;
       display:block;
     }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0,0,0,0.12); }
-    .card img { width:100%; height:170px; object-fit:cover; display:block; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
+    .card img { width:100%; height:170px; object-fit:cover; display:block; filter: brightness(0.95); }
     .card-content { padding:14px; }
-    .meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-    .year { font-weight:700; color:#333; font-size:13px; }
-    .status { padding:6px 10px; border-radius:999px; color:white; font-weight:700; font-size:12px; }
-    .status.done { background:#2ea44f; } .status.in-progress { background:#d97706; }
+    .card-title { font-size:18px; font-weight:700; margin:4px 0 8px 0; color:#fff; }
+    .card-desc { font-size:14px; color: rgba(255,255,255,0.9); margin:0; }
 
-    footer { text-align:center; color:#666; margin:40px 0 80px; }
-
-    /* responsive tweaks */
-    @media (max-width:720px){
-      .hero { height:60vh; } /* reduce hero height on smaller screens */
-      .hero-sub { font-size: 16px; }
-      .page-inner { padding:20px; transform: translateY(-20px); }
+    .meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; gap:12px; }
+    .year { font-weight:700; font-size:13px; color: rgba(255,255,255,0.95); }
+    .status {
+      font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; color:#fff;
+      background: rgba(176,171,82,0.95); /* --accent approx */
     }
+    /* If you want a lighter 'in-progress' shade, override with a class */
+    .status.in-progress { background: rgba(176,171,82,0.75); }
 
-    /* Accessibility: prefer reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .hero::before { transform: none; }
-      .hero { scroll-behavior: auto; }
+    .experiences .card { /* visually slightly different if desired */ box-shadow: 0 6px 14px rgba(0,0,0,0.10); }
+
+    footer { text-align:center; color:#333; margin:40px 0 80px; }
+
+    @media (max-width:720px){
+      .hero { height:60vh; }
+      .page-inner { padding:20px; transform: translateY(-20px); }
+      .hero-name { font-size: clamp(40px, 12vw, 72px); }
     }
   </style>
 </head>
+
 <body>
 
   <!-- HERO -->
   <header class="hero" role="banner" aria-label="Hero image of Duke University">
-    <div class="hero-content">
+    <div class="hero-content" role="figure" aria-label="School photo with overlay">
       <h1 class="hero-name">Sienna Giuseppi</h1>
       <p class="hero-sub">welcome to my page</p>
-      <div class="scroll-hint" aria-hidden="true">↓ scroll to explore</div>
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
   <div class="page-inner">
 
-    <!-- Optional small profile header (kept for SEO / quick view) -->
-    <header>
+    <!-- small profile header -->
+    <header class="small">
       <img src="images/headshot.jpg" alt="Headshot of Sienna Giuseppi" class="headshot">
       <h1>Sienna Giuseppi</h1>
       <p class="subtitle">Mechanical Engineer · Duke University 2028</p>
@@ -220,7 +209,6 @@
     <h2 class="section-title">Engineering Projects</h2>
 
     <section class="projects">
-      <!-- Example card: edit years/status/text as needed -->
       <a class="card" href="projects/Eswatini.html">
         <img src="images/eswatini/full.jpeg" alt="Nyakuza bridge preview">
         <div class="card-content">
