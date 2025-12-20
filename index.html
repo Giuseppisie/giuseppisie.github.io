@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sienna Giuseppi | Mechanical Engineering Portfolio</title>
 
   <style>
     body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       margin: 0;
       padding: 40px;
       background: #2c6e7c; /* background color */
@@ -21,7 +21,7 @@
       padding: 40px 20px;
     }
 
-   .headshot {
+    .headshot {
       width: 160px;
       height: 160px;
       border-radius: 50%;
@@ -36,7 +36,8 @@
       font-size: 22px;
       font-weight: 600;
       color: white;
-      text-align: right
+      text-align: right;
+    } /* <-- fixed: added missing semicolon and closing brace */
 
     /* Name */
     h1 {
@@ -78,6 +79,7 @@
       text-decoration: none;
       color: inherit;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: block; /* ensure anchor behaves like a block for whole-card click */
     }
 
     .card:hover {
@@ -90,6 +92,7 @@
       height: 170px;
       object-fit: cover;
       background: #ccc;
+      display: block;
     }
 
     .card-content {
@@ -108,11 +111,22 @@
       line-height: 1.4;
     }
 
+    /* Slightly different look for Experiences if desired */
+    .experiences .card {
+      background: #d6e4e1;
+    }
+
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 14px;
       color: #666;
+    }
+
+    /* small responsive tweak to reduce header padding on tiny screens */
+    @media (max-width:420px){
+      body { padding: 18px; }
+      header { padding: 24px 12px; }
     }
   </style>
 </head>
@@ -139,15 +153,16 @@
   </p>
 </header>
 
-  <h2 class="section-title">Engineering Projects</h2>
+<!-- Projects section -->
+<h2 class="section-title">Engineering Projects</h2>
 
-<main class="projects">
+<section class="projects">
 
   <!-- Project 1 -->
   <a class="card" href="projects/Eswatini.html">
-   <img src="https://raw.githubusercontent.com/giuseppisie/siennagiuseppi.github.io/main/images/eswatini/full.jpeg" alt="eswatini preview">
+    <img src="https://raw.githubusercontent.com/giuseppisie/siennagiuseppi.github.io/main/images/eswatini/full.jpeg" alt="eswatini preview">
     <div class="card-content">
-      <div class="card-title">Nyakuza Foot Bridge- Eswatini, Africa</div>
+      <div class="card-title">Nyakuza Foot Bridge — Eswatini, Africa</div>
       <p class="card-desc">
         Designed and constructed a 128-meter pedestrian bridge providing year-round access to critical resources for rural communities in Eswatini.
       </p>
@@ -160,23 +175,28 @@
     <div class="card-content">
       <div class="card-title">WavGuard wakeboard</div>
       <p class="card-desc">
-      An instrumented wakeboard that provides real-time feedback to help beginner riders improve balance, posture, and technique.      </p>
+        An instrumented wakeboard that provides real-time feedback to help beginner riders improve balance, posture, and technique.
+      </p>
     </div>
   </a>
 
-    <!-- Project 3 -->
+  <!-- Project 3 -->
   <a class="card" href="projects/cricket.html">
-    <img src="images/reptile/feederfull.png" alt="Reptile feeer preview">
+    <img src="images/reptile/feederfull.png" alt="Reptile feeder preview">
     <div class="card-content">
-      <div class="card-title">Automated Reptile Feeding System — North Carolina Zoo</div>
+      <div class="card-title">Automated Reptile Feeding System — NC Zoo</div>
       <p class="card-desc">
-      A gravity-based feeding system designed to reduce stress and promote natural hunting behaviors in captive reptiles.      </p>
+        A gravity-based feeding system designed to reduce stress and promote natural hunting behaviors in captive reptiles.
+      </p>
     </div>
   </a>
 
-  <h2 class="section-title">Experiences</h2>
-  
-<main class="projects">
+</section>
+
+<!-- Experiences section -->
+<h2 class="section-title">Experiences</h2>
+
+<section class="projects experiences">
 
   <!-- Experience 1 -->
   <a class="card" href="#">
@@ -202,11 +222,7 @@
 
   <!-- Add more experience cards as needed -->
 
-</main>
-
-    
-
-</main>
+</section>
 
 <footer>
   <p>
@@ -216,4 +232,3 @@
 
 </body>
 </html>
-
