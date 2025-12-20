@@ -10,7 +10,7 @@
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       margin: 0;
       padding: 40px;
-      background: #2c6e7c; /* background color */
+      background: #2c6e7c;
       color: #111;
     }
 
@@ -36,10 +36,9 @@
       font-size: 22px;
       font-weight: 600;
       color: white;
-      text-align: left;
-    } 
+      text-align: right;
+    }
 
-    /* Name */
     h1 {
       margin-top: 0;
       margin-bottom: 6px;
@@ -47,14 +46,12 @@
       font-size: 36px;
     }
 
-    /* Subtitle */
     .subtitle {
       color: #c8cfd0;
       font-size: 16px;
       margin-bottom: 12px;
     }
 
-    /* Intro paragraph */
     .intro {
       color: #fff;
       max-width: 620px;
@@ -79,7 +76,7 @@
       text-decoration: none;
       color: inherit;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: block; /* ensure anchor behaves like a block for whole-card click */
+      display: block;
     }
 
     .card:hover {
@@ -96,22 +93,55 @@
     }
 
     .card-content {
-      padding: 16px;
+      padding: 12px 16px 16px 16px;
+    }
+
+    /* New meta row: year + status */
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 12px;
+    }
+
+    .year {
+      font-size: 13px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .status {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: white;
+      display: inline-block;
+      letter-spacing: 0.2px;
+    }
+
+    .status.done {
+      background: #2ea44f; /* green */
+    }
+
+    .status.in-progress {
+      background: #d97706; /* orange */
     }
 
     .card-title {
       font-size: 18px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin: 4px 0 6px 0;
     }
 
     .card-desc {
       font-size: 14px;
       color: #555;
       line-height: 1.4;
+      margin: 0;
     }
 
-    /* Slightly different look for Experiences if desired */
     .experiences .card {
       background: #d6e4e1;
     }
@@ -123,7 +153,6 @@
       color: #666;
     }
 
-    /* small responsive tweak to reduce header padding on tiny screens */
     @media (max-width:420px){
       body { padding: 18px; }
       header { padding: 24px 12px; }
@@ -134,17 +163,9 @@
 <body>
 
 <header>
-  <img 
-    src="images/headshot.jpg" 
-    alt="Headshot of Sienna Giuseppi" 
-    class="headshot"
-  >
-
+  <img src="images/headshot.jpg" alt="Headshot of Sienna Giuseppi" class="headshot">
   <h1>Sienna Giuseppi</h1>
-
-  <p class="subtitle">
-    Mechanical Engineer · Duke University 2028
-  </p>
+  <p class="subtitle">Mechanical Engineer · Duke University 2028</p>
 
   <p class="intro">
     I am a mechanical engineer at Duke University with interests in engineering
@@ -162,10 +183,13 @@
   <a class="card" href="projects/Eswatini.html">
     <img src="https://raw.githubusercontent.com/giuseppisie/siennagiuseppi.github.io/main/images/eswatini/full.jpeg" alt="eswatini preview">
     <div class="card-content">
+      <div class="meta">
+        <div class="year">2024</div>
+        <div class="status done" aria-label="Project status: done">Done</div>
+      </div>
+
       <div class="card-title">Nyakuza Foot Bridge — Eswatini, Africa</div>
-      <p class="card-desc">
-        Designed and constructed a 128-meter pedestrian bridge providing year-round access to critical resources for rural communities in Eswatini.
-      </p>
+      <p class="card-desc">Designed and constructed a 128-meter pedestrian bridge providing year-round access to critical resources for rural communities in Eswatini.</p>
     </div>
   </a>
 
@@ -173,10 +197,13 @@
   <a class="card" href="projects/WavGuard.html">
     <img src="images/wavguard/wavguardfull.png" alt="wavguard preview">
     <div class="card-content">
+      <div class="meta">
+        <div class="year">2025</div>
+        <div class="status in-progress" aria-label="Project status: in progress">In progress</div>
+      </div>
+
       <div class="card-title">WavGuard wakeboard</div>
-      <p class="card-desc">
-        An instrumented wakeboard that provides real-time feedback to help beginner riders improve balance, posture, and technique.
-      </p>
+      <p class="card-desc">An instrumented wakeboard that provides real-time feedback to help beginner riders improve balance, posture, and technique.</p>
     </div>
   </a>
 
@@ -184,10 +211,13 @@
   <a class="card" href="projects/cricket.html">
     <img src="images/reptile/feederfull.png" alt="Reptile feeder preview">
     <div class="card-content">
+      <div class="meta">
+        <div class="year">2023</div>
+        <div class="status done" aria-label="Project status: done">Done</div>
+      </div>
+
       <div class="card-title">Automated Reptile Feeding System — NC Zoo</div>
-      <p class="card-desc">
-        A gravity-based feeding system designed to reduce stress and promote natural hunting behaviors in captive reptiles.
-      </p>
+      <p class="card-desc">A gravity-based feeding system designed to reduce stress and promote natural hunting behaviors in captive reptiles.</p>
     </div>
   </a>
 
@@ -202,10 +232,13 @@
   <a class="card" href="#">
     <img src="images/placeholder.jpg" alt="Experience preview">
     <div class="card-content">
+      <div class="meta">
+        <div class="year">2022</div>
+        <div class="status done" aria-label="Experience status: done">Done</div>
+      </div>
+
       <div class="card-title">Engineering Club</div>
-      <p class="card-desc">
-        Active member involved in hands-on design projects and team collaboration.
-      </p>
+      <p class="card-desc">Active member involved in hands-on design projects and team collaboration.</p>
     </div>
   </a>
 
@@ -213,21 +246,20 @@
   <a class="card" href="#">
     <img src="images/placeholder.jpg" alt="Experience preview">
     <div class="card-content">
+      <div class="meta">
+        <div class="year">2024</div>
+        <div class="status in-progress" aria-label="Experience status: in progress">In progress</div>
+      </div>
+
       <div class="card-title">Volunteer Outreach</div>
-      <p class="card-desc">
-        Volunteering efforts focused on community engagement and service.
-      </p>
+      <p class="card-desc">Volunteering efforts focused on community engagement and service.</p>
     </div>
   </a>
-
-  <!-- Add more experience cards as needed -->
 
 </section>
 
 <footer>
-  <p>
-    GitHub: <a href="https://github.com/giuseppisie">github.com/giuseppisie</a>
-  </p>
+  <p>GitHub: <a href="https://github.com/giuseppisie">github.com/giuseppisie</a></p>
 </footer>
 
 </body>
