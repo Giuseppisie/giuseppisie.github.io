@@ -52,9 +52,15 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(160,192,188,var(--overlay-alpha)); /* rgba of #a0c0bc */
       z-index: 1;
-      mix-blend-mode: normal;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(160,192,188,0.45) 0%,
+          rgba(160,192,188,0.45) 70%,
+          rgba(160,192,188,1) 100%
+        );
+
     }
 
     .hero-content {
@@ -117,7 +123,7 @@
       margin-top: 0;
     }
     .headshot {
-      width: 120px; height:120px; border-radius:50%; object-fit:cover;
+      width: 240px; height:240px; border-radius:50%; object-fit:cover;
       display:inline-block; margin-bottom:8px; border:3px solid rgba(255,255,255,0.12);
       box-shadow:0 6px 20px rgba(0,0,0,0.12);
     }
@@ -184,7 +190,7 @@
   <!-- HERO -->
   <header class="hero" role="banner" aria-label="Hero image of Duke University">
     <div class="hero-content" role="figure" aria-label="School photo with overlay">
-      <h1 class="hero-name">Sienna Giuseppi</h1>
+      <!--<h1 class="hero-name">Sienna Giuseppi</h1> -->
       <p class="hero-sub">Duke University Mechanical Engineering, Class of 2028e</p>
     </div>
   </header>
