@@ -6,6 +6,61 @@
   <title>Sienna Giuseppi | Mechanical Engineering Portfolio</title>
 
   <style>
+
+    /* --- subtle blueprint grid (dot grid) --- */
+body {
+        /* keep existing background color var(--bg); the grid layers on top */
+        background-color: var(--bg);
+        background-image:
+          radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+        background-size: 28px 28px; /* spacing of grid dots — tweak if desired */
+      }
+      
+      /* --- subtle procedural noise overlay (embedded SVG) --- */
+      /*  - placed with a pseudo-element so it layers above the grid but under content */
+      /*  - very low opacity so it's atmospheric only */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0; /* ensure page content can be above it */
+        background-image: url("data:image/svg+xml;utf8,\
+        <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>\
+          <filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter>\
+          <rect width='100%' height='100%' filter='url(%23noise)' fill='white' opacity='0.06'/>\
+        </svg>");
+        background-repeat: repeat;
+        opacity: 1;                 /* control final visibility via rgba in rect or here */
+        mix-blend-mode: overlay;    /* blends nicely with your palette */
+      }
+      
+      /* bring main content above the noise layer */
+      .page-inner {
+        position: relative;
+        z-index: 1;
+      }
+      
+      /* accessibility & mobile performance: disable noise on small screens or reduced-motion */
+      @media (max-width: 720px) {
+        body::before { display: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        body::before { display: none; }
+      }
+      
+      /* Optional: slightly dim the grid in the hero so it doesn't compete with the image */
+      .hero::after {
+        /* keep your existing linear-gradient but add a subtle backdrop that masks the grid */
+        background:
+          linear-gradient(
+            to bottom,
+            rgba(160,192,188,0.55) 0%,
+            rgba(160,192,188,0.55) 70%,
+            rgba(160,192,188,1) 100%
+          );
+      }
+
     :root{
       --bg: #a0c0bc;
       --card: #427b76;
