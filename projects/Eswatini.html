@@ -7,16 +7,19 @@
 
   <style>
     :root {
+      --bg: #a0c0bc;
+      --card: #427b76;
       --accent: #b0ab52;
-      --bg:#a0c0bc;
-      --card:#427b76;
     }
 
-    /* ---------- Basic page styles ---------- */
-    body{ margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:#111;}
-    a { color: inherit; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
+      color: #111;
+    }
 
-    /* ---------- Topbar ---------- */
+    /* ---------- TOP BAR ---------- */
     .topbar {
       position: fixed;
       top: 0;
@@ -27,172 +30,133 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      z-index: 1200; /* above hero */
-      background: linear-gradient(rgba(255,255,255,0.03), rgba(255,255,255,0.01)); /* subtle glass */
+      z-index: 1000;
+      background: rgba(0,0,0,0.25);
       backdrop-filter: blur(4px);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
     }
 
     .topbar .brand {
+      color: #fff;
       font-weight: 800;
       font-size: 18px;
-      color: #fff;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
-    .topbar .nav-actions {
-      display:flex;
-      gap: 12px;
-      align-items:center;
-    }
-
-    .btn-home {
-      display:inline-block;
-      background: var(--card); /* uses your project card color for button */
+    .topbar a {
       color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      background: var(--card);
       padding: 8px 12px;
       border-radius: 8px;
-      text-decoration: none;
-      font-weight:700;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
-    }
-    .btn-home:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,0.22); opacity:0.98; }
-
-    /* make room for fixed bar */
-    .page-body {
-      padding-top: 70px; /* topbar height + small gap */
     }
 
-    /* ---------- Top slideshow hero ---------- */
-    .top-hero {
+    /* ---------- FULL-SCREEN HERO IMAGE ---------- */
+    .hero {
       position: relative;
-      width:100%;
-      height: 60vh;
-      min-height: 320px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      background: #000;
+      height: 100vh;              /* FULL SCREEN */
+      width: 100%;
+      background-image: url("../images/eswatini/full.jpeg"); /* CHANGE PER PROJECT */
+      background-size: cover;     /* fills screen */
+      background-position: center center; /* NOT overly zoomed */
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .top-hero {
-      position: relative;
-      width:100%;
-      height: 100vh;          /* FULL SCREEN */
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      background: #000;
-        }
-    
-    .hero-overlay {
-      position:absolute; inset:0;
-      background: rgba(66,123,118,0.28); /* subtle tint */
-      z-index:1;
+
+    /* subtle overlay so text reads clearly */
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(66,123,118,0.35);
     }
+
+    /* ---------- HERO TITLE ---------- */
     .hero-title {
       position: relative;
-      z-index:2;
-      text-align:center;
+      z-index: 1;
       color: #fff;
-      font-size: clamp(20px, 3.6vw, 36px);
+      font-size: clamp(28px, 5vw, 48px);
       font-weight: 800;
+      text-align: center;
+      padding: 0 20px;
       text-shadow: 0 8px 24px rgba(0,0,0,0.6);
     }
 
-    /* ---------- Project content ---------- */
-    .project-inner { max-width:900px; margin: 24px auto; padding: 18px; background: white; border-radius:8px; box-shadow: 0 8px 20px rgba(0,0,0,0.06);}
-    .project-meta { color:#666; margin-bottom:12px; }
-    .project-body { line-height:1.6; color:#222; }
+    /* ---------- PROJECT CONTENT ---------- */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #fff;
+    }
 
-    /* responsive */
-    @media (max-width:720px){
-      .topbar { height:56px; padding:0 12px; }
-      .page-body { padding-top:64px; }
-      .top-hero { height:45vh; }
-      .hero-title { font-size:22px; padding:0 10px; }
-      .btn-home { padding: 6px 10px; }
-      .topbar .brand { font-size:16px; }
+    .meta {
+      color: #666;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .content p {
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    /* space for fixed top bar */
+    .spacer {
+      height: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 28px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Topbar: appears on every project page -->
-  <div class="topbar" role="navigation" aria-label="Top navigation">
+  <!-- TOP BAR -->
+  <div class="topbar">
     <div class="brand">Sienna Giuseppi</div>
+    <a href="../index.html">Back to home</a>
+  </div>
 
-    <div class="nav-actions">
-      <!-- Link back to the home page. Use ../index.html because project pages live in /projects/ -->
-      <a class="btn-home" href="../index.html">Back to home</a>
+  <!-- spacer so hero isn't hidden by top bar -->
+  <div class="spacer"></div>
+
+  <!-- HERO IMAGE -->
+  <section class="hero">
+    <div class="hero-title">
+      Nyakuza Foot Bridge — Eswatini, Africa
     </div>
-  </div>
+  </section>
 
-.page-body {
-  padding-top: 70px; /* space for fixed top bar */
-}
-  
-    <!-- TOP SLIDESHOW HERO -->
-    <header class="top-hero" aria-label="Project hero slideshow">
-      <img id="slide" src="../images/eswatini/shot1.jpg" alt="Project image preview">
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-title">Nyakuza Foot Bridge — Eswatini, Africa</div>
-    </header>
+  <!-- PROJECT CONTENT -->
+  <main class="content">
+    <div class="meta">
+      Role: Quality Control Manager · Location: Eswatini · Year: 2024
+    </div>
 
-    <!-- MAIN PROJECT CONTENT -->
-    <main class="project-inner" role="main">
-      <div class="project-meta">Role: Quality Control Manager • Location: Emanyonyaneni & Nsizatje • Year: 2024</div>
+    <p>
+      I spent eight weeks in Eswatini working alongside a team of Duke classmates,
+      Engineers In Action staff, local masons, and community members to design and
+      construct the Nyakuza Suspended Footbridge—the longest pedestrian bridge in
+      the country at 128 meters.
+    </p>
 
-      <div class="project-body">
-        <p>I spent eight weeks in Eswatini working alongside a team of Duke classmates, Engineers In Action staff, local masons, and community members to design and construct the Nyakuza Suspended Footbridge—the longest pedestrian bridge in the country at 128 meters. The bridge spans the Ingwavuma River, which becomes impassable during the rainy season, cutting off thousands of residents from schools, markets, and healthcare.</p>
+    <p>
+      Prior to traveling in-country, I assisted with the bridge’s design during the
+      academic year, participating in engineering review calls and collaborating
+      on structural decisions. While on-site, I worked directly with community
+      members to ensure construction quality and safety.
+    </p>
 
-        <p>Prior to traveling in-country, I assisted with the bridge’s design during the academic year, participating in engineering review calls and collaborating on structural decisions. While on-site, I served as Quality Control Manager, helping ensure construction accuracy and safety while working directly with community members throughout the build process. Living in Emanyonyaneni and Nsizatje, I was immersed in the local culture and gained a deeper understanding of how engineering solutions can meaningfully improve daily life.</p>
+    <!-- add more sections, photos, diagrams, PDFs, etc. -->
+  </main>
 
-        <!-- add more sections (photos, diagrams, downloads, lessons learned, etc.) -->
-      </div>
-    </main>
-  </div>
-
-  <script>
-    // Quick slideshow: flash images quickly then stop on the final preview.
-    (function(){
-      const slide = document.getElementById('slide');
-
-      // EDIT this array to match your actual images (final should be the preview image)
-      const images = [
-        '../images/eswatini/shot1.jpg',
-        '../images/eswatini/shot2.jpg',
-        '../images/eswatini/shot3.jpg',
-        '../images/eswatini/full.jpeg' // final preview (will remain)
-      ];
-
-      const flashDuration = 220;
-      const lastIndex = images.length - 1;
-      let i = 0;
-
-      function showNext() {
-        i++;
-        if (i <= lastIndex) {
-          slide.style.opacity = 0;
-          setTimeout(()=> {
-            slide.src = images[i];
-            slide.alt = 'Project image ' + (i+1);
-            slide.style.opacity = 1;
-          }, 50);
-        }
-        if (i >= lastIndex) {
-          clearInterval(intervalId);
-          slide.src = images[lastIndex];
-          slide.alt = 'Project preview';
-        }
-      }
-
-      const intervalId = setInterval(showNext, flashDuration);
-      setTimeout(()=> { clearInterval(intervalId); slide.src = images[lastIndex]; }, 5000);
-    })();
-  </script>
 </body>
 </html>
