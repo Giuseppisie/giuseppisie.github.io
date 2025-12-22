@@ -601,7 +601,9 @@
     const excerpt = card.querySelector('.feature-excerpt')?.textContent?.trim() || '';
     const body = card.querySelector('.feature-body');
     const fullSrc = body?.getAttribute('data-full') || (body?.querySelector('img')?.src || '');
-    const desc = body?.querySelector('.feature-text p')?.textContent?.trim() || excerpt;
+    const paragraphs = Array.from(
+      body?.querySelectorAll('.feature-text p') || []
+    ).map(p => p.textContent.trim());
     const listItems = Array.from(body?.querySelectorAll('ul li')||[]).map(li => li.textContent.trim());
     return { title, excerpt, fullSrc, desc, listItems };
   });
@@ -625,7 +627,13 @@
     modalTitle.textContent = f.title;
     modalImg.src = f.fullSrc;
     modalImg.alt = f.title;
-    modalDesc.textContent = f.desc;
+    modalDesc.innerHTML = '';
+      paragraphs.forEach(text => {
+        const p = document.createElement('p');
+  p.textContent = text;
+  modalDesc.appendChild(p);
+});
+
     // populate list
     modalList.innerHTML = '';
     f.listItems.forEach(li => {
