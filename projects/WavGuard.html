@@ -130,15 +130,18 @@
         cursor: pointer;
       }
       
-      /* thumbnail becomes the full-width card image (consistent with index) */
-      .feature-thumb {
-        width: 100%;
-        height: 170px;        /* same as project card image height */
-        object-fit: cover;
-        display: block;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-      }
+     /* Feature card image — show full image, no cropping */
+        .feature-thumb {
+          width: 100%;
+          height: 170px;              /* matches project card height */
+          object-fit: contain;        /* SHOW FULL IMAGE */
+          background: rgba(255,255,255,0.08); /* subtle frame */
+          padding: 10px;              /* breathing room around image */
+          display: block;
+          border-top-left-radius: 12px;
+          border-top-right-radius: 12px;
+        }
+
       
       /* content area below the image */
       .feature-meta {
