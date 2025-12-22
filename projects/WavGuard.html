@@ -179,47 +179,17 @@
   </section>
 
   <!-- MAIN: intro -->
-    <main class="content" aria-labelledby="project-intro-heading">
-      <section class="project-intro" id="project-intro">
-        <!-- Short lead / elevator pitch -->
-        <p style="font-weight:700; font-size:18px; margin-bottom:12px;">
-          WavGuard helps beginners learn wakeboarding faster by giving immediate, easy-to-read feedback about how their weight is distributed on the board.
-        </p>
-    
-        <!-- Problem / motivation -->
-        <h3 style="margin:12px 0 6px; font-size:16px; color:#111;">Problem</h3>
-        <p style="margin:0 0 12px;">
-          Learning to balance on a moving surface is mostly trial-and-error. Coaches can help, but riders need immediate, intuitive cues about how their feet are actually distributing force.
-        </p>
-    
-        <!-- Solution summary -->
-        <h3 style="margin:12px 0 6px; font-size:16px; color:#111;">Our solution</h3>
-        <p style="margin:0 0 12px;">
-          WavGuard is a sensor-backed wakeboard that displays real-time visual feedback via LEDs, helping riders recognize and correct balance errors while riding.
-        </p>
-    
-        <!-- Key technical components as bullets -->
-        <h3 style="margin:12px 0 6px; font-size:16px; color:#111;">Key features</h3>
-        <ul style="margin:0 0 12px; padding-left:20px; color:#333; font-size:16px; line-height:1.6;">
-          <li><strong>FSR array:</strong> Zonal pressure sensors under the bindings provide ratio-based pressure readings (not absolute force), so the system works across rider weights.</li>
-          <li><strong>IMU:</strong> Measures board pitch/roll to set tilt-based expectations for pressure distribution (three training zones: 0–8°, 8–20°, &gt;22°).</li>
-          <li><strong>Code logic:</strong> Combines FSR ratios + IMU tilt → expected pressure ratios (via linear interpolation). LEDs show blue = too little, red = too much, green = in equilibrium.</li>
-          <li><strong>Ergonomics:</strong> All electronics padded and embedded for rider comfort and safety.</li>
-        </ul>
-    
-        <!-- Where to learn more -->
-        <h3 style="margin:12px 0 6px; font-size:16px; color:#111;">Want the technical details?</h3>
-        <p style="margin:0 0 6px;">
-          For full design details and data:
-        </p>
-        <ul style="margin:0 0 0; padding-left:20px; color:#333; font-size:16px; line-height:1.6;">
-          <li><strong>Code logic:</strong> See the <em>Code Logic</em> feature section for interpolation formulas, debounce strategy, and update rates.</li>
-          <li><strong>IMU:</strong> See the <em>IMU Sensor</em> section for filtering approach and threshold definitions for each training zone.</li>
-          <li><strong>FSR:</strong> See the <em>Foot Sensors</em> section for layout, normalization/ratio calculations, and calibration routine.</li>
-        </ul>
-      </section>
-    </main>
+  <main class="content" aria-labelledby="project-intro-heading">
+    <section class="project-intro" id="project-intro">
+      <p>
+        WavGuard was developed to address one of the most challenging aspects of learning to wakeboard: understanding balance on an unstable, moving surface. For beginners, progress is largely driven by trial and error—while coaches can offer guidance, riders must ultimately learn how their feet distribute pressure across the board in real time. Our team set out to reduce this learning curve by providing immediate, intuitive feedback that helps riders recognize and correct their balance as they ride.
+      </p>
 
+      <p>
+        Designed by a team of five engineers, WavGuard is a smart wakeboard system that delivers live visual feedback through integrated LED indicators. The board uses a combination of force-sensitive resistors (FSRs) to measure pressure distribution and an inertial measurement unit (IMU) to track orientation and motion, allowing the system to verify and contextualize rider input. All electronic components are fully padded and embedded for comfort and safety, creating a responsive training tool that supports beginners as they build confidence, balance, and technique while riding on the water.
+      </p>
+    </section>
+  </main>
 
   <!-- DEMO -->
   <section class="demo-wrapper" aria-labelledby="project-demo-heading">
@@ -452,37 +422,6 @@
         </div>
       </details>
 
-       <!-- Feature 6: routingx -->
-      <details class="feature-card" data-index="4">
-        <summary class="feature-summary">
-          <img src="../images/wavguard/electronicsbox.png" alt="LED routing thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">Wire and LED routing</div>
-            <div class="feature-excerpt">Immbeded wiring connecting LEDs to circuitry.</div>
-          </div>
-        </summary>
-
-        <div class="feature-body" data-full="../images/wavguard/features/electronicsbox.png">
-          <img src="../images/wavguard/electronicsbox.png" alt="electronics box detail" class="feature-fullimg">
-          <div class="feature-text">
-            <p>
-              An IMU is placed in the center electronics box to measure board tilt and angle.
-            </p>
-
-            <p>
-              An IP65-rated waterproof ABS enclosure with an O-ring seal houses the ESP32, IMU, FSR circuitry, and LED resistors. The enclosure is mounted with threaded inserts for secure attachment and easy service access.
-            </p>
-
-            <ul>
-              <li>Removable and rechargeable battery</li>
-              <li>Exterior on/off button</li>
-              <li>Cushioned mounting (neoprene) to isolate shocks and prevent collisions</li>
-            </ul>
-          </div>
-        </div>
-      </details>
-
-
     </div>
   </section>
 
@@ -680,3 +619,4 @@
 
 </body>
 </html>
+
