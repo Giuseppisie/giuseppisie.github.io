@@ -27,6 +27,85 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
+    /* FEATURES section */
+      .features { margin: 28px auto; max-width: var(--content-max,1100px); padding: 0 20px; }
+      .features-heading { font-size: 28px; color: #111; margin: 0 0 16px 0; }
+      
+      /* Grid: 3 x 2 (responsive) */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      
+      /* Card - using native <details> for expand/collapse */
+      .feature-card {
+        background: rgba(255,255,255,0.06); /* subtle card tone; change to white if you prefer */
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.04);
+      }
+      
+      /* summary header */
+      .feature-summary {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        list-style: none;
+        cursor: pointer;
+      }
+      
+      /* thumbnail */
+      .feature-thumb {
+        width: 72px;
+        height: 72px;
+        border-radius: 8px;
+        object-fit: cover;
+        flex: 0 0 72px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      }
+      
+      /* title + excerpt */
+      .feature-meta { display:flex; flex-direction: column; gap:4px; }
+      .feature-title { font-weight:700; color: #fff; font-size: 15px; }
+      .feature-excerpt { color: rgba(255,255,255,0.8); font-size: 13px; }
+      
+      /* details[open] body */
+      .feature-body {
+        display: flex;
+        gap: 16px;
+        padding: 12px 16px 20px;
+        border-top: 1px solid rgba(0,0,0,0.06);
+        background: #fff; /* expanded area is white for readability */
+      }
+      
+      /* full image and text */
+      .feature-fullimg {
+        width: 220px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 8px;
+        flex: 0 0 220px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      }
+      .feature-text { color:#333; font-size: 14px; line-height:1.6; }
+      
+      /* make the <summary> show focus outline for keyboard users */
+      .feature-summary:focus { outline: 2px solid rgba(176,171,82,0.55); outline-offset: 2px; }
+      
+      /* responsive */
+      @media (max-width: 1024px) {
+        .features-grid { grid-template-columns: repeat(2, 1fr); }
+        .feature-fullimg { width: 180px; height: 120px; flex: 0 0 180px; }
+      }
+      @media (max-width: 720px) {
+        .features-grid { grid-template-columns: 1fr; }
+        .feature-body { flex-direction: column; padding: 12px; }
+        .feature-fullimg { width: 100%; height: 200px; flex: none; }
+      }
+
+
     /* TOPBAR */
     .topbar {
       position: fixed; inset: 0 0 auto 0; height:60px;
@@ -211,6 +290,164 @@
       </div>
     </div>
   </section>
+
+  <!-- FEATURES: 3x2 grid with expandable details -->
+<section class="features" aria-labelledby="features-heading">
+  <h2 id="features-heading" class="features-heading">Features</h2>
+
+  <div class="features-grid">
+    <!-- Feature 1: Wire routing -->
+    <details class="feature-card">
+      <summary class="feature-summary">
+        <img src="../images/wavguard/features/wire-routing-thumb.jpg" alt="wire routing thumbnail" class="feature-thumb">
+        <div class="feature-meta">
+          <div class="feature-title">Wire routing</div>
+          <div class="feature-excerpt">Low-profile cable channels that prevent snagging and reduce wear.</div>
+        </div>
+      </summary>
+
+      <div class="feature-body">
+        <img src="../images/wavguard/features/wire-routing-full.jpg" alt="wire routing detail" class="feature-fullimg">
+        <div class="feature-text">
+          <p>
+            We routed sensor and LED cabling through molded channels beneath the board's top skin. Channels are rounded to avoid sharp bends and use adhesive-backed foam clamps to prevent chafing during flex.
+          </p>
+          <ul>
+            <li>Protected inside foam core, away from rider contact</li>
+            <li>Strain-relief at each connector</li>
+            <li>Service access via removable access plate</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Feature 2: LED routing -->
+    <details class="feature-card">
+      <summary class="feature-summary">
+        <img src="../images/wavguard/features/led-thumb.jpg" alt="led routing thumbnail" class="feature-thumb">
+        <div class="feature-meta">
+          <div class="feature-title">LED routing</div>
+          <div class="feature-excerpt">High-visibility LED strips integrated along the edge and toe/heel zones.</div>
+        </div>
+      </summary>
+
+      <div class="feature-body">
+        <img src="../images/wavguard/features/led-full.jpg" alt="led routing detail" class="feature-fullimg">
+        <div class="feature-text">
+          <p>
+            LEDs are segmented per zone and driven by the microcontroller for immediate feedback. Diffusion strip and low-profile bezel make the lights visible but not abrasive.
+          </p>
+          <ul>
+            <li>Zone-based color mapping</li>
+            <li>Waterproof silicone encapsulation</li>
+            <li>Low-power PWM dimming for battery longevity</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Feature 3: Code logic -->
+    <details class="feature-card">
+      <summary class="feature-summary">
+        <img src="../images/wavguard/features/code-thumb.jpg" alt="code logic thumbnail" class="feature-thumb">
+        <div class="feature-meta">
+          <div class="feature-title">Code logic</div>
+          <div class="feature-excerpt">Sensor fusion and rule-based feedback for robust in-water response.</div>
+        </div>
+      </summary>
+
+      <div class="feature-body">
+        <img src="../images/wavguard/features/code-full.jpg" alt="code logic detail" class="feature-fullimg">
+        <div class="feature-text">
+          <p>
+            The firmware fuses FSR and IMU data, applies filtering and outlier rejection, then maps balance metrics to LED states. The logic prioritizes stability and avoids false positives from wakes.
+          </p>
+          <ul>
+            <li>Complementary filter for orientation</li>
+            <li>Debounced pressure thresholds to avoid chatter</li>
+            <li>Configurable sensitivity via serial / Bluetooth</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Feature 4: Waterproofing -->
+    <details class="feature-card">
+      <summary class="feature-summary">
+        <img src="../images/wavguard/features/waterproof-thumb.jpg" alt="waterproofing thumbnail" class="feature-thumb">
+        <div class="feature-meta">
+          <div class="feature-title">Waterproofing</div>
+          <div class="feature-excerpt">IP67-rated enclosures and sealed cable glands at all penetrations.</div>
+        </div>
+      </summary>
+
+      <div class="feature-body">
+        <img src="../images/wavguard/features/waterproof-full.jpg" alt="waterproofing detail" class="feature-fullimg">
+        <div class="feature-text">
+          <p>
+            Every electronic area is isolated inside a gasketed enclosure. Potting is used selectively for fragile connectors; pressure equalization membranes prevent condensation.
+          </p>
+          <ul>
+            <li>Gasketed electronics box</li>
+            <li>Marine-grade marine connectors on service ports</li>
+            <li>Drain channels to avoid water pooling under the skin</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Feature 5: Electronics box -->
+    <details class="feature-card">
+      <summary class="feature-summary">
+        <img src="../images/wavguard/features/electronics-thumb.jpg" alt="electronics box thumbnail" class="feature-thumb">
+        <div class="feature-meta">
+          <div class="feature-title">Electronics box</div>
+          <div class="feature-excerpt">Modular, serviceable enclosure with quick-access fastener and internal mounting plane.</div>
+        </div>
+      </summary>
+
+      <div class="feature-body">
+        <img src="../images/wavguard/features/electronics-full.jpg" alt="electronics box detail" class="feature-fullimg">
+        <div class="feature-text">
+          <p>
+            The electronics box houses the MCU, battery, and power management. It's mounted on a floating plate to decouple board flex and uses captive fasteners for field service.
+          </p>
+          <ul>
+            <li>Hot-swappable battery bay</li>
+            <li>Captive screws and keyed connectors</li>
+            <li>Integrated status LEDs and debug header</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Feature 6: Foot sensors -->
+    <details class="feature-card">
+      <summary class="feature-summary">
+        <img src="../images/wavguard/features/fsr-thumb.jpg" alt="foot sensors thumbnail" class="feature-thumb">
+        <div class="feature-meta">
+          <div class="feature-title">Foot sensors (FSR)</div>
+          <div class="feature-excerpt">Embedded FSR array provides zonal pressure distribution under the binding.</div>
+        </div>
+      </summary>
+
+      <div class="feature-body">
+        <img src="../images/wavguard/features/fsr-full.jpg" alt="foot sensors detail" class="feature-fullimg">
+        <div class="feature-text">
+          <p>
+            The FSR layout detects heel vs. toe weighting and lateral shifts. Each sensor is calibrated and the firmware compensates for temperature drift.
+          </p>
+          <ul>
+            <li>Zonal sensing with 8 discrete pads</li>
+            <li>Analogue front-end with op-amp buffering</li>
+            <li>Calibration routine accessible via debug interface</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
 
 </body>
 </html>
