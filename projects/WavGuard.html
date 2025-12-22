@@ -1,1 +1,163 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WavGuard — Project</title>
+
+  <style>
+    :root {
+      --bg: #a0c0bc;
+      --card: #427b76;
+      --accent: #b0ab52;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
+      color: #111;
+    }
+
+    /* ---------- TOP BAR ---------- */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(4px);
+    }
+
+    .topbar .brand {
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .topbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      background: var(--card);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    /* ---------- FULL-SCREEN HERO IMAGE ---------- */
+    .hero {
+      position: relative;
+      height: 100vh;              /* FULL SCREEN */
+      width: 100%;
+      background-image: url("../images/wavguard/wavguardfull.png");
+      background-size: cover;     /* fills screen */
+      background-position: center center; /* NOT overly zoomed */
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* subtle overlay so text reads clearly */
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(66,123,118,0.35);
+    }
+
+    /* ---------- HERO TITLE ---------- */
+    .hero-title {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      text-align: center;
+      padding: 0 20px;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    }
+
+    /* ---------- PROJECT CONTENT ---------- */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #fff;
+    }
+
+    .meta {
+      color: #666;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .content p {
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    /* space for fixed top bar */
+    .spacer {
+      height: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+  <div class="brand">Sienna Giuseppi</div>
+  <a href="../index.html#engineering-projects">Back to projects</a>
+</div>
+
+
+  <!-- spacer so hero isn't hidden by top bar -->
+  <div class="spacer"></div>
+
+  <!-- HERO IMAGE -->
+  <section class="hero">
+    <div class="hero-title">
+     WavGuard- Smart wakeboard
+    </div>
+  </section>
+
+  <!-- PROJECT CONTENT -->
+  <main class="content">
+    <div class="meta">
+      Role: Quality Control Manager · Location: Eswatini · Year: 2024
+    </div>
+
+    <p>
+      I spent eight weeks in Eswatini working alongside a team of Duke classmates,
+      Engineers In Action staff, local masons, and community members to design and
+      construct the Nyakuza Suspended Footbridge—the longest pedestrian bridge in
+      the country at 128 meters.
+    </p>
+
+    <p>
+      Prior to traveling in-country, I assisted with the bridge’s design during the
+      academic year, participating in engineering review calls and collaborating
+      on structural decisions. While on-site, I worked directly with community
+      members to ensure construction quality and safety.
+    </p>
+
+    <!-- add more sections, photos, diagrams, PDFs, etc. -->
+  </main>
+
+</body>
+</html>
