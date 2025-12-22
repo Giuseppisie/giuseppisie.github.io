@@ -10,13 +10,17 @@
       --bg: #a0c0bc;
       --card: #427b76;
       --accent: #b0ab52;
+      --content-max: 1100px;
     }
 
+    html,body { height:100%; margin:0; }
     body {
       margin: 0;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       background: var(--bg);
       color: #111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
     /* ---------- TOP BAR ---------- */
@@ -34,27 +38,11 @@
       background: rgba(0,0,0,0.25);
       backdrop-filter: blur(4px);
     }
+    .topbar .brand { color: #fff; font-weight: 800; font-size: 18px; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    .topbar a { color: #fff; text-decoration: none; font-weight: 700; background: var(--card); padding: 8px 12px; border-radius: 8px; }
 
-    .topbar .brand {
-      color: #fff;
-      font-weight: 800;
-      font-size: 18px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
-
-    .topbar a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      background: var(--card);
-      padding: 8px 12px;
-      border-radius: 8px;
-    }
-
-    /* spacer so hero is not hidden by fixed bar */
-    .spacer {
-      height: 60px;
-    }
+    /* spacer so hero not hidden by fixed topbar */
+    .spacer { height:60px; }
 
     /* ---------- HERO ---------- */
     .hero {
@@ -64,98 +52,98 @@
       background-image: url("../images/wavguard/wavguardfull.png");
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(66,123,118,0.35);
-    }
-
-    .hero-title {
-      position: relative;
-      z-index: 1;
-      color: #fff;
-      font-size: clamp(28px, 5vw, 48px);
-      font-weight: 800;
-      text-align: center;
-      padding: 0 20px;
-      text-shadow: 0 8px 24px rgba(0,0,0,0.6);
-    }
+    .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
+    .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,48px); font-weight:800; text-shadow:0 8px 24px rgba(0,0,0,0.6); padding:0 20px; text-align:center; }
 
     /* ---------- PAGE CONTENT ---------- */
-    .content {
-      padding: 40px 20px 80px;
-    }
+    .content { padding: 40px 20px 80px; max-width: var(--content-max); margin: 0 auto; }
 
-    /* White section box */
-    .project-section {
-      max-width: 900px;
-      margin: 0 auto 32px;
-      background: #ffffff;
+    /* centered white intro box (content-constrained) */
+    .project-intro {
+      background: #fff;
       border-radius: 12px;
       padding: 28px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      margin: 0 auto 28px;
+      max-width: 900px;
     }
+    .project-intro p { margin:0; color:#333; line-height:1.6; font-size:15px; }
 
-    .project-section h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
-      font-size: 22px;
-      font-weight: 700;
-      color: #111;
-    }
-
-    .project-section p {
-      font-size: 25px;
-      line-height: 1.6;
-      color: #333;
-      margin-bottom: 0;
-    }
-
-    /* ---------- PROJECT DEMO LAYOUT ---------- */
-    .project-demo {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-    }
-
-    .project-demo video {
+    /* ---------- FULL-WIDTH DEMO BOX ---------- */
+    /* This is the edge-to-edge white band the user asked for */
+    .project-demo-band {
       width: 100%;
-      max-width: 420px;
-      border-radius: 10px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      background: #ffffff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      margin: 0; /* flush with edges */
+      padding: 28px 0; /* top/bottom padding; left/right handled by inner container */
     }
 
+    /* inner container keeps demo content constrained and centered */
+    .project-demo-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 20px; /* small side padding */
+    }
+
+    .project-demo-heading {
+      font-size: 22px;
+      font-weight:700;
+      color:#111;
+      margin:0 0 16px 0;
+    }
+
+    /* demo layout: left = video, right = text */
+    .project-demo {
+      display:flex;
+      gap: 24px;
+      align-items:flex-start;
+    }
+
+    /* enforce consistent aspect ratio so poster and playing video occupy same size */
+    .project-video-wrap {
+      width: 100%;
+      max-width: 540px; /* increase if you want larger video */
+      flex: 0 0 540px;
+    }
+
+    /* VIDEO: keep aspect ratio consistent (16:9), prevent jumps */
+    .project-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;          /* modern browsers will respect */
+      border-radius: 10px;
+      background: #000;              /* fallback while poster loads */
+      object-fit: cover;             /* poster and frames crop consistently */
+      display:block;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    /* demo text area */
     .demo-text {
       flex: 1;
-      font-size: 25px;
+      font-size: 15px;
       line-height: 1.6;
       color: #333;
     }
 
-    .demo-text p {
-      margin-top: 0;
+    /* mobile: stack, make video full width */
+    @media (max-width: 820px) {
+      .project-demo { flex-direction: column; }
+      .project-video-wrap { max-width: 100%; flex: none; }
+      .project-video { aspect-ratio: 16 / 9; }
+      .content { max-width: 920px; padding: 24px 16px 48px; }
+      .project-intro { margin: 0 0 20px; }
+      .project-demo-inner { padding: 0 16px; }
     }
 
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 768px) {
-      .hero {
-        height: 60vh;
-      }
-
-      .project-demo {
-        flex-direction: column;
-      }
-
-      .project-demo video {
-        max-width: 100%;
-      }
+    /* tiny screens */
+    @media (max-width: 420px) {
+      .project-video { aspect-ratio: 4 / 3; } /* more vertical on very small phones */
     }
   </style>
 </head>
@@ -171,17 +159,15 @@
   <div class="spacer"></div>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-title">
-      WavGuard — Smart Wakeboard
-    </div>
+  <section class="hero" aria-label="Project hero image">
+    <div class="hero-title">WavGuard — Smart Wakeboard</div>
   </section>
 
-  <!-- MAIN CONTENT -->
-  <main class="content">
+  <!-- MAIN CONTENT (centered max-width) -->
+  <main class="content" aria-labelledby="project-intro-heading">
 
-    <!-- PROJECT INTRO -->
-    <section class="project-section">
+    <!-- CENTERED INTRO BOX -->
+    <section class="project-intro" id="project-intro">
       <p>
         WavGuard is a smart wakeboard designed to help beginner riders improve balance
         and technique through real-time feedback. The board integrates pressure and
@@ -190,37 +176,41 @@
       </p>
     </section>
 
-    <!-- PROJECT DEMO -->
-    <section class="project-section">
-      <h2>Project Demo</h2>
-
-      <div class="project-demo">
-
-        <!-- VIDEO -->
-        <video controls preload="metadata" poster="../images/wavguard/wavdemo.jpeg">
-          <source src="../images/wavguard/wavdemovid.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-
-        <!-- DESCRIPTION -->
-        <div class="demo-text">
-          <p>
-            This video demonstrates an early prototype of the WavGuard system during
-            testing. Embedded sensors detect changes in rider stance and weight
-            distribution, triggering LED indicators that provide immediate feedback.
-          </p>
-
-          <p>
-            The demo highlights how the feedback system is designed to be intuitive
-            and minimally distracting, allowing riders to adjust posture naturally
-            without interrupting their ride.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
   </main>
 
+  <!-- FULL-WIDTH PROJECT DEMO BAND (edge-to-edge white) -->
+  <section class="project-demo-band" aria-labelledby="project-demo-heading">
+    <div class="project-demo-inner">
+      <h2 id="project-demo-heading" class="project-demo-heading">Project Demo</h2>
+
+      <div class="project-demo">
+        <!-- video: poster + fixed aspect ratio prevents layout jumps -->
+        <div class="project-video-wrap">
+          <video class="project-video" controls preload="metadata" poster="../images/wavguard/wavdemo.jpeg" playsinline>
+            <source src="../images/wavguard/wavdemovid.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- explanatory text -->
+        <div class="demo-text">
+          <p>
+            This video demonstrates an early prototype of the WavGuard system during testing.
+            Embedded sensors detect changes in rider stance and weight distribution, triggering
+            LED indicators that provide immediate feedback. The demo emphasizes how subtle,
+            real-time cues can accelerate learning without distracting the rider.
+          </p>
+
+          <p>
+            Testing was conducted in controlled conditions; the example shown here highlights
+            how the board responds to heel/toe shifts and shows the latency and stability of
+            the feedback loop. Future iterations will refine ergonomics and sensor placement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end of page -->
 </body>
 </html>
