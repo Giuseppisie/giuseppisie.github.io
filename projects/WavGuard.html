@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>WavGuard — Project</title>
+  <title>WavGuard — Smart Wakeboard</title>
 
   <style>
     :root {
@@ -11,20 +11,6 @@
       --card: #427b76;
       --accent: #b0ab52;
     }
-
-    .project-video {
-        margin: 40px 0;
-      }
-      
-      .project-video video {
-        width: 100%;
-        max-width: 900px;
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-      }
-
 
     body {
       margin: 0;
@@ -65,21 +51,25 @@
       border-radius: 8px;
     }
 
-    /* ---------- FULL-SCREEN HERO IMAGE ---------- */
+    /* spacer so hero is not hidden by fixed bar */
+    .spacer {
+      height: 60px;
+    }
+
+    /* ---------- HERO ---------- */
     .hero {
       position: relative;
-      height: 100vh;              /* FULL SCREEN */
+      height: 100vh;
       width: 100%;
       background-image: url("../images/wavguard/wavguardfull.png");
-      background-size: cover;     /* fills screen */
-      background-position: center center; /* NOT overly zoomed */
+      background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* subtle overlay so text reads clearly */
     .hero::after {
       content: "";
       position: absolute;
@@ -87,7 +77,6 @@
       background: rgba(66,123,118,0.35);
     }
 
-    /* ---------- HERO TITLE ---------- */
     .hero-title {
       position: relative;
       z-index: 1;
@@ -99,33 +88,73 @@
       text-shadow: 0 8px 24px rgba(0,0,0,0.6);
     }
 
-    /* ---------- PROJECT CONTENT ---------- */
+    /* ---------- PAGE CONTENT ---------- */
     .content {
+      padding: 40px 20px 80px;
+    }
+
+    /* White section box */
+    .project-section {
       max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      background: #fff;
+      margin: 0 auto 32px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
 
-    .meta {
-      color: #666;
-      margin-bottom: 16px;
-      font-size: 14px;
+    .project-section h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
     }
 
-    .content p {
+    .project-section p {
+      font-size: 15px;
       line-height: 1.6;
-      margin-bottom: 16px;
+      color: #333;
+      margin-bottom: 0;
     }
 
-    /* space for fixed top bar */
-    .spacer {
-      height: 60px;
+    /* ---------- PROJECT DEMO LAYOUT ---------- */
+    .project-demo {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
     }
 
+    .project-demo video {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    .demo-text {
+      flex: 1;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .demo-text p {
+      margin-top: 0;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
     @media (max-width: 768px) {
-      .hero-title {
-        font-size: 28px;
+      .hero {
+        height: 60vh;
+      }
+
+      .project-demo {
+        flex-direction: column;
+      }
+
+      .project-demo video {
+        max-width: 100%;
       }
     }
   </style>
@@ -135,50 +164,62 @@
 
   <!-- TOP BAR -->
   <div class="topbar">
-  <div class="brand">Sienna Giuseppi</div>
-  <a href="../index.html#engineering-projects">Back to projects</a>
-</div>
+    <div class="brand">Sienna Giuseppi</div>
+    <a href="../index.html#engineering-projects">Back to projects</a>
+  </div>
 
-
-  <!-- spacer so hero isn't hidden by top bar -->
   <div class="spacer"></div>
 
-  <!-- HERO IMAGE -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-title">
-     WavGuard- Smart wakeboard
+      WavGuard — Smart Wakeboard
     </div>
   </section>
 
-  <!-- PROJECT CONTENT -->
+  <!-- MAIN CONTENT -->
   <main class="content">
-    <div class="meta">
-      Role: Engineer · Location: Duke University · Date: Fall 2025
-    </div>
 
-    <p>
-      I spent eight weeks in Eswatini working alongside a team of Duke classmates,
-      Engineers In Action staff, local masons, and community members to design and
-      construct the Nyakuza Suspended Footbridge—the longest pedestrian bridge in
-      the country at 128 meters.
-    </p>
+    <!-- PROJECT INTRO -->
+    <section class="project-section">
+      <p>
+        WavGuard is a smart wakeboard designed to help beginner riders improve balance
+        and technique through real-time feedback. The board integrates pressure and
+        tilt sensors to track stance and weight distribution, translating rider data
+        into intuitive visual cues that guide users toward proper positioning.
+      </p>
+    </section>
 
-    <p>
-      Prior to traveling in-country, I assisted with the bridge’s design during the
-      academic year, participating in engineering review calls and collaborating
-      on structural decisions. While on-site, I worked directly with community
-      members to ensure construction quality and safety.
-    </p>
+    <!-- PROJECT DEMO -->
+    <section class="project-section">
+      <h2>Project Demo</h2>
 
-    <section class="project-video">
-  <video controls preload="metadata" poster="../images/wavguard/wavdemo.jpeg">
-    <source src="../images/wavguard/wavdemovid.mp4" 
-    Your browser does not support the video tag.
-  </video>
-</section>
+      <div class="project-demo">
 
+        <!-- VIDEO -->
+        <video controls preload="metadata" poster="../images/wavguard/wavdemo.jpeg">
+          <source src="../images/wavguard/wavdemovid.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
 
-    <!-- add more sections, photos, diagrams, PDFs, etc. -->
+        <!-- DESCRIPTION -->
+        <div class="demo-text">
+          <p>
+            This video demonstrates an early prototype of the WavGuard system during
+            testing. Embedded sensors detect changes in rider stance and weight
+            distribution, triggering LED indicators that provide immediate feedback.
+          </p>
+
+          <p>
+            The demo highlights how the feedback system is designed to be intuitive
+            and minimally distracting, allowing riders to adjust posture naturally
+            without interrupting their ride.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
 </body>
