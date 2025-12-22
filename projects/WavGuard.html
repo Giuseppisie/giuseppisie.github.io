@@ -327,26 +327,47 @@
           <div class="feature-meta">
             <div class="feature-title">Foot Sensors (FSR)</div>
             <div class="feature-excerpt">
-              Embedded force sensors measure how pressure is distributed across the board.
+              Embedded pressure sensors measure how weight is distributed across the board.
             </div>
           </div>
         </summary>
       
-        <!-- inline fallback (hidden) -->
         <div class="feature-body" data-full="../images/wavguard/features/fsr-full.jpg">
           <img src="../images/wavguard/features/fsr-full.jpg" alt="FSR layout detail" class="feature-fullimg">
           <div class="feature-text">
             <p>
               WavGuard uses force-sensitive resistors (FSRs) embedded beneath the rider’s feet
-              to measure pressure distribution across the board. Rather than relying on absolute
-              force values, the system evaluates relative pressure relationships, allowing it
-              to adapt to riders of different weights and stances.
+              to measure how pressure is distributed across the wakeboard. Instead of relying
+              on absolute force values, which vary widely between riders, the system evaluates
+              <strong>relative pressure ratios</strong> between sensor regions. This allows the
+              system to scale across different rider weights, stances, and skill levels without
+              recalibration.
             </p>
+      
+            <p>
+              The board is divided into multiple pressure zones that capture meaningful balance
+              information:
+            </p>
+      
             <ul>
-              <li>Pressure zones for toes vs. heels, left vs. right, and diagonal corners</li>
-              <li>Raw sensor values normalized into percentage-based ratios</li>
-              <li>Provides rider input context for higher-level decision making</li>
+              <li>Toes vs. heels (forward/backward balance)</li>
+              <li>Left vs. right side (lateral balance)</li>
+              <li>Diagonal corners (rotational imbalance)</li>
             </ul>
+      
+            <p>
+              At each timestep, raw analog FSR readings are normalized into percentage-based
+              ratios representing how total rider weight is distributed across the board. For
+              example, instead of measuring force in newtons, the system determines whether
+              60% of pressure is on the toes and 40% on the heels.
+            </p>
+      
+            <p>
+              This ratio-based approach ensures that feedback reflects <em>how</em> a rider is
+              balancing, not <em>how hard</em> they are pushing. These normalized pressure ratios
+              are then passed to the Code Logic layer, where they are compared against expected
+              values derived from board orientation.
+            </p>
           </div>
         </div>
       </details>
@@ -354,45 +375,74 @@
 
 
       <!-- Feature 2: IMU Sensor -->
-        <details class="feature-card" data-index="1">
-          <summary class="feature-summary">
-            <img src="../images/wavguard/features/imu-thumb.jpg" alt="IMU sensor thumbnail" class="feature-thumb">
-            <div class="feature-meta">
-              <div class="feature-title">IMU Sensor</div>
-              <div class="feature-excerpt">
-                Tracks board orientation and tilt to interpret rider intent.
-              </div>
-            </div>
-          </summary>
-        
-          <!-- inline fallback (hidden) -->
-          <div class="feature-body" data-full="../images/wavguard/features/imu-full.jpg">
-            <img src="../images/wavguard/features/imu-full.jpg" alt="IMU orientation detail" class="feature-fullimg">
-            <div class="feature-text">
-              <p>
-                An inertial measurement unit (IMU) continuously tracks the board’s orientation,
-                measuring roll and pitch to determine how the board is angled relative to the
-                water. This information provides essential context for interpreting pressure data.
-              </p>
-              <ul>
-                <li>Orientation data filtered to reduce wake-induced noise</li>
-                <li>Predefined tilt thresholds distinguish riding modes</li>
-                <li>Prevents penalizing intentional edge engagement</li>
-              </ul>
+      <details class="feature-card" data-index="1">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/features/imu-thumb.jpg" alt="IMU sensor thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">IMU Sensor</div>
+            <div class="feature-excerpt">
+              Measures board tilt and orientation to interpret rider intent.
             </div>
           </div>
-        </details>
+        </summary>
+      
+        <div class="feature-body" data-full="../images/wavguard/features/imu-full.jpg">
+          <img src="../images/wavguard/features/imu-full.jpg" alt="IMU orientation detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              WavGuard uses an inertial measurement unit (IMU) to track the board’s orientation
+              in real time. Specifically, roll and pitch angles are monitored to determine how
+              the board is tilted relative to the water. This information provides critical
+              context for interpreting pressure data from the FSRs.
+            </p>
+      
+            <p>
+              Raw IMU data is filtered to reduce noise caused by wakes, vibration, and transient
+              disturbances. Short-duration spikes are suppressed so that feedback reflects
+              sustained rider behavior rather than momentary water conditions.
+            </p>
+      
+            <p>
+              The system defines three tilt-based training zones:
+            </p>
+      
+            <ul>
+              <li>
+                <strong>0–8° (Balance Mode):</strong> The board is considered relatively flat.
+                The system checks for even pressure distribution across all FSR regions and
+                reinforces basic stance awareness.
+              </li>
+              <li>
+                <strong>8–20° (Edge Commitment Mode):</strong> The rider is intentionally edging.
+                In this range, pressure is expected to shift in proportion to the tilt angle,
+                and feedback teaches riders how to commit weight correctly.
+              </li>
+              <li>
+                <strong>&gt;22° (Safety Warning Mode):</strong> The board is approaching a loss-of-
+                control condition. Large red warnings prioritize rider safety rather than
+                correction.
+              </li>
+            </ul>
+      
+            <p>
+              By using tilt thresholds, the IMU prevents the system from penalizing riders for
+              intentional maneuvers while still identifying unintentional imbalance. IMU data
+              is passed to the Code Logic layer to determine the expected pressure distribution
+              for a given board angle.
+            </p>
+          </div>
+        </div>
+      </details>
 
 
           <!-- Feature 3: code logic -->
-            <!-- Feature 3: Code Logic -->
       <details class="feature-card" data-index="2">
         <summary class="feature-summary">
           <img src="../images/wavguard/pcbscematic.png" alt="code logic thumbnail" class="feature-thumb">
           <div class="feature-meta">
             <div class="feature-title">Code Logic</div>
             <div class="feature-excerpt">
-              Combines pressure and orientation data to generate meaningful feedback.
+              Integrates sensor data to determine when and how feedback is shown.
             </div>
           </div>
         </summary>
@@ -401,20 +451,57 @@
           <img src="../images/wavguard/pcb.png" alt="control logic schematic" class="feature-fullimg">
           <div class="feature-text">
             <p>
-              The Code Logic layer acts as the decision-making core of WavGuard, fusing pressure
-              data from the FSRs with orientation data from the IMU. Rather than enforcing rigid
-              balance targets, the system provides guidance by comparing expected and actual
-              pressure distributions.
+              The Code Logic layer acts as the central decision-making system of WavGuard. It
+              combines normalized pressure ratios from the FSRs with orientation data from
+              the IMU to determine when feedback is necessary and what form it should take.
             </p>
+      
+            <p>
+              For each timestep, the system calculates an <strong>expected pressure ratio</strong>
+              based on board tilt using linear interpolation. For example:
+            </p>
+      
             <ul>
-              <li>Ratio-based logic scales across different riders</li>
-              <li>Linear interpolation maps tilt angle to expected pressure ratios</li>
-              <li>LED feedback only activates when meaningful mismatches occur</li>
-              <li>Three training zones adapt feedback as rider skill increases</li>
+              <li>At 0° tilt, expected pressure is evenly distributed (≈50% toes / 50% heels).</li>
+              <li>At 15° toe-side tilt, the system expects ~70% of pressure on the toes.</li>
+              <li>At higher tilt angles, expected ratios shift accordingly.</li>
             </ul>
+      
+            <p>
+              Actual pressure ratios from the FSRs are compared against these expected values.
+              If the mismatch exceeds a predefined tolerance, visual feedback is generated.
+              This prevents constant feedback during minor fluctuations and focuses attention
+              only on meaningful errors.
+            </p>
+      
+            <p>
+              LED feedback follows three clear rules:
+            </p>
+      
+            <ul>
+              <li><strong>Blue:</strong> Not enough pressure in a region</li>
+              <li><strong>Red:</strong> Too much pressure in a region</li>
+              <li><strong>Green:</strong> Appears only when pressure distribution and board
+                  orientation are in equilibrium</li>
+            </ul>
+      
+            <p>
+              Balanced regions remain unlit to minimize distraction. Green is not intended as
+              a constant target; rather, it indicates moments of equilibrium. The system is
+              designed as <strong>guidance</strong>, recognizing that certain riding maneuvers
+              naturally require imbalance.
+            </p>
+      
+            <p>
+              To ensure stability and usability, pressure data is debounced, IMU signals are
+              filtered, and feedback updates are rate-limited. Together, these design choices
+              create a responsive yet non-intrusive training system that accelerates learning
+              without overwhelming the rider.
+            </p>
           </div>
         </div>
       </details>
+
 
 
 
