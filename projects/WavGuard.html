@@ -505,23 +505,37 @@
 
 
 
-      <!-- Feature 4: waterproofing -->
-      <details class="feature-card" data-index="3">
-        <summary class="feature-summary">
-          <img src="../images/wavguard/watertest.png" alt="waterproofing thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">Waterproofing</div>
-            <div class="feature-excerpt">IP67-rated enclosures and sealed cable glands at all penetrations.</div>
-          </div>
-        </summary>
-        <div class="feature-body" data-full="../images/wavguard/features/waterproof-full.jpg">
-          <img src="../images/wavguard/watertestvid.mp4" alt="" class="feature-fullimg">
-          <div class="feature-text">
-            <p>Every electronic area is isolated inside a gasketed enclosure. Potting is used selectively for fragile connectors; pressure equalization membranes prevent condensation.</p>
-            <ul><li>Gasketed electronics box</li><li>Marine-grade connectors</li><li>Drain channels</li></ul>
-          </div>
-        </div>
-      </details>
+    <!-- Feature 4: Waterproofing -->
+          <details class="feature-card" data-index="3">
+            <summary class="feature-summary">
+              <!-- summary thumbnail (image) -->
+              <img src="../images/wavguard/watertest.png" alt="waterproofing thumbnail" class="feature-thumb">
+              <div class="feature-meta">
+                <div class="feature-title">Waterproofing</div>
+                <div class="feature-excerpt">IP67-rated enclosures and sealed cable glands at all penetrations.</div>
+              </div>
+            </summary>
+          
+            <div class="feature-body" data-full="../images/wavguard/features/waterproof-full.jpg">
+              <!-- use <video> for MP4 files; use poster for a preview image -->
+              <video class="feature-fullimg" controls preload="metadata" poster="../images/wavguard/watertest.png" playsinline>
+                <source src="../images/wavguard/watertestvid.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+          
+              <div class="feature-text">
+                <p>
+                  Every electronic area is isolated inside a gasketed enclosure. Potting is used selectively for fragile connectors; pressure-equalization membranes prevent condensation.
+                </p>
+                <ul>
+                  <li>Gasketed electronics box</li>
+                  <li>Marine-grade connectors</li>
+                  <li>Drain channels</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
 
       <!-- Feature 5: electronics box -->
       <details class="feature-card" data-index="4">
