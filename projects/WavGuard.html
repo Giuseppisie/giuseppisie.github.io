@@ -206,25 +206,53 @@
         </div>
 
         <!-- TEXT column -->
-        <div class="text-col">
-          <p>
-            This demo video was recorded during our final project presentation and shows WavGuard operating in real time. The system uses ratio-based logic, allowing it to adapt to any rider by comparing relationships between sensors rather than relying on absolute force values. This approach ensures consistent feedback across different rider weights and stances.
-          </p>
+    <div class="text-col">
+    
+      <p><strong>Demo overview</strong></p>
+      <p>
+        This demo video was recorded during our final project presentation and shows
+        WavGuard operating in real time. The system uses <strong>ratio-based logic</strong>,
+        comparing relationships between sensors rather than absolute force values so it
+        adapts to riders of different weights and stances.
+      </p>
+    
+      <p><strong>LED feedback system</strong></p>
+      <ul>
+        <li><strong>Blue:</strong> not enough pressure in a region</li>
+        <li><strong>Red:</strong> too much pressure in a region</li>
+        <li><strong>Green:</strong> appears only when the board is fully balanced</li>
+      </ul>
+      <p>
+        Pressure is evaluated across toes vs. heels, left vs. right, and diagonal corners.
+        Balanced regions remain unlit to avoid distracting the rider.
+      </p>
+    
+      <p><strong>Tilt-based interpretation</strong></p>
+      <p>
+        Board orientation is measured using an <strong>IMU</strong>. Expected pressure
+        distributions are calculated from tilt angle using <strong>linear interpolation</strong>,
+        allowing feedback to adjust naturally as the board angle changes.
+      </p>
+    
+      <p><strong>Training zones</strong></p>
+      <ul>
+        <li><strong>0–8°:</strong> basic balance and neutral stance</li>
+        <li><strong>8–20°:</strong> edge commitment and controlled weight shifting</li>
+        <li><strong>&gt;22°:</strong> safety warnings to prevent loss of control</li>
+      </ul>
+    
+      <p>
+        The system is designed as <strong>guidance rather than a strict target</strong>,
+        recognizing that some riding maneuvers naturally require imbalance.
+      </p>
+    
+      <div class="demo-note">
+        Further technical breakdowns are available in the feature sections below
+        (Foot Sensors, IMU Sensor, and Code Logic).
+      </div>
+    
+    </div>
 
-          <p>
-            As shown in the video, blue LEDs indicate regions where additional pressure is needed, while red LEDs indicate excessive pressure. The board evaluates pressure across toes vs. heels, left vs. right side, and diagonal corners. Balanced regions remain unlit to reduce distraction, and when both board orientation and pressure distribution align, all LEDs turn green.
-          </p>
-
-          <p>
-            Board orientation is measured using an IMU, and feedback is generated using predefined tilt thresholds. The system is designed as guidance rather than a strict target, recognizing that certain riding maneuvers naturally require imbalance. Tilt-to-pressure expectations are calculated using linear interpolation, mapping board angle to an expected pressure ratio.
-          </p>
-
-          <p>
-            WavGuard operates across three training zones: basic balance (0–8°), edge commitment (8–20°), and safety warning (>22°). Together, these zones create a progressive learning experience that helps riders recognize errors and develop balanced, confident riding technique.
-          </p>
-
-          <div class="demo-note">Further breakdowns of the board functionality can be found in the feature sections below.</div>
-        </div>
       </div>
     </div>
   </section>
