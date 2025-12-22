@@ -54,18 +54,26 @@
 
     /* Intro box (centered, constrained) */
     .project-intro {
-      background:#fff; border-radius:12px; padding:28px; box-shadow:0 8px 20px rgba(0,0,0,0.08);
-      margin: 0 auto 28px; max-width: 900px;
-    }
-    .project-intro p { margin:0; color:#333; line-height:1.6; font-size:15px; }
-
-    /* DEMO card: NOT full-bleed — white box with half-inch margins on the sides */
-    .demo-wrapper {
-      background: transparent; /* keep page background visible */
-      padding: 0 0 40px 0;
-      display: flex;
-      justify-content: center;
-    }
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        margin: 0 auto 28px;
+        max-width: 900px;
+      }
+      
+      /* Slightly larger, consistent paragraph text */
+      .project-intro p {
+        font-size: 17px;      /* larger than default, still professional */
+        line-height: 1.7;
+        color: #333;
+        margin: 0 0 18px 0;
+      }
+      
+      /* No extra space after last paragraph */
+      .project-intro p:last-child {
+        margin-bottom: 0;
+      }
 
     .demo-card {
       background: #ffffff;
@@ -153,17 +161,21 @@
     <div class="hero-title">WavGuard — Smart Wakeboard</div>
   </section>
 
-  <!-- MAIN: intro -->
-  <main class="content" aria-labelledby="project-intro-heading">
-    <section class="project-intro" id="project-intro">
-      <p>
-        WavGuard was developed to address one of the most challenging aspects of learning to wakeboard: understanding balance on an unstable, moving surface. For beginners, progress is largely driven by trial and error—while coaches can offer guidance, riders must ultimately learn how their feet distribute pressure across the board in real time. Our team set out to reduce this learning curve by providing immediate, intuitive feedback that helps riders recognize and correct their balance as they ride.
-          </p>
-         </p>
-        Designed by a team of five engineers, WavGuard is a smart wakeboard system that delivers live visual feedback through integrated LED indicators. The board uses a combination of force-sensitive resistors (FSRs) to measure pressure distribution and an inertial measurement unit (IMU) to track orientation and motion, allowing the system to verify and contextualize rider input. All electronic components are fully padded and embedded for comfort and safety, creating a responsive training tool that supports beginners as they build confidence, balance, and technique on the water.
-      </p>
-    </section>
-  </main>
+ <!-- MAIN: intro -->
+<main class="content" aria-labelledby="project-intro-heading">
+  <section class="project-intro" id="project-intro">
+
+    <p>
+      WavGuard was developed to address one of the most challenging aspects of learning to wakeboard: understanding balance on an unstable, moving surface. For beginners, progress is largely driven by trial and error—while coaches can offer guidance, riders must ultimately learn how their feet distribute pressure across the board in real time. Our team set out to reduce this learning curve by providing immediate, intuitive feedback that helps riders recognize and correct their balance as they ride.
+    </p>
+
+    <p>
+      Designed by a team of five engineers, WavGuard is a smart wakeboard system that delivers live visual feedback through integrated LED indicators. The board uses a combination of force-sensitive resistors (FSRs) to measure pressure distribution and an inertial measurement unit (IMU) to track orientation and motion, allowing the system to verify and contextualize rider input. All electronic components are fully padded and embedded for comfort and safety, creating a responsive training tool that supports beginners as they build confidence, balance, and technique on the water.
+    </p>
+
+  </section>
+</main>
+
 
   <!-- DEMO (white card centered with half-inch margins) -->
   <section class="demo-wrapper" aria-labelledby="project-demo-heading">
