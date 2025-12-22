@@ -508,6 +508,46 @@ e<!DOCTYPE html>
     </div>
   </section>
 
+  <!-- FULL IMAGES -->
+<section class="full-images" aria-labelledby="full-images-heading" style="margin:40px 0;">
+  <h2 id="full-images-heading" style="font-size:22px; font-weight:700; color:#111; margin:0 0 16px;">
+    Full images
+  </h2>
+
+  <!-- Large full-board photo -->
+  <div class="full-board" style="max-width:1100px; margin:0 auto 20px; border-radius:12px; overflow:hidden;">
+    <img src="../images/wavguard/wavfull.png" alt="WavGuard full board photo" style="display:block; width:100%; height:auto; object-fit:contain;">
+    <div style="padding:10px 14px; background:transparent; text-align:left;">
+      <em style="color:#333;">Full board — finished top surface with embedded sensors and edge LEDs</em>
+    </div>
+  </div>
+
+  <!-- Two-column CAD row -->
+  <div class="cad-row" style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
+    <figure style="background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
+      <img src="../images/wavguard/explodedwav.png" alt="Exploded view of WavGuard components" style="display:block; width:100%; height:100%; object-fit:contain;">
+      <figcaption style="padding:10px 14px;">
+        <em style="color:#333;">Exploded view — component layout and assembly order</em>
+      </figcaption>
+    </figure>
+
+    <figure style="background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
+      <img src="../images/wavguard/cad-labeled.png" alt="Labeled CAD view of WavGuard" style="display:block; width:100%; height:100%; object-fit:contain;">
+      <figcaption style="padding:10px 14px;">
+        <em style="color:#333;">Labeled CAD view — mounting points, channel routing, and enclosure placement</em>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- small responsive tweaks (add to page CSS if you prefer centralized styles) -->
+<style>
+  @media (max-width: 900px) {
+    .cad-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+
   <!-- MODAL -->
   <div id="featureModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal" role="document" aria-labelledby="modal-title">
