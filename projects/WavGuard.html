@@ -6,104 +6,164 @@
   <title>WavGuard — Smart Wakeboard</title>
 
   <style>
-    :root{
+    :root {
       --bg: #a0c0bc;
       --card: #427b76;
       --accent: #b0ab52;
       --content-max: 1100px;
+      --demo-side-margin: 0.5in;
+      --demo-video-w: 360px;
+      --demo-video-h: 640px;
       --gap: 28px;
     }
-    html,body{height:100%;margin:0;}
-    body{
+
+    html,body { height:100%; margin:0; }
+    body {
+      margin: 0;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       background: var(--bg);
-      color:#111;
+      color: #111;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* topbar + hero */
-    .topbar{position:fixed;inset:0 0 auto 0;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;background:rgba(0,0,0,0.22);backdrop-filter:blur(4px);}
-    .brand{color:#fff;font-weight:800;font-size:18px;text-shadow:0 2px 8px rgba(0,0,0,.4);}
-    .topbar a{color:#fff;text-decoration:none;font-weight:700;background:var(--card);padding:8px 12px;border-radius:8px;}
-    .spacer{height:60px;}
-    .hero{position:relative;height:70vh;width:100%;background-image:url("../images/wavguard/wavguardfull.png");background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;}
-    .hero::after{content:"";position:absolute;inset:0;background:rgba(66,123,118,0.35);}
-    .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(28px,5vw,48px);font-weight:800;text-shadow:0 8px 24px rgba(0,0,0,.6);padding:0 20px;text-align:center;}
+    /* TOPBAR */
+    .topbar {
+      position: fixed; inset: 0 0 auto 0; height:60px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 0 20px; z-index:1000;
+      background: rgba(0,0,0,0.22); backdrop-filter: blur(4px);
+    }
+    .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); }
+    .topbar a { color:#fff; text-decoration:none; font-weight:700; background:var(--card); padding:8px 12px; border-radius:8px; }
 
-    /* content area */
-    .content{padding:40px 20px 32px;max-width:var(--content-max);margin:0 auto;}
-    .project-intro{background:#fff;border-radius:12px;padding:32px;box-shadow:0 8px 20px rgba(0,0,0,0.08);margin:0 auto 28px;max-width:900px;}
-    .project-intro p{font-size:17px;line-height:1.7;color:#333;margin:0 0 18px 0;}
-    .project-intro p:last-child{margin-bottom:0;}
+    .spacer { height:60px; }
 
-    /* demo */
-    .demo-wrapper{display:flex;justify-content:center;padding-bottom:24px;}
-    .demo-card{background:#fff;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.08);padding:28px;width:calc(100% - 1in);max-width:var(--content-max);box-sizing:border-box;margin:0 auto;}
-    .demo-grid{display:flex;gap:var(--gap);align-items:flex-start;}
-    .video-col{flex:0 0 360px;width:360px;height:640px;display:flex;align-items:stretch;}
-    .project-video{width:100%;height:100%;border-radius:10px;background:#000;object-fit:cover;display:block;box-shadow:0 6px 18px rgba(0,0,0,0.12);}
-    .text-col{flex:1;font-size:17px;line-height:1.6;color:#333;}
+    /* HERO */
+    .hero {
+      position: relative; height: 60vh; width:100%;
+      background-image: url("../images/wavguard/wavguardfull.png");
+      background-size: cover; background-position:center; display:flex;
+      align-items:center; justify-content:center;
+    }
+    .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
+    .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,48px); font-weight:800; text-shadow:0 8px 24px rgba(0,0,0,0.6); padding:0 20px; text-align:center; }
 
-    /* features grid (cards) */
-    .features{margin:28px auto 40px;max-width:var(--content-max);padding:0 20px;}
-    .features-heading{font-size:28px;color:#111;margin:0 0 16px 0;}
-    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-    .feature-card{background:var(--card);color:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.12);text-decoration:none;transition:transform .18s ease,box-shadow .18s ease;display:block;cursor:pointer;}
-    .feature-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,0.18);}
-    .feature-thumb{width:100%;height:170px;object-fit:contain;background:rgba(255,255,255,0.06);padding:10px;display:block;border-top-left-radius:12px;border-top-right-radius:12px;}
-    .feature-meta{padding:14px 16px 18px 16px;display:flex;flex-direction:column;gap:8px;}
-    .feature-title{font-weight:700;font-size:18px;color:#fff;}
-    .feature-excerpt{font-size:14px;color:rgba(255,255,255,0.9);line-height:1.35;margin:0;}
-    .feature-body{display:none;} /* kept in DOM for modal extraction */
+    /* MAIN CONTENT (centered area) */
+    .content { padding: 40px 20px 32px; max-width: var(--content-max); margin: 0 auto; }
 
-    @media(max-width:1024px){.features-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:720px){.features-grid{grid-template-columns:1fr}.feature-thumb{height:44vw}.demo-card{width:calc(100% - 32px)}.video-col{width:100%;height:auto}.project-video{aspect-ratio:3/4;height:auto}}
+    /* Intro box (centered, constrained) */
+    .project-intro {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      margin: 0 auto 28px;
+      max-width: 900px;
+    }
+    .project-intro p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+      margin: 0 0 18px 0;
+    }
+    .project-intro p:last-child { margin-bottom: 0; }
 
-    /* Full images area - aligned with site padding */
-    .full-images{max-width:var(--content-max);margin:40px auto;padding:0 20px;}
-    .full-images h2{font-size:22px;font-weight:700;color:#111;margin:0 0 16px 0;}
-    .full-board{max-width:var(--content-max);margin:0 auto 20px;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.06);cursor:zoom-in;}
-    .full-board img{display:block;width:100%;height:auto;object-fit:contain;}
-    .full-board .caption{padding:10px 14px;background:transparent;text-align:left}
-    .full-board .caption em{color:#333;font-style:italic}
+    /* DEMO card centered */
+    .demo-wrapper { display:flex; justify-content:center; padding-bottom: 24px; }
+    .demo-card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      padding: 28px;
+      width: calc(100% - (var(--demo-side-margin) * 2));
+      max-width: var(--content-max);
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+    .demo-card h2 { margin: 0 0 16px 0; font-size:22px; font-weight:700; color:#111; }
+    .demo-grid { display:flex; gap: var(--gap); align-items:flex-start; }
+    .video-col { flex: 0 0 var(--demo-video-w); width: var(--demo-video-w); height: var(--demo-video-h); display:flex; align-items:stretch; }
+    .project-video { width:100%; height:100%; border-radius:10px; background:#000; object-fit:cover; display:block; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+    .text-col { flex:1; font-size:17px; line-height:1.6; color:#333; }
 
-    .cad-row{max-width:var(--content-max);margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:start;margin-top:12px}
-    .cad-row figure{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.08);display:flex;flex-direction:column;cursor:zoom-in}
-    .cad-row img{display:block;width:100%;height:420px;object-fit:contain}
-    .cad-row figcaption{padding:10px 14px}
-    .cad-row figcaption em{color:#333;font-style:italic}
+    /* FEATURES - 3x grid */
+    .features {
+      margin: 28px auto 60px;
+      max-width: var(--content-max,1100px);
+      padding: 0 20px;
+    }
+    .features-heading { font-size: 28px; color: #111; margin: 0 0 16px 0; }
 
-    @media(max-width:900px){.cad-row{grid-template-columns:1fr}.cad-row img{height:auto}}
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
 
-    /* ---------- Feature modal (unchanged) ---------- */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:2000;padding:28px}
-    .modal-overlay.open{display:flex}
-    .modal{background:#fff;width:100%;max-width:1100px;max-height:92vh;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,0.45)}
-    .modal-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(0,0,0,0.06);background:linear-gradient(90deg,rgba(66,123,118,1),rgba(86,153,140,1));color:#fff}
-    .modal-title{font-size:20px;font-weight:800}
-    .modal-close,.modal-prev,.modal-next{background:rgba(255,255,255,0.12);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
-    .modal-body{display:flex;gap:20px;padding:20px;overflow:auto;background:#fff}
-    .modal-img{flex:0 0 460px;max-width:52%;border-radius:8px;object-fit:contain;box-shadow:0 10px 30px rgba(0,0,0,0.18)}
-    .modal-text{flex:1;color:#111;font-size:16px;line-height:1.6}
-    .modal-text ul{margin-top:12px;padding-left:20px}
+    .feature-card {
+      background: var(--card);
+      color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease;
+      display: block;
+    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
 
-    @media(max-width:900px){.modal{max-width:calc(100% - 40px)}.modal-body{flex-direction:column}.modal-img{max-width:100%;width:100%;height:auto;flex:none}}
+    .feature-summary { display:block; padding:0; cursor:pointer; }
+    .feature-thumb {
+      width: 100%;
+      height: 170px;
+      object-fit: contain;      /* show whole image, not cropped */
+      background: rgba(255,255,255,0.06);
+      padding: 10px;
+      display:block;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .feature-meta { padding: 14px 16px 18px 16px; display:flex; flex-direction:column; gap:8px; }
+    .feature-title { font-weight:700; font-size:18px; color:#fff; }
+    .feature-excerpt { font-size:14px; color: rgba(255,255,255,0.9); line-height:1.35; margin:0; }
 
-    /* ---------- Simple full-image overlay (new) ---------- */
-    .img-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:3000;padding:20px}
-    .img-overlay.open{display:flex}
-    .img-overlay .viewer{position:relative;max-width:95vw;max-height:95vh;background:transparent;display:flex;flex-direction:column;align-items:center;gap:12px}
-    .img-overlay img{max-width:100%;max-height:calc(95vh - 70px);object-fit:contain;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
-    .img-overlay .caption{color:#fff;font-style:italic;text-align:center;max-width:95%;padding:6px 12px;background:rgba(0,0,0,0.0)}
-    .img-overlay .close-btn{position:absolute;right:-6px;top:-6px;background:rgba(255,255,255,0.12);border:none;color:#fff;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:700}
-    .img-overlay .close-btn:focus{outline:3px solid rgba(176,171,82,0.35);outline-offset:2px}
-    .click-to-open{outline:none}
+    details.feature-card[open] { outline: 3px solid rgba(176,171,82,0.12); }
+
+    /* details content inside (white area for readability) */
+    .feature-details {
+      background: #fff;
+      color: #333;
+      padding: 16px;
+      line-height: 1.6;
+    }
+    .feature-details img { max-width: 100%; display:block; margin-bottom:12px; border-radius:8px; object-fit:contain; }
+
+    @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 720px) { .features-grid { grid-template-columns: 1fr; } .feature-thumb { height: 44vw; } }
+
+    /* FULL IMAGES row */
+    .full-images { max-width: var(--content-max); margin: 40px auto 80px; padding: 0 20px; }
+    .full-board { margin-bottom:18px; border-radius:12px; overflow:hidden; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,0.08); }
+    .full-board img { display:block; width:100%; height:auto; object-fit:contain; }
+    .full-board figcaption { padding:10px 14px; font-style:italic; color:#333; }
+
+    .cad-row { display:grid; grid-template-columns: repeat(2, 1fr); gap:20px; margin-top:12px; }
+    .cad-row figure { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.08); }
+    .cad-row img { width:100%; height:100%; object-fit:contain; display:block; }
+    .cad-row figcaption { padding:10px 14px; font-style:italic; color:#333; }
+
+    @media (max-width: 900px) {
+      .cad-row { grid-template-columns: 1fr; }
+      .demo-grid { flex-direction: column; }
+      .video-col { width: 100%; height: auto; }
+      .project-video { aspect-ratio: 3/4; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- TOPBAR -->
+  <!-- TOP BAR -->
   <div class="topbar">
     <div class="brand">Sienna Giuseppi</div>
     <a href="../index.html#engineering-projects">Back to projects</a>
@@ -134,6 +194,7 @@
       <h2 id="project-demo-heading">Project Demo</h2>
 
       <div class="demo-grid">
+        <!-- VIDEO column (portrait) -->
         <div class="video-col">
           <video class="project-video" controls preload="metadata" poster="../images/wavguard/wavdemo.jpeg" playsinline>
             <source src="../images/wavguard/wavdemovid.mp4" type="video/mp4">
@@ -141,6 +202,7 @@
           </video>
         </div>
 
+        <!-- TEXT column -->
         <div class="text-col">
           <p><strong>Demo overview</strong></p>
           <p>
@@ -150,330 +212,280 @@
             adapts to riders of different weights and stances.
           </p>
 
-          <p><strong>LED feedback (quick)</strong></p>
+          <p><strong>LED feedback system</strong></p>
           <ul>
-            <li><strong>Blue:</strong> not enough pressure</li>
-            <li><strong>Red:</strong> too much pressure</li>
-            <li><strong>Green:</strong> board in equilibrium</li>
+            <li><strong>Blue:</strong> not enough pressure in a region</li>
+            <li><strong>Red:</strong> too much pressure in a region</li>
+            <li><strong>Green:</strong> appears only when the board is fully balanced</li>
           </ul>
-
-          <p><strong>Tilt mapping</strong></p>
           <p>
-            IMU tilt maps to expected pressure by linear interpolation — e.g., 0° ~ 50/50, 15° ~ 70/30.
+            Pressure is evaluated across toes vs. heels, left vs. right, and diagonal corners.
+            Balanced regions remain unlit to avoid distracting the rider.
           </p>
 
-          <div class="demo-note">Further technical breakdowns are in the Features below (FSR, IMU, Code Logic).</div>
+          <p><strong>Tilt-based interpretation</strong></p>
+          <p>
+            Board orientation is measured using an <strong>IMU</strong>. Expected pressure
+            distributions are calculated from tilt angle using <strong>linear interpolation</strong>,
+            allowing feedback to adjust naturally as the board angle changes.
+          </p>
+
+          <p>
+            The system is designed as <strong>guidance rather than a strict target</strong>,
+            recognizing that some riding maneuvers naturally require imbalance.
+          </p>
+
+          <div class="demo-note">
+            Further technical breakdowns are available in the feature sections below
+            (Foot Sensors, IMU Sensor, and Code Logic).
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- FEATURES (visible cards; modal handled later) -->
+  <!-- FEATURES -->
   <section class="features" aria-labelledby="features-heading">
     <h2 id="features-heading" class="features-heading">Features</h2>
 
     <div class="features-grid">
-      <!-- (example feature card - repeat / replace content as needed) -->
-      <article class="feature-card" data-index="0" role="button" tabindex="0">
-        <div class="feature-summary">
-          <img src="../images/wavguard/footsensor.png" alt="foot sensors" class="feature-thumb">
+
+      <!-- Feature 1: Foot Sensors (FSR) -->
+      <details class="feature-card" data-index="0">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/footsensor.png" alt="foot sensors thumbnail" class="feature-thumb">
           <div class="feature-meta">
             <div class="feature-title">Foot Sensors (FSR)</div>
-            <div class="feature-excerpt">Embedded pressure sensors measure how weight is distributed across the board.</div>
+            <div class="feature-excerpt">
+              Embedded pressure sensors measure how weight is distributed across the board.
+            </div>
           </div>
-        </div>
-        <div class="feature-body" data-full="../images/wavguard/footwalkthrough.png">
-          <div class="feature-text">
-            <p>WavGuard uses force-sensitive resistors (FSRs) embedded beneath the rider’s feet to produce normalized ratios used by the code layer.</p>
-            <ul><li>Toes vs. heels</li><li>Left vs. right</li><li>Diagonal corners</li></ul>
-          </div>
-        </div>
-      </article>
+        </summary>
 
-      <article class="feature-card" data-index="1" role="button" tabindex="0">
-        <div class="feature-summary">
-          <img src="../images/wavguard/imu.png" alt="imu" class="feature-thumb">
+        <div class="feature-details">
+          <img src="../images/wavguard/footwalkthrough.png" alt="FSR layout detail">
+          <p>
+            WavGuard uses force-sensitive resistors (FSRs) embedded beneath the rider’s feet to measure how pressure is distributed across the wakeboard. Instead of relying on absolute force values, which vary widely between riders, the system evaluates <strong>relative pressure ratios</strong> between sensor regions. This allows the system to scale across different rider weights, stances, and skill levels without recalibration.
+          </p>
+
+          <p>The board is divided into multiple pressure zones that capture meaningful balance information:</p>
+
+          <ul>
+            <li>Toes vs. heels (forward/backward balance)</li>
+            <li>Left vs. right side (lateral balance)</li>
+            <li>Diagonal corners (rotational imbalance)</li>
+          </ul>
+
+          <p>
+            At each timestep, raw analog FSR readings are normalized into percentage-based ratios representing how total rider weight is distributed across the board. For example, instead of measuring force in newtons, the system determines whether 60% of pressure is on the toes and 40% on the heels.
+          </p>
+
+          <p>
+            This ratio-based approach ensures that feedback reflects <em>how</em> a rider is balancing, not <em>how hard</em> they are pushing. These normalized pressure ratios are then passed to the Code Logic layer, where they are compared against expected values derived from board orientation.
+          </p>
+        </div>
+      </details>
+
+      <!-- Feature 2: IMU Sensor -->
+      <details class="feature-card" data-index="1">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/imu.png" alt="IMU sensor thumbnail" class="feature-thumb">
           <div class="feature-meta">
             <div class="feature-title">IMU Sensor</div>
-            <div class="feature-excerpt">Tracks board roll & pitch to determine tilt-based expectations.</div>
+            <div class="feature-excerpt">
+              Measures board tilt and orientation to interpret rider intent.
+            </div>
           </div>
-        </div>
-        <div class="feature-body" data-full="../images/wavguard/features/imu-full.jpg">
-          <div class="feature-text"><p>IMU filtered to remove spikes; maps tilt to training zones (0–8°, 8–20°, &gt;22°).</p></div>
-        </div>
-      </article>
+        </summary>
 
-      <article class="feature-card" data-index="2" role="button" tabindex="0">
-        <div class="feature-summary">
-          <img src="../images/wavguard/pcbscematic.png" alt="code" class="feature-thumb">
+        <div class="feature-details">
+          <img src="../images/wavguard/features/imu.png" alt="IMU orientation detail">
+          <p>
+            WavGuard uses an inertial measurement unit (IMU) to track the board’s orientation in real time. Specifically, roll and pitch angles are monitored to determine how the board is tilted relative to the water. This information provides critical context for interpreting pressure data from the FSRs.
+          </p>
+
+          <p>
+            Raw IMU data is filtered to reduce noise caused by wakes, vibration, and transient disturbances. Short-duration spikes are suppressed so that feedback reflects sustained rider behavior rather than momentary water conditions.
+          </p>
+
+          <p>The system defines three tilt-based training zones:</p>
+
+          <ul>
+            <li><strong>0–8° (Balance Mode):</strong> The board is considered relatively flat. The system checks for even pressure distribution across all FSR regions and reinforces basic stance awareness.</li>
+            <li><strong>8–20° (Edge Commitment Mode):</strong> The rider is intentionally edging. In this range, pressure is expected to shift in proportion to the tilt angle, and feedback teaches riders how to commit weight correctly.</li>
+            <li><strong>&gt;22° (Safety Warning Mode):</strong> The board is approaching a loss-of-control condition. Large red warnings prioritize rider safety rather than correction.</li>
+          </ul>
+
+          <p>
+            By using tilt thresholds, the IMU prevents the system from penalizing riders for intentional maneuvers while still identifying unintentional imbalance. IMU data is passed to the Code Logic layer to determine the expected pressure distribution for a given board angle.
+          </p>
+        </div>
+      </details>
+
+      <!-- Feature 3: Code Logic -->
+      <details class="feature-card" data-index="2">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/pcbscematic.png" alt="code logic thumbnail" class="feature-thumb">
           <div class="feature-meta">
             <div class="feature-title">Code Logic</div>
-            <div class="feature-excerpt">Sensor fusion and mapping to LEDs.</div>
+            <div class="feature-excerpt">
+              Integrates sensor data to determine when and how feedback is shown.
+            </div>
           </div>
-        </div>
-        <div class="feature-body" data-full="../images/wavguard/pcb.png">
-          <div class="feature-text"><p>Linear interpolation from tilt to expected pressure; thresholding & debouncing before signaling LEDs.</p></div>
-        </div>
-      </article>
+        </summary>
 
-      <!-- add the rest of your feature cards here (waterproofing, electronics box, wire/LED routing) -->
-      <article class="feature-card" data-index="3" role="button" tabindex="0">
-        <div class="feature-summary">
-          <img src="../images/wavguard/watertest.jpg" alt="waterproofing" class="feature-thumb">
+        <div class="feature-details">
+          <img src="../images/wavguard/pcb.png" alt="control logic schematic">
+          <p>
+            The Code Logic layer acts as the central decision-making system of WavGuard. It combines normalized pressure ratios from the FSRs with orientation data from the IMU to determine when feedback is necessary and what form it should take.
+          </p>
+
+          <p>
+            For each timestep, the system calculates an <strong>expected pressure ratio</strong> based on board tilt using linear interpolation. For example:
+          </p>
+
+          <ul>
+            <li>At 0° tilt, expected pressure is evenly distributed (≈50% toes / 50% heels).</li>
+            <li>At 15° toe-side tilt, the system expects ~70% of pressure on the toes.</li>
+            <li>At higher tilt angles, expected ratios shift accordingly.</li>
+          </ul>
+
+          <p>
+            Actual pressure ratios from the FSRs are compared against these expected values. If the mismatch exceeds a predefined tolerance, visual feedback is generated. This prevents constant feedback during minor fluctuations and focuses attention only on meaningful errors.
+          </p>
+
+          <p>LED feedback follows three clear rules:</p>
+          <ul>
+            <li><strong>Blue:</strong> Not enough pressure in a region</li>
+            <li><strong>Red:</strong> Too much pressure in a region</li>
+            <li><strong>Green:</strong> Appears only when pressure distribution and board orientation are in equilibrium</li>
+          </ul>
+
+          <p>
+            Balanced regions remain unlit to minimize distraction. Green is not intended as a constant target; rather, it indicates moments of equilibrium. The system is designed as <strong>guidance</strong>, recognizing that certain riding maneuvers naturally require imbalance.
+          </p>
+
+          <p>
+            To ensure stability and usability, pressure data is debounced, IMU signals are filtered, and feedback updates are rate-limited. Together, these design choices create a responsive yet non-intrusive training system that accelerates learning without overwhelming the rider.
+          </p>
+        </div>
+      </details>
+
+      <!-- Feature 4: Waterproofing -->
+      <details class="feature-card" data-index="3">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/watertest.jpg" alt="waterproofing thumbnail" class="feature-thumb">
           <div class="feature-meta">
             <div class="feature-title">Waterproofing</div>
-            <div class="feature-excerpt">Potting, sealed glands, O-ring enclosures.</div>
+            <div class="feature-excerpt">IP67-rated enclosures and sealed cable glands at all penetrations.</div>
           </div>
-        </div>
-        <div class="feature-body" data-full="../images/wavguard/watertestvid.mp4">
-          <div class="feature-text"><p>O-ring sealed enclosure, potting gel for fragile connectors, marine-grade glands for wire entry.</p></div>
-        </div>
-      </article>
+        </summary>
 
-      <article class="feature-card" data-index="4" role="button" tabindex="0">
-        <div class="feature-summary">
-          <img src="../images/wavguard/electronicsbox.png" alt="electronics box" class="feature-thumb">
+        <div class="feature-details">
+          <img src="../images/wavguard/features/watertest.jpg" alt="waterproofing detail">
+          <p>
+            Every electronic area is isolated inside a gasketed enclosure. Potting is used selectively for fragile connectors; pressure-equalization membranes prevent condensation. RTV silicone and marine-grade sealant are used to attach LEDs, seal joints, and waterproof wiring entry points. Drain channels and service-access design reduce the risk of trapped water.
+          </p>
+
+          <ul>
+            <li>Gasketed electronics box (O-ring sealed)</li>
+            <li>Potting for fragile connectors and selective components</li>
+            <li>Marine-grade cable glands / connectors for service ports</li>
+            <li>Drain channels to avoid water pooling under the skin</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- Feature 5: Electronics box -->
+      <details class="feature-card" data-index="4">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/electronicsbox.png" alt="electronics box thumbnail" class="feature-thumb">
           <div class="feature-meta">
             <div class="feature-title">Electronics box</div>
-            <div class="feature-excerpt">Modular enclosure, floating mount to decouple flex.</div>
+            <div class="feature-excerpt">Modular, serviceable enclosure with quick-access fastener and internal mounting plane.</div>
           </div>
-        </div>
-        <div class="feature-body" data-full="../images/wavguard/features/electronicsbox.png">
-          <div class="feature-text"><p>IP65-rated ABS enclosure with O-ring, threaded inserts, removable battery bay.</p></div>
-        </div>
-      </article>
+        </summary>
 
-      <article class="feature-card" data-index="5" role="button" tabindex="0">
-        <div class="feature-summary">
-          <img src="../images/wavguard/embed.png" alt="wiring" class="feature-thumb">
+        <div class="feature-details">
+          <img src="../images/wavguard/electronicsbox.png" alt="electronics box detail">
+          <p>
+            An IMU is placed in the center electronics box to measure board tilt and angle.
+          </p>
+
+          <p>
+            An IP65-rated waterproof ABS enclosure with an O-ring seal houses the ESP32, IMU,
+            FSR circuitry, and LED resistors. The enclosure is mounted with threaded inserts
+            for secure attachment and easy service access.
+          </p>
+
+          <ul>
+            <li>Removable and rechargeable battery</li>
+            <li>Exterior on/off button</li>
+            <li>Cushioned mounting (neoprene) to isolate shocks and prevent collisions</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- Feature 6: Wire and LED Routing -->
+      <details class="feature-card" data-index="5">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/embed.png" alt="embedded wiring thumbnail" class="feature-thumb">
           <div class="feature-meta">
-            <div class="feature-title">Wire & LED Routing</div>
-            <div class="feature-excerpt">Embedded wiring channels, potting, edge LEDs & printed corner brackets.</div>
+            <div class="feature-title">Wire & LED routing</div>
+            <div class="feature-excerpt">Embedded wiring and edge-mounted LEDs for a finished, waterproof design.</div>
           </div>
+        </summary>
+
+        <div class="feature-details">
+          <img src="../images/wavguard/routing.png" alt="wire routing detail">
+          <p>
+            To create a clean, finished board with no exposed electronics, we used a Dremel to machine custom wiring channels directly into the board. These channels route power and signal lines beneath the foot pads, connecting the electronics box to the foot sensors and LED system while keeping all wiring inaccessible to the rider.
+          </p>
+
+          <p>
+            After routing, the channels were filled with <strong>potting gel and waterproof epoxy</strong> to lock the wires in place and provide long-term water resistance. This process prevents wire movement under flex and ensures durability in repeated water exposure.
+          </p>
+
+          <p>
+            Individually addressable LED strips were mounted along the perimeter of the board to provide immediate, intuitive visual feedback. LEDs were placed where they remain visible to the rider without interfering with stance or movement. Custom 3D-printed corner brackets were designed to secure the LED strips and protect both the board edges and electronics from impact during falls or transport.
+          </p>
+
+          <ul>
+            <li>Wiring embedded below the board surface</li>
+            <li>Potting gel and epoxy for waterproofing and strain relief</li>
+            <li>Edge-mounted individually addressable LEDs for zoned feedback</li>
+            <li>3D-printed corner brackets for protection and durability</li>
+          </ul>
         </div>
-        <div class="feature-body" data-full="../images/wavguard/routing.png">
-          <div class="feature-text"><p>Dremeled channels routed beneath pads, filled with potting gel & epoxy. Edge-mounted individually addressable LEDs.</p></div>
-        </div>
-      </article>
+      </details>
 
     </div>
   </section>
 
-  <!-- FULL IMAGES (separate viewer behavior) -->
+  <!-- FULL IMAGES -->
   <section class="full-images" aria-labelledby="full-images-heading">
-    <h2 id="full-images-heading">Full images</h2>
+    <h2 id="full-images-heading" style="font-size:22px; font-weight:700; color:#111; margin:0 0 16px;">Full images</h2>
 
-    <div class="full-board click-to-open" role="button" tabindex="0"
-         data-full="../images/wavguard/wavfull.png"
-         data-caption="Full board — finished top surface with embedded sensors and edge LEDs">
-      <img src="../images/wavguard/wavfull.png" alt="Full board" onerror="this.style.opacity=.3;">
-      <div class="caption"><em>Full board — finished top surface with embedded sensors and edge LEDs</em></div>
-    </div>
+    <!-- Large full-board photo -->
+    <figure class="full-board" style="max-width:1100px; margin:0 auto;">
+      <img src="../images/wavguard/wavfull.png" alt="WavGuard full board photo">
+      <figcaption><em>Full board — finished top surface with embedded sensors and edge LEDs</em></figcaption>
+    </figure>
 
-    <div class="cad-row">
-      <figure class="click-to-open" role="button" tabindex="0"
-              data-full="../images/wavguard/exploadedwav.png"
-              data-caption="Exploded view — component layout">
-        <img src="../images/wavguard/exploadedwav.png" alt="Exploded view" onerror="this.style.opacity=.3;">
+    <!-- Two-column CAD row -->
+    <div class="cad-row" style="max-width:1100px; margin:20px auto 0;">
+      <figure>
+        <img src="../images/wavguard/exploadedwav.png" alt="Exploded view of WavGuard components">
         <figcaption><em>Exploded view — component layout</em></figcaption>
       </figure>
 
-      <figure class="click-to-open" role="button" tabindex="0"
-              data-full="../images/wavguard/cadwavexp.png"
-              data-caption="Labeled CAD view — mounting points, channel routing, and enclosure placement">
-        <img src="../images/wavguard/cadwavexp.png" alt="CAD view" onerror="this.style.opacity=.3;">
+      <figure>
+        <img src="../images/wavguard/cadwavexp.png" alt="Labeled CAD view of WavGuard">
         <figcaption><em>Labeled CAD view — mounting points, channel routing, and enclosure placement</em></figcaption>
       </figure>
     </div>
   </section>
-
-  <!-- FEATURE modal (existing gallery/modal) -->
-  <div id="featureModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="modal-title">
-      <div class="modal-top">
-        <div class="modal-title" id="modal-title">Feature title</div>
-        <div class="modal-controls">
-          <button class="modal-prev" type="button" aria-label="Previous feature">◀ Prev</button>
-          <button class="modal-next" type="button" aria-label="Next feature">Next ▶</button>
-          <button class="modal-close" type="button" aria-label="Close">✕</button>
-        </div>
-      </div>
-      <div class="modal-body">
-        <img src="" alt="" class="modal-img" id="modalImg">
-        <div class="modal-text">
-          <div id="modalDesc"></div>
-          <ul id="modalList"></ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SIMPLE full-image overlay (separate) -->
-  <div id="imageOverlay" class="img-overlay" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="viewer" role="document">
-      <button class="close-btn" aria-label="Close full image">✕</button>
-      <img src="" alt="" id="overlayImg">
-      <div class="caption" id="overlayCaption"><em>Caption</em></div>
-    </div>
-  </div>
-
-<script>
-  /* -----------------------
-     Feature modal gallery
-     (keeps current feature behavior; unchanged)
-     ----------------------- */
-  const featureCards = Array.from(document.querySelectorAll('.feature-card'));
-  const galleryItems = featureCards.map(card => {
-    const title = card.querySelector('.feature-title')?.textContent?.trim() || '';
-    const body = card.querySelector('.feature-body');
-    let fullSrc = body?.getAttribute('data-full') || '';
-    if (!fullSrc) {
-      const img = body?.querySelector('img');
-      const vid = body?.querySelector('video source');
-      if (img) fullSrc = img.getAttribute('src') || img.src || '';
-      else if (vid) fullSrc = vid.getAttribute('src') || '';
-    }
-    const paragraphs = Array.from(body?.querySelectorAll('.feature-text p')||[]).map(p=>p.textContent.trim()).filter(Boolean);
-    const listItems = Array.from(body?.querySelectorAll('.feature-text ul li')||[]).map(li=>li.textContent.trim()).filter(Boolean);
-    const excerpt = card.querySelector('.feature-excerpt')?.textContent?.trim() || '';
-    return { title, fullSrc, paragraphs: paragraphs.length ? paragraphs : (excerpt ? [excerpt] : []), listItems };
-  });
-
-  const featureModal = document.getElementById('featureModal');
-  const modalTitle = document.getElementById('modal-title');
-  const modalDesc = document.getElementById('modalDesc');
-  const modalList = document.getElementById('modalList');
-  const modalImgContainer = document.querySelector('.modal-body');
-  const modalPrev = featureModal.querySelector('.modal-prev');
-  const modalNext = featureModal.querySelector('.modal-next');
-  const modalClose = featureModal.querySelector('.modal-close');
-
-  let featureIndex = 0;
-  function isVideo(src){ return /\.(mp4|webm|ogg)$/i.test(src); }
-
-  function renderFeatureMedia(src, title){
-    // remove any existing media nodes
-    const existingImg = modalImgContainer.querySelector('img.modal-img');
-    const existingVideo = modalImgContainer.querySelector('video.modal-img');
-    if (existingImg) existingImg.remove();
-    if (existingVideo) existingVideo.remove();
-
-    if (!src) {
-      const placeholder = document.createElement('div');
-      placeholder.className = 'modal-img';
-      placeholder.style.minHeight = '220px';
-      placeholder.style.display = 'flex';
-      placeholder.style.alignItems = 'center';
-      placeholder.style.justifyContent = 'center';
-      placeholder.style.background = '#f4f4f4';
-      placeholder.textContent = 'No preview';
-      modalImgContainer.insertBefore(placeholder, modalImgContainer.querySelector('.modal-text'));
-      return;
-    }
-
-    if (isVideo(src)) {
-      const video = document.createElement('video');
-      video.setAttribute('controls','');
-      video.setAttribute('playsinline','');
-      video.className = 'modal-img';
-      const source = document.createElement('source');
-      source.src = src;
-      source.type = 'video/mp4';
-      video.appendChild(source);
-      modalImgContainer.insertBefore(video, modalImgContainer.querySelector('.modal-text'));
-      video.muted = true;
-      video.play().catch(()=>{});
-      return;
-    }
-
-    const img = document.createElement('img');
-    img.className = 'modal-img';
-    img.src = src;
-    img.alt = title || '';
-    img.onerror = function(){ this.style.opacity = 0.3; };
-    modalImgContainer.insertBefore(img, modalImgContainer.querySelector('.modal-text'));
-  }
-
-  function openFeatureModal(idx){
-    if(idx<0||idx>=galleryItems.length) return;
-    featureIndex = idx;
-    const item = galleryItems[idx];
-    modalTitle.textContent = item.title || 'Feature';
-    modalDesc.innerHTML = '';
-    if(item.paragraphs && item.paragraphs.length){
-      item.paragraphs.forEach(t=>{ const p=document.createElement('p'); p.textContent=t; modalDesc.appendChild(p); });
-    } else modalDesc.textContent = item.title || '';
-    modalList.innerHTML = '';
-    if(item.listItems && item.listItems.length){ item.listItems.forEach(li=>{ const el=document.createElement('li'); el.textContent=li; modalList.appendChild(el); }); }
-    renderFeatureMedia(item.fullSrc, item.title);
-    featureModal.classList.add('open'); featureModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
-    modalClose.focus();
-  }
-  function closeFeatureModal(){
-    featureModal.classList.remove('open'); featureModal.setAttribute('aria-hidden','true'); document.body.style.overflow='';
-    const video = featureModal.querySelector('video'); if(video){ try{video.pause()}catch(e){} video.remove(); }
-    // ensure placeholder img returns
-    if(!featureModal.querySelector('img.modal-img')) {
-      const placeholder = document.createElement('img'); placeholder.className='modal-img'; placeholder.src=''; placeholder.alt=''; featureModal.querySelector('.modal-body').insertBefore(placeholder, featureModal.querySelector('.modal-text'));
-    }
-  }
-  function showPrevFeature(){ openFeatureModal((featureIndex-1+galleryItems.length)%galleryItems.length); }
-  function showNextFeature(){ openFeatureModal((featureIndex+1)%galleryItems.length); }
-
-  featureCards.forEach((card, idx)=>{
-    card.addEventListener('click', (e)=>{ if(e.target.closest('a')) return; openFeatureModal(idx); });
-    card.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openFeatureModal(idx); }});
-  });
-
-  modalClose.addEventListener('click', closeFeatureModal);
-  modalPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrevFeature(); });
-  modalNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNextFeature(); });
-  featureModal.addEventListener('click', (e)=>{ if(e.target===featureModal) closeFeatureModal(); });
-  document.addEventListener('keydown', (e)=>{ if(!featureModal.classList.contains('open')) return; if(e.key==='Escape') closeFeatureModal(); if(e.key==='ArrowLeft') showPrevFeature(); if(e.key==='ArrowRight') showNextFeature(); });
-
-  /* -----------------------
-     Full-image simple overlay (separate)
-     ----------------------- */
-  const fullClickables = Array.from(document.querySelectorAll('.click-to-open'));
-  const imageOverlay = document.getElementById('imageOverlay');
-  const overlayImg = document.getElementById('overlayImg');
-  const overlayCaption = document.getElementById('overlayCaption');
-  const overlayClose = imageOverlay.querySelector('.close-btn');
-
-  function openImageOverlay(src, caption){
-    overlayImg.src = src || '';
-    overlayImg.alt = caption || '';
-    overlayCaption.innerHTML = '<em>' + (caption || '') + '</em>';
-    imageOverlay.classList.add('open');
-    imageOverlay.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-    overlayClose.focus();
-  }
-  function closeImageOverlay(){
-    imageOverlay.classList.remove('open');
-    imageOverlay.setAttribute('aria-hidden','true');
-    overlayImg.src = '';
-    overlayCaption.textContent = '';
-    document.body.style.overflow = '';
-  }
-
-  fullClickables.forEach(el=>{
-    el.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const src = el.getAttribute('data-full') || el.querySelector('img')?.getAttribute('src') || '';
-      const caption = el.getAttribute('data-caption') || el.querySelector('figcaption em')?.textContent || el.querySelector('.caption em')?.textContent || '';
-      openImageOverlay(src, caption);
-    });
-    el.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); const src = el.getAttribute('data-full') || el.querySelector('img')?.getAttribute('src') || ''; const caption = el.getAttribute('data-caption') || el.querySelector('figcaption em')?.textContent || el.querySelector('.caption em')?.textContent || ''; openImageOverlay(src, caption); }});
-  });
-
-  overlayClose.addEventListener('click', closeImageOverlay);
-  imageOverlay.addEventListener('click', (e)=>{ if(e.target === imageOverlay) closeImageOverlay(); });
-  document.addEventListener('keydown', (e)=>{ if(!imageOverlay.classList.contains('open')) return; if(e.key==='Escape') closeImageOverlay(); });
-
-  // small accessibility: stop focus from going to page behind modal
-  // (already focusing close button on open above)
-</script>
 
 </body>
 </html>
