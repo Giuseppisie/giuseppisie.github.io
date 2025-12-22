@@ -319,60 +319,104 @@
     <h2 id="features-heading" class="features-heading">Features</h2>
 
     <div class="features-grid">
-      <!-- Feature 1 -->
+
+   <!-- Feature 1: Foot Sensors (FSR) -->
       <details class="feature-card" data-index="0">
         <summary class="feature-summary">
-          <img src="../images/wavguard/features/wire-routing-thumb.jpg" alt="wire routing thumbnail" class="feature-thumb">
+          <img src="../images/wavguard/features/fsr-thumb.jpg" alt="foot sensors thumbnail" class="feature-thumb">
           <div class="feature-meta">
-            <div class="feature-title">Wire routing</div>
-            <div class="feature-excerpt">Low-profile cable channels that prevent snagging and reduce wear.</div>
+            <div class="feature-title">Foot Sensors (FSR)</div>
+            <div class="feature-excerpt">
+              Embedded force sensors measure how pressure is distributed across the board.
+            </div>
           </div>
         </summary>
+      
         <!-- inline fallback (hidden) -->
-        <div class="feature-body" data-full="../images/wavguard/features/wire-routing-full.jpg">
-          <img src="../images/wavguard/features/wire-routing-full.jpg" alt="" class="feature-fullimg">
+        <div class="feature-body" data-full="../images/wavguard/features/fsr-full.jpg">
+          <img src="../images/wavguard/features/fsr-full.jpg" alt="FSR layout detail" class="feature-fullimg">
           <div class="feature-text">
-            <p>We routed sensor and LED cabling through molded channels beneath the board's top skin. Channels are rounded to avoid sharp bends and use adhesive-backed foam clamps to prevent chafing during flex.</p>
-            <ul><li>Protected inside foam core</li><li>Strain-relief at connectors</li><li>Service access via removable plate</li></ul>
+            <p>
+              WavGuard uses force-sensitive resistors (FSRs) embedded beneath the rider’s feet
+              to measure pressure distribution across the board. Rather than relying on absolute
+              force values, the system evaluates relative pressure relationships, allowing it
+              to adapt to riders of different weights and stances.
+            </p>
+            <ul>
+              <li>Pressure zones for toes vs. heels, left vs. right, and diagonal corners</li>
+              <li>Raw sensor values normalized into percentage-based ratios</li>
+              <li>Provides rider input context for higher-level decision making</li>
+            </ul>
           </div>
         </div>
       </details>
 
-      <!-- Feature 2 -->
-      <details class="feature-card" data-index="1">
-        <summary class="feature-summary">
-          <img src="../images/wavguard/features/led-thumb.jpg" alt="led routing thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">LED routing</div>
-            <div class="feature-excerpt">High-visibility LED strips integrated along the edge and toe/heel zones.</div>
-          </div>
-        </summary>
-        <div class="feature-body" data-full="../images/wavguard/features/led-full.jpg">
-          <img src="../images/wavguard/features/led-full.jpg" alt="" class="feature-fullimg">
-          <div class="feature-text">
-            <p>LEDs are segmented per zone and driven by the microcontroller for immediate feedback. Diffusion strip and low-profile bezel make the lights visible but not abrasive.</p>
-            <ul><li>Zone-based color mapping</li><li>Waterproof silicone encapsulation</li><li>Low-power PWM dimming</li></ul>
-          </div>
-        </div>
-      </details>
 
-      <!-- Feature 3: code logic -->
+
+      <!-- Feature 2: IMU Sensor -->
+        <details class="feature-card" data-index="1">
+          <summary class="feature-summary">
+            <img src="../images/wavguard/features/imu-thumb.jpg" alt="IMU sensor thumbnail" class="feature-thumb">
+            <div class="feature-meta">
+              <div class="feature-title">IMU Sensor</div>
+              <div class="feature-excerpt">
+                Tracks board orientation and tilt to interpret rider intent.
+              </div>
+            </div>
+          </summary>
+        
+          <!-- inline fallback (hidden) -->
+          <div class="feature-body" data-full="../images/wavguard/features/imu-full.jpg">
+            <img src="../images/wavguard/features/imu-full.jpg" alt="IMU orientation detail" class="feature-fullimg">
+            <div class="feature-text">
+              <p>
+                An inertial measurement unit (IMU) continuously tracks the board’s orientation,
+                measuring roll and pitch to determine how the board is angled relative to the
+                water. This information provides essential context for interpreting pressure data.
+              </p>
+              <ul>
+                <li>Orientation data filtered to reduce wake-induced noise</li>
+                <li>Predefined tilt thresholds distinguish riding modes</li>
+                <li>Prevents penalizing intentional edge engagement</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+
+          <!-- Feature 3: code logic -->
+            <!-- Feature 3: Code Logic -->
       <details class="feature-card" data-index="2">
         <summary class="feature-summary">
           <img src="../images/wavguard/pcbscematic.png" alt="code logic thumbnail" class="feature-thumb">
           <div class="feature-meta">
-            <div class="feature-title">Code logic</div>
-            <div class="feature-excerpt">Sensor fusion and rule-based feedback for robust in-water response.</div>
+            <div class="feature-title">Code Logic</div>
+            <div class="feature-excerpt">
+              Combines pressure and orientation data to generate meaningful feedback.
+            </div>
           </div>
         </summary>
-        <div class="feature-body" data-full="../images/wavguard/pcbscematic.png">
-          <img src="../images/wavguard/pcb.png" alt="" class="feature-fullimg">
+      
+        <div class="feature-body" data-full="../images/wavguard/pcb.png">
+          <img src="../images/wavguard/pcb.png" alt="control logic schematic" class="feature-fullimg">
           <div class="feature-text">
-            <p>The firmware fuses FSR and IMU data, applies filtering and outlier rejection, then maps balance metrics to LED states. The logic prioritizes stability and avoids false positives from wakes.</p>
-            <ul><li>Complementary filter</li><li>Debounced pressure thresholds</li><li>Configurable sensitivity</li></ul>
+            <p>
+              The Code Logic layer acts as the decision-making core of WavGuard, fusing pressure
+              data from the FSRs with orientation data from the IMU. Rather than enforcing rigid
+              balance targets, the system provides guidance by comparing expected and actual
+              pressure distributions.
+            </p>
+            <ul>
+              <li>Ratio-based logic scales across different riders</li>
+              <li>Linear interpolation maps tilt angle to expected pressure ratios</li>
+              <li>LED feedback only activates when meaningful mismatches occur</li>
+              <li>Three training zones adapt feedback as rider skill increases</li>
+            </ul>
           </div>
         </div>
       </details>
+
+
 
       <!-- Feature 4: waterproofing -->
       <details class="feature-card" data-index="3">
