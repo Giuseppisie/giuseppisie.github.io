@@ -135,50 +135,6 @@
     @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 720px) { .features-grid { grid-template-columns: 1fr; } .feature-thumb { height: 44vw; } }
 
-    /* FULL IMAGES (aligned with page content/padding) */
-    .full-images {
-      max-width: var(--content-max);
-      margin: 40px auto;
-      padding: 0 20px; /* matches .features padding so headings align */
-    }
-    .full-images h2 { font-size:22px; font-weight:700; color:#111; margin:0 0 16px 0; }
-
-    .full-board {
-      max-width: var(--content-max);
-      margin: 0 auto 20px;
-      border-radius:12px;
-      overflow:hidden;
-      background: #fff;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    }
-    .full-board img { display:block; width:100%; height:auto; object-fit:contain; }
-    .full-board .caption { padding:10px 14px; background:transparent; text-align:left; }
-    .full-board .caption em { color:#333; font-style:italic; }
-
-    .cad-row {
-      max-width: var(--content-max);
-      margin: 0 auto;
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:20px;
-      align-items:start;
-      margin-top: 12px;
-    }
-    .cad-row figure {
-      background:#fff;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 8px 20px rgba(0,0,0,0.08);
-      display:flex;
-      flex-direction:column;
-    }
-    .cad-row img { display:block; width:100%; height:420px; object-fit:contain; }
-    .cad-row figcaption { padding:10px 14px; }
-    .cad-row figcaption em { color:#333; font-style:italic; }
-
-    /* clickable behavior hint */
-    .click-to-open { cursor: zoom-in; }
-
     /* MODAL */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.7);
@@ -195,7 +151,7 @@
     .modal-controls { display:flex; gap:8px; align-items:center; }
 
     .modal-body { display:flex; gap:20px; padding:20px; overflow:auto; background:#fff; }
-    .modal-img { flex: 0 0 460px; max-width:52%; border-radius:8px; object-fit:contain; box-shadow:0 10px 30px rgba(0,0,0,0.18); }
+    .modal-img { flex: 0 0 460px; max-width:52%; border-radius:8px; object-fit:cover; box-shadow:0 10px 30px rgba(0,0,0,0.18); }
     .modal-text { flex:1; color:#111; font-size:16px; line-height:1.6; }
     .modal-text ul { margin-top:12px; padding-left:20px; }
 
@@ -203,7 +159,6 @@
       .modal { max-width: calc(100% - 40px); }
       .modal-body { flex-direction: column; }
       .modal-img { max-width:100%; width:100%; height:auto; flex:none; }
-      .cad-row img { height: auto; }
     }
 
     .modal-close:focus, .modal-prev:focus, .modal-next:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 2px; }
@@ -231,7 +186,7 @@
       </p>
 
       <p>
-        Designed by a team of five Duke undergraduate engineers, WavGuard is a smart wakeboard system that delivers live visual feedback through integrated LED indicators. The board uses a combination of force-sensitive resistors (FSRs) to measure pressure distribution and an inertial measurement unit (IMU) to track orientation and motion, allowing the system to verify and contextualize rider input. All electronic components are fully padded and embedded for comfort and safety, creating a responsive training tool that supports beginners as they build confidence, balance, and technique while riding on the water.
+        Designed by a team of five engineers, WavGuard is a smart wakeboard system that delivers live visual feedback through integrated LED indicators. The board uses a combination of force-sensitive resistors (FSRs) to measure pressure distribution and an inertial measurement unit (IMU) to track orientation and motion, allowing the system to verify and contextualize rider input. All electronic components are fully padded and embedded for comfort and safety, creating a responsive training tool that supports beginners as they build confidence, balance, and technique while riding on the water.
       </p>
     </section>
   </main>
@@ -251,95 +206,309 @@
         </div>
 
         <!-- TEXT column -->
-        <div class="text-col">
-          <p><strong>Demo overview</strong></p>
-          <p>
-            This demo video was recorded during our final project presentation and shows
-            WavGuard operating in real time. The system uses <strong>ratio-based logic</strong>,
-            comparing relationships between sensors rather than absolute force values so it
-            adapts to riders of different weights and stances.
-          </p>
-
-          <p><strong>LED feedback system</strong></p>
-          <ul>
-            <li><strong>Blue:</strong> not enough pressure in a region</li>
-            <li><strong>Red:</strong> too much pressure in a region</li>
-            <li><strong>Green:</strong> appears only when the board is fully balanced</li>
-          </ul>
-
-          <p><strong>Tilt-based interpretation</strong></p>
-          <p>
-            Board orientation is measured using an <strong>IMU</strong>. Expected pressure
-            distributions are calculated from tilt angle using <strong>linear interpolation</strong>,
-            allowing feedback to adjust naturally as the board angle changes.
-          </p>
-
-          <div class="demo-note">
-            Further technical breakdowns are available in the feature sections below
-            (Foot Sensors, IMU Sensor, and Code Logic).
-          </div>
-        </div>
+    <div class="text-col">
+    
+      <p><strong>Demo overview</strong></p>
+      <p>
+        This demo video was recorded during our final project presentation and shows
+        WavGuard operating in real time. The system uses <strong>ratio-based logic</strong>,
+        comparing relationships between sensors rather than absolute force values so it
+        adapts to riders of different weights and stances.
+      </p>
+    
+      <p><strong>LED feedback system</strong></p>
+      <ul>
+        <li><strong>Blue:</strong> not enough pressure in a region</li>
+        <li><strong>Red:</strong> too much pressure in a region</li>
+        <li><strong>Green:</strong> appears only when the board is fully balanced</li>
+      </ul>
+      <p>
+        Pressure is evaluated across toes vs. heels, left vs. right, and diagonal corners.
+        Balanced regions remain unlit to avoid distracting the rider.
+      </p>
+    
+      <p><strong>Tilt-based interpretation</strong></p>
+      <p>
+        Board orientation is measured using an <strong>IMU</strong>. Expected pressure
+        distributions are calculated from tilt angle using <strong>linear interpolation</strong>,
+        allowing feedback to adjust naturally as the board angle changes.
+      </p>
+    
+      <p>
+        The system is designed as <strong>guidance rather than a strict target</strong>,
+        recognizing that some riding maneuvers naturally require imbalance.
+      </p>
+    
+      <div class="demo-note">
+        Further technical breakdowns are available in the feature sections below
+        (Foot Sensors, IMU Sensor, and Code Logic).
+      </div>
+    
+    </div>
 
       </div>
     </div>
   </section>
 
-  <!-- FEATURES (unchanged, kept for context) -->
+  <!-- FEATURES -->
   <section class="features" aria-labelledby="features-heading">
     <h2 id="features-heading" class="features-heading">Features</h2>
 
     <div class="features-grid">
-      <!-- (feature cards...) -->
-      <!-- A subset shown for brevity: keep your full feature list in your project -->
+
+      <!-- Feature 1: Foot Sensors (FSR) -->
       <details class="feature-card" data-index="0">
         <summary class="feature-summary">
           <img src="../images/wavguard/footsensor.png" alt="foot sensors thumbnail" class="feature-thumb">
           <div class="feature-meta">
             <div class="feature-title">Foot Sensors (FSR)</div>
-            <div class="feature-excerpt">Embedded pressure sensors measure how weight is distributed across the board.</div>
+            <div class="feature-excerpt">
+              Embedded pressure sensors measure how weight is distributed across the board.
+            </div>
           </div>
         </summary>
+
         <div class="feature-body" data-full="../images/wavguard/footwalkthrough.png">
-          <!-- hidden body for modal content extraction -->
+          <img src="../images/wavguard/footwalkthrough.png" alt="FSR layout detail" class="feature-fullimg">
           <div class="feature-text">
-            <p>WavGuard uses force-sensitive resistors (FSRs) embedded beneath the rider’s feet to measure pressure distribution. The firmware normalizes readings into ratios (e.g., 60% toes / 40% heels) and compares those ratios with expected values derived from IMU tilt.</p>
-            <ul><li>Toes vs heels, left vs right, diagonal corners</li><li>Normalized percentage ratios (not raw force)</li><li>Calibration routine for consistent readings</li></ul>
+            <p>
+              WavGuard uses force-sensitive resistors (FSRs) embedded beneath the rider’s feet to measure how pressure is distributed across the wakeboard. Instead of relying on absolute force values, which vary widely between riders, the system evaluates <strong>relative pressure ratios</strong> between sensor regions. This allows the system to scale across different rider weights, stances, and skill levels without recalibration.
+            </p>
+
+            <p>The board is divided into multiple pressure zones that capture meaningful balance information:</p>
+
+            <ul>
+              <li>Toes vs. heels (forward/backward balance)</li>
+              <li>Left vs. right side (lateral balance)</li>
+              <li>Diagonal corners (rotational imbalance)</li>
+            </ul>
+
+            <p>
+              At each timestep, raw analog FSR readings are normalized into percentage-based ratios representing how total rider weight is distributed across the board. For example, instead of measuring force in newtons, the system determines whether 60% of pressure is on the toes and 40% on the heels.
+            </p>
+
+            <p>
+              This ratio-based approach ensures that feedback reflects <em>how</em> a rider is balancing, not <em>how hard</em> they are pushing. These normalized pressure ratios are then passed to the Code Logic layer, where they are compared against expected values derived from board orientation.
+            </p>
           </div>
         </div>
       </details>
 
-      <!-- ...include the rest of your features here (IMU, Code Logic, Waterproofing, Electronics box, Wire+LED) ... -->
+      <!-- Feature 2: IMU Sensor -->
+      <details class="feature-card" data-index="1">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/imu.png" alt="IMU sensor thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">IMU Sensor</div>
+            <div class="feature-excerpt">
+              Measures board tilt and orientation to interpret rider intent.
+            </div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/wavguard/imu.png">
+          <img src="../images/wavguard/features/imu.png" alt="IMU orientation detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              WavGuard uses an inertial measurement unit (IMU) to track the board’s orientation in real time. Specifically, roll and pitch angles are monitored to determine how the board is tilted relative to the water. This information provides critical context for interpreting pressure data from the FSRs.
+            </p>
+
+            <p>
+              Raw IMU data is filtered to reduce noise caused by wakes, vibration, and transient disturbances. Short-duration spikes are suppressed so that feedback reflects sustained rider behavior rather than momentary water conditions.
+            </p>
+
+            <p>The system defines three tilt-based training zones:</p>
+
+            <ul>
+              <li><strong>0–8° (Balance Mode):</strong> The board is considered relatively flat. The system checks for even pressure distribution across all FSR regions and reinforces basic stance awareness.</li>
+              <li><strong>8–20° (Edge Commitment Mode):</strong> The rider is intentionally edging. In this range, pressure is expected to shift in proportion to the tilt angle, and feedback teaches riders how to commit weight correctly.</li>
+              <li><strong>&gt;22° (Safety Warning Mode):</strong> The board is approaching a loss-of-control condition. Large red warnings prioritize rider safety rather than correction.</li>
+            </ul>
+
+            <p>
+              By using tilt thresholds, the IMU prevents the system from penalizing riders for intentional maneuvers while still identifying unintentional imbalance. IMU data is passed to the Code Logic layer to determine the expected pressure distribution for a given board angle.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Feature 3: Code Logic -->
+      <details class="feature-card" data-index="2">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/pcbscematic.png" alt="code logic thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Code Logic</div>
+            <div class="feature-excerpt">
+              Integrates sensor data to determine when and how feedback is shown.
+            </div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/wavguard/pcb.png">
+          <img src="../images/wavguard/pcb.png" alt="control logic schematic" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              The Code Logic layer acts as the central decision-making system of WavGuard. It combines normalized pressure ratios from the FSRs with orientation data from the IMU to determine when feedback is necessary and what form it should take.
+            </p>
+
+            <p>
+              For each timestep, the system calculates an <strong>expected pressure ratio</strong> based on board tilt using linear interpolation. For example:
+            </p>
+
+            <ul>
+              <li>At 0° tilt, expected pressure is evenly distributed (≈50% toes / 50% heels).</li>
+              <li>At 15° toe-side tilt, the system expects ~70% of pressure on the toes.</li>
+              <li>At higher tilt angles, expected ratios shift accordingly.</li>
+            </ul>
+
+            <p>
+              Actual pressure ratios from the FSRs are compared against these expected values. If the mismatch exceeds a predefined tolerance, visual feedback is generated. This prevents constant feedback during minor fluctuations and focuses attention only on meaningful errors.
+            </p>
+
+            <p>LED feedback follows three clear rules:</p>
+            <ul>
+              <li><strong>Blue:</strong> Not enough pressure in a region</li>
+              <li><strong>Red:</strong> Too much pressure in a region</li>
+              <li><strong>Green:</strong> Appears only when pressure distribution and board orientation are in equilibrium</li>
+            </ul>
+
+            <p>
+              Balanced regions remain unlit to minimize distraction. Green is not intended as a constant target; rather, it indicates moments of equilibrium. The system is designed as <strong>guidance</strong>, recognizing that certain riding maneuvers naturally require imbalance.
+            </p>
+
+            <p>
+              To ensure stability and usability, pressure data is debounced, IMU signals are filtered, and feedback updates are rate-limited. Together, these design choices create a responsive yet non-intrusive training system that accelerates learning without overwhelming the rider.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Feature 4: Waterproofing -->
+      <details class="feature-card" data-index="3">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/watertest.jpg" alt="waterproofing thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Waterproofing</div>
+            <div class="feature-excerpt">IP67-rated enclosures and sealed cable glands at all penetrations.</div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/wavguard/watertestvid.mp4">
+          <!-- show video in modal if data-full points to a video; poster provided in feature demo -->
+          <video class="feature-fullimg" controls preload="metadata" poster="../images/wavguard/watertest.jpg" playsinline>
+            <source src="../images/wavguard/watertestvid.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+          <div class="feature-text">
+            <p>
+                RTV silicone and marine-grade sealant are used to attach the LEDs, seal joints, and waterproof the wiring entry points.            </p>
+            <ul>
+              <li>Gasketed electronics box</li>
+              <li>Marine-grade connectors</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- Feature 5: Electronics box -->
+      <details class="feature-card" data-index="4">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/electronicsbox.png" alt="electronics box thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Electronics box</div>
+            <div class="feature-excerpt">Modular, serviceable enclosure with quick-access fastener and internal mounting plane.</div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/wavguard/features/electronicsbox.png">
+          <img src="../images/wavguard/electronicsbox.png" alt="electronics box detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              An IMU is placed in the center electronics box to measure board tilt and angle.
+            </p>
+
+            <p>
+              An IP65-rated waterproof ABS enclosure with an O-ring seal houses the ESP32, IMU, FSR circuitry, and LED resistors. The enclosure is mounted with threaded inserts for secure attachment and easy service access.
+            </p>
+
+            <ul>
+              <li>Removable and rechargeable battery</li>
+              <li>Exterior on/off button</li>
+              <li>Cushioned mounting (neoprene) to isolate shocks and prevent collisions</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+        <!-- Feature 6: Wire and LED Routing -->
+      <details class="feature-card" data-index="5">
+        <summary class="feature-summary">
+          <img src="../images/wavguard/embed.png" alt="embedded wiring thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Wire and LED Routing</div>
+            <div class="feature-excerpt">
+              Embedded wiring and edge-mounted LEDs for a finished, waterproof design.
+            </div>
+          </div>
+        </summary>
+      
+        <div class="feature-body" data-full="../images/wavguard/routing.png">
+      
+          <!-- Image 1: embedded wiring -->
+          <img src="../images/wavguard/embed.png" alt="embedded wiring channels" class="feature-fullimg">
+      
+          <div class="feature-text">
+            <p>
+              To create a clean, finished board with no exposed electronics, we used a Dremel
+              to machine custom wiring channels directly into the board. These channels route
+              power and signal lines beneath the foot pads, connecting the electronics box to
+              the foot sensors and LED system while keeping all wiring inaccessible to the rider.
+            </p>
+      
+            <p>
+              After routing, the channels were filled with <strong>potting gel and waterproof epoxy</strong>
+              to lock the wires in place and provide long-term water resistance. This process
+              prevents wire movement under flex and ensures durability in repeated water exposure.
+            </p>
+      
+            <ul>
+              <li>Wiring embedded below the board surface</li>
+              <li>Potting gel and epoxy for waterproofing and strain relief</li>
+              <li>All wiring hidden beneath foot pads for safety and aesthetics</li>
+            </ul>
+          </div>
+      
+          <!-- Image 2: LED routing -->
+          <img src="../images/wavguard/LEDs.png" alt="LED routing along board edge" class="feature-fullimg">
+      
+          <div class="feature-text">
+            <p>
+              Individually addressable LED strips were mounted along the perimeter of the board
+              to provide immediate, intuitive visual feedback. LEDs were placed where they remain
+              visible to the rider without interfering with stance or movement.
+            </p>
+      
+            <p>
+              Custom 3D-printed corner brackets were designed to secure the LED strips and protect
+              both the board edges and electronics from impact during falls or transport.
+            </p>
+      
+            <ul>
+              <li>Individually addressable LEDs for zoned feedback</li>
+              <li>Edge-mounted placement for high visibility</li>
+              <li>3D-printed corner brackets for protection and durability</li>
+            </ul>
+          </div>
+      
+        </div>
+      </details>
+
 
     </div>
   </section>
 
-  <!-- FULL IMAGES (aligned & clickable) -->
-  <section class="full-images" aria-labelledby="full-images-heading">
-    <h2 id="full-images-heading">Full images</h2>
-
-    <!-- Large full-board photo (clickable) -->
-    <div class="full-board click-to-open" role="button" tabindex="0" data-full="../images/wavguard/wavfull.png" aria-label="Open full board image">
-      <img src="../images/wavguard/wavfull.png" alt="WavGuard full board photo" onerror="this.style.opacity=.3; this.nextElementSibling.querySelector('em').textContent='(image missing) Full board — finished top surface with embedded sensors and edge LEDs';">
-      <div class="caption">
-        <em>Full board — finished top surface with embedded sensors and edge LEDs</em>
-      </div>
-    </div>
-
-    <!-- Two-column CAD row (same width as full image above) -->
-    <div class="cad-row">
-      <figure class="click-to-open" role="button" tabindex="0" data-full="../images/wavguard/exploadedwav.png" aria-label="Open exploded view">
-        <img src="../images/wavguard/exploadedwav.png" alt="Exploded view of WavGuard components" onerror="this.style.opacity=.3;">
-        <figcaption><em>Exploded view — component layout</em></figcaption>
-      </figure>
-
-      <figure class="click-to-open" role="button" tabindex="0" data-full="../images/wavguard/cadwavexp.png" aria-label="Open labeled CAD view">
-        <img src="../images/wavguard/cadwavexp.png" alt="Labeled CAD view of WavGuard" onerror="this.style.opacity=.3;">
-        <figcaption><em>Labeled CAD view — mounting points, channel routing, and enclosure placement</em></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- MODAL (reused for features + full images) -->
+  <!-- MODAL -->
   <div id="featureModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal" role="document" aria-labelledby="modal-title">
       <div class="modal-top">
@@ -351,7 +520,7 @@
         </div>
       </div>
       <div class="modal-body">
-        <!-- image or video will be injected here -->
+        <!-- default image element (may be replaced by video node when needed) -->
         <img src="" alt="" class="modal-img" id="modalImg">
         <div class="modal-text">
           <div id="modalDesc"></div>
@@ -362,146 +531,110 @@
   </div>
 
 <script>
-  // Build a list of "clickable image" elements from both feature modal sources and full-images
+  // Collect feature data from the page
+  const featureCards = Array.from(document.querySelectorAll('.feature-card'));
+  const features = featureCards.map(card => {
+    const title = card.querySelector('.feature-title')?.textContent?.trim() || '';
+    const excerpt = card.querySelector('.feature-excerpt')?.textContent?.trim() || '';
+    const body = card.querySelector('.feature-body');
+    let fullSrc = body?.getAttribute('data-full') || '';
+    if (!fullSrc) {
+      const img = body?.querySelector('img');
+      const vid = body?.querySelector('video source');
+      if (img) fullSrc = img.src || img.getAttribute('src') || '';
+      else if (vid) fullSrc = vid.getAttribute('src') || '';
+    }
+
+    const paragraphs = Array.from(body?.querySelectorAll('.feature-text p') || [])
+                           .map(p => p.textContent.trim())
+                           .filter(t => t.length > 0);
+
+    const listItems = Array.from(body?.querySelectorAll('.feature-text ul li') || [])
+                           .map(li => li.textContent.trim())
+                           .filter(t => t.length > 0);
+
+    return { title, excerpt, fullSrc, paragraphs, listItems };
+  });
+
+  // Modal elements
   const modalOverlay = document.getElementById('featureModal');
   const modalTitle = document.getElementById('modal-title');
+  const modalImg = document.getElementById('modalImg');
   const modalDesc = document.getElementById('modalDesc');
   const modalList = document.getElementById('modalList');
   const btnClose = modalOverlay.querySelector('.modal-close');
   const btnPrev = modalOverlay.querySelector('.modal-prev');
   const btnNext = modalOverlay.querySelector('.modal-next');
 
-  // Collect feature "cards" that we already set up earlier (if present)
-  const featureCards = Array.from(document.querySelectorAll('.feature-card'));
-  // Also collect full-images clickable items (full-board & cad figures)
-  const fullClickable = Array.from(document.querySelectorAll('.full-board.click-to-open, .cad-row .click-to-open'));
-
-  // We'll create a unified "gallery" array for modal navigation from the clickable items on the page.
-  const galleryItems = [];
-
-  // Helper to extract data from a feature-card (if body present)
-  function extractFeatureData(card) {
-    const title = card.querySelector('.feature-title')?.textContent?.trim() || '';
-    const body = card.querySelector('.feature-body');
-    let fullSrc = body?.getAttribute('data-full') || '';
-    if (!fullSrc) {
-      const img = body?.querySelector('img');
-      const vid = body?.querySelector('video source');
-      if (img) fullSrc = img.getAttribute('src') || img.src || '';
-      else if (vid) fullSrc = vid.getAttribute('src') || '';
-    }
-    const paragraphs = Array.from(body?.querySelectorAll('.feature-text p') || []).map(p => p.textContent.trim()).filter(Boolean);
-    const listItems = Array.from(body?.querySelectorAll('.feature-text ul li') || []).map(li => li.textContent.trim()).filter(Boolean);
-    return { title, fullSrc, paragraphs, listItems };
-  }
-
-  // Add features first
-  featureCards.forEach((card) => {
-    const data = extractFeatureData(card);
-    // Only include if it has a source
-    if (data.fullSrc) {
-      galleryItems.push(data);
-    } else {
-      // fallback: use excerpt/title only
-      const title = card.querySelector('.feature-title')?.textContent?.trim() || '';
-      const excerpt = card.querySelector('.feature-excerpt')?.textContent?.trim() || '';
-      galleryItems.push({ title, fullSrc: '', paragraphs: [excerpt], listItems: [] });
-    }
-  });
-
-  // Add full images and cad figures after features
-  fullClickable.forEach(el => {
-    const src = el.getAttribute('data-full') || el.querySelector('img')?.getAttribute('src') || '';
-    const title = el.querySelector('figcaption em')?.textContent?.trim() || el.querySelector('.caption em')?.textContent?.trim() || '';
-    galleryItems.push({ title: title || 'Image', fullSrc: src, paragraphs: [], listItems: [] });
-  });
-
-  // Modal index state
   let currentIndex = 0;
 
-  function isVideo(src) {
-    return /\.(mp4|webm|ogg)$/i.test(src);
-  }
-
   function renderMedia(fullSrc, title) {
+    const isVideo = /\.(mp4|webm|ogg)$/i.test(fullSrc);
     const modalBody = document.querySelector('.modal-body');
+
     // remove existing media nodes (img or video)
     const existingImg = modalBody.querySelector('img.modal-img');
     const existingVideo = modalBody.querySelector('video.modal-img');
     if (existingImg) existingImg.remove();
     if (existingVideo) existingVideo.remove();
 
-    if (!fullSrc) {
-      // show placeholder text in modalImg area
-      const placeholder = document.createElement('div');
-      placeholder.className = 'modal-img';
-      placeholder.style.display = 'flex';
-      placeholder.style.alignItems = 'center';
-      placeholder.style.justifyContent = 'center';
-      placeholder.style.background = '#f4f4f4';
-      placeholder.style.color = '#333';
-      placeholder.style.fontSize = '14px';
-      placeholder.style.padding = '20px';
-      placeholder.textContent = 'No preview available';
-      modalBody.insertBefore(placeholder, modalBody.querySelector('.modal-text'));
-      return;
-    }
-
-    if (isVideo(fullSrc)) {
+    if (isVideo) {
       const video = document.createElement('video');
       video.setAttribute('controls', '');
       video.setAttribute('playsinline', '');
       video.className = 'modal-img';
       video.style.width = '100%';
       video.style.height = '100%';
+      video.alt = title || '';
       const source = document.createElement('source');
       source.src = fullSrc;
-      // try to detect type by extension
-      if (/\.mp4$/i.test(fullSrc)) source.type = 'video/mp4';
-      else if (/\.webm$/i.test(fullSrc)) source.type = 'video/webm';
-      else source.type = 'video/mp4';
+      source.type = 'video/mp4';
       video.appendChild(source);
       modalBody.insertBefore(video, modalBody.querySelector('.modal-text'));
-      // muted autoplay attempt for nicer UX (will be blocked sometimes)
+      // try to autoplay muted briefly for user experience (but do not force sound)
       video.muted = true;
-      video.play().catch(()=>{ /* ignore autoplay errors */ });
+      video.play().catch(()=>{/* autoplay may be blocked; that's fine */});
       return;
+    } else {
+      const img = document.createElement('img');
+      img.id = 'modalImg';
+      img.className = 'modal-img';
+      img.src = fullSrc || '';
+      img.alt = title || '';
+      modalBody.insertBefore(img, modalBody.querySelector('.modal-text'));
     }
-
-    // otherwise image
-    const img = document.createElement('img');
-    img.className = 'modal-img';
-    img.src = fullSrc;
-    img.alt = title || '';
-    img.onerror = function(){ this.style.opacity = 0.25; };
-    modalBody.insertBefore(img, modalBody.querySelector('.modal-text'));
   }
 
   function openModal(index) {
-    if (index < 0 || index >= galleryItems.length) return;
+    if (index < 0 || index >= features.length) return;
     currentIndex = index;
-    const item = galleryItems[index];
-    modalTitle.textContent = item.title || 'Preview';
-    // render media (image or video)
-    renderMedia(item.fullSrc || '', item.title);
-    // description paragraphs
+    const f = features[index];
+
+    modalTitle.textContent = f.title || 'Feature';
+    renderMedia(f.fullSrc || '', f.title);
+
+    // paragraphs
     modalDesc.innerHTML = '';
-    if (item.paragraphs && item.paragraphs.length) {
-      item.paragraphs.forEach(text => {
+    if (f.paragraphs && f.paragraphs.length) {
+      f.paragraphs.forEach(text => {
         const p = document.createElement('p');
         p.textContent = text;
         modalDesc.appendChild(p);
       });
+    } else {
+      modalDesc.textContent = f.excerpt || '';
     }
-    // list items
+
+    // list
     modalList.innerHTML = '';
-    if (item.listItems && item.listItems.length) {
-      item.listItems.forEach(li => {
+    if (f.listItems && f.listItems.length) {
+      f.listItems.forEach(li => {
         const el = document.createElement('li');
         el.textContent = li;
         modalList.appendChild(el);
       });
     }
+
     modalOverlay.classList.add('open');
     modalOverlay.setAttribute('aria-hidden', 'false');
     btnClose.focus();
@@ -512,64 +645,57 @@
     modalOverlay.classList.remove('open');
     modalOverlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    // remove playing video if present
+    // stop/remove any playing video
     const video = document.querySelector('.modal-body video');
-    if (video) {
-      try { video.pause(); } catch(e) {}
-      video.remove();
-    }
-    // ensure an <img> placeholder is present for next open (clean state)
-    const existingImg = document.querySelector('.modal-body img.modal-img');
-    if (!existingImg) {
-      const placeholder = document.createElement('img');
-      placeholder.className = 'modal-img';
-      placeholder.src = '';
-      placeholder.alt = '';
-      modalBody = document.querySelector('.modal-body');
-      modalBody.insertBefore(placeholder, modalBody.querySelector('.modal-text'));
+    if (video) { video.pause(); video.remove(); }
+    // ensure base img exists for next open
+    const modalBody = document.querySelector('.modal-body');
+    if (!modalBody.querySelector('img.modal-img')) {
+      const img = document.createElement('img');
+      img.id = 'modalImg';
+      img.className = 'modal-img';
+      img.src = '';
+      img.alt = '';
+      modalBody.insertBefore(img, modalBody.querySelector('.modal-text'));
     }
   }
 
-  function prevItem() { openModal((currentIndex - 1 + galleryItems.length) % galleryItems.length); }
-  function nextItem() { openModal((currentIndex + 1) % galleryItems.length); }
+  function showPrev() { openModal((currentIndex - 1 + features.length) % features.length); }
+  function showNext() { openModal((currentIndex + 1) % features.length); }
 
-  // Attach click handlers for feature-card summaries (first N items)
-  const clickableFeatureSummaries = Array.from(document.querySelectorAll('.feature-card .feature-summary'));
-  clickableFeatureSummaries.forEach((summary, idx) => {
-    // index in galleryItems is same order as features were added earlier
+  // Attach click handlers
+  featureCards.forEach((card, idx) => {
+    const summary = card.querySelector('.feature-summary');
     summary.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // let links behave normally
       e.preventDefault();
       openModal(idx);
     });
     summary.setAttribute('tabindex','0');
-    summary.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(idx); } });
-  });
-
-  // Attach click handlers for full-images items (they are appended after features in gallery)
-  fullClickable.forEach((el, i) => {
-    const galleryIndex = featureCards.length + i; // offset after features
-    el.addEventListener('click', (e) => { e.preventDefault(); openModal(galleryIndex); });
-    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(galleryIndex); } });
+    summary.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(idx); }
+    });
   });
 
   // Modal controls
   btnClose.addEventListener('click', closeModal);
-  btnPrev.addEventListener('click', (e)=>{ e.stopPropagation(); prevItem(); });
-  btnNext.addEventListener('click', (e)=>{ e.stopPropagation(); nextItem(); });
+  btnPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
+  btnNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
 
   modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
   document.addEventListener('keydown', (e) => {
     if (!modalOverlay.classList.contains('open')) return;
     if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowLeft') prevItem();
-    if (e.key === 'ArrowRight') nextItem();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
   });
 
-  // Preload non-video images for smoother modal open
-  galleryItems.forEach(item => {
-    if (item.fullSrc && !/\.(mp4|webm|ogg)$/i.test(item.fullSrc)) {
+  // preload images (skip videos)
+  features.forEach(f => {
+    if (f.fullSrc && !/\.(mp4|webm|ogg)$/i.test(f.fullSrc)) {
       const img = new Image();
-      img.src = item.fullSrc;
+      img.src = f.fullSrc;
     }
   });
 </script>
