@@ -219,132 +219,152 @@
 
 <body>
 
-  <!-- START: SITE TOPBAR (inserted without touching any other content) -->
-  <header class="site-topbar" role="banner" aria-label="Primary navigation" style="position:fixed;left:0;right:0;top:0;z-index:1200;background:rgba(255,255,255,0.04);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,0.06);">
-    <div class="topbar-inner" style="max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
-      <div class="brand"><a href="index.html" aria-label="Go to home" style="color:#fff;text-decoration:none;font-weight:800;font-size:18px;text-shadow:0 2px 8px rgba(0,0,0,0.35);">Sienna Giuseppi</a></div>
+ <!-- START: SITE TOPBAR (copy this to the top of every page, right after <body>) -->
+<style>
+  /* Topbar core styles — paste on every page once (keeps styles local to topbar) */
+  .site-topbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1200;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .topbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
 
-      <nav class="main-nav" role="navigation" aria-label="Main">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Open menu" style="display:none;background:transparent;border:none;color:#fff;font-size:20px;padding:6px;cursor:pointer;">☰</button>
+  .topbar-brand a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 18px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  }
 
-        <ul id="nav-list" class="nav-list" style="display:flex;gap:12px;margin:0;padding:0;list-style:none;align-items:center;">
-          <li><a class="nav-link" href="about.html" style="color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:700;">About</a></li>
-          <li><a class="nav-link" href="index.html#engineering-projects" style="color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:700;">Projects</a></li>
-          <li><a class="nav-link" href="index.html#experiences" style="color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:700;">Experiences</a></li>
-          <li><a class="nav-link" href="resume.html" style="color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:700;">Resume</a></li>
-        </ul>
-      </nav>
+  /* Horizontal nav that never stacks; on small screens it scrolls horizontally */
+  .topbar-nav {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    overflow-x: auto;           /* scroll horizontally when narrow */
+    white-space: nowrap;        /* keep items on one line */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .topbar-nav::-webkit-scrollbar { height: 8px; }
+  .topbar-nav::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 8px; }
+
+  .topbar-nav a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: background .14s ease, box-shadow .14s ease;
+  }
+
+  .topbar-nav a:hover,
+  .topbar-nav a:focus {
+    background: var(--card);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    outline: none;
+  }
+
+  /* Active state helper */
+  .topbar-nav a.active {
+    background: var(--card);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  }
+
+  /* Make sure topbar doesn't cover the hero text — add top spacing variable if you want:
+     You can add `body { padding-top: 64px; }` to your global CSS on pages that include this bar
+     if you prefer the content pushed down (optional). */
+</style>
+
+<header class="site-topbar" role="banner" aria-label="Primary navigation">
+  <div class="topbar-inner">
+    <div class="topbar-brand">
+      <a href="index.html" aria-label="Home — Sienna Giuseppi">Sienna Giuseppi</a>
     </div>
-  </header>
 
-  <script>
-    (function(){
-      const toggle = document.querySelector('.nav-toggle');
-      const navList = document.getElementById('nav-list');
+    <nav class="topbar-nav" role="navigation" aria-label="Main site navigation">
+      <!-- About is a separate page; Projects/Experiences anchor to index.html hash; Resume -> resume.html -->
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="index.html#engineering-projects">Projects</a>
+      <a class="nav-link" href="index.html#experiences">Experiences</a>
+      <a class="nav-link" href="resume.html">Resume</a>
+    </nav>
+  </div>
+</header>
 
-      if(toggle && navList) {
-        toggle.addEventListener('click', () => {
-          const isOpen = navList.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', String(isOpen));
-          // mobile show/hide styles (inline approach so we didn't change your CSS files)
-          if (isOpen) {
-            navList.style.display = 'flex';
-            navList.style.flexDirection = 'column';
-            navList.style.position = 'absolute';
-            navList.style.right = '20px';
-            navList.style.top = '60px';
-            navList.style.background = 'rgba(255,255,255,0.98)';
-            navList.style.color = '#111';
-            navList.style.padding = '8px';
-            navList.style.borderRadius = '8px';
-            navList.style.boxShadow = '0 12px 40px rgba(0,0,0,0.18)';
-          } else {
-            navList.style.display = '';
-            navList.style.flexDirection = '';
-            navList.style.position = '';
-            navList.style.right = '';
-            navList.style.top = '';
-            navList.style.background = '';
-            navList.style.color = '';
-            navList.style.padding = '';
-            navList.style.borderRadius = '';
-            navList.style.boxShadow = '';
+<script>
+  // Topbar behavior: mark active link and smooth-scroll same-page anchors on index.html
+  (function () {
+    const links = Array.from(document.querySelectorAll('.site-topbar .nav-link'));
+
+    // Highlight an active link if its href matches current pathname or hash.
+    function updateActive() {
+      links.forEach(a => a.classList.remove('active'));
+      const curPath = window.location.pathname.split('/').pop() || 'index.html';
+      const curHash = window.location.hash || '';
+      links.forEach(a => {
+        const href = a.getAttribute('href') || '';
+        // If href is an anchor on the current page or an index hash
+        if (href.startsWith('#') && href === curHash) {
+          a.classList.add('active');
+        } else if (href.includes('#') && href.split('#')[0].endsWith('index.html')) {
+          // link to index.html#section
+          if (curPath === 'index.html' || curPath === '') {
+            if (('#' + href.split('#')[1]) === curHash) a.classList.add('active');
           }
-        });
-
-        // Close nav when clicking outside (mobile)
-        document.addEventListener('click', (e) => {
-          if (!navList.contains(e.target) && !toggle.contains(e.target)) {
-            navList.classList.remove('open');
-            toggle.setAttribute('aria-expanded', 'false');
-            navList.style.display = '';
-          }
-        });
-      }
-
-      // Mark active nav item: compare href vs current location
-      function updateActiveNav() {
-        const links = Array.from(document.querySelectorAll('.nav-link'));
-        links.forEach(a => a.classList.remove('active'));
-        const cur = window.location.pathname + window.location.search + window.location.hash;
-        links.forEach(a => {
-          const linkHref = a.getAttribute('href') || '';
-          try {
-            const linkUrl = new URL(linkHref, window.location.origin + window.location.pathname);
-            if (linkUrl.pathname === window.location.pathname) {
-              if (!linkUrl.hash) {
-                a.classList.add('active');
-                a.style.background = 'var(--card)';
-                a.style.boxShadow = '0 6px 18px rgba(0,0,0,0.18)';
-              } else if (linkUrl.hash && linkUrl.hash === window.location.hash) {
-                a.classList.add('active');
-                a.style.background = 'var(--card)';
-                a.style.boxShadow = '0 6px 18px rgba(0,0,0,0.18)';
-              }
-            } else {
-              const p1 = (linkUrl.pathname || '').replace(/^\/+|\/+$/g, '');
-              const p2 = (window.location.pathname || '').replace(/^\/+|\/+$/g, '');
-              if ((p1 === 'index.html' || p1 === '') && (p2 === 'index.html' || p2 === '')) {
-                if (linkUrl.hash && linkUrl.hash === window.location.hash) {
-                  a.classList.add('active');
-                  a.style.background = 'var(--card)';
-                  a.style.boxShadow = '0 6px 18px rgba(0,0,0,0.18)';
-                }
-              }
-            }
-          } catch(e) {}
-        });
-      }
-
-      // Smooth scroll for same-page anchor clicks
-      document.querySelectorAll('.nav-link').forEach(a => {
-        a.addEventListener('click', (e) => {
-          const href = a.getAttribute('href') || '';
-          if (href.includes('#') && (href.startsWith('#') || href.includes('index.html'))) {
-            const hash = href.split('#')[1] ? '#' + href.split('#')[1] : '';
-            const onIndex = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname === '/';
-            const linkIsIndex = href.startsWith('index.html') || href.startsWith('/index.html') || href.startsWith('#');
-            if (onIndex && linkIsIndex && hash) {
-              e.preventDefault();
-              const el = document.querySelector(hash);
-              if (el) {
-                el.scrollIntoView({behavior:'smooth', block:'start'});
-                history.replaceState(null, '', (window.location.pathname.includes('index.html') ? 'index.html' : '') + hash);
-                if (navList) { navList.classList.remove('open'); navList.style.display = ''; }
-                if (toggle) toggle.setAttribute('aria-expanded','false');
-                setTimeout(updateActiveNav, 300);
-              }
-            }
-          }
-        });
+        } else {
+          // normal page-to-page matching
+          const linkPath = href.split('#')[0].split('/').pop() || '';
+          if (linkPath === curPath) a.classList.add('active');
+        }
       });
+    }
 
-      updateActiveNav();
-      window.addEventListener('hashchange', updateActiveNav);
-      window.addEventListener('popstate', updateActiveNav);
-    })();
-  </script>
-  <!-- END: SITE TOPBAR -->
+    // Smooth scroll for same-page anchors (index.html). If you click Projects on index.html,
+    // it will smooth-scroll instead of reloading the page.
+    links.forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href') || '';
+        // If a hash for index anchor and we're on index page, smooth scroll
+        if ((href.startsWith('#') || href.includes('index.html#')) &&
+            (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/'))) {
+          const hash = href.includes('#') ? '#' + href.split('#')[1] : href;
+          if (hash && document.querySelector(hash)) {
+            e.preventDefault();
+            document.querySelector(hash).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, '', (window.location.pathname.includes('index.html') ? 'index.html' : '') + hash);
+            setTimeout(updateActive, 300);
+            return;
+          }
+        }
+        // Otherwise allow normal navigation (go to page)
+      });
+    });
+
+    window.addEventListener('hashchange', updateActive);
+    window.addEventListener('popstate', updateActive);
+    updateActive();
+  })();
+</script>
+<!-- END: SITE TOPBAR -->
+
 
   <!-- HERO -->
   <header class="hero" role="banner" aria-label="Hero image of Duke University">
