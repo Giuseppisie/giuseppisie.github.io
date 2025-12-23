@@ -18,6 +18,220 @@
 
     /* --- subtle blueprint grid (dot grid) + noise overlay --- */
     body {
+
+      <!-- START: SITE TOPBAR (paste at top of <body> on every page) -->
+<header class="site-topbar" role="banner" aria-label="Primary navigation">
+  <div class="topbar-inner">
+    <div class="brand"><a href="index.html" aria-label="Go to home">Sienna Giuseppi</a></div>
+
+    <nav class="main-nav" role="navigation" aria-label="Main">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Open menu">
+        ☰
+      </button>
+
+      <ul id="nav-list" class="nav-list">
+        <li><a class="nav-link" href="about.html">About</a></li>
+        <li><a class="nav-link" href="index.html#engineering-projects">Projects</a></li>
+        <li><a class="nav-link" href="index.html#experiences">Experiences</a></li>
+        <li><a class="nav-link" href="resume.html">Resume</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Topbar styles (use same palette as your site) */
+  :root {
+    --bg: #a0c0bc;
+    --card: #427b76;
+    --accent: #b0ab52;
+  }
+  .site-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1200;
+    background: rgba(255,255,255,0.04); /* subtle glass */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .topbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .brand a {
+    color: #fff;
+    text-decoration:none;
+    font-weight:800;
+    font-size:18px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  }
+
+  /* nav */
+  .main-nav { display:flex; align-items:center; gap:12px; }
+  .nav-toggle {
+    display:none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size:20px;
+    padding:6px;
+    cursor:pointer;
+  }
+  .nav-list {
+    display:flex;
+    gap:12px;
+    margin:0;
+    padding:0;
+    list-style:none;
+    align-items:center;
+  }
+  .nav-link {
+    color: #fff;
+    text-decoration:none;
+    padding:8px 12px;
+    border-radius:8px;
+    font-weight:700;
+    background: transparent;
+  }
+  .nav-link:hover, .nav-link:focus { background: rgba(255,255,255,0.06); outline: none; }
+  .nav-link.active {
+    background: var(--card);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  }
+
+  /* Responsive: collapsible menu */
+  @media (max-width:820px) {
+    .nav-toggle { display:inline-flex; }
+    .nav-list {
+      position: absolute;
+      right: 20px;
+      top: calc(100% + 8px);
+      background: rgba(255,255,255,0.98);
+      color: #111;
+      flex-direction: column;
+      gap: 0;
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      display: none;
+      min-width: 180px;
+    }
+    .nav-list.open { display:flex; }
+    .nav-list .nav-link { color: #111; padding: 10px 12px; font-weight:700; background: none; border-radius:6px; }
+    .nav-list .nav-link.active { background: var(--card); color:#fff; }
+    .topbar-inner { position: relative; }
+  }
+
+  /* ensure page content sits below the topbar */
+  body { padding-top: 64px; } /* tweak if your topbar height differs */
+</style>
+
+<script>
+  // Topbar behavior script — include on every page (put after the topbar markup)
+  (function(){
+    const toggle = document.querySelector('.nav-toggle');
+    const navList = document.getElementById('nav-list');
+
+    if(toggle && navList) {
+      toggle.addEventListener('click', () => {
+        const isOpen = navList.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      // Close nav when clicking outside (mobile)
+      document.addEventListener('click', (e) => {
+        if (!navList.contains(e.target) && !toggle.contains(e.target)) {
+          navList.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Mark active nav item: compare href vs current location
+    function updateActiveNav() {
+      const links = Array.from(document.querySelectorAll('.nav-link'));
+      links.forEach(a => a.classList.remove('active'));
+
+      const cur = window.location.pathname + window.location.search + window.location.hash;
+      links.forEach(a => {
+        // normalize both href and current location to allow index anchors
+        const linkHref = a.getAttribute('href') || '';
+        // If link points to index anchors, and we're on index.html, activate when hashes match or when anchor exists
+        try {
+          const linkUrl = new URL(linkHref, window.location.origin + window.location.pathname);
+          // simple checks:
+          if (linkUrl.pathname === window.location.pathname) {
+            // same page: handle anchor
+            if (!linkUrl.hash) {
+              // link to same page file -> activate if path matches AND we're on index or same page
+              a.classList.add('active');
+            } else if (linkUrl.hash && linkUrl.hash === window.location.hash) {
+              a.classList.add('active');
+            }
+          } else {
+            // if both point to index (no pathname or "/"), allow index.html matching
+            const p1 = (linkUrl.pathname || '').replace(/^\/+|\/+$/g, '');
+            const p2 = (window.location.pathname || '').replace(/^\/+|\/+$/g, '');
+            if ((p1 === 'index.html' || p1 === '') && (p2 === 'index.html' || p2 === '')) {
+              // same "index" page
+              if (linkUrl.hash && linkUrl.hash === window.location.hash) a.classList.add('active');
+            }
+          }
+        } catch(e) {
+          // ignore malformed URL
+        }
+      });
+    }
+
+    // Smooth scroll for same-page anchor clicks
+    document.querySelectorAll('.nav-link').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href') || '';
+        // if href is an anchor on same page (like index.html#engineering-projects) and current page is index
+        if (href.includes('#') && (href.startsWith('#') || href.includes('index.html'))) {
+          const hash = href.split('#')[1] ? '#' + href.split('#')[1] : '';
+          // only handle if we're on index.html or the link points to index and we're on index
+          const onIndex = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname === '/';
+          const linkIsIndex = href.startsWith('index.html') || href.startsWith('/index.html') || href.startsWith('#');
+          if (onIndex && linkIsIndex && hash) {
+            e.preventDefault();
+            // ensure element exists then smooth scroll
+            const el = document.querySelector(hash);
+            if (el) {
+              el.scrollIntoView({behavior:'smooth', block:'start'});
+              // update URL hash without jumping
+              history.replaceState(null, '', (window.location.pathname.includes('index.html') ? 'index.html' : '') + hash);
+              // close mobile menu if open
+              navList.classList.remove('open');
+              if (toggle) toggle.setAttribute('aria-expanded','false');
+              setTimeout(updateActiveNav, 300);
+            }
+          }
+        }
+        // otherwise let the browser follow the link (navigates to index.html#section on other pages)
+      });
+    });
+
+    // run on load
+    updateActiveNav();
+
+    // also run on hashchange (so active updates when user uses back/forward)
+    window.addEventListener('hashchange', updateActiveNav);
+    window.addEventListener('popstate', updateActiveNav);
+
+  })();
+</script>
+<!-- END: SITE TOPBAR -->
+
+  
       /* background color + grid */
       background-color: var(--bg);
       background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
