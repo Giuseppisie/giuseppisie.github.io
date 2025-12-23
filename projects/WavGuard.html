@@ -508,6 +508,130 @@
     </div>
   </section>
 
+  <!-- BEGIN: Full Images block -->
+    <section class="full-images-section" aria-labelledby="full-images-heading" style="margin:40px 0;">
+      <h2 id="full-images-heading" class="full-images-title">Full images</h2>
+    
+      <!-- Large full-board photo -->
+      <div class="full-board-wrap">
+        <button class="img-btn" data-src="../images/wavguard/wavfull.png" data-caption="Full board — finished top surface with embedded sensors and edge LEDs">
+          <img src="../images/wavguard/wavfull.png" alt="WavGuard full board photo" class="full-board-img">
+        </button>
+        <div class="img-caption"><em>Full board — finished top surface with embedded sensors and edge LEDs</em></div>
+      </div>
+    
+      <!-- Two-column CAD row -->
+      <div class="cad-row">
+        <figure class="cad-figure">
+          <button class="img-btn" data-src="../images/wavguard/exploadedwav.png" data-caption="Exploded view — component layout">
+            <img src="../images/wavguard/exploadedwav.png" alt="Exploded view of WavGuard components" class="cad-img">
+          </button>
+          <figcaption class="img-caption"><em>Exploded view — component layout</em></figcaption>
+        </figure>
+    
+        <figure class="cad-figure">
+          <button class="img-btn" data-src="../images/wavguard/cadwavexp.png" data-caption="Labeled CAD view — mounting points, channel routing, and enclosure placement">
+            <img src="../images/wavguard/cadwavexp.png" alt="Labeled CAD view of WavGuard" class="cad-img">
+          </button>
+          <figcaption class="img-caption"><em>Labeled CAD view — mounting points, channel routing, and enclosure placement</em></figcaption>
+        </figure>
+      </div>
+    </section>
+    
+    <!-- Lightbox modal (reused for all images) -->
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+      <button class="lightbox-close" aria-label="Close full image">✕</button>
+      <div class="lightbox-inner">
+        <img id="lightboxImg" src="" alt="">
+        <div id="lightboxCaption" class="lightbox-caption" aria-live="polite"></div>
+      </div>
+    </div>
+    
+    <!-- Styles for block (add to page CSS or keep inline) -->
+    <style>
+      /* layout consistent with main content */
+      .full-images-section { max-width: 1100px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+      .full-images-title { font-size: 22px; font-weight: 700; color: #111; margin: 0 0 16px; }
+    
+      .full-board-wrap { margin-bottom: 20px; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+      .full-board-img { display:block; width:100%; height:auto; object-fit:contain; border:0; }
+    
+      .cad-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width:1100px; margin: 0 auto 24px; }
+      .cad-figure { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin: 0; }
+      .cad-img { display:block; width:100%; height:100%; object-fit:contain; }
+    
+      .img-caption { padding: 10px 14px; color: #333; font-size:14px; }
+      .img-caption em { font-style: italic; color: #333; }
+    
+      /* image-to-button: remove default button visuals */
+      .img-btn { border: 0; padding: 0; margin: 0; background: transparent; cursor: pointer; display:block; width:100%; text-align:left; }
+      .img-btn:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 4px; }
+    
+      /* LIGHTBOX */
+      .lightbox { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); z-index: 3000; padding: 20px; }
+      .lightbox.open { display: flex; }
+      .lightbox-inner { max-width: 1400px; width: 100%; max-height: 92vh; overflow: auto; position: relative; display:flex; flex-direction:column; align-items:center; }
+      .lightbox-inner img { max-width: 100%; max-height: calc(92vh - 80px); object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+      .lightbox-caption { margin-top: 12px; color: #fff; font-style: italic; font-size: 15px; text-align: center; max-width: 95%; }
+    
+      .lightbox-close { position: absolute; top: 18px; right: 18px; background: rgba(255,255,255,0.12); color: #fff; border: none; padding: 8px 10px; border-radius: 8px; font-size: 18px; cursor: pointer; z-index:3100; }
+      .lightbox-close:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 2px; }
+    
+      /* responsive */
+      @media (max-width: 900px) {
+        .cad-row { grid-template-columns: 1fr; }
+      }
+    </style>
+    
+    <!-- JS to open/close lightbox -->
+    <script>
+      (function(){
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const imgButtons = Array.from(document.querySelectorAll('.img-btn'));
+    
+        function open(src, caption, alt) {
+          lightboxImg.src = src;
+          lightboxImg.alt = alt || caption || 'Full image';
+          lightboxCaption.textContent = caption || '';
+          lightbox.classList.add('open');
+          lightbox.setAttribute('aria-hidden','false');
+          // focus close button for accessibility
+          closeBtn.focus();
+          document.body.style.overflow = 'hidden';
+        }
+        function close() {
+          lightbox.classList.remove('open');
+          lightbox.setAttribute('aria-hidden','true');
+          lightboxImg.src = '';
+          lightboxCaption.textContent = '';
+          document.body.style.overflow = '';
+        }
+    
+        imgButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const src = btn.getAttribute('data-src') || (btn.querySelector('img')?.src);
+            const caption = btn.getAttribute('data-caption') || (btn.querySelector('img')?.alt) || '';
+            const alt = btn.querySelector('img')?.alt || '';
+            open(src, caption, alt);
+          });
+          btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+          });
+        });
+    
+        closeBtn.addEventListener('click', close);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && lightbox.classList.contains('open')) close();
+        });
+      })();
+    </script>
+<!-- END: Full Images block -->
+
+
   <!-- MODAL -->
   <div id="featureModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal" role="document" aria-labelledby="modal-title">
