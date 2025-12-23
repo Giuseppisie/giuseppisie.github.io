@@ -19,37 +19,151 @@
       color: #111;
     }
 
-    /* ---------- TOP BAR ---------- */
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 1000;
-      background: rgba(0,0,0,0.25);
-      backdrop-filter: blur(4px);
+    <!-- START: SITE TOPBAR (copy this to the top of every page, right after <body>) -->
+<style>
+  /* Topbar core styles — paste on every page once (keeps styles local to topbar) */
+  .site-topbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1200;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .topbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .topbar-brand a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 18px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  }
+
+  /* Horizontal nav that never stacks; on small screens it scrolls horizontally */
+  .topbar-nav {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    overflow-x: auto;           /* scroll horizontally when narrow */
+    white-space: nowrap;        /* keep items on one line */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .topbar-nav::-webkit-scrollbar { height: 8px; }
+  .topbar-nav::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 8px; }
+
+  .topbar-nav a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: background .14s ease, box-shadow .14s ease;
+  }
+
+  .topbar-nav a:hover,
+  .topbar-nav a:focus {
+    background: var(--card);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    outline: none;
+  }
+
+  /* Active state helper */
+  .topbar-nav a.active {
+    background: var(--card);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  }
+
+  /* Make sure topbar doesn't cover the hero text — add top spacing variable if you want:
+     You can add `body { padding-top: 64px; }` to your global CSS on pages that include this bar
+     if you prefer the content pushed down (optional). */
+</style>
+
+<header class="site-topbar" role="banner" aria-label="Primary navigation">
+  <div class="topbar-inner">
+    <div class="topbar-brand">
+      <a href="index.html" aria-label="Home — Sienna Giuseppi">Sienna Giuseppi</a>
+    </div>
+
+    <nav class="topbar-nav" role="navigation" aria-label="Main site navigation">
+      <!-- About is a separate page; Projects/Experiences anchor to index.html hash; Resume -> resume.html -->
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="index.html#engineering-projects">Projects</a>
+      <a class="nav-link" href="index.html#experiences">Experiences</a>
+      <a class="nav-link" href="resume.html">Resume</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Topbar behavior: mark active link and smooth-scroll same-page anchors on index.html
+  (function () {
+    const links = Array.from(document.querySelectorAll('.site-topbar .nav-link'));
+
+    // Highlight an active link if its href matches current pathname or hash.
+    function updateActive() {
+      links.forEach(a => a.classList.remove('active'));
+      const curPath = window.location.pathname.split('/').pop() || 'index.html';
+      const curHash = window.location.hash || '';
+      links.forEach(a => {
+        const href = a.getAttribute('href') || '';
+        // If href is an anchor on the current page or an index hash
+        if (href.startsWith('#') && href === curHash) {
+          a.classList.add('active');
+        } else if (href.includes('#') && href.split('#')[0].endsWith('index.html')) {
+          // link to index.html#section
+          if (curPath === 'index.html' || curPath === '') {
+            if (('#' + href.split('#')[1]) === curHash) a.classList.add('active');
+          }
+        } else {
+          // normal page-to-page matching
+          const linkPath = href.split('#')[0].split('/').pop() || '';
+          if (linkPath === curPath) a.classList.add('active');
+        }
+      });
     }
 
-    .topbar .brand {
-      color: #fff;
-      font-weight: 800;
-      font-size: 18px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
+    // Smooth scroll for same-page anchors (index.html). If you click Projects on index.html,
+    // it will smooth-scroll instead of reloading the page.
+    links.forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href') || '';
+        // If a hash for index anchor and we're on index page, smooth scroll
+        if ((href.startsWith('#') || href.includes('index.html#')) &&
+            (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/'))) {
+          const hash = href.includes('#') ? '#' + href.split('#')[1] : href;
+          if (hash && document.querySelector(hash)) {
+            e.preventDefault();
+            document.querySelector(hash).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, '', (window.location.pathname.includes('index.html') ? 'index.html' : '') + hash);
+            setTimeout(updateActive, 300);
+            return;
+          }
+        }
+        // Otherwise allow normal navigation (go to page)
+      });
+    });
 
-    .topbar a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      background: var(--card);
-      padding: 8px 12px;
-      border-radius: 8px;
-    }
+    window.addEventListener('hashchange', updateActive);
+    window.addEventListener('popstate', updateActive);
+    updateActive();
+  })();
+</script>
+<!-- END: SITE TOPBAR -->
 
     /* ---------- FULL-SCREEN HERO IMAGE ---------- */
     .hero {
