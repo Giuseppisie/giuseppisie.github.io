@@ -19,7 +19,7 @@
       color: #111;
     }
 
-    /* ---------- TOP BAR (updated) ---------- */
+    /* ---------- TOP BAR ---------- */
     .topbar {
       position: fixed;
       top: 0;
@@ -28,20 +28,18 @@
       height: 60px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 0 20px;
       z-index: 1000;
       background: rgba(0,0,0,0.25);
       backdrop-filter: blur(4px);
     }
 
-    /* left area: brand + nav */
     .topbar-left {
       display: flex;
       align-items: center;
       gap: 20px;
-      flex-wrap: nowrap;            /* never wrap into a stack */
-      white-space: nowrap;          /* prevent link text wrapping */
+      flex-wrap: nowrap;
+      white-space: nowrap;
     }
 
     .brand {
@@ -52,57 +50,48 @@
       text-decoration: none;
     }
 
-    /* inline nav links (kept compact and stable) */
     .topnav {
       display: flex;
       gap: 10px;
       align-items: center;
-      margin-left: 6px;
     }
 
     .topnav a {
       color: #fff;
       text-decoration: none;
       font-weight: 700;
-      background: transparent;
       padding: 8px 10px;
       border-radius: 8px;
-      transition: background .15s ease, color .15s ease;
-      display: inline-block;
+      transition: background 0.15s ease;
     }
 
     .topnav a:hover,
     .topnav a:focus {
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.08);
       outline: none;
     }
 
-    /* Right side action (kept for optional link) */
-    .topbar-right a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      background: var(--card);
-      padding: 8px 12px;
-      border-radius: 8px;
-      display: inline-block;
+    @media (max-width: 768px) {
+      .topbar-left {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
     }
 
     /* ---------- FULL-SCREEN HERO IMAGE ---------- */
     .hero {
       position: relative;
-      height: 100vh;              /* FULL SCREEN */
+      height: 100vh;
       width: 100%;
-      background-image: url("../images/eswatini/full.jpeg"); /* CHANGE PER PROJECT */
-      background-size: cover;     /* fills screen */
-      background-position: center center; /* NOT overly zoomed */
+      background-image: url("../images/eswatini/full.jpeg");
+      background-size: cover;
+      background-position: center center;
       background-repeat: no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* subtle overlay so text reads clearly */
     .hero::after {
       content: "";
       position: absolute;
@@ -110,7 +99,6 @@
       background: rgba(66,123,118,0.35);
     }
 
-    /* ---------- HERO TITLE ---------- */
     .hero-title {
       position: relative;
       z-index: 1;
@@ -141,7 +129,6 @@
       margin-bottom: 16px;
     }
 
-    /* space for fixed top bar */
     .spacer {
       height: 60px;
     }
@@ -150,35 +137,23 @@
       .hero-title {
         font-size: 28px;
       }
-      /* ensure the topbar stays a single horizontal row on smaller widths; allow horizontal scroll if needed */
-      .topbar-left { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- TOP BAR (inserted correctly) -->
+  <!-- TOP BAR -->
   <div class="topbar" role="navigation" aria-label="Top navigation">
     <div class="topbar-left">
       <a class="brand" href="../index.html">Sienna Giuseppi</a>
 
       <nav class="topnav" aria-label="Primary">
-        <!-- link to About (create about.html at site root) -->
         <a href="../about.html">About</a>
-
-        <!-- Projects and Experiences target the main page anchors -->
         <a href="../index.html#engineering-projects">Projects</a>
         <a href="../index.html#experiences">Experiences</a>
-
-        <!-- Resume page -->
         <a href="../resume.html">Resume</a>
       </nav>
-    </div>
-
-    <div class="topbar-right" aria-hidden="true">
-      <!-- optional right-side action (kept for symmetry) -->
-      <a href="../index.html">Home</a>
     </div>
   </div>
 
@@ -212,10 +187,16 @@
       members to ensure construction quality and safety.
     </p>
 
-    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1" height="399" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-
-    <!-- add more sections, photos, diagrams, PDFs, etc. -->
+    <iframe 
+      src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1"
+      height="399"
+      width="504"
+      frameborder="0"
+      allowfullscreen
+      title="Embedded LinkedIn post">
+    </iframe>
   </main>
 
 </body>
 </html>
+
