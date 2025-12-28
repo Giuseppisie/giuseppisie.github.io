@@ -122,7 +122,7 @@
       box-shadow:0 20px 40px rgba(0,0,0,.2);
     }
 
-    .feature-card img { width:100%; height:170px; object-fit:cover; }
+    .feature-card img { width:100%; height:170px; object-fit:cover; display:block; }
     .feature-meta { padding:16px; }
     .feature-title { font-size:18px; font-weight:700; }
     .feature-excerpt { font-size:14px; margin-top:6px; }
@@ -316,24 +316,24 @@
     <h2 class="features-heading">Project features</h2>
 
     <div class="features-grid">
-      <div class="feature-card" data-index="0">
-        <img src="../images/eswatini/MP.jpeg">
+      <div class="feature-card" data-index="0" role="button" tabindex="0">
+        <img src="../images/eswatini/MP.jpeg" alt="Life on the homestead">
         <div class="feature-meta">
           <div class="feature-title">Life on the homestead</div>
           <div class="feature-excerpt">Daily life and logistics on-site.</div>
         </div>
       </div>
 
-      <div class="feature-card" data-index="1">
-        <img src="../images/eswatini/soccer.jpg">
+      <div class="feature-card" data-index="1" role="button" tabindex="0">
+        <img src="../images/eswatini/soccer.jpg" alt="Community relations">
         <div class="feature-meta">
           <div class="feature-title">Community relations</div>
           <div class="feature-excerpt">Working with local leaders and volunteers.</div>
         </div>
       </div>
 
-      <div class="feature-card" data-index="2">
-        <img src="../images/eswatini/duke-team-thumb.jpg">
+      <div class="feature-card" data-index="2" role="button" tabindex="0">
+        <img src="../images/eswatini/duke-team-thumb.jpg" alt="Duke team">
         <div class="feature-meta">
           <div class="feature-title">Duke team</div>
           <div class="feature-excerpt">Student collaboration and leadership.</div>
@@ -370,7 +370,7 @@
     </div>
 
     <div class="modal-body">
-      <img id="modalImg">
+      <img id="modalImg" alt="">
       <div class="modal-text" id="modalText"></div>
     </div>
   </div>
@@ -429,42 +429,43 @@
       if (e.key === 'Escape' && lightbox.classList.contains('open')) closePDF();
     });
 
-    /* Feature modal script (unchanged from prior file) */
+    /* Feature modal script (updated content) */
     const features = [
       {
         title: "Life on the homestead",
         img: "../images/eswatini/life-homestead-full.jpg",
         text: `
-          <p>
-          Life on the homestead was a hard, humbling apprenticeship in living with very little and relying on one another. We were hosted by the Sconze family — Mage and Babe and their children and nieces — who treated our whole group like family while we built. The students, masons, and Bridgecore crew slept in cramped huts or in tents we pitched around the compound: concrete and dirt floors, sleeping bags layered close together, and no running water. We quickly learned the realities of the site — latrines for toilets, a rainwater spout that served as our sink, and, until we moved them, bats in the men’s hut that forced some of us into tents. Storms ripped tents from the ground on wild nights; I helped mend seams and zippers with a needle and thread while we held the tents down, and eventually chose a tent over the even more cramped women’s hut because it felt, oddly, like more space and more air.   <p>
+          <p>Life on the homestead was a hard, humbling apprenticeship in living with very little and relying on one another. We were hosted by the Sconze family — Mage and Babe and their children and nieces — who treated our whole group like family while we built. The students, masons, and Bridgecore crew slept in cramped huts or in tents we pitched around the compound: concrete and dirt floors, sleeping bags layered close together, and no running water. We quickly learned the realities of the site — latrines for toilets, a rainwater spout that served as our sink, and, until we moved them, bats in the men’s hut that forced some of us into tents. Storms ripped tents from the ground on wild nights; I helped mend seams and zippers with a needle and thread while we held the tents down, and eventually chose a tent over the even more cramped women’s hut because it felt, oddly, like more space and more air.</p>
 
-  <p> The daily rhythm was intense and very physical. Each morning we loaded a tractor and pushed wheelbarrows of bricks and cement to the worksite, laboring from sunrise well past sunset and sometimes finishing by flashlight. Food was simple and communal: scrambled eggs when we had power, bread when we didn’t, and local staples like incwancwa (a sour cornmeal porridge). The community and the Sconze family adapted meals for us — the nieces, Nothondo and Nosipo, prepared dinners; the family learned we preferred beans and graciously accommodated us. Water was precious: we boiled and bucketed it for showers, taking turns so the rainwater supply lasted, and washed clothes in the river on weekends. On day two, twelve teammates fell sick from contaminated water; we were taken to a powerless clinic and treated with charcoal water — a stark reminder of how fragile health can be in the field.  <p>
+          <p>The daily rhythm was intense and very physical. Each morning we loaded a tractor and pushed wheelbarrows of bricks and cement to the worksite, laboring from sunrise well past sunset and sometimes finishing by flashlight. Food was simple and communal: scrambled eggs when we had power, bread when we didn’t, and local staples like incwancwa (a sour cornmeal porridge). The community and the Sconze family adapted meals for us — the nieces, Nothondo and Nosipo, prepared dinners; the family learned we preferred beans and graciously accommodated us. Water was precious: we boiled and bucketed it for showers, taking turns so the rainwater supply lasted, and washed clothes in the river on weekends. On day two, twelve teammates fell sick from contaminated water; we were taken to a powerless clinic and treated with charcoal water — a stark reminder of how fragile health can be in the field.</p>
 
-  <p> Even with the hardships, the generosity and warmth we received made the experience unforgettable. The homestead kept pigs, goats, and chickens; roosters crowed around the clock and sometimes kept us awake, but the family’s kindness balanced every difficulty. Mage and Babe looked out for us, rallied the community when we needed help, and invited us into church and daily life — MP taught us hacky sack, the nieces showed us how to wash clothes in the river, and the whole family welcomed us into their routines. I’m deeply grateful for their hospitality and for the lessons learned: the work tested our bodies and patience, but it taught us cooperation, resilience, and what it means to serve a community with real, lasting impact.   <p>
-
-          
+          <p>Even with the hardships, the generosity and warmth we received made the experience unforgettable. The homestead kept pigs, goats, and chickens; roosters crowed around the clock and sometimes kept us awake, but the family’s kindness balanced every difficulty. Mage and Babe looked out for us, rallied the community when we needed help, and invited us into church and daily life — MP taught us hacky sack, the nieces showed us how to wash clothes in the river, and the whole family welcomed us into their routines. I’m deeply grateful for their hospitality and for the lessons learned: the work tested our bodies and patience, but it taught us cooperation, resilience, and what it means to serve a community with real, lasting impact.</p>
+        `
       },
       {
         title: "Community relations",
         img: "../images/eswatini/community-full.jpg",
         text: `
-          <p><strong>Overview:</strong> Collaboration with village leaders and local masons.</p>
-          <ul>
-            <li>Community training</li>
-            <li>Shared decision making</li>
-            <li>Maintenance planning</li>
-          </ul>`
+          <p>Community relations were at the heart of this project — the bridge could not have been built without the people who live there. On our very first day at the site, our translator, Thola, introduced us to the community. Elder men and women came to the site daily — the same individuals who had petitioned for years for this bridge after watching loved ones risk, and in some cases lose, their lives to the violent Ingwavuma River. Their presence was a reminder that this project was deeply personal, rooted in loss, hope, and long-awaited change.</p>
+
+          <p>Despite the strong language barrier, connection came quickly. We learned basic SiSwati phrases like <em>Sanibonani</em> (hello) and <em>Yebo</em> (yes), but much of our communication was carried through smiles, shared meals, and time spent side by side. Younger community members spoke English fluently and eagerly asked about our lives back home, while many elders — understandably proud of their Swazi roots — chose not to speak English even when they could. On our first day of work, the community gave each of us SiSwati names as a sign of welcome. Mine was <strong>Nonhlanhla</strong>, meaning <em>luck</em>. We wore these names proudly on our helmets, honored to be embraced with such kindness and trust.</p>
+
+          <p>There were challenges to navigate as well. Gender dynamics were especially difficult at first. Men often took tools from my teammates and me, laughing as we learned to swing pickaxes or move earth. But we persisted. The women on our team deliberately took longer shifts in the pits and carried heavier loads, determined to prove our capability. Our teammates and the masons stood beside us, reinforcing that we were equals on the site. At the same time, the local women impressed us in their own way — carrying heavy buckets of water effortlessly balanced on their heads, up steep cliffs from the river to supply our concrete. We tried to mirror their technique, but balancing even a fraction of that weight was far harder than it looked.</p>
+
+          <p>As weeks passed, relationships deepened. Members of the local soccer team eventually challenged us to a match, and on a free weekend we took the field — with our masons joining the American side because we needed all the help we could get. The local team’s chemistry and stamina far surpassed ours, but the entire community showed up to cheer, celebrating the effort as much as the game itself. By the end of the trip, we knew each other’s favorite songs — Maroon 5 played alongside local artists — and we sang, danced, and passed rocks together for hours. Each workday ended with a cheer shouted in unison: <strong>“Bottebete!”</strong> (Bridge!). On the last day we cried and hugged our new friends; the bridge was a gift we brought, and in return they shared friendship and love.</p>
+        `
       },
       {
         title: "Duke team",
         img: "../images/eswatini/duke-team-full.jpg",
         text: `
-          <p><strong>Overview:</strong> Duke students worked across design, QC, and construction.</p>
+          <p><strong>Overview:</strong> Duke students worked across design, QC, and construction, coordinating closely with Engineers In Action and local masons to deliver the project.</p>
           <ul>
-            <li>Design reviews</li>
-            <li>Quality control checks</li>
-            <li>Leadership in the field</li>
-          </ul>`
+            <li>Design reviews and field verification</li>
+            <li>Quality assurance and testing</li>
+            <li>Leadership in the field and documentation</li>
+          </ul>
+        `
       }
     ];
 
@@ -477,18 +478,31 @@
     function openFeature(i) {
       current = i;
       modalImg.src = features[i].img;
+      modalImg.alt = features[i].title;
       modalText.innerHTML = features[i].text;
       modalTitle.textContent = features[i].title;
       modal.classList.add("open");
+      modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = "hidden";
+      // focus close button for accessibility
+      document.getElementById('closeBtn').focus();
     }
 
     document.querySelectorAll(".feature-card").forEach((card, i) => {
+      // click
       card.addEventListener("click", () => openFeature(i));
+      // keyboard
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openFeature(i);
+        }
+      });
     });
 
     document.getElementById("closeBtn").onclick = () => {
       modal.classList.remove("open");
+      modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = "";
     };
     document.getElementById("prevBtn").onclick = () => openFeature((current + features.length - 1) % features.length);
@@ -506,4 +520,3 @@
 
 </body>
 </html>
-
