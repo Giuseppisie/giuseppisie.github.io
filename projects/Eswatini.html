@@ -75,46 +75,65 @@
       box-shadow:0 8px 20px rgba(0,0,0,0.06);
       margin-bottom: 24px;
     }
-    .overview-grid {
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:18px;
-      align-items:start;
-    }
-    /* make the overview text take full width under this new layout (user requested full horizontal box) */
     .overview-text { font-size:16px; color:#222; }
 
-    /* --------- Media card (thumbnail + embedded video) ---------- */
-    .media-card {
+    /* --------- Centered large video card ---------- */
+    .video-centered {
       width:100%;
       background:#fff;
       border-radius:12px;
-      padding:18px;
+      padding:22px;
       box-shadow:0 8px 20px rgba(0,0,0,0.06);
-      display:grid;
-      grid-template-columns: 480px 1fr;
-      gap:18px;
-      align-items:start;
       margin-bottom:24px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
-    .media-thumb {
+    /* Constrain the video to a larger max width (approx double previous visible size) */
+    .video-frame {
       width:100%;
-      border-radius:8px;
+      max-width:960px; /* enlarged video width */
+      aspect-ratio: 16/9;
+      height: auto;
+      border-radius:10px;
       overflow:hidden;
-      background:#f5f5f5;
-      box-shadow:0 6px 16px rgba(0,0,0,0.04);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
     }
-    .media-thumb img { display:block; width:100%; height:100%; object-fit:cover; }
-    .media-video iframe { width:100%; height:100%; min-height:260px; border:0; display:block; }
-    .media-caption { margin-top:10px; color:#333; font-style:italic; font-size:14px; }
+    .video-frame iframe { width:100%; height:100%; border:0; display:block; }
 
-    /* Responsive: stack on smaller screens */
-    @media (max-width: 980px) {
-      .media-card { grid-template-columns: 1fr; }
-      .media-video iframe { min-height:240px; }
+    .media-caption { margin-top:12px; color:#333; font-style:italic; font-size:14px; text-align:center; }
+
+    /* --------- Features grid (3 columns) ---------- */
+    .features-wrap { max-width: var(--content-max); margin: 32px auto 8px; padding: 0 20px; box-sizing: border-box; }
+    .features-heading { font-size:22px; font-weight:700; color:#111; margin-bottom:12px; }
+    .features-grid-es {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card-es {
+      background: var(--card);
+      color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      cursor: pointer;
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .feature-card-es:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
+    .feature-summary-es { display:block; padding:0; cursor:pointer; }
+    .feature-thumb-es { width:100%; height:170px; object-fit:cover; display:block; background: rgba(255,255,255,0.04); }
+    .feature-meta-es { padding: 14px 16px 18px; }
+    .feature-title-es { font-weight:700; font-size:18px; }
+    .feature-excerpt-es { font-size:14px; color: rgba(255,255,255,0.95); margin-top:6px; }
+
+    /* On narrow screens stack features */
+    @media (max-width: 900px) {
+      .features-grid-es { grid-template-columns: 1fr; }
+      .video-frame { max-width: 100%; }
     }
 
-    /* As-built / QC card (unchanged) */
+    /* As-built / QC small styles retained */
     .doc-card { background:#fff; border-radius:12px; padding:22px; box-shadow:0 8px 20px rgba(0,0,0,0.06); max-width:900px; margin:28px auto; }
     .doc-title { font-weight:800; font-size:18px; margin:0 0 8px; color:#111; }
     .doc-sub { color:#444; margin: 0 0 14px; }
@@ -175,55 +194,53 @@
   <!-- MAIN PAGE CONTENT (page wrapper) -->
   <div class="page">
 
-    <!-- Overview: new full-width box across the page wrapper -->
+    <!-- Overview: full-width box across the page wrapper -->
     <section class="overview-full" aria-labelledby="project-overview-heading">
       <h2 id="project-overview-heading" style="margin:0 0 8px; font-size:20px; color:#111;">Project overview</h2>
       <div class="meta" style="margin-bottom:12px;">Role: Quality Control Manager · Location: Eswatini · Year: 2024</div>
 
-      <div class="overview-grid">
-        <div class="overview-text">
-          <p>
-            This summer was my most memorable yet. Over the course of nine weeks, I lived and worked in Eswatini alongside
-            13 Duke classmates, staff from <strong>Engineers In Action</strong>, local masons and volunteers, and the resilient
-            communities of Emanyonyaneni and Nsizatje (Hosea Inkhundla). Together we built a <strong>128-meter suspended
-            footbridge</strong> — the longest pedestrian bridge in Eswatini to date — that now connects more than 3,000 residents
-            to schools, markets, and health clinics across the Ingwavuma River.
-          </p>
+      <div class="overview-text">
+        <p>
+          This summer was my most memorable yet. Over the course of nine weeks, I lived and worked in Eswatini alongside
+          13 Duke classmates, staff from <strong>Engineers In Action</strong>, local masons and volunteers, and the resilient
+          communities of Emanyonyaneni and Nsizatje (Hosea Inkhundla). Together we built a <strong>128-meter suspended
+          footbridge</strong> — the longest pedestrian bridge in Eswatini to date — that now connects more than 3,000 residents
+          to schools, markets, and health clinics across the Ingwavuma River.
+        </p>
 
-          <p>
-            One moment I’ll never forget is hearing the story of a local man who, after losing a leg, still carried his children across the river
-            to school and nearly lost his life doing so. When the bridge was finished he shared, with the greatest joy, that he can now cross safely
-            — and so can his children. That moment made the work feel deeply meaningful.
-          </p>
+        <p>
+          One moment I’ll never forget is hearing the story of a local man who, after losing a leg, still carried his children across the river
+          to school and nearly lost his life doing so. When the bridge was finished he shared, with the greatest joy, that he can now cross safely
+          — and so can his children. That moment made the work feel deeply meaningful.
+        </p>
 
-          <p>
-            The project was physically and mentally demanding: every rock, nail, bag of cement, and plank was lifted, mixed, and placed by hand.
-            We slept in tents for weeks, adapted to new local foods, and worked long, often exhausting days from sunrise well past sunset — weekdays
-            and weekends alike. Hygiene conditions were basic and resources limited, but those hardships only deepened our appreciation for the
-            community’s hospitality and for the skills we were learning in the field.
-          </p>
+        <p>
+          The project was physically and mentally demanding: every rock, nail, bag of cement, and plank was lifted, mixed, and placed by hand.
+          We slept in tents for weeks, adapted to new local foods, and worked long, often exhausting days from sunrise well past sunset — weekdays
+          and weekends alike. Hygiene conditions were basic and resources limited, but those hardships only deepened our appreciation for the
+          community’s hospitality and for the skills we were learning in the field.
+        </p>
 
-          <p>
-            As <strong>Quality Control Manager</strong>, I led inspection checkpoints on critical elements — verifying concrete mix quality and placement,
-            monitoring anchor and cable tensioning, documenting as-built conditions, and maintaining QC forms and test records. I coordinated closely
-            with design and construction leads and with local masons to ensure the bridge was executed carefully and safely.
-          </p>
+        <p>
+          As <strong>Quality Control Manager</strong>, I led inspection checkpoints on critical elements — verifying concrete mix quality and placement,
+          monitoring anchor and cable tensioning, documenting as-built conditions, and maintaining QC forms and test records. I coordinated closely
+          with design and construction leads and with local masons to ensure the bridge was executed carefully and safely.
+        </p>
 
-          <p style="margin-top:12px;">
-            I can’t say “grateful” enough. It was an honor to serve this community, to learn from them, and to help leave a lasting, life-changing
-            connection across the Ingwavuma River.
-          </p>
-        </div>
+        <p style="margin-top:12px;">
+          I can’t say “grateful” enough. It was an honor to serve this community, to learn from them, and to help leave a lasting, life-changing
+          connection across the Ingwavuma River.
+        </p>
       </div>
     </section>
 
-    <!-- Media card: large thumbnail + LinkedIn embed side-by-side -->
-    <section class="media-card" aria-labelledby="media-heading">
-
-      <!-- Right: embedded LinkedIn video (keeps your embed) -->
-      <div class="media-video" aria-hidden="false">
-        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1"
-                title="LinkedIn overview video" loading="lazy" allowfullscreen></iframe>
+    <!-- Centered large video box (video is larger / centered) -->
+    <section class="video-centered" aria-labelledby="media-heading">
+      <div style="text-align:center; width:100%;">
+        <div class="video-frame" role="region" aria-label="Project video overview">
+          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1"
+                  title="LinkedIn overview video" loading="lazy" allowfullscreen></iframe>
+        </div>
         <div class="media-caption"><em>See an overview of the project here</em></div>
       </div>
     </section>
@@ -292,8 +309,74 @@
       </div>
     </section>
 
-    <!-- (features & carousel — keep your existing blocks here) -->
-    <!-- Insert your features block and carousel as needed below this line -->
+    <!-- Features: Life on the homestead, Community relations, Duke team -->
+    <div class="features-wrap" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="features-heading">Project features</h2>
+
+      <div class="features-grid-es" role="list">
+        <!-- Life on the homestead -->
+        <details class="feature-card-es" role="listitem">
+          <summary class="feature-summary-es">
+            <img class="feature-thumb-es" src="../images/eswatini/life-homestead-thumb.jpg" alt="Life on the homestead thumbnail">
+            <div class="feature-meta-es">
+              <div class="feature-title-es">Life on the homestead</div>
+              <div class="feature-excerpt-es">Daily life and logistics while living on-site during construction.</div>
+            </div>
+          </summary>
+
+          <div class="feature-text-es" style="background:#fff; color:#111; padding:14px;">
+            <p><strong>Overview:</strong> Living on the homestead required daily coordination with site staff, sourcing fuel and potable water, and managing tool storage and security.</p>
+            <ul>
+              <li>Daily logistics: food, water, fuel</li>
+              <li>Local accommodations and coordination</li>
+              <li>Site safety and tool management</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Community relations -->
+        <details class="feature-card-es" role="listitem">
+          <summary class="feature-summary-es">
+            <img class="feature-thumb-es" src="../images/eswatini/community-thumb.jpg" alt="Community relations thumbnail">
+            <div class="feature-meta-es">
+              <div class="feature-title-es">Community relations</div>
+              <div class="feature-excerpt-es">Partnership with local leaders and training programs for maintenance.</div>
+            </div>
+          </summary>
+
+          <div class="feature-text-es" style="background:#fff; color:#111; padding:14px;">
+            <p><strong>Overview:</strong> We worked with village leaders to plan construction, hire local labor, and train community members on inspection and basic maintenance.</p>
+            <ul>
+              <li>Stakeholder workshops</li>
+              <li>Skills transfer and training</li>
+              <li>Maintenance planning and ownership</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Duke team -->
+        <details class="feature-card-es" role="listitem">
+          <summary class="feature-summary-es">
+            <img class="feature-thumb-es" src="../images/eswatini/duke-team-thumb.jpg" alt="Duke team thumbnail">
+            <div class="feature-meta-es">
+              <div class="feature-title-es">Duke team</div>
+              <div class="feature-excerpt-es">Student roles, responsibilities, and lessons learned on-site.</div>
+            </div>
+          </summary>
+
+          <div class="feature-text-es" style="background:#fff; color:#111; padding:14px;">
+            <p><strong>Overview:</strong> Our Duke team handled design revisions, QA checks, and on-site coordination with Engineers In Action and local masons.</p>
+            <ul>
+              <li>Design reviews and field verification</li>
+              <li>Quality assurance and testing</li>
+              <li>Community engagement and documentation</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- (If you have an image carousel block, place it here) -->
 
   </div>
 
@@ -361,3 +444,4 @@
 
 </body>
 </html>
+
