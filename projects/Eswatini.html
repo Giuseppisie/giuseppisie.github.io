@@ -101,287 +101,25 @@
     .lightbox-frame { flex:1; border:0; width:100%; height:100%; }
     .lightbox-caption { padding:10px 16px; font-style:italic; color:#222; background:#fff; text-align:center; }
 
+    /* Features & Carousel styles (kept small to follow your site) */
+    .features-heading { font-size: 22px; font-weight:700; color:#111; margin: 0 0 12px 0; }
+    .features-grid-es img { display:block; width:100%; height:170px; object-fit:cover; }
+    .feature-text-es p { margin:0 0 12px 0; }
+    .feature-text-es ul { margin:8px 0 0 18px 18px; }
+
+    /* Carousel thumbs */
+    .thumb-row img { display:block; width:100%; height:220px; object-fit:cover; }
+
     @media (max-width:900px) {
       .page { padding: 20px; }
       .video-card iframe { width:100%; height: auto; }
       .lightbox-inner { max-width: calc(100% - 20px); height: 90vh; }
+      .features-grid-es { grid-template-columns: 1fr; }
+      .thumb-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
-<!-- =========================
-     Eswatini: Features + Full-size Carousel
-     Paste this whole block before </body>
-     ========================= -->
-
-<section id="eswatini-features" class="features" aria-labelledby="esw-features-heading" style="max-width:1100px; margin:40px auto;">
-  <h2 id="esw-features-heading" class="features-heading" style="margin-bottom:18px;">Project features</h2>
-
-  <div class="features-grid-es" style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
-    <!-- Feature A: Life on the homestead -->
-    <details class="feature-card-es" data-index="0" style="background:var(--card); color:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); cursor:pointer;">
-      <summary class="feature-summary-es" style="display:block; padding:0; cursor:pointer;">
-        <img src="../images/eswatini/life-homestead-thumb.jpg" alt="Life on the homestead" style="width:100%; height:170px; object-fit:cover; display:block;">
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700; font-size:18px;">Life on the homestead</div>
-          <div style="color:rgba(255,255,255,0.9); margin-top:6px; font-size:14px;">Daily life and logistics while living on-site during construction.</div>
-        </div>
-      </summary>
-
-      <div class="feature-body-es" data-full="../images/eswatini/life-homestead-full.jpg" style="display:none !important;">
-        <img src="../images/eswatini/life-homestead-full.jpg" alt="" style="display:block; width:100%; height:auto;">
-        <div class="feature-text-es" style="padding:14px 16px 20px; background:#fff; color:#111;">
-          <p><strong>Overview:</strong> Living on the homestead required daily coordination with site staff, sourcing fuel and potable water, and managing tool storage and security.</p>
-          <ul>
-            <li>Daily logistics: food, water, fuel</li>
-            <li>Local accommodations and coordination</li>
-            <li>Site safety and tool management</li>
-          </ul>
-        </div>
-      </div>
-    </details>
-
-    <!-- Feature B: Community relations -->
-    <details class="feature-card-es" data-index="1" style="background:var(--card); color:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); cursor:pointer;">
-      <summary class="feature-summary-es" style="display:block; padding:0; cursor:pointer;">
-        <img src="../images/eswatini/community-thumb.jpg" alt="Community relations" style="width:100%; height:170px; object-fit:cover; display:block;">
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700; font-size:18px;">Community relations</div>
-          <div style="color:rgba(255,255,255,0.9); margin-top:6px; font-size:14px;">Partnership with local leaders and training programs for maintenance.</div>
-        </div>
-      </summary>
-
-      <div class="feature-body-es" data-full="../images/eswatini/community-full.jpg" style="display:none !important;">
-        <img src="../images/eswatini/community-full.jpg" alt="" style="display:block; width:100%; height:auto;">
-        <div class="feature-text-es" style="padding:14px 16px 20px; background:#fff; color:#111;">
-          <p><strong>Overview:</strong> We worked with village leaders to plan construction, hire local labor, and train community members on inspection and basic maintenance.</p>
-          <ul>
-            <li>Stakeholder workshops</li>
-            <li>Skills transfer and training</li>
-            <li>Maintenance planning and ownership</li>
-          </ul>
-        </div>
-      </div>
-    </details>
-
-    <!-- Feature C: Duke Team -->
-    <details class="feature-card-es" data-index="2" style="background:var(--card); color:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); cursor:pointer;">
-      <summary class="feature-summary-es" style="display:block; padding:0; cursor:pointer;">
-        <img src="../images/eswatini/duke-team-thumb.jpg" alt="Duke team" style="width:100%; height:170px; object-fit:cover; display:block;">
-        <div style="padding:14px 16px 18px;">
-          <div style="font-weight:700; font-size:18px;">Duke team</div>
-          <div style="color:rgba(255,255,255,0.9); margin-top:6px; font-size:14px;">Student roles, responsibilities, and lessons learned on-site.</div>
-        </div>
-      </summary>
-
-      <div class="feature-body-es" data-full="../images/eswatini/duke-team-full.jpg" style="display:none !important;">
-        <img src="../images/eswatini/duke-team-full.jpg" alt="" style="display:block; width:100%; height:auto;">
-        <div class="feature-text-es" style="padding:14px 16px 20px; background:#fff; color:#111;">
-          <p><strong>Overview:</strong> Our Duke team handled design revisions, QA checks, and on-site coordination with Engineers In Action and local masons.</p>
-          <ul>
-            <li>Design reviews and field verification</li>
-            <li>Quality assurance and testing</li>
-            <li>Community engagement and documentation</li>
-          </ul>
-        </div>
-      </div>
-    </details>
-  </div>
-</section>
-
-<!-- Feature modal (Eswatini) -->
-<div id="featureModalEs" class="modal-overlay-es" aria-hidden="true" role="dialog" aria-modal="true" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); align-items:center; justify-content:center; z-index:4000; padding:28px;">
-  <div class="modal-es" role="document" style="background:#fff; width:100%; max-width:1100px; border-radius:12px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.45);">
-    <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1)); color:#fff;">
-      <div id="featureModalTitle" style="font-weight:800; font-size:18px;">Feature</div>
-      <div style="display:flex; gap:8px;">
-        <button id="featurePrev" class="modal-btn-es" style="background:rgba(255,255,255,0.12); border:none; color:#fff; padding:8px 10px; border-radius:8px; cursor:pointer;">◀ Prev</button>
-        <button id="featureNext" class="modal-btn-es" style="background:rgba(255,255,255,0.12); border:none; color:#fff; padding:8px 10px; border-radius:8px; cursor:pointer;">Next ▶</button>
-        <button id="featureClose" class="modal-btn-es" style="background:rgba(255,255,255,0.12); border:none; color:#fff; padding:8px 10px; border-radius:8px; cursor:pointer;">✕</button>
-      </div>
-    </div>
-
-    <div style="display:flex; gap:20px; padding:20px; align-items:flex-start; background:#fff;">
-      <img id="featureModalImg" src="" alt="" style="flex:0 0 460px; max-width:52%; border-radius:8px; object-fit:cover; box-shadow:0 10px 30px rgba(0,0,0,0.18);">
-      <div id="featureModalText" style="flex:1; color:#111; font-size:16px; line-height:1.6;"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== Full-size image carousel (thumbnails + lightbox) ===== -->
-<section id="esw-full-images" style="max-width:1100px; margin:40px auto; padding:0 20px;">
-  <h2 style="font-size:22px; font-weight:700; color:#111; margin:0 0 12px;">Project images</h2>
-
-  <!-- thumbnails row -->
-  <div class="thumb-row" style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:10px;">
-    <button class="carousel-thumb" data-src="../images/eswatini/photo1.jpg" aria-label="Open image 1" style="border:0; padding:0; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
-      <img src="../images/eswatini/photo1-thumb.jpg" alt="Bridge site photo 1" style="width:100%; height:220px; object-fit:cover; display:block;">
-      <div style="padding:8px 10px;"><em style="color:#333;">Bridge site — approach</em></div>
-    </button>
-
-    <button class="carousel-thumb" data-src="../images/eswatini/photo2.jpg" aria-label="Open image 2" style="border:0; padding:0; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
-      <img src="../images/eswatini/photo2-thumb.jpg" alt="Bridge construction photo" style="width:100%; height:220px; object-fit:cover; display:block;">
-      <div style="padding:8px 10px;"><em style="color:#333;">Construction — suspension cables</em></div>
-    </button>
-
-    <button class="carousel-thumb" data-src="../images/eswatini/photo3.jpg" aria-label="Open image 3" style="border:0; padding:0; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
-      <img src="../images/eswatini/photo3-thumb.jpg" alt="Team photo" style="width:100%; height:220px; object-fit:cover; display:block;">
-      <div style="padding:8px 10px;"><em style="color:#333;">Duke team — onsite</em></div>
-    </button>
-  </div>
-</section>
-
-<!-- Carousel lightbox -->
-<div id="eswCarouselLightbox" class="esw-carousel-lightbox" role="dialog" aria-modal="true" aria-hidden="true" style="position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); z-index:5000; padding:20px;">
-  <button id="eswCarouselClose" aria-label="Close images" style="position:absolute; top:18px; right:18px; z-index:5100; background:rgba(255,255,255,0.12); color:#fff; border:0; padding:8px 10px; border-radius:8px; cursor:pointer;">✕</button>
-
-  <button id="eswPrev" aria-label="Previous image" style="position:absolute; left:18px; top:50%; transform:translateY(-50%); z-index:5100; background:rgba(255,255,255,0.12); color:#fff; border:0; padding:10px; border-radius:8px; cursor:pointer;">◀</button>
-  <button id="eswNext" aria-label="Next image" style="position:absolute; right:18px; top:50%; transform:translateY(-50%); z-index:5100; background:rgba(255,255,255,0.12); color:#fff; border:0; padding:10px; border-radius:8px; cursor:pointer;">▶</button>
-
-  <div style="max-width:1400px; width:100%; max-height:92vh; display:flex; flex-direction:column; align-items:center;">
-    <img id="eswCarouselImg" src="" alt="" style="max-width:100%; max-height:calc(92vh - 100px); object-fit:contain; border-radius:8px; box-shadow:0 30px 80px rgba(0,0,0,0.6);">
-    <div id="eswCarouselCaption" style="margin-top:12px; color:#fff; font-style:italic; text-align:center; max-width:95%;"></div>
-  </div>
-</div>
-
-<!-- ===== Scripts (feature modal + carousel) ===== -->
-<script>
-  (function(){
-    // --- Feature modal logic (Eswatini) ---
-    const featureCards = Array.from(document.querySelectorAll('.feature-card-es'));
-    const featureModal = document.getElementById('featureModalEs');
-    const fTitle = document.getElementById('featureModalTitle');
-    const fImg = document.getElementById('featureModalImg');
-    const fText = document.getElementById('featureModalText');
-    const fPrev = document.getElementById('featurePrev');
-    const fNext = document.getElementById('featureNext');
-    const fClose = document.getElementById('featureClose');
-
-    const features = featureCards.map((card, idx) => {
-      const title = card.querySelector('.feature-title')?.textContent?.trim()
-                    || card.querySelector('.feature-summary-es div')?.textContent?.trim()
-                    || ('Feature ' + (idx+1));
-      const body = card.querySelector('.feature-body-es');
-      const img = body?.getAttribute('data-full') || (body?.querySelector('img')?.src || '');
-      const paragraphs = Array.from(body?.querySelectorAll('.feature-text-es p') || []).map(p => p.innerHTML.trim());
-      const list = Array.from(body?.querySelectorAll('.feature-text-es ul li') || []).map(li => li.textContent.trim());
-      return { title, img, paragraphs, list };
-    });
-
-    let currentFeature = 0;
-    function openFeature(i) {
-      if (!features[i]) return;
-      currentFeature = i;
-      const f = features[i];
-      fTitle.textContent = f.title || '';
-      fImg.src = f.img || '';
-      fImg.alt = f.title || '';
-      fText.innerHTML = '';
-      if (f.paragraphs && f.paragraphs.length) {
-        f.paragraphs.forEach(p => { const el = document.createElement('p'); el.innerHTML = p; fText.appendChild(el); });
-      }
-      if (f.list && f.list.length) {
-        const ul = document.createElement('ul');
-        f.list.forEach(li => { const liEl = document.createElement('li'); liEl.textContent = li; ul.appendChild(liEl); });
-        fText.appendChild(ul);
-      }
-      featureModal.style.display = 'flex';
-      featureModal.setAttribute('aria-hidden','false');
-      fClose.focus();
-      document.body.style.overflow = 'hidden';
-    }
-    function closeFeature() {
-      featureModal.style.display = 'none';
-      featureModal.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
-    }
-    function showPrevFeature(){ openFeature((currentFeature-1+features.length)%features.length); }
-    function showNextFeature(){ openFeature((currentFeature+1)%features.length); }
-
-    featureCards.forEach((card, idx) => {
-      const summary = card.querySelector('.feature-summary-es');
-      summary.setAttribute('tabindex','0');
-      summary.addEventListener('click', (e)=>{ e.preventDefault(); openFeature(idx); });
-      summary.addEventListener('keydown', (e)=>{ if (e.key === 'Enter' || e.key===' ') { e.preventDefault(); openFeature(idx); } });
-    });
-
-    fPrev.addEventListener('click', showPrevFeature);
-    fNext.addEventListener('click', showNextFeature);
-    fClose.addEventListener('click', closeFeature);
-    featureModal.addEventListener('click', (e)=>{ if (e.target === featureModal) closeFeature(); });
-    document.addEventListener('keydown', (e)=> {
-      if (featureModal.style.display === 'flex') {
-        if (e.key === 'Escape') closeFeature();
-        if (e.key === 'ArrowLeft') showPrevFeature();
-        if (e.key === 'ArrowRight') showNextFeature();
-      }
-    });
-
-    // --- Carousel logic ---
-    const thumbButtons = Array.from(document.querySelectorAll('.carousel-thumb'));
-    const carouselLightbox = document.getElementById('eswCarouselLightbox');
-    const carouselImg = document.getElementById('eswCarouselImg');
-    const carouselCaption = document.getElementById('eswCarouselCaption');
-    const carouselClose = document.getElementById('eswCarouselClose');
-    const carouselPrev = document.getElementById('eswPrev');
-    const carouselNext = document.getElementById('eswNext');
-
-    const images = thumbButtons.map(btn => {
-      return {
-        src: btn.getAttribute('data-src') || btn.querySelector('img')?.src || '',
-        caption: (btn.querySelector('div em')?.textContent || btn.querySelector('img')?.alt || '')
-      };
-    });
-
-    let currentIdx = 0;
-    function openCarousel(i) {
-      if (!images[i]) return;
-      currentIdx = i;
-      carouselImg.src = images[i].src;
-      carouselImg.alt = images[i].caption || '';
-      carouselCaption.textContent = images[i].caption || '';
-      carouselLightbox.style.display = 'flex';
-      carouselLightbox.setAttribute('aria-hidden','false');
-      carouselClose.focus();
-      document.body.style.overflow = 'hidden';
-    }
-    function closeCarousel(){
-      carouselLightbox.style.display = 'none';
-      carouselLightbox.setAttribute('aria-hidden','true');
-      carouselImg.src = '';
-      carouselCaption.textContent = '';
-      document.body.style.overflow = '';
-    }
-    function prevCarousel(){ openCarousel((currentIdx-1+images.length)%images.length); }
-    function nextCarousel(){ openCarousel((currentIdx+1)%images.length); }
-
-    thumbButtons.forEach((btn, i) => {
-      btn.addEventListener('click', ()=> openCarousel(i) );
-      btn.addEventListener('keydown', (e)=> { if (e.key==='Enter' || e.key===' ') { e.preventDefault(); openCarousel(i); } });
-    });
-
-    carouselClose.addEventListener('click', closeCarousel);
-    carouselPrev.addEventListener('click', prevCarousel);
-    carouselNext.addEventListener('click', nextCarousel);
-    carouselLightbox.addEventListener('click', (e)=>{ if (e.target === carouselLightbox) closeCarousel(); });
-    document.addEventListener('keydown', (e) => {
-      if (carouselLightbox.style.display === 'flex') {
-        if (e.key === 'Escape') closeCarousel();
-        if (e.key === 'ArrowLeft') prevCarousel();
-        if (e.key === 'ArrowRight') nextCarousel();
-      }
-    });
-
-    // accessibility: ensure images preload slight for smoother UI
-    images.forEach(img => { if (img.src) { const i = new Image(); i.src = img.src; } });
-
-  })();
-</script>
-<!-- =========================
-     End Eswatini features + carousel
-     ========================= -->
-
-  
 <body>
 
   <!-- TOP BAR -->
@@ -440,72 +178,168 @@
       <div class="video-caption"><em>see an overview of my trip here</em></div>
     </div>
 
-  <!-- As-built / Quality Control card (with PDF thumbnails + action buttons) -->
-<section class="doc-card" aria-labelledby="qc-heading">
-  <h3 id="qc-heading" class="doc-title">Quality Control Manager Role</h3>
-  <p class="doc-sub">
-    <strong>Quality control</strong> — summary of my QC role, testing, and documentation (click the thumbnails to open each PDF).
-  </p>
+    <!-- As-built / Quality Control card (with PDF thumbnails + action buttons) -->
+    <section class="doc-card" aria-labelledby="qc-heading">
+      <h3 id="qc-heading" class="doc-title">Quality Control Manager Role</h3>
+      <p class="doc-sub">
+        <strong>Quality control</strong> — summary of my QC role, testing, and documentation (click the thumbnails to open each PDF).
+      </p>
 
-  <!-- Inline PDF thumbnail (click to open full PDF in lightbox) -->
-  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start;">
-    <!-- Large As-Built thumbnail -->
-    <div class="pdf-thumb-wrap" style="background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 8px 18px rgba(0,0,0,0.06);">
-      <div class="doc-btn" role="button" tabindex="0"
-           data-pdf="../images/eswatini/NyakuzaAs-BuiltDesign.pdf"
-           data-caption="Nyakuza — As-Built Design (full PDF)"
-           aria-label="Open As-Built PDF">
-        <!-- show first page of PDF inline as a thumbnail; some browsers will render the PDF page here -->
-        <iframe src="../images/eswatini/NyakuzaAs-BuiltDesign.pdf#page=1&view=fitH"
-                class="pdf-thumb"
-                title="As-Built PDF preview"
-                style="width:100%; height:300px; border:0; display:block;"></iframe>
-      </div>
-      <div style="padding:10px 12px;">
-        <strong style="display:block; margin-bottom:6px; color:#111;">Nyakuza — As-Built Design (preview)</strong>
-        <div style="color:#444; font-size:14px;">Click the preview to open the full PDF.</div>
-      </div>
-    </div>
-
-    <!-- Right column: role + smaller PDF thumbnails -->
-    <div>
-      <div style="margin-bottom:12px; color:#333;">
-        <p><strong>My role (brief)</strong></p>
-        <p>
-          As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete
-          mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design.
-          My partner and I coordinated with the Design and Construction Managers, along with the local masons to ensure alignment with the design drawings and maintained QC forms
-          and concrete test records. We had to ensure that all community members were aware of the construction saftey criteria durring the build every step of the way. 
-        </p>
-      </div>
-
-      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-        <!-- small thumbnail: Concrete ratios -->
-        <div class="doc-btn" role="button" tabindex="0"
-             data-pdf="../images/eswatini/Nyakuza-Concretemixratios.pdf"
-             data-caption="Nyakuza — Concrete mix ratios (PDF)"
-             aria-label="Open Concrete mix ratios PDF"
-             style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
-          <div style="font-weight:700; color:#111; margin-bottom:6px;">Concrete mix ratios</div>
-          <div style="font-size:13px; color:#555;">Click to open PDF</div>
+      <!-- Inline PDF thumbnail (click to open full PDF in lightbox) -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start;">
+        <!-- Large As-Built thumbnail -->
+        <div class="pdf-thumb-wrap" style="background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 8px 18px rgba(0,0,0,0.06);">
+          <div class="doc-btn pdf-open" role="button" tabindex="0"
+               data-pdf="../images/eswatini/NyakuzaAs-BuiltDesign.pdf"
+               data-caption="Nyakuza — As-Built Design (full PDF)"
+               aria-label="Open As-Built PDF">
+            <!-- iframe preview (some browsers render first page inline) -->
+            <iframe src="../images/eswatini/NyakuzaAs-BuiltDesign.pdf#page=1&view=fitH"
+                    class="pdf-thumb"
+                    title="As-Built PDF preview"
+                    style="width:100%; height:300px; border:0; display:block;"></iframe>
+          </div>
+          <div style="padding:10px 12px;">
+            <strong style="display:block; margin-bottom:6px; color:#111;">Nyakuza — As-Built Design (preview)</strong>
+            <div style="color:#444; font-size:14px;">Click the preview to open the full PDF.</div>
+          </div>
         </div>
 
-        <!-- small thumbnail: QC forms -->
-        <div class="doc-btn" role="button" tabindex="0"
-             data-pdf="../images/eswatini/Nyakuza_QCforms.pdf"
-             data-caption="Nyakuza — Quality control forms (PDF)"
-             aria-label="Open Quality Control forms PDF"
-             style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
-          <div style="font-weight:700; color:#111; margin-bottom:6px;">Quality Control forms</div>
-          <div style="font-size:13px; color:#555;">Click to open PDF</div>
+        <!-- Right column: role + smaller PDF thumbnails -->
+        <div>
+          <div style="margin-bottom:12px; color:#333;">
+            <p><strong>My role (brief)</strong></p>
+            <p>
+              As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete
+              mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design.
+              My partner and I coordinated with the Design and Construction Managers, along with the local masons to ensure alignment with the design drawings and maintained QC forms
+              and concrete test records. We had to ensure that all community members were aware of the construction saftey criteria durring the build every step of the way. 
+            </p>
+          </div>
+
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <!-- small thumbnail: Concrete ratios -->
+            <div class="doc-btn pdf-open" role="button" tabindex="0"
+                 data-pdf="../images/eswatini/Nyakuza-Concretemixratios.pdf"
+                 data-caption="Nyakuza — Concrete mix ratios (PDF)"
+                 aria-label="Open Concrete mix ratios PDF"
+                 style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
+              <div style="font-weight:700; color:#111; margin-bottom:6px;">Concrete mix ratios</div>
+              <div style="font-size:13px; color:#555;">Click to open PDF</div>
+            </div>
+
+            <!-- small thumbnail: QC forms -->
+            <div class="doc-btn pdf-open" role="button" tabindex="0"
+                 data-pdf="../images/eswatini/Nyakuza_QCforms.pdf"
+                 data-caption="Nyakuza — Quality control forms (PDF)"
+                 aria-label="Open Quality Control forms PDF"
+                 style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
+              <div style="font-weight:700; color:#111; margin-bottom:6px;">Quality Control forms</div>
+              <div style="font-size:13px; color:#555;">Click to open PDF</div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-     
-    </div>
-  </div>
-</section>
+    <!-- Features (moved inside body) -->
+    <section id="eswatini-features" class="features" aria-labelledby="esw-features-heading" style="max-width:1100px; margin:40px auto;">
+      <h2 id="esw-features-heading" class="features-heading" style="margin-bottom:18px;">Project features</h2>
 
+      <div class="features-grid-es" style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+        <!-- Feature A: Life on the homestead -->
+        <details class="feature-card-es" data-index="0" style="background:var(--card); color:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); cursor:pointer;">
+          <summary class="feature-summary-es" style="display:block; padding:0; cursor:pointer;">
+            <img src="../images/eswatini/life-homestead-thumb.jpg" alt="Life on the homestead" style="width:100%; height:170px; object-fit:cover; display:block;">
+            <div style="padding:14px 16px 18px;">
+              <div style="font-weight:700; font-size:18px;">Life on the homestead</div>
+              <div style="color:rgba(255,255,255,0.9); margin-top:6px; font-size:14px;">Daily life and logistics while living on-site during construction.</div>
+            </div>
+          </summary>
+
+          <div class="feature-body-es" data-full="../images/eswatini/life-homestead-full.jpg" style="display:none !important;">
+            <img src="../images/eswatini/life-homestead-full.jpg" alt="" style="display:block; width:100%; height:auto;">
+            <div class="feature-text-es" style="padding:14px 16px 20px; background:#fff; color:#111;">
+              <p><strong>Overview:</strong> Living on the homestead required daily coordination with site staff, sourcing fuel and potable water, and managing tool storage and security.</p>
+              <ul>
+                <li>Daily logistics: food, water, fuel</li>
+                <li>Local accommodations and coordination</li>
+                <li>Site safety and tool management</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <!-- Feature B: Community relations -->
+        <details class="feature-card-es" data-index="1" style="background:var(--card); color:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); cursor:pointer;">
+          <summary class="feature-summary-es" style="display:block; padding:0; cursor:pointer;">
+            <img src="../images/eswatini/community-thumb.jpg" alt="Community relations" style="width:100%; height:170px; object-fit:cover; display:block;">
+            <div style="padding:14px 16px 18px;">
+              <div style="font-weight:700; font-size:18px;">Community relations</div>
+              <div style="color:rgba(255,255,255,0.9); margin-top:6px; font-size:14px;">Partnership with local leaders and training programs for maintenance.</div>
+            </div>
+          </summary>
+
+          <div class="feature-body-es" data-full="../images/eswatini/community-full.jpg" style="display:none !important;">
+            <img src="../images/eswatini/community-full.jpg" alt="" style="display:block; width:100%; height:auto;">
+            <div class="feature-text-es" style="padding:14px 16px 20px; background:#fff; color:#111;">
+              <p><strong>Overview:</strong> We worked with village leaders to plan construction, hire local labor, and train community members on inspection and basic maintenance.</p>
+              <ul>
+                <li>Stakeholder workshops</li>
+                <li>Skills transfer and training</li>
+                <li>Maintenance planning and ownership</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <!-- Feature C: Duke Team -->
+        <details class="feature-card-es" data-index="2" style="background:var(--card); color:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); cursor:pointer;">
+          <summary class="feature-summary-es" style="display:block; padding:0; cursor:pointer;">
+            <img src="../images/eswatini/duke-team-thumb.jpg" alt="Duke team" style="width:100%; height:170px; object-fit:cover; display:block;">
+            <div style="padding:14px 16px 18px;">
+              <div style="font-weight:700; font-size:18px;">Duke team</div>
+              <div style="color:rgba(255,255,255,0.9); margin-top:6px; font-size:14px;">Student roles, responsibilities, and lessons learned on-site.</div>
+            </div>
+          </summary>
+
+          <div class="feature-body-es" data-full="../images/eswatini/duke-team-full.jpg" style="display:none !important;">
+            <img src="../images/eswatini/duke-team-full.jpg" alt="" style="display:block; width:100%; height:auto;">
+            <div class="feature-text-es" style="padding:14px 16px 20px; background:#fff; color:#111;">
+              <p><strong>Overview:</strong> Our Duke team handled design revisions, QA checks, and on-site coordination with Engineers In Action and local masons.</p>
+              <ul>
+                <li>Design reviews and field verification</li>
+                <li>Quality assurance and testing</li>
+                <li>Community engagement and documentation</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===== Full-size image carousel (thumbnails + lightbox) ===== -->
+    <section id="esw-full-images" style="max-width:1100px; margin:40px auto; padding:0 20px;">
+      <h2 style="font-size:22px; font-weight:700; color:#111; margin:0 0 12px;">Project images</h2>
+
+      <!-- thumbnails row -->
+      <div class="thumb-row" style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:10px;">
+        <button class="carousel-thumb" data-src="../images/eswatini/photo1.jpg" aria-label="Open image 1" style="border:0; padding:0; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+          <img src="../images/eswatini/photo1-thumb.jpg" alt="Bridge site photo 1" style="width:100%; height:220px; object-fit:cover; display:block;">
+          <div style="padding:8px 10px;"><em style="color:#333;">Bridge site — approach</em></div>
+        </button>
+
+        <button class="carousel-thumb" data-src="../images/eswatini/photo2.jpg" aria-label="Open image 2" style="border:0; padding:0; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+          <img src="../images/eswatini/photo2-thumb.jpg" alt="Bridge construction photo" style="width:100%; height:220px; object-fit:cover; display:block;">
+          <div style="padding:8px 10px;"><em style="color:#333;">Construction — suspension cables</em></div>
+        </button>
+
+        <button class="carousel-thumb" data-src="../images/eswatini/photo3.jpg" aria-label="Open image 3" style="border:0; padding:0; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+          <img src="../images/eswatini/photo3-thumb.jpg" alt="Team photo" style="width:100%; height:220px; object-fit:cover; display:block;">
+          <div style="padding:8px 10px;"><em style="color:#333;">Duke team — onsite</em></div>
+        </button>
+      </div>
+    </section>
 
   </div>
 
@@ -523,19 +357,51 @@
     </div>
   </div>
 
+  <!-- Feature modal (Eswatini) -->
+  <div id="featureModalEs" class="modal-overlay-es" aria-hidden="true" role="dialog" aria-modal="true" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); align-items:center; justify-content:center; z-index:4000; padding:28px;">
+    <div class="modal-es" role="document" style="background:#fff; width:100%; max-width:1100px; border-radius:12px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.45);">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1)); color:#fff;">
+        <div id="featureModalTitle" style="font-weight:800; font-size:18px;">Feature</div>
+        <div style="display:flex; gap:8px;">
+          <button id="featurePrev" class="modal-btn-es" style="background:rgba(255,255,255,0.12); border:none; color:#fff; padding:8px 10px; border-radius:8px; cursor:pointer;">◀ Prev</button>
+          <button id="featureNext" class="modal-btn-es" style="background:rgba(255,255,255,0.12); border:none; color:#fff; padding:8px 10px; border-radius:8px; cursor:pointer;">Next ▶</button>
+          <button id="featureClose" class="modal-btn-es" style="background:rgba(255,255,255,0.12); border:none; color:#fff; padding:8px 10px; border-radius:8px; cursor:pointer;">✕</button>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:20px; padding:20px; align-items:flex-start; background:#fff;">
+        <img id="featureModalImg" src="" alt="" style="flex:0 0 460px; max-width:52%; border-radius:8px; object-fit:cover; box-shadow:0 10px 30px rgba(0,0,0,0.18);">
+        <div id="featureModalText" style="flex:1; color:#111; font-size:16px; line-height:1.6;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carousel lightbox -->
+  <div id="eswCarouselLightbox" class="esw-carousel-lightbox" role="dialog" aria-modal="true" aria-hidden="true" style="position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); z-index:5000; padding:20px;">
+    <button id="eswCarouselClose" aria-label="Close images" style="position:absolute; top:18px; right:18px; z-index:5100; background:rgba(255,255,255,0.12); color:#fff; border:0; padding:8px 10px; border-radius:8px; cursor:pointer;">✕</button>
+
+    <button id="eswPrev" aria-label="Previous image" style="position:absolute; left:18px; top:50%; transform:translateY(-50%); z-index:5100; background:rgba(255,255,255,0.12); color:#fff; border:0; padding:10px; border-radius:8px; cursor:pointer;">◀</button>
+    <button id="eswNext" aria-label="Next image" style="position:absolute; right:18px; top:50%; transform:translateY(-50%); z-index:5100; background:rgba(255,255,255,0.12); color:#fff; border:0; padding:10px; border-radius:8px; cursor:pointer;">▶</button>
+
+    <div style="max-width:1400px; width:100%; max-height:92vh; display:flex; flex-direction:column; align-items:center;">
+      <img id="eswCarouselImg" src="" alt="" style="max-width:100%; max-height:calc(92vh - 100px); object-fit:contain; border-radius:8px; box-shadow:0 30px 80px rgba(0,0,0,0.6);">
+      <div id="eswCarouselCaption" style="margin-top:12px; color:#fff; font-style:italic; text-align:center; max-width:95%;"></div>
+    </div>
+  </div>
+
+  <!-- ===== Scripts (feature modal + carousel + pdf lightbox) ===== -->
   <script>
     (function(){
+      /* PDF lightbox */
       const lightbox = document.getElementById('pdfLightbox');
       const pdfFrame = document.getElementById('pdfFrame');
       const pdfCaption = document.getElementById('pdfCaption');
       const pdfTitle = document.getElementById('pdfTitle');
       const closeBtn = lightbox.querySelector('.lightbox-close');
 
-      // Buttons that open PDFs: selector matches .doc-btn elements with data-pdf
-      const pdfButtons = Array.from(document.querySelectorAll('.doc-btn[data-pdf]'));
+      const pdfButtons = Array.from(document.querySelectorAll('.pdf-open[data-pdf]'));
 
       function openPDF(src, caption, title) {
-        // set iframe src to the PDF path (relative)
         pdfFrame.src = src;
         pdfCaption.textContent = caption || '';
         pdfTitle.textContent = title || 'Document';
@@ -545,12 +411,11 @@
         closeBtn.focus();
         document.body.style.overflow = 'hidden';
       }
-
       function closePDF() {
         lightbox.classList.remove('open');
         lightbox.style.display = 'none';
         lightbox.setAttribute('aria-hidden','true');
-        pdfFrame.src = ''; // remove src so the browser stops loading the PDF
+        pdfFrame.src = '';
         pdfCaption.textContent = '';
         document.body.style.overflow = '';
       }
@@ -561,23 +426,147 @@
           const caption = btn.getAttribute('data-caption') || '';
           openPDF(src, caption, caption);
         });
-        // keyboard activation
         btn.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
         });
       });
 
       closeBtn.addEventListener('click', closePDF);
-      // click background to close
       lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closePDF(); });
-
-      // ESC to close
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && lightbox.classList.contains('open')) closePDF();
       });
+
+      /* Feature modal logic */
+      const featureCards = Array.from(document.querySelectorAll('.feature-card-es'));
+      const featureModal = document.getElementById('featureModalEs');
+      const fTitle = document.getElementById('featureModalTitle');
+      const fImg = document.getElementById('featureModalImg');
+      const fText = document.getElementById('featureModalText');
+      const fPrev = document.getElementById('featurePrev');
+      const fNext = document.getElementById('featureNext');
+      const fClose = document.getElementById('featureClose');
+
+      const features = featureCards.map((card, idx) => {
+        const title = card.querySelector('div[style*="font-weight:700"]')?.textContent?.trim()
+                      || ('Feature ' + (idx+1));
+        const body = card.querySelector('.feature-body-es');
+        const img = body?.getAttribute('data-full') || (body?.querySelector('img')?.src || '');
+        const paragraphs = Array.from(body?.querySelectorAll('.feature-text-es p') || []).map(p => p.innerHTML.trim());
+        const list = Array.from(body?.querySelectorAll('.feature-text-es ul li') || []).map(li => li.textContent.trim());
+        return { title, img, paragraphs, list };
+      });
+
+      let currentFeature = 0;
+      function openFeature(i) {
+        if (!features[i]) return;
+        currentFeature = i;
+        const f = features[i];
+        fTitle.textContent = f.title || '';
+        fImg.src = f.img || '';
+        fImg.alt = f.title || '';
+        fText.innerHTML = '';
+        if (f.paragraphs && f.paragraphs.length) {
+          f.paragraphs.forEach(p => { const el = document.createElement('p'); el.innerHTML = p; fText.appendChild(el); });
+        }
+        if (f.list && f.list.length) {
+          const ul = document.createElement('ul');
+          f.list.forEach(li => { const liEl = document.createElement('li'); liEl.textContent = li; ul.appendChild(liEl); });
+          fText.appendChild(ul);
+        }
+        featureModal.style.display = 'flex';
+        featureModal.setAttribute('aria-hidden','false');
+        fClose.focus();
+        document.body.style.overflow = 'hidden';
+      }
+      function closeFeature() {
+        featureModal.style.display = 'none';
+        featureModal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+      function showPrevFeature(){ openFeature((currentFeature-1+features.length)%features.length); }
+      function showNextFeature(){ openFeature((currentFeature+1)%features.length); }
+
+      featureCards.forEach((card, idx) => {
+        const summary = card.querySelector('.feature-summary-es');
+        summary.setAttribute('tabindex','0');
+        summary.addEventListener('click', (e)=>{ e.preventDefault(); openFeature(idx); });
+        summary.addEventListener('keydown', (e)=>{ if (e.key === 'Enter' || e.key===' ') { e.preventDefault(); openFeature(idx); } });
+      });
+
+      fPrev.addEventListener('click', showPrevFeature);
+      fNext.addEventListener('click', showNextFeature);
+      fClose.addEventListener('click', closeFeature);
+      featureModal.addEventListener('click', (e)=>{ if (e.target === featureModal) closeFeature(); });
+      document.addEventListener('keydown', (e)=> {
+        if (featureModal.style.display === 'flex') {
+          if (e.key === 'Escape') closeFeature();
+          if (e.key === 'ArrowLeft') showPrevFeature();
+          if (e.key === 'ArrowRight') showNextFeature();
+        }
+      });
+
+      /* Carousel logic */
+      const thumbButtons = Array.from(document.querySelectorAll('.carousel-thumb'));
+      const carouselLightbox = document.getElementById('eswCarouselLightbox');
+      const carouselImg = document.getElementById('eswCarouselImg');
+      const carouselCaption = document.getElementById('eswCarouselCaption');
+      const carouselClose = document.getElementById('eswCarouselClose');
+      const carouselPrev = document.getElementById('eswPrev');
+      const carouselNext = document.getElementById('eswNext');
+
+      const images = thumbButtons.map(btn => {
+        return {
+          src: btn.getAttribute('data-src') || btn.querySelector('img')?.src || '',
+          caption: (btn.querySelector('div em')?.textContent || btn.querySelector('img')?.alt || '')
+        };
+      });
+
+      let currentIdx = 0;
+      function openCarousel(i) {
+        if (!images[i]) return;
+        currentIdx = i;
+        carouselImg.src = images[i].src;
+        carouselImg.alt = images[i].caption || '';
+        carouselCaption.textContent = images[i].caption || '';
+        carouselLightbox.style.display = 'flex';
+        carouselLightbox.setAttribute('aria-hidden','false');
+        carouselClose.focus();
+        document.body.style.overflow = 'hidden';
+      }
+      function closeCarousel(){
+        carouselLightbox.style.display = 'none';
+        carouselLightbox.setAttribute('aria-hidden','true');
+        carouselImg.src = '';
+        carouselCaption.textContent = '';
+        document.body.style.overflow = '';
+      }
+      function prevCarousel(){ openCarousel((currentIdx-1+images.length)%images.length); }
+      function nextCarousel(){ openCarousel((currentIdx+1)%images.length); }
+
+      thumbButtons.forEach((btn, i) => {
+        btn.addEventListener('click', ()=> openCarousel(i) );
+        btn.addEventListener('keydown', (e)=> { if (e.key==='Enter' || e.key===' ') { e.preventDefault(); openCarousel(i); } });
+      });
+
+      carouselClose.addEventListener('click', closeCarousel);
+      carouselPrev.addEventListener('click', prevCarousel);
+      carouselNext.addEventListener('click', nextCarousel);
+      carouselLightbox.addEventListener('click', (e)=>{ if (e.target === carouselLightbox) closeCarousel(); });
+      document.addEventListener('keydown', (e) => {
+        if (carouselLightbox.style.display === 'flex') {
+          if (e.key === 'Escape') closeCarousel();
+          if (e.key === 'ArrowLeft') prevCarousel();
+          if (e.key === 'ArrowRight') nextCarousel();
+        }
+      });
+
+      // preload images for smoother open
+      images.forEach(img => { if (img.src) { const i = new Image(); i.src = img.src; } });
+
     })();
   </script>
-  
 
 </body>
 </html>
+
