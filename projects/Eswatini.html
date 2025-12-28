@@ -11,249 +11,137 @@
       --card: #427b76;
       --accent: #b0ab52;
       --content-max: 1100px;
-      --gap: 28px;
+      --page-pad: 20px;
     }
 
-    html,body { height:100%; margin:0; }
     body {
       margin: 0;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       background: var(--bg);
       color: #111;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* TOPBAR (same style as WavGuard) */
+    /* ---------- TOP BAR ---------- */
     .topbar {
-      position: fixed; inset: 0 0 auto 0; height:60px;
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 0 20px; z-index:1000;
-      background: rgba(0,0,0,0.22); backdrop-filter: blur(4px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(4px);
     }
+    .topbar-left { display:flex; align-items:center; gap:20px; white-space:nowrap; }
     .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); text-decoration:none; }
-    .topnav { display:flex; gap:10px; align-items:center; }
-    .topnav a { color:#fff; text-decoration:none; font-weight:700; background:var(--card); padding:8px 12px; border-radius:8px; }
+    .topnav { display:flex; gap:10px; align-items:center; margin-left:8px; }
+    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 10px; border-radius:8px; transition: background .12s; }
+    .topnav a:hover, .topnav a:focus { background: rgba(255,255,255,0.08); outline:none; }
 
     .spacer { height:60px; }
 
-    /* HERO */
+    /* ---------- HERO ---------- */
     .hero {
-      position: relative; height: 100vh; width:100%;
+      position: relative;
+      height: 100vh;
+      width: 100%;
       background-image: url("../images/eswatini/full.jpeg");
-      background-size: cover; background-position:center; display:flex;
-      align-items:center; justify-content:center;
+      background-size: cover;
+      background-position: center center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
-    .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,48px); font-weight:800; text-shadow:0 8px 24px rgba(0,0,0,0.6); padding:0 20px; text-align:center; }
+    .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,48px); font-weight:800; text-align:center; padding:0 20px; text-shadow:0 8px 24px rgba(0,0,0,0.6); }
 
-    /* MAIN CONTENT (centered area) */
-    .content { padding: 40px 20px 32px; max-width: var(--content-max); margin: 0 auto; }
+    /* ---------- MAIN CONTENT ---------- */
+    .page { max-width: var(--content-max); margin: 0 auto; padding: 36px var(--page-pad) 80px; box-sizing: border-box; }
+    .content { max-width: 900px; margin: 0 auto 24px; background:#fff; padding: 28px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.06); }
+    .meta { color:#666; margin-bottom:16px; font-size:14px; }
+    .content p { line-height:1.6; margin-bottom:16px; color:#222; }
 
-    /* Intro box (centered, constrained) */
-    .project-intro {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 32px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      margin: 0 auto 28px;
-      max-width: 900px;
-    }
-    .project-intro p {
-      font-size: 17px;
-      line-height: 1.7;
-      color: #333;
-      margin: 0 0 18px 0;
-    }
-    .project-intro p:last-child { margin-bottom: 0; }
+    /* Video card (centered) */
+    .video-card { background:#fff; border-radius:12px; padding:20px; box-shadow:0 8px 20px rgba(0,0,0,0.06); max-width:900px; margin:20px auto; text-align:center; }
+    .video-wrapper { display:flex; justify-content:center; }
+    .video-caption { margin-top:12px; color:#333; font-style:italic; font-size:14px; text-align:center; }
 
-    /* DEMO card */
-    .demo-wrapper { display:flex; justify-content:center; padding-bottom: 24px; }
-    .demo-card {
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      padding: 28px;
-      width: calc(100% - 64px);
-      max-width: var(--content-max);
-      box-sizing: border-box;
-      margin: 0 auto;
-    }
-    .demo-grid { display:flex; gap: var(--gap); align-items:flex-start; }
-    .demo-img { width:360px; height:240px; border-radius:8px; object-fit:cover; box-shadow:0 6px 18px rgba(0,0,0,0.12); flex:0 0 360px; }
-    .demo-text { flex:1; font-size:15px; line-height:1.6; color:#333; }
-
-    /* FEATURES - 3x grid */
-    .features {
-      margin: 28px auto 60px;
-      max-width: var(--content-max,1100px);
-      padding: 0 20px;
-    }
-    .features-heading { font-size: 28px; color: #111; margin: 0 0 16px 0; }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .feature-card {
+    /* As-built / QC card */
+    .doc-card { background:#fff; border-radius:12px; padding:22px; box-shadow:0 8px 20px rgba(0,0,0,0.06); max-width:900px; margin:28px auto; }
+    .doc-title { font-weight:800; font-size:18px; margin:0 0 8px; color:#111; }
+    .doc-sub { color:#444; margin: 0 0 14px; }
+    .doc-actions { display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; }
+    .doc-btn {
       background: var(--card);
-      color: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-      text-decoration: none;
-      transition: transform .18s ease, box-shadow .18s ease;
-      display: block;
-      cursor: pointer;
-    }
-    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
-
-    .feature-summary { display:block; padding:0; cursor:pointer; }
-    .feature-thumb {
-      width: 100%;
-      height: 170px;
-      object-fit: contain;
-      background: rgba(255,255,255,0.06);
-      padding: 10px;
-      display:block;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-    }
-    .feature-meta { padding: 14px 16px 18px 16px; display:flex; flex-direction:column; gap:8px; }
-    .feature-title { font-weight:700; font-size:18px; color:#fff; }
-    .feature-excerpt { font-size:14px; color: rgba(255,255,255,0.9); line-height:1.35; margin:0; }
-
-    .feature-body { display: none !important; }
-
-    @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 720px) { .features-grid { grid-template-columns: 1fr; } .feature-thumb { height: 44vw; } }
-
-    /* MODAL */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-      display: none; align-items: center; justify-content: center; z-index:2000; padding: 28px;
-    }
-    .modal-overlay.open { display:flex; }
-
-    .modal {
-      background: #fff;
-      width: 100%;
-      max-width: 1100px;
-      max-height: 92vh;
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
-    }
-
-    .modal-top {
-      display:flex; align-items:center; justify-content:space-between; padding: 16px 20px; border-bottom: 1px solid rgba(0,0,0,0.06);
-      background: linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1));
       color:#fff;
-    }
-    .modal-title { font-size:20px; font-weight:800; }
-    .modal-close, .modal-prev, .modal-next {
-      background: rgba(255,255,255,0.12);
-      color: #fff;
+      padding:10px 14px;
+      border-radius:10px;
       border: none;
-      padding: 8px 12px;
-      border-radius: 8px;
       cursor: pointer;
       font-weight:700;
+      text-decoration: none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
-    .modal-controls { display:flex; gap:8px; align-items:center; }
+    .doc-btn:hover, .doc-btn:focus { transform: translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.12); outline: none; }
 
-    .modal-body {
-      display:flex;
-      gap: 20px;
-      padding: 20px;
-      overflow: auto;
-      background: #fff;
-    }
+    /* small helper for the inline PDF thumbnail */
+    .pdf-thumb { width:100%; max-height:480px; object-fit:cover; border-radius:8px; border:1px solid rgba(0,0,0,0.04); display:block; }
 
-    .modal-img {
-      flex: 0 0 460px;
-      max-width: 52%;
-      border-radius:8px;
-      object-fit: cover;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-    }
+    /* Lightbox / PDF modal (reused) */
+    .lightbox { position: fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.85); z-index:3000; padding:20px; }
+    .lightbox.open { display:flex; }
+    .lightbox-inner { width:100%; max-width:1200px; height:92vh; background:#fff; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
+    .lightbox-toolbar { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1)); color:#fff; }
+    .lightbox-close { background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .lightbox-frame { flex:1; border:0; width:100%; height:100%; }
+    .lightbox-caption { padding:10px 16px; font-style:italic; color:#222; background:#fff; text-align:center; }
 
-    .modal-text {
-      flex: 1;
-      color:#111;
-      font-size:16px;
-      line-height:1.6;
-    }
-
-    .modal-text ul { margin-top:12px; padding-left:20px; }
-
-    @media (max-width: 900px) {
-      .modal { max-width: calc(100% - 40px); }
-      .modal-body { flex-direction: column; }
-      .modal-img { max-width: 100%; width:100%; height: auto; flex: none; }
-    }
-
-    .modal-close:focus, .modal-prev:focus, .modal-next:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 2px; }
-
-    /* FULL IMAGES (lightbox) */
-    .full-images-section { max-width: 1100px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
-    .full-images-title { font-size: 22px; font-weight: 700; color: #111; margin: 0 0 16px; }
-
-    .full-board-wrap { margin-bottom: 20px; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
-    .full-board-img { display:block; width:100%; height:auto; object-fit:contain; border:0; }
-
-    .cad-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width:1100px; margin: 0 auto 24px; }
-    .cad-figure { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.08); margin: 0; }
-    .cad-img { display:block; width:100%; height:100%; object-fit:contain; }
-
-    .img-caption { padding: 10px 14px; color: #333; font-size:14px; }
-    .img-caption em { font-style: italic; color: #333; }
-
-    .img-btn { border: 0; padding: 0; margin: 0; background: transparent; cursor: pointer; display:block; width:100%; text-align:left; }
-    .img-btn:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 4px; }
-
-    .lightbox { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); z-index: 3000; padding: 20px; }
-    .lightbox.open { display: flex; }
-    .lightbox-inner { max-width: 1400px; width: 100%; max-height: 92vh; overflow: auto; position: relative; display:flex; flex-direction:column; align-items:center; }
-    .lightbox-inner img { max-width: 100%; max-height: calc(92vh - 80px); object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
-    .lightbox-caption { margin-top: 12px; color: #fff; font-style: italic; font-size: 15px; text-align: center; max-width: 95%; }
-
-    .lightbox-close { position: absolute; top: 18px; right: 18px; background: rgba(255,255,255,0.12); color: #fff; border: none; padding: 8px 10px; border-radius: 8px; font-size: 18px; cursor: pointer; z-index:3100; }
-    .lightbox-close:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 2px; }
-
-    @media (max-width: 900px) {
-      .cad-row { grid-template-columns: 1fr; }
-      .demo-img { width: 100%; height: auto; }
-      .demo-grid { flex-direction: column; }
+    @media (max-width:900px) {
+      .page { padding: 20px; }
+      .video-card iframe { width:100%; height: auto; }
+      .lightbox-inner { max-width: calc(100% - 20px); height: 90vh; }
     }
   </style>
 </head>
+
 <body>
 
   <!-- TOP BAR -->
   <div class="topbar" role="navigation" aria-label="Top navigation">
-    <a class="brand" href="../index.html">Sienna Giuseppi</a>
-    <nav class="topnav" aria-label="Primary navigation">
-      <a href="../about.html">About</a>
-      <a href="../index.html#engineering-projects">Projects</a>
-      <a href="../index.html#experiences">Experiences</a>
-      <a href="../resume.html">Resume</a>
-    </nav>
+    <div class="topbar-left">
+      <a class="brand" href="../index.html">Sienna Giuseppi</a>
+
+      <nav class="topnav" aria-label="Primary">
+        <a href="../about.html">About</a>
+        <a href="../index.html#engineering-projects">Projects</a>
+        <a href="../index.html#experiences">Experiences</a>
+        <a href="../resume.html">Resume</a>
+      </nav>
+    </div>
   </div>
+
+  <!-- spacer so hero isn't hidden by top bar -->
   <div class="spacer" aria-hidden="true"></div>
 
-  <!-- HERO -->
-  <section class="hero" aria-label="Project hero image">
+  <!-- HERO IMAGE -->
+  <section class="hero" role="banner" aria-label="Project hero image">
     <div class="hero-title">Nyakuza Foot Bridge — Eswatini, Africa</div>
   </section>
 
-  <!-- MAIN: intro -->
-  <main class="content" aria-labelledby="project-intro-heading">
-    <section class="project-intro" id="project-intro">
+  <!-- MAIN PAGE CONTENT -->
+  <div class="page">
+
+    <!-- Overview (keeps your white intro box) -->
+    <main class="content" aria-labelledby="project-overview-heading">
+      <h2 id="project-overview-heading" style="margin-top:0; font-size:20px; color:#111;">Project overview</h2>
+
+      <div class="meta">Role: Quality Control Manager · Location: Eswatini · Year: 2024</div>
+
       <p>
         I spent eight weeks in Eswatini working alongside a team of Duke classmates,
         Engineers In Action staff, local masons, and community members to design and
@@ -267,415 +155,124 @@
         on structural decisions. While on-site, I worked directly with community
         members to ensure construction quality and safety.
       </p>
-    </section>
-  </main>
+    </main>
 
-  <!-- DEMO / SNAPSHOT -->
-  <section class="demo-wrapper" aria-labelledby="project-demo-heading">
-    <div class="demo-card" role="region" aria-label="Project snapshot">
-      <h2 id="project-demo-heading">Project snapshot</h2>
-
-      <div class="demo-grid">
-        <img class="demo-img" src="../images/eswatini/site-overview.jpg" alt="Site overview">
-        <div class="demo-text">
-          <p><strong>On-site work</strong></p>
-          <p>Construction involved local masonry, tensioning of suspension cables, and careful anchoring to bedrock and retaining structures. We adapted standard suspension bridge techniques to the local context and materials availability.</p>
-
-          <p><strong>Community partnership</strong></p>
-          <p>Coordination with local leaders and masons ensured the bridge fit community needs, created local employment, and built skills for maintenance and future projects.</p>
-
-          <p><strong>Quality control</strong></p>
-          <p>My role focused on checking dimensions, verifying splice quality, and confirming safety margins for foot traffic. I documented construction progress and non-conformances for follow-up.</p>
-        </div>
+    <!-- Embedded LinkedIn video (centered card) -->
+    <div class="video-card" role="region" aria-label="Project video overview">
+      <div class="video-wrapper" aria-hidden="false">
+        <!-- LinkedIn embed you provided -->
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1"
+                height="399" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
       </div>
+      <div class="video-caption"><em>see an overview of my trip here</em></div>
     </div>
-  </section>
 
-  <!-- FEATURES -->
-  <section class="features" aria-labelledby="features-heading">
-    <h2 id="features-heading" class="features-heading">Project details</h2>
+    <!-- As-built / Quality Control card (with PDF + action buttons) -->
+    <section class="doc-card" aria-labelledby="qc-heading">
+      <h3 id="qc-heading" class="doc-title">As-Built — Quality control</h3>
+      <p class="doc-sub"><strong>Quality control</strong> — summary of my QC role, testing, and documentation (expand below to open the report and forms).</p>
 
-    <div class="features-grid">
-
-      <!-- Feature 1: Design & Analysis -->
-      <details class="feature-card" data-index="0">
-        <summary class="feature-summary">
-          <img src="../images/eswatini/design-thumb.jpg" alt="Design thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">Design & Analysis</div>
-            <div class="feature-excerpt">Structural design, load calculations, and material selection.</div>
-          </div>
-        </summary>
-
-        <div class="feature-body" data-full="../images/eswatini/design-full.png">
-          <img src="../images/eswatini/design-full.png" alt="Design details" class="feature-fullimg">
-          <div class="feature-text">
-            <p>The bridge was sized for pedestrian loads with conservative safety factors to account for dynamic loading and uneven distributions. Design included calculations for cable tension, deck loads, and anchor block sizing.</p>
-            <ul><li>Capacity sizing for 2–3 people per linear meter</li><li>Anchor block design using locally-sourced stone and concrete</li><li>Simplified analysis for maintainability by local masons</li></ul>
-          </div>
-        </div>
-      </details>
-
-      <!-- Feature 2: Construction sequence -->
-      <details class="feature-card" data-index="1">
-        <summary class="feature-summary">
-          <img src="../images/eswatini/construction-thumb.jpg" alt="Construction thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">Construction sequence</div>
-            <div class="feature-excerpt">How the bridge was built step-by-step on site.</div>
-          </div>
-        </summary>
-
-        <div class="feature-body" data-full="../images/eswatini/construction-full.jpg">
-          <img src="../images/eswatini/construction-full.jpg" alt="Construction" class="feature-fullimg">
-          <div class="feature-text">
-            <p>Construction began with site clearing, footing excavation, and anchor placement. Cable installation was staged with temporary supports and tensioned progressively as the deck was laid.</p>
-            <ul><li>Local masonry for anchor and approach ramps</li><li>Staged cable tensioning to control deflection</li><li>Final decking and handrail installation with community labor</li></ul>
-          </div>
-        </div>
-      </details>
-
-      <!-- Feature 3: Materials & tools -->
-      <details class="feature-card" data-index="2">
-        <summary class="feature-summary">
-          <img src="../images/eswatini/materials-thumb.jpg" alt="Materials thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">Materials & tools</div>
-            <div class="feature-excerpt">What we used and why — cables, anchors, timber, concrete.</div>
-          </div>
-        </summary>
-
-        <div class="feature-body" data-full="../images/eswatini/materials-full.jpg">
-          <img src="../images/eswatini/materials-full.jpg" alt="Materials" class="feature-fullimg">
-          <div class="feature-text">
-            <p>We balanced robustness with transportability: high-tensile steel cables, locally mixed concrete for anchor blocks, and timber decking where appropriate.</p>
-            <ul><li>High-tensile galvanised suspension cable</li><li>Concrete mixes made with local aggregate</li><li>Basic lifting and tensioning tools</li></ul>
-          </div>
-        </div>
-      </details>
-
-      <!-- Feature 4: Site logistics -->
-      <details class="feature-card" data-index="3">
-        <summary class="feature-summary">
-          <img src="../images/eswatini/logistics-thumb.jpg" alt="Logistics thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">Site logistics</div>
-            <div class="feature-excerpt">Transport, staging, and working with local constraints.</div>
-          </div>
-        </summary>
-
-        <div class="feature-body" data-full="../images/eswatini/logistics-full.jpg">
-          <img src="../images/eswatini/logistics-full.jpg" alt="Logistics" class="feature-fullimg">
-          <div class="feature-text">
-            <p>Limited road access required modular planning: materials were staged at roadheads and carried to site. Weather windows were important for tensioning operations and concrete curing.</p>
-            <ul><li>Material staging plans to minimize on-site footprint</li><li>Coordination of local labor schedules and transport</li></ul>
-          </div>
-        </div>
-      </details>
-
-      <!-- Feature 5: Quality Control -->
-      <details class="feature-card" data-index="4">
-        <summary class="feature-summary">
-          <img src="../images/eswatini/qc-thumb.jpg" alt="QC thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">Quality Control</div>
-            <div class="feature-excerpt">Checks, tolerances, and inspection procedures.</div>
-          </div>
-        </summary>
-
-        <div class="feature-body" data-full="../images/eswatini/qc-full.jpg">
-          <img src="../images/eswatini/qc-full.jpg" alt="Quality control" class="feature-fullimg">
-          <div class="feature-text">
-            <p>QC covered alignment, tension checks, splice integrity, and deck fastening. Non-conformances were documented and corrected in close collaboration with field leads.</p>
-            <ul><li>Measurement checks for sag and clearance</li><li>Splice and clamp inspection protocol</li><li>Documentation of corrective actions</li></ul>
-          </div>
-        </div>
-      </details>
-
-      <!-- Feature 6: Community & training -->
-      <details class="feature-card" data-index="5">
-        <summary class="feature-summary">
-          <img src="../images/eswatini/community-thumb.jpg" alt="Community thumbnail" class="feature-thumb">
-          <div class="feature-meta">
-            <div class="feature-title">Community & training</div>
-            <div class="feature-excerpt">Skills transfer, maintenance plan, and local ownership.</div>
-          </div>
-        </summary>
-
-        <div class="feature-body" data-full="../images/eswatini/community-full.jpg">
-          <img src="../images/eswatini/community-full.jpg" alt="Community work" class="feature-fullimg">
-          <div class="feature-text">
-            <p>We trained local teams on basic inspection and maintenance, provided documentation, and worked with local leaders to build ownership and a maintenance schedule to keep the bridge safe long-term.</p>
-            <ul><li>Hands-on training for caretakers</li><li>Maintenance checklist and inspection cadence</li><li>Community handover and sustainability planning</li></ul>
-          </div>
-        </div>
-      </details>
-
-    </div>
-  </section>
-
-  <!-- FULL IMAGES -->
-  <section class="full-images-section" aria-labelledby="full-images-heading" style="margin:40px 0;">
-    <h2 id="full-images-heading" class="full-images-title">Full images</h2>
-
-    <div class="full-board-wrap">
-      <button class="img-btn" data-src="../images/eswatini/full.jpeg" data-caption="Full site overview — Nyakuza bridge on approach">
-        <img src="../images/eswatini/full.jpeg" alt="Full site photo" class="full-board-img">
+      <!-- Inline thumbnail (click to open full PDF in lightbox) -->
+      <button class="doc-btn" type="button" data-pdf="images/eswatini/Nyakuza As-Built Design.pdf" data-caption="Nyakuza — As-built design (full PDF)">
+        <!-- small icon + text; replace with an <img> if you have a thumbnail -->
+        📄 Open As-Built PDF
       </button>
-      <div class="img-caption"><em>Full site — completed bridge and approaches</em></div>
-    </div>
 
-    <div class="cad-row">
-      <figure class="cad-figure">
-        <button class="img-btn" data-src="../images/eswatini/exploaded.jpg" data-caption="Exploded view — construction stages">
-          <img src="../images/eswatini/exploaded.jpg" alt="Exploded construction view" class="cad-img">
+      <div style="margin-top:12px; color:#333;">
+        <p><strong>My role (brief)</strong></p>
+        <p>
+          <!-- placeholder text — you can edit the following paragraph with your QC details -->
+          As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design. I coordinated with local masons to ensure alignment with the design drawings and maintained QC forms and concrete test records.
+        </p>
+      </div>
+
+      <!-- Action buttons for concrete ratios and QC forms (open in same lightbox) -->
+      <div class="doc-actions" aria-hidden="false" style="margin-top:12px;">
+        <button class="doc-btn" type="button" data-pdf="images/eswatini/Nyakuza-Concrete mix ratios.pdf" data-caption="Nyakuza — Concrete mix ratios (PDF)">
+          🧪 Concrete mix ratios
         </button>
-        <figcaption class="img-caption"><em>Exploded view — construction stages</em></figcaption>
-      </figure>
 
-      <figure class="cad-figure">
-        <button class="img-btn" data-src="../images/eswatini/cad-labeled.jpg" data-caption="Labeled site plan">
-          <img src="../images/eswatini/cad-labeled.jpg" alt="Labeled site plan" class="cad-img">
+        <button class="doc-btn" type="button" data-pdf="images/eswatini/Nyakuza_QC forms.pdf" data-caption="Nyakuza — QC forms (PDF)">
+          📝 QC forms
         </button>
-        <figcaption class="img-caption"><em>Labeled site plan — anchor and deck layout</em></figcaption>
-      </figure>
-    </div>
-  </section>
 
-  <!-- LIGHTBOX modal for full images -->
-  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="lightbox-close" aria-label="Close full image">✕</button>
-    <div class="lightbox-inner">
-      <img id="lightboxImg" src="" alt="">
-      <div id="lightboxCaption" class="lightbox-caption" aria-live="polite"></div>
+        <!-- also provide a direct-download link (falls back to new tab) -->
+        <a class="doc-btn" href="images/eswatini/Nyakuza As-Built Design.pdf" target="_blank" rel="noopener" style="background:transparent; color:var(--card); border:1px solid var(--card);">
+          ⤓ Download As-Built PDF
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- LIGHTBOX (for PDFs) -->
+  <div id="pdfLightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox-inner" role="document">
+      <div class="lightbox-toolbar">
+        <div id="pdfTitle" style="font-weight:700;">Document</div>
+        <button class="lightbox-close" aria-label="Close document">✕</button>
+      </div>
+
+      <!-- iframe used to present the PDF; src is set dynamically -->
+      <iframe id="pdfFrame" class="lightbox-frame" src="" title="PDF viewer"></iframe>
+      <div id="pdfCaption" class="lightbox-caption" aria-live="polite"></div>
     </div>
   </div>
 
-  <!-- FEATURE MODAL -->
-  <div id="featureModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="modal-title">
-      <div class="modal-top">
-        <div class="modal-title" id="modal-title">Feature title</div>
-        <div class="modal-controls">
-          <button class="modal-prev" type="button" aria-label="Previous feature">◀ Prev</button>
-          <button class="modal-next" type="button" aria-label="Next feature">Next ▶</button>
-          <button class="modal-close" type="button" aria-label="Close">✕</button>
-        </div>
-      </div>
-      <div class="modal-body">
-        <img src="" alt="" class="modal-img" id="modalImg">
-        <div class="modal-text">
-          <div id="modalDesc"></div>
-          <ul id="modalList"></ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script>
+    (function(){
+      const lightbox = document.getElementById('pdfLightbox');
+      const pdfFrame = document.getElementById('pdfFrame');
+      const pdfCaption = document.getElementById('pdfCaption');
+      const pdfTitle = document.getElementById('pdfTitle');
+      const closeBtn = lightbox.querySelector('.lightbox-close');
 
-<script>
-  // LIGHTBOX for full images
-  (function(){
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxCaption = document.getElementById('lightboxCaption');
-    const closeBtn = document.querySelector('.lightbox-close');
-    const imgButtons = Array.from(document.querySelectorAll('.img-btn'));
+      // Buttons that open PDFs: selector matches .doc-btn elements with data-pdf
+      const pdfButtons = Array.from(document.querySelectorAll('.doc-btn[data-pdf]'));
 
-    function open(src, caption, alt) {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt || caption || 'Full image';
-      lightboxCaption.textContent = caption || '';
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden','false');
-      closeBtn.focus();
-      document.body.style.overflow = 'hidden';
-    }
-    function close() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden','true');
-      lightboxImg.src = '';
-      lightboxCaption.textContent = '';
-      document.body.style.overflow = '';
-    }
-
-    imgButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const src = btn.getAttribute('data-src') || (btn.querySelector('img')?.src);
-        const caption = btn.getAttribute('data-caption') || (btn.querySelector('img')?.alt) || '';
-        const alt = btn.querySelector('img')?.alt || '';
-        open(src, caption, alt);
-      });
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-      });
-    });
-
-    closeBtn.addEventListener('click', close);
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('open')) close();
-    });
-  })();
-
-  // FEATURE modal logic (same as WavGuard)
-  (function(){
-    const featureCards = Array.from(document.querySelectorAll('.feature-card'));
-    const features = featureCards.map(card => {
-      const title = card.querySelector('.feature-title')?.textContent?.trim() || '';
-      const excerpt = card.querySelector('.feature-excerpt')?.textContent?.trim() || '';
-      const body = card.querySelector('.feature-body');
-      let fullSrc = body?.getAttribute('data-full') || '';
-      if (!fullSrc) {
-        const img = body?.querySelector('img');
-        const vid = body?.querySelector('video source');
-        if (img) fullSrc = img.src || img.getAttribute('src') || '';
-        else if (vid) fullSrc = vid?.getAttribute('src') || '';
+      function openPDF(src, caption, title) {
+        // set iframe src to the PDF path (relative)
+        pdfFrame.src = src;
+        pdfCaption.textContent = caption || '';
+        pdfTitle.textContent = title || 'Document';
+        lightbox.classList.add('open');
+        lightbox.style.display = 'flex';
+        lightbox.setAttribute('aria-hidden','false');
+        closeBtn.focus();
+        document.body.style.overflow = 'hidden';
       }
 
-      const paragraphs = Array.from(body?.querySelectorAll('.feature-text p') || [])
-                             .map(p => p.textContent.trim()).filter(t => t.length > 0);
-      const listItems = Array.from(body?.querySelectorAll('.feature-text ul li') || [])
-                             .map(li => li.textContent.trim()).filter(t => t.length > 0);
-
-      return { title, excerpt, fullSrc, paragraphs, listItems };
-    });
-
-    const modalOverlay = document.getElementById('featureModal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalList = document.getElementById('modalList');
-    const btnClose = modalOverlay.querySelector('.modal-close');
-    const btnPrev = modalOverlay.querySelector('.modal-prev');
-    const btnNext = modalOverlay.querySelector('.modal-next');
-
-    let currentIndex = 0;
-
-    function renderMedia(fullSrc, title) {
-      const isVideo = /\.(mp4|webm|ogg)$/i.test(fullSrc);
-      const modalBody = document.querySelector('.modal-body');
-
-      // remove existing media nodes (img or video)
-      const existingImg = modalBody.querySelector('img.modal-img');
-      const existingVideo = modalBody.querySelector('video.modal-img');
-      if (existingImg) existingImg.remove();
-      if (existingVideo) existingVideo.remove();
-
-      if (isVideo) {
-        const video = document.createElement('video');
-        video.setAttribute('controls', '');
-        video.setAttribute('playsinline', '');
-        video.className = 'modal-img';
-        video.style.width = '100%';
-        video.style.height = '100%';
-        const source = document.createElement('source');
-        source.src = fullSrc;
-        source.type = 'video/mp4';
-        video.appendChild(source);
-        modalBody.insertBefore(video, modalBody.querySelector('.modal-text'));
-        video.muted = true;
-        video.play().catch(()=>{/* autoplay may be blocked */});
-        return;
-      } else {
-        const img = document.createElement('img');
-        img.id = 'modalImg';
-        img.className = 'modal-img';
-        img.src = fullSrc || '';
-        img.alt = title || '';
-        modalBody.insertBefore(img, modalBody.querySelector('.modal-text'));
+      function closePDF() {
+        lightbox.classList.remove('open');
+        lightbox.style.display = 'none';
+        lightbox.setAttribute('aria-hidden','true');
+        pdfFrame.src = ''; // remove src so the browser stops loading the PDF
+        pdfCaption.textContent = '';
+        document.body.style.overflow = '';
       }
-    }
 
-    function openModal(index) {
-      if (index < 0 || index >= features.length) return;
-      currentIndex = index;
-      const f = features[index];
-
-      modalTitle.textContent = f.title || 'Feature';
-      renderMedia(f.fullSrc || '', f.title);
-
-      modalDesc.innerHTML = '';
-      if (f.paragraphs && f.paragraphs.length) {
-        f.paragraphs.forEach(text => {
-          const p = document.createElement('p');
-          p.textContent = text;
-          modalDesc.appendChild(p);
+      pdfButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const src = btn.getAttribute('data-pdf');
+          const caption = btn.getAttribute('data-caption') || '';
+          openPDF(src, caption, caption);
         });
-      } else {
-        modalDesc.textContent = f.excerpt || '';
-      }
-
-      modalList.innerHTML = '';
-      if (f.listItems && f.listItems.length) {
-        f.listItems.forEach(li => {
-          const el = document.createElement('li');
-          el.textContent = li;
-          modalList.appendChild(el);
+        // keyboard activation
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
         });
-      }
-
-      modalOverlay.classList.add('open');
-      modalOverlay.setAttribute('aria-hidden', 'false');
-      btnClose.focus();
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      modalOverlay.classList.remove('open');
-      modalOverlay.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      const video = document.querySelector('.modal-body video');
-      if (video) { video.pause(); video.remove(); }
-      const modalBody = document.querySelector('.modal-body');
-      if (!modalBody.querySelector('img.modal-img')) {
-        const img = document.createElement('img');
-        img.id = 'modalImg';
-        img.className = 'modal-img';
-        img.src = '';
-        img.alt = '';
-        modalBody.insertBefore(img, modalBody.querySelector('.modal-text'));
-      }
-    }
-
-    function showPrev() { openModal((currentIndex - 1 + features.length) % features.length); }
-    function showNext() { openModal((currentIndex + 1) % features.length); }
-
-    featureCards = Array.from(document.querySelectorAll('.feature-card'));
-    featureCards.forEach((card, idx) => {
-      const summary = card.querySelector('.feature-summary');
-      summary.addEventListener('click', (e) => {
-        if (e.target.closest('a')) return;
-        e.preventDefault();
-        openModal(idx);
       });
-      summary.setAttribute('tabindex','0');
-      summary.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(idx); }
+
+      closeBtn.addEventListener('click', closePDF);
+      // click background to close
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closePDF(); });
+
+      // ESC to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('open')) closePDF();
       });
-    });
-
-    btnClose.addEventListener('click', closeModal);
-    btnPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
-    btnNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
-
-    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-
-    document.addEventListener('keydown', (e) => {
-      if (!modalOverlay.classList.contains('open')) return;
-      if (e.key === 'Escape') closeModal();
-      if (e.key === 'ArrowLeft') showPrev();
-      if (e.key === 'ArrowRight') showNext();
-    });
-
-    // preload images (skip videos)
-    features.forEach(f => {
-      if (f.fullSrc && !/\.(mp4|webm|ogg)$/i.test(f.fullSrc)) {
-        const img = new Image();
-        img.src = f.fullSrc;
-      }
-    });
-  })();
-</script>
+    })();
+  </script>
 
 </body>
 </html>
-
