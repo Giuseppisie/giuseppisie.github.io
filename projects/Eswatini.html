@@ -167,36 +167,53 @@
       <div class="video-caption"><em>see an overview of my trip here</em></div>
     </div>
 
-    <!-- As-built / Quality Control card (with PDF + action buttons) -->
-    <section class="doc-card" aria-labelledby="qc-heading">
-      <h3 id="qc-heading" class="doc-title">As-Built — Quality control</h3>
-      <p class="doc-sub"><strong>Quality control</strong> — summary of my QC role, testing, and documentation (expand below to open the report and forms).</p>
+   <!-- As-built / Quality Control card (with PDF + action buttons) -->
+<section class="doc-card" aria-labelledby="qc-heading">
+  <h3 id="qc-heading" class="doc-title">As-Built — Quality control</h3>
+  <p class="doc-sub">
+    <strong>Quality control</strong> — summary of my QC role, testing, and documentation (expand below to open the report and forms).
+  </p>
 
-      <!-- Inline thumbnail (click to open full PDF in lightbox) -->
-     <button class="doc-btn" data-pdf="images/eswatini/NyakuzaAs-BuiltDesign.pdf" ...>
-      Open As-Built PDF
+  <!-- Inline thumbnail (click to open full PDF in lightbox) -->
+  <button class="doc-btn" data-pdf="../images/eswatini/NyakuzaAs-BuiltDesign.pdf"
+          data-caption="Nyakuza — As-Built Design (full PDF)">
+    Open As-Built PDF
+  </button>
+
+  <div style="margin-top:12px; color:#333;">
+    <p><strong>My role (brief)</strong></p>
+    <p>
+      As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete
+      mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design.
+      I coordinated with local masons to ensure alignment with the design drawings and maintained QC forms
+      and concrete test records.
+    </p>
+  </div>
+
+  <!-- Action buttons for concrete ratios and QC forms (open in same lightbox) -->
+  <div class="doc-actions" aria-hidden="false" style="margin-top:12px;">
+    <button class="doc-btn" data-pdf="../images/eswatini/Nyakuza-Concretemixratios.pdf"
+            data-caption="Nyakuza — Concrete mix ratios (PDF)">
+      Concrete mix ratios
     </button>
 
-      <div style="margin-top:12px; color:#333;">
-        <p><strong>My role (brief)</strong></p>
-        <p>
-          <!-- placeholder text — you can edit the following paragraph with your QC details -->
-          As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design. I coordinated with local masons to ensure alignment with the design drawings and maintained QC forms and concrete test records.
-        </p>
-      </div>
+    <button class="doc-btn" data-pdf="../images/eswatini/Nyakuza_QCforms.pdf"
+            data-caption="Nyakuza — Quality control forms (PDF)">
+      Quality Control forms
+    </button>
 
-      <!-- Action buttons for concrete ratios and QC forms (open in same lightbox) -->
-      <div class="doc-actions" aria-hidden="false" style="margin-top:12px;">
-      <button class="doc-btn" data-pdf="images/eswatini/Nyakuza-Concretemixratios.pdf" ...>
-        Concrete mix ratios
-      </button>
-
-       <button class="doc-btn" data-pdf="giuseppisie.github.io/images/eswatini/Nyakuza_QCforms.pdf" >
-        Quality Control forms
-        </button>
-        
-      </div>
-    </section>
+    <!-- fallback direct-download links (opens file / downloads in a new tab) -->
+    <a class="doc-btn" href="../images/eswatini/NyakuzaAs-BuiltDesign.pdf" target="_blank" rel="noopener" download>
+      ⤓ Download As-Built
+    </a>
+    <a class="doc-btn" href="../images/eswatini/Nyakuza-Concretemixratios.pdf" target="_blank" rel="noopener" download>
+      ⤓ Download Mix Ratios
+    </a>
+    <a class="doc-btn" href="../images/eswatini/Nyakuza_QCforms.pdf" target="_blank" rel="noopener" download>
+      ⤓ Download QC Forms
+    </a>
+  </div>
+</section>
 
   </div>
 
