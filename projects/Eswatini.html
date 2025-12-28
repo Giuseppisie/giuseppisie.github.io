@@ -58,35 +58,63 @@
     .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
     .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,48px); font-weight:800; text-align:center; padding:0 20px; text-shadow:0 8px 24px rgba(0,0,0,0.6); }
 
-    /* ---------- MAIN CONTENT ---------- */
+    /* ---------- MAIN PAGE WRAPPER ---------- */
     .page { max-width: var(--content-max); margin: 0 auto; padding: 36px var(--page-pad) 80px; box-sizing: border-box; }
-    .content { max-width: 900px; margin: 0 auto 24px; background:#fff; padding: 28px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.06); }
+
+    /* Standard content card */
+    .content { background:#fff; padding: 28px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.06); color:#222; margin-bottom:24px; }
     .meta { color:#666; margin-bottom:16px; font-size:14px; }
     .content p { line-height:1.6; margin-bottom:16px; color:#222; }
 
-    /* NEW: overview grid with video left, text right */
-    .overview-grid {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 20px;
-      align-items: start;
+    /* --------- Overview (full-width inside .page) ---------- */
+    .overview-full {
+      width:100%;
+      background:#fff;
+      border-radius:12px;
+      padding:28px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.06);
+      margin-bottom: 24px;
     }
-    .overview-video { width:100%; max-width:360px; }
+    .overview-grid {
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:18px;
+      align-items:start;
+    }
+    /* make the overview text take full width under this new layout (user requested full horizontal box) */
     .overview-text { font-size:16px; color:#222; }
 
-    /* move video iframe to fill its column responsively */
-    .overview-video iframe { width:100%; height:100%; min-height:220px; border:0; display:block; }
+    /* --------- Media card (thumbnail + embedded video) ---------- */
+    .media-card {
+      width:100%;
+      background:#fff;
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.06);
+      display:grid;
+      grid-template-columns: 480px 1fr;
+      gap:18px;
+      align-items:start;
+      margin-bottom:24px;
+    }
+    .media-thumb {
+      width:100%;
+      border-radius:8px;
+      overflow:hidden;
+      background:#f5f5f5;
+      box-shadow:0 6px 16px rgba(0,0,0,0.04);
+    }
+    .media-thumb img { display:block; width:100%; height:100%; object-fit:cover; }
+    .media-video iframe { width:100%; height:100%; min-height:260px; border:0; display:block; }
+    .media-caption { margin-top:10px; color:#333; font-style:italic; font-size:14px; }
 
-    /* fallback for very narrow screens: stack */
-    @media (max-width: 820px) {
-      .overview-grid { grid-template-columns: 1fr; }
-      .overview-video { max-width: 100%; }
+    /* Responsive: stack on smaller screens */
+    @media (max-width: 980px) {
+      .media-card { grid-template-columns: 1fr; }
+      .media-video iframe { min-height:240px; }
     }
 
-    /* Video caption */
-    .video-caption { margin-top:12px; color:#333; font-style:italic; font-size:14px; text-align:left; }
-
-    /* As-built / QC card */
+    /* As-built / QC card (unchanged) */
     .doc-card { background:#fff; border-radius:12px; padding:22px; box-shadow:0 8px 20px rgba(0,0,0,0.06); max-width:900px; margin:28px auto; }
     .doc-title { font-weight:800; font-size:18px; margin:0 0 8px; color:#111; }
     .doc-sub { color:#444; margin: 0 0 14px; }
@@ -106,10 +134,10 @@
     }
     .doc-btn:hover, .doc-btn:focus { transform: translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.12); outline: none; }
 
-    /* small helper for the inline PDF thumbnail */
+    /* PDF preview helper */
     .pdf-thumb { width:100%; max-height:480px; object-fit:cover; border-radius:8px; border:1px solid rgba(0,0,0,0.04); display:block; }
 
-    /* Lightbox / PDF modal (reused) */
+    /* Lightbox / PDF modal (unchanged) */
     .lightbox { position: fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.85); z-index:3000; padding:20px; }
     .lightbox.open { display:flex; }
     .lightbox-inner { width:100%; max-width:1200px; height:92vh; background:#fff; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
@@ -117,22 +145,6 @@
     .lightbox-close { background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
     .lightbox-frame { flex:1; border:0; width:100%; height:100%; }
     .lightbox-caption { padding:10px 16px; font-style:italic; color:#222; background:#fff; text-align:center; }
-
-    /* Features & Carousel styles */
-    .features-heading { font-size: 22px; font-weight:700; color:#111; margin: 0 0 12px 0; }
-    .features-grid-es img { display:block; width:100%; height:170px; object-fit:cover; }
-    .feature-text-es p { margin:0 0 12px 0; }
-    .feature-text-es ul { margin:8px 0 0 18px; }
-
-    /* Carousel thumbs */
-    .thumb-row img { display:block; width:100%; height:220px; object-fit:cover; }
-
-    @media (max-width:900px) {
-      .page { padding: 20px; }
-      .lightbox-inner { max-width: calc(100% - 20px); height: 90vh; }
-      .features-grid-es { grid-template-columns: 1fr; }
-      .thumb-row { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 
@@ -160,72 +172,65 @@
     <div class="hero-title">Nyakuza Foot Bridge — Eswatini, Africa</div>
   </section>
 
-  <!-- MAIN PAGE CONTENT -->
+  <!-- MAIN PAGE CONTENT (page wrapper) -->
   <div class="page">
 
-    <!-- Overview (white intro box with embedded video left, text right) -->
-    <main class="content" aria-labelledby="project-overview-heading">
-      <h2 id="project-overview-heading" style="margin-top:0; font-size:20px; color:#111;">Project overview</h2>
+    <!-- Overview: new full-width box across the page wrapper -->
+    <section class="overview-full" aria-labelledby="project-overview-heading">
+      <h2 id="project-overview-heading" style="margin:0 0 8px; font-size:20px; color:#111;">Project overview</h2>
+      <div class="meta" style="margin-bottom:12px;">Role: Quality Control Manager · Location: Eswatini · Year: 2024</div>
 
-      <div class="meta">Role: Quality Control Manager · Location: Eswatini · Year: 2024</div>
+      <div class="overview-grid">
+        <div class="overview-text">
+          <p>
+            This summer was my most memorable yet. Over the course of <strong>nine weeks</strong>, I lived and worked in Eswatini alongside
+            <strong>13 Duke classmates</strong>, staff from <strong>Engineers In Action</strong>, local masons and volunteers, and the resilient
+            communities of <strong>Emanyonyaneni and Nsizatje (Hosea Inkhundla)</strong>. Together we built a <strong>128-meter suspended
+            footbridge</strong> — the longest pedestrian bridge in Eswatini to date — that now connects more than <strong>3,000 residents</strong>
+            to schools, markets, and health clinics across the Ingwavuma River.
+          </p>
 
-      <div class="overview-grid" role="region" aria-label="Project overview with video">
-        <!-- Video (left) -->
-        <div class="overview-video" aria-hidden="false">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1"
-                  title="LinkedIn overview video" loading="lazy" allowfullscreen></iframe>
-          <div class="video-caption"><em>see an overview of my trip here</em></div>
+          <p>
+            One moment I’ll never forget is hearing the story of a local man who, after losing a leg, still carried his children across the river
+            to school and nearly lost his life doing so. When the bridge was finished he shared, with the greatest joy, that he can now cross safely
+            — and so can his children. That moment made the work feel deeply meaningful.
+          </p>
+
+          <p>
+            The project was physically and mentally demanding: every rock, nail, bag of cement, and plank was lifted, mixed, and placed by hand.
+            We slept in tents for weeks, adapted to new local foods, and worked long, often exhausting days from sunrise well past sunset — weekdays
+            and weekends alike. Hygiene conditions were basic and resources limited, but those hardships only deepened our appreciation for the
+            community’s hospitality and for the skills we were learning in the field.
+          </p>
+
+          <p>
+            As <strong>Quality Control Manager</strong>, I led inspection checkpoints on critical elements — verifying concrete mix quality and placement,
+            monitoring anchor and cable tensioning, documenting as-built conditions, and maintaining QC forms and test records. I coordinated closely
+            with design and construction leads and with local masons to ensure the bridge was executed carefully and safely.
+          </p>
+
+          <p style="margin-top:12px;">
+            I can’t say “grateful” enough. It was an honor to serve this community, to learn from them, and to help leave a lasting, life-changing
+            connection across the Ingwavuma River.
+          </p>
         </div>
-
-        <!-- Text (right) -->
-<main class="content" aria-labelledby="project-overview-heading">
-  <h2 id="project-overview-heading" style="margin-top:0; font-size:20px; color:#111;">Project overview</h2>
-
-  <div class="meta">Role: Quality Control Manager · Location: Eswatini · Year: 2024</div>
-
-  <p>
-    This summer was my most memorable yet. Over the course of <strong>nine weeks</strong>, I lived and worked in Eswatini alongside
-    <strong>13 Duke classmates</strong>, staff from <strong>Engineers In Action</strong>, local masons and volunteers, and the resilient
-    communities of <strong>Emanyonyaneni and Nsizatje (Hosea Inkhundla)</strong>. Together we built a <strong>128-meter suspended
-    footbridge</strong> — the longest pedestrian bridge in Eswatini to date — that now connects more than <strong>3,000 residents</strong>
-    to schools, markets, and health clinics across the Ingwavuma River.
-  </p>
-
-  <p>
-    One moment I’ll never forget is hearing the story of a local man who, after losing a leg, still carried his children across the river
-    to school and nearly lost his life doing so. When the bridge was finished he shared, with the greatest joy, that he can now cross safely
-    — and so can his children. That moment made the work feel deeply meaningful.
-  </p>
-
-  <p>
-    The project was physically and mentally demanding: every rock, nail, bag of cement, and plank was lifted, mixed, and placed by hand.
-    We slept in tents for weeks, adapted to new local foods, and worked long, often exhausting days from sunrise well past sunset — weekdays
-    and weekends alike. Hygiene conditions were basic and resources limited, but those hardships only deepened our appreciation for the
-    community’s hospitality and for the skills we were learning in the field.
-  </p>
-
-  <p>
-    As <strong>Quality Control Manager</strong>, I led inspection checkpoints on critical elements — verifying concrete mix quality and placement,
-    monitoring anchor and cable tensioning, documenting as-built conditions, and maintaining QC forms and test records. I coordinated closely
-    with design and construction leads and with local masons to ensure the bridge was executed carefully and safely.
-  </p>
-
-  <p>
-    I’m deeply grateful to <strong>Duke Engineers for International Development (DEID)</strong> and <strong>DukeEngage</strong> for supporting
-    this experience, and to <strong>Engineers In Action</strong> for facilitating the partnership with the community. Working on this bridge
-    taught me more about engineering — and about people — than any classroom could, and I’ll carry these lessons forward throughout my life
-    and career.
-  </p>
-
-  <p style="margin-top:12px;">
-    I can’t say “grateful” enough. It was an honor to serve this community, to learn from them, and to help leave a lasting, life-changing
-    connection across the Ingwavuma River.
-  </p>
-</main>
-
-        
       </div>
-    </main>
+    </section>
+
+    <!-- Media card: large thumbnail + LinkedIn embed side-by-side -->
+    <section class="media-card" aria-labelledby="media-heading">
+      <!-- Left: large thumbnail (clickable to open a larger image if you want) -->
+      <div class="media-thumb" role="button" tabindex="0" aria-label="Open full bridge photo" onclick="window.open('../images/eswatini/full.jpeg','_blank')">
+        <img src="../images/eswatini/full.jpeg" alt="Nyakuza Foot Bridge — finished view">
+      </div>
+
+      <!-- Right: embedded LinkedIn video (keeps your embed) -->
+      <div class="media-video" aria-hidden="false">
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1"
+                title="LinkedIn overview video" loading="lazy" allowfullscreen></iframe>
+        <div class="media-caption"><em>See an overview of my trip here</em></div>
+      </div>
+    </section>
 
     <!-- As-built / Quality Control card (with PDF thumbnails + action buttons) -->
     <section class="doc-card" aria-labelledby="qc-heading">
@@ -262,7 +267,7 @@
               As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete
               mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design.
               My partner and I coordinated with the Design and Construction Managers, along with the local masons to ensure alignment with the design drawings and maintained QC forms
-              and concrete test records. We had to ensure that all community members were aware of the construction saftey criteria during the build every step of the way.
+              and concrete test records. We had to ensure that all community members were aware of the construction safety criteria during the build every step of the way.
             </p>
           </div>
 
@@ -291,8 +296,8 @@
       </div>
     </section>
 
-    <!-- (features & carousel — unchanged) -->
-    <!-- Insert your features block and carousel here (kept as you had them) -->
+    <!-- (features & carousel — keep your existing blocks here) -->
+    <!-- Insert your features block and carousel as needed below this line -->
 
   </div>
 
@@ -310,7 +315,6 @@
     </div>
   </div>
 
-  <!-- Scripts (same as before; ensure these are present to open PDFs / modals) -->
   <script>
     (function(){
       const lightbox = document.getElementById('pdfLightbox');
