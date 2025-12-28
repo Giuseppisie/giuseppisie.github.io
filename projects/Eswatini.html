@@ -24,9 +24,7 @@
     /* ---------- TOP BAR ---------- */
     .topbar {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      inset: 0 0 auto 0;
       height: 60px;
       display: flex;
       align-items: center;
@@ -35,413 +33,280 @@
       background: rgba(0,0,0,0.25);
       backdrop-filter: blur(4px);
     }
-    .topbar-left { display:flex; align-items:center; gap:20px; white-space:nowrap; }
-    .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); text-decoration:none; }
-    .topnav { display:flex; gap:10px; align-items:center; margin-left:8px; }
-    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 10px; border-radius:8px; transition: background .12s; }
-    .topnav a:hover, .topnav a:focus { background: rgba(255,255,255,0.08); outline:none; }
+    .topbar-left { display:flex; gap:20px; align-items:center; }
+    .brand { color:#fff; font-weight:800; font-size:18px; text-decoration:none; }
+    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 10px; border-radius:8px; }
+    .topnav a:hover { background: rgba(255,255,255,0.08); }
 
     .spacer { height:60px; }
 
     /* ---------- HERO ---------- */
     .hero {
-      position: relative;
       height: 100vh;
-      width: 100%;
-      background-image: url("../images/eswatini/full.jpeg");
-      background-size: cover;
-      background-position: center center;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      background: url("../images/eswatini/full.jpeg") center/cover no-repeat;
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
     }
     .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
-    .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,48px); font-weight:800; text-align:center; padding:0 20px; text-shadow:0 8px 24px rgba(0,0,0,0.6); }
-
-    /* ---------- MAIN PAGE WRAPPER ---------- */
-    .page { max-width: var(--content-max); margin: 0 auto; padding: 36px var(--page-pad) 80px; box-sizing: border-box; }
-
-    /* Standard content card */
-    .content { background:#fff; padding: 28px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.06); color:#222; margin-bottom:24px; }
-    .meta { color:#666; margin-bottom:16px; font-size:14px; }
-    .content p { line-height:1.6; margin-bottom:16px; color:#222; }
-
-    /* --------- Overview (full-width inside .page) ---------- */
-    .overview-full {
-      width:100%;
-      background:#fff;
-      border-radius:12px;
-      padding:28px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.06);
-      margin-bottom: 24px;
+    .hero-title {
+      color:#fff; font-size:clamp(28px,5vw,48px);
+      font-weight:800; z-index:1; text-shadow:0 8px 24px rgba(0,0,0,.6);
     }
-    .overview-text { font-size:16px; color:#222; }
 
-    /* --------- Centered large video card ---------- */
-    .video-centered {
-      width:100%;
-      background:#fff;
-      border-radius:12px;
-      padding:22px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.06);
-      margin-bottom:24px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
+    /* ---------- PAGE ---------- */
+    .page { max-width: var(--content-max); margin:auto; padding:36px 20px 80px; }
+
+    .overview-full, .video-centered, .doc-card {
+      background:#fff; border-radius:12px; padding:28px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06); margin-bottom:28px;
     }
-    /* Constrain the video to a larger max width (approx double previous visible size) */
-    .video-frame {
-      width:100%;
-      max-width:960px; /* enlarged video width */
-      aspect-ratio: 16/9;
-      height: auto;
-      border-radius:10px;
-      overflow:hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-    }
-    .video-frame iframe { width:100%; height:100%; border:0; display:block; }
 
-    .media-caption { margin-top:12px; color:#333; font-style:italic; font-size:14px; text-align:center; }
+    .meta { color:#666; font-size:14px; margin-bottom:12px; }
 
-    /* --------- Features grid (3 columns) ---------- */
-    .features-wrap { max-width: var(--content-max); margin: 32px auto 8px; padding: 0 20px; box-sizing: border-box; }
-    .features-heading { font-size:22px; font-weight:700; color:#111; margin-bottom:12px; }
-    .features-grid-es {
+    /* ---------- VIDEO ---------- */
+    .video-frame { max-width:960px; margin:auto; aspect-ratio:16/9; }
+    .video-frame iframe { width:100%; height:100%; border:0; }
+    .media-caption { text-align:center; font-style:italic; margin-top:12px; }
+
+    /* ---------- FEATURES ---------- */
+    .features-wrap { margin-top:36px; }
+    .features-heading { font-size:22px; font-weight:700; margin-bottom:16px; }
+
+    .features-grid {
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .feature-card-es {
-      background: var(--card);
-      color: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-      cursor: pointer;
-      transition: transform .14s ease, box-shadow .14s ease;
-    }
-    .feature-card-es:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
-    .feature-summary-es { display:block; padding:0; cursor:pointer; }
-    .feature-thumb-es { width:100%; height:170px; object-fit:cover; display:block; background: rgba(255,255,255,0.04); }
-    .feature-meta-es { padding: 14px 16px 18px; }
-    .feature-title-es { font-weight:700; font-size:18px; }
-    .feature-excerpt-es { font-size:14px; color: rgba(255,255,255,0.95); margin-top:6px; }
-
-    /* On narrow screens stack features */
-    @media (max-width: 900px) {
-      .features-grid-es { grid-template-columns: 1fr; }
-      .video-frame { max-width: 100%; }
+      gap:20px;
     }
 
-    /* As-built / QC small styles retained */
-    .doc-card { background:#fff; border-radius:12px; padding:22px; box-shadow:0 8px 20px rgba(0,0,0,0.06); max-width:900px; margin:28px auto; }
-    .doc-title { font-weight:800; font-size:18px; margin:0 0 8px; color:#111; }
-    .doc-sub { color:#444; margin: 0 0 14px; }
-    .doc-actions { display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; }
-    .doc-btn {
+    .feature-card {
       background: var(--card);
       color:#fff;
-      padding:10px 14px;
-      border-radius:10px;
-      border: none;
-      cursor: pointer;
-      font-weight:700;
-      text-decoration: none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      border-radius:12px;
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform .15s, box-shadow .15s;
     }
-    .doc-btn:hover, .doc-btn:focus { transform: translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.12); outline: none; }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow:0 20px 40px rgba(0,0,0,.2);
+    }
 
-    /* PDF preview helper */
-    .pdf-thumb { width:100%; max-height:480px; object-fit:cover; border-radius:8px; border:1px solid rgba(0,0,0,0.04); display:block; }
+    .feature-card img { width:100%; height:170px; object-fit:cover; }
+    .feature-meta { padding:16px; }
+    .feature-title { font-size:18px; font-weight:700; }
+    .feature-excerpt { font-size:14px; margin-top:6px; }
 
-    /* Lightbox / PDF modal (unchanged) */
-    .lightbox { position: fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.85); z-index:3000; padding:20px; }
-    .lightbox.open { display:flex; }
-    .lightbox-inner { width:100%; max-width:1200px; height:92vh; background:#fff; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
-    .lightbox-toolbar { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1)); color:#fff; }
-    .lightbox-close { background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
-    .lightbox-frame { flex:1; border:0; width:100%; height:100%; }
-    .lightbox-caption { padding:10px 16px; font-style:italic; color:#222; background:#fff; text-align:center; }
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns:1fr; }
+    }
+
+    /* ---------- MODAL ---------- */
+    .modal {
+      position:fixed; inset:0;
+      display:none; align-items:center; justify-content:center;
+      background: rgba(0,0,0,.75);
+      z-index:4000;
+      padding:24px;
+    }
+    .modal.open { display:flex; }
+
+    .modal-content {
+      background:#fff; max-width:1100px; width:100%;
+      border-radius:12px; overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,.45);
+    }
+
+    .modal-header {
+      background: linear-gradient(90deg,#427b76,#5a9b93);
+      color:#fff; padding:14px 18px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+
+    .modal-body {
+      display:flex; gap:20px; padding:20px;
+    }
+
+    .modal-body img {
+      max-width:460px; width:100%; border-radius:8px; object-fit:cover;
+    }
+
+    .modal-text { font-size:16px; line-height:1.6; }
+
+    .modal-btn {
+      background:rgba(255,255,255,.15);
+      border:0; color:#fff;
+      padding:8px 10px; border-radius:8px;
+      cursor:pointer; font-weight:700;
+    }
+
+    @media (max-width: 900px) {
+      .modal-body { flex-direction:column; }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- TOP BAR -->
-  <div class="topbar" role="navigation" aria-label="Top navigation">
-    <div class="topbar-left">
-      <a class="brand" href="../index.html">Sienna Giuseppi</a>
-
-      <nav class="topnav" aria-label="Primary">
-        <a href="../about.html">About</a>
-        <a href="../index.html#engineering-projects">Projects</a>
-        <a href="../index.html#experiences">Experiences</a>
-        <a href="../resume.html">Resume</a>
-      </nav>
-    </div>
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="brand" href="../index.html">Sienna Giuseppi</a>
+    <nav class="topnav">
+      <a href="../about.html">About</a>
+      <a href="../index.html#engineering-projects">Projects</a>
+      <a href="../index.html#experiences">Experiences</a>
+      <a href="../resume.html">Resume</a>
+    </nav>
   </div>
+</div>
 
-  <!-- spacer so hero isn't hidden by top bar -->
-  <div class="spacer" aria-hidden="true"></div>
+<div class="spacer"></div>
 
-  <!-- HERO IMAGE -->
-  <section class="hero" role="banner" aria-label="Project hero image">
-    <div class="hero-title">Nyakuza Foot Bridge — Eswatini, Africa</div>
+<section class="hero">
+  <div class="hero-title">Nyakuza Foot Bridge — Eswatini, Africa</div>
+</section>
+
+<div class="page">
+
+  <!-- OVERVIEW -->
+  <section class="overview-full">
+    <h2>Project overview</h2>
+    <div class="meta">Role: Quality Control Manager · Location: Eswatini · Year: 2024</div>
+
+    <p>This summer was my most memorable yet… <!-- keep your full text here --></p>
   </section>
 
-  <!-- MAIN PAGE CONTENT (page wrapper) -->
-  <div class="page">
+  <!-- VIDEO -->
+  <section class="video-centered">
+    <div class="video-frame">
+      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1"
+              allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="media-caption"><em>See an overview of the project here</em></div>
+  </section>
 
-    <!-- Overview: full-width box across the page wrapper -->
-    <section class="overview-full" aria-labelledby="project-overview-heading">
-      <h2 id="project-overview-heading" style="margin:0 0 8px; font-size:20px; color:#111;">Project overview</h2>
-      <div class="meta" style="margin-bottom:12px;">Role: Quality Control Manager · Location: Eswatini · Year: 2024</div>
+  <!-- FEATURES -->
+  <section class="features-wrap">
+    <h2 class="features-heading">Project features</h2>
 
-      <div class="overview-text">
-        <p>
-          This summer was my most memorable yet. Over the course of nine weeks, I lived and worked in Eswatini alongside
-          13 Duke classmates, staff from <strong>Engineers In Action</strong>, local masons and volunteers, and the resilient
-          communities of Emanyonyaneni and Nsizatje (Hosea Inkhundla). Together we built a <strong>128-meter suspended
-          footbridge</strong> — the longest pedestrian bridge in Eswatini to date — that now connects more than 3,000 residents
-          to schools, markets, and health clinics across the Ingwavuma River.
-        </p>
-
-        <p>
-          One moment I’ll never forget is hearing the story of a local man who, after losing a leg, still carried his children across the river
-          to school and nearly lost his life doing so. When the bridge was finished he shared, with the greatest joy, that he can now cross safely
-          — and so can his children. That moment made the work feel deeply meaningful.
-        </p>
-
-        <p>
-          The project was physically and mentally demanding: every rock, nail, bag of cement, and plank was lifted, mixed, and placed by hand.
-          We slept in tents for weeks, adapted to new local foods, and worked long, often exhausting days from sunrise well past sunset — weekdays
-          and weekends alike. Hygiene conditions were basic and resources limited, but those hardships only deepened our appreciation for the
-          community’s hospitality and for the skills we were learning in the field.
-        </p>
-
-        <p>
-          As <strong>Quality Control Manager</strong>, I led inspection checkpoints on critical elements — verifying concrete mix quality and placement,
-          monitoring anchor and cable tensioning, documenting as-built conditions, and maintaining QC forms and test records. I coordinated closely
-          with design and construction leads and with local masons to ensure the bridge was executed carefully and safely.
-        </p>
-
-        <p style="margin-top:12px;">
-          I can’t say “grateful” enough. It was an honor to serve this community, to learn from them, and to help leave a lasting, life-changing
-          connection across the Ingwavuma River.
-        </p>
-      </div>
-    </section>
-
-    <!-- Centered large video box (video is larger / centered) -->
-    <section class="video-centered" aria-labelledby="media-heading">
-      <div style="text-align:center; width:100%;">
-        <div class="video-frame" role="region" aria-label="Project video overview">
-          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7366290231282520065?compact=1"
-                  title="LinkedIn overview video" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="media-caption"><em>See an overview of the project here</em></div>
-      </div>
-    </section>
-
-    <!-- As-built / Quality Control card (with PDF thumbnails + action buttons) -->
-    <section class="doc-card" aria-labelledby="qc-heading">
-      <h3 id="qc-heading" class="doc-title">Quality Control Manager Role</h3>
-      <p class="doc-sub">
-        <strong>Quality control</strong> — summary of my QC role, testing, and documentation (click the thumbnails to open each PDF).
-      </p>
-
-      <!-- Inline PDF thumbnail (click to open full PDF in lightbox) -->
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start;">
-        <!-- Large As-Built thumbnail -->
-        <div class="pdf-thumb-wrap" style="background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 8px 18px rgba(0,0,0,0.06);">
-          <div class="doc-btn pdf-open" role="button" tabindex="0"
-               data-pdf="../images/eswatini/NyakuzaAs-BuiltDesign.pdf"
-               data-caption="Nyakuza — As-Built Design (full PDF)"
-               aria-label="Open As-Built PDF">
-            <!-- iframe preview (some browsers render first page inline) -->
-            <iframe src="../images/eswatini/NyakuzaAs-BuiltDesign.pdf#page=1&view=fitH"
-                    class="pdf-thumb"
-                    title="As-Built PDF preview"
-                    style="width:100%; height:300px; border:0; display:block;"></iframe>
-          </div>
-          <div style="padding:10px 12px;">
-            <strong style="display:block; margin-bottom:6px; color:#111;">Nyakuza — As-Built Design (preview)</strong>
-            <div style="color:#444; font-size:14px;">Click the preview to open the full PDF.</div>
-          </div>
-        </div>
-
-        <!-- Right column: role + smaller PDF thumbnails -->
-        <div>
-          <div style="margin-bottom:12px; color:#333;">
-            <p><strong>My role (brief)</strong></p>
-            <p>
-              As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete
-              mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design.
-              My partner and I coordinated with the Design and Construction Managers, along with the local masons to ensure alignment with the design drawings and maintained QC forms
-              and concrete test records. We had to ensure that all community members were aware of the construction safety criteria during the build every step of the way.
-            </p>
-          </div>
-
-          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-            <!-- small thumbnail: Concrete ratios -->
-            <div class="doc-btn pdf-open" role="button" tabindex="0"
-                 data-pdf="../images/eswatini/Nyakuza-Concretemixratios.pdf"
-                 data-caption="Nyakuza — Concrete mix ratios (PDF)"
-                 aria-label="Open Concrete mix ratios PDF"
-                 style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
-              <div style="font-weight:700; color:#111; margin-bottom:6px;">Concrete mix ratios</div>
-              <div style="font-size:13px; color:#555;">Click to open PDF</div>
-            </div>
-
-            <!-- small thumbnail: QC forms -->
-            <div class="doc-btn pdf-open" role="button" tabindex="0"
-                 data-pdf="../images/eswatini/Nyakuza_QCforms.pdf"
-                 data-caption="Nyakuza — Quality control forms (PDF)"
-                 aria-label="Open Quality Control forms PDF"
-                 style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
-              <div style="font-weight:700; color:#111; margin-bottom:6px;">Quality Control forms</div>
-              <div style="font-size:13px; color:#555;">Click to open PDF</div>
-            </div>
-          </div>
+    <div class="features-grid">
+      <div class="feature-card" data-index="0">
+        <img src="../images/eswatini/life-homestead-thumb.jpg">
+        <div class="feature-meta">
+          <div class="feature-title">Life on the homestead</div>
+          <div class="feature-excerpt">Daily life and logistics on-site.</div>
         </div>
       </div>
-    </section>
 
-    <!-- Features: Life on the homestead, Community relations, Duke team -->
-    <div class="features-wrap" aria-labelledby="features-heading">
-      <h2 id="features-heading" class="features-heading">Project features</h2>
+      <div class="feature-card" data-index="1">
+        <img src="../images/eswatini/community-thumb.jpg">
+        <div class="feature-meta">
+          <div class="feature-title">Community relations</div>
+          <div class="feature-excerpt">Working with local leaders and volunteers.</div>
+        </div>
+      </div>
 
-      <div class="features-grid-es" role="list">
-        <!-- Life on the homestead -->
-        <details class="feature-card-es" role="listitem">
-          <summary class="feature-summary-es">
-            <img class="feature-thumb-es" src="../images/eswatini/life-homestead-thumb.jpg" alt="Life on the homestead thumbnail">
-            <div class="feature-meta-es">
-              <div class="feature-title-es">Life on the homestead</div>
-              <div class="feature-excerpt-es">Daily life and logistics while living on-site during construction.</div>
-            </div>
-          </summary>
+      <div class="feature-card" data-index="2">
+        <img src="../images/eswatini/duke-team-thumb.jpg">
+        <div class="feature-meta">
+          <div class="feature-title">Duke team</div>
+          <div class="feature-excerpt">Student collaboration and leadership.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
-          <div class="feature-text-es" style="background:#fff; color:#111; padding:14px;">
-            <p><strong>Overview:</strong> Living on the homestead required daily coordination with site staff, sourcing fuel and potable water, and managing tool storage and security.</p>
-            <ul>
-              <li>Daily logistics: food, water, fuel</li>
-              <li>Local accommodations and coordination</li>
-              <li>Site safety and tool management</li>
-            </ul>
-          </div>
-        </details>
-
-        <!-- Community relations -->
-        <details class="feature-card-es" role="listitem">
-          <summary class="feature-summary-es">
-            <img class="feature-thumb-es" src="../images/eswatini/community-thumb.jpg" alt="Community relations thumbnail">
-            <div class="feature-meta-es">
-              <div class="feature-title-es">Community relations</div>
-              <div class="feature-excerpt-es">Partnership with local leaders and training programs for maintenance.</div>
-            </div>
-          </summary>
-
-          <div class="feature-text-es" style="background:#fff; color:#111; padding:14px;">
-            <p><strong>Overview:</strong> We worked with village leaders to plan construction, hire local labor, and train community members on inspection and basic maintenance.</p>
-            <ul>
-              <li>Stakeholder workshops</li>
-              <li>Skills transfer and training</li>
-              <li>Maintenance planning and ownership</li>
-            </ul>
-          </div>
-        </details>
-
-        <!-- Duke team -->
-        <details class="feature-card-es" role="listitem">
-          <summary class="feature-summary-es">
-            <img class="feature-thumb-es" src="../images/eswatini/duke-team-thumb.jpg" alt="Duke team thumbnail">
-            <div class="feature-meta-es">
-              <div class="feature-title-es">Duke team</div>
-              <div class="feature-excerpt-es">Student roles, responsibilities, and lessons learned on-site.</div>
-            </div>
-          </summary>
-
-          <div class="feature-text-es" style="background:#fff; color:#111; padding:14px;">
-            <p><strong>Overview:</strong> Our Duke team handled design revisions, QA checks, and on-site coordination with Engineers In Action and local masons.</p>
-            <ul>
-              <li>Design reviews and field verification</li>
-              <li>Quality assurance and testing</li>
-              <li>Community engagement and documentation</li>
-            </ul>
-          </div>
-        </details>
+<!-- FEATURE MODAL -->
+<div id="featureModal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div id="modalTitle">Feature</div>
+      <div>
+        <button class="modal-btn" id="prevBtn">◀</button>
+        <button class="modal-btn" id="nextBtn">▶</button>
+        <button class="modal-btn" id="closeBtn">✕</button>
       </div>
     </div>
 
-    <!-- (If you have an image carousel block, place it here) -->
-
-  </div>
-
-  <!-- LIGHTBOX (for PDFs) -->
-  <div id="pdfLightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="lightbox-inner" role="document">
-      <div class="lightbox-toolbar">
-        <div id="pdfTitle" style="font-weight:700;">Document</div>
-        <button class="lightbox-close" aria-label="Close document">✕</button>
-      </div>
-
-      <!-- iframe used to present the PDF; src is set dynamically -->
-      <iframe id="pdfFrame" class="lightbox-frame" src="" title="PDF viewer"></iframe>
-      <div id="pdfCaption" class="lightbox-caption" aria-live="polite"></div>
+    <div class="modal-body">
+      <img id="modalImg">
+      <div class="modal-text" id="modalText"></div>
     </div>
   </div>
+</div>
 
-  <script>
-    (function(){
-      const lightbox = document.getElementById('pdfLightbox');
-      const pdfFrame = document.getElementById('pdfFrame');
-      const pdfCaption = document.getElementById('pdfCaption');
-      const pdfTitle = document.getElementById('pdfTitle');
-      const closeBtn = lightbox.querySelector('.lightbox-close');
+<script>
+const features = [
+  {
+    title: "Life on the homestead",
+    img: "../images/eswatini/life-homestead-full.jpg",
+    text: `
+      <p><strong>Overview:</strong> Living on-site required managing food, water, tools, and safety.</p>
+      <ul>
+        <li>Daily logistics</li>
+        <li>Tool and site safety</li>
+        <li>Living alongside community members</li>
+      </ul>`
+  },
+  {
+    title: "Community relations",
+    img: "../images/eswatini/community-full.jpg",
+    text: `
+      <p><strong>Overview:</strong> Collaboration with village leaders and local masons.</p>
+      <ul>
+        <li>Community training</li>
+        <li>Shared decision making</li>
+        <li>Maintenance planning</li>
+      </ul>`
+  },
+  {
+    title: "Duke team",
+    img: "../images/eswatini/duke-team-full.jpg",
+    text: `
+      <p><strong>Overview:</strong> Duke students worked across design, QC, and construction.</p>
+      <ul>
+        <li>Design reviews</li>
+        <li>Quality control checks</li>
+        <li>Leadership in the field</li>
+      </ul>`
+  }
+];
 
-      const pdfButtons = Array.from(document.querySelectorAll('.pdf-open[data-pdf]'));
+let current = 0;
+const modal = document.getElementById("featureModal");
+const modalImg = document.getElementById("modalImg");
+const modalText = document.getElementById("modalText");
+const modalTitle = document.getElementById("modalTitle");
 
-      function openPDF(src, caption, title) {
-        pdfFrame.src = src;
-        pdfCaption.textContent = caption || '';
-        pdfTitle.textContent = title || 'Document';
-        lightbox.classList.add('open');
-        lightbox.style.display = 'flex';
-        lightbox.setAttribute('aria-hidden','false');
-        closeBtn.focus();
-        document.body.style.overflow = 'hidden';
-      }
-      function closePDF() {
-        lightbox.classList.remove('open');
-        lightbox.style.display = 'none';
-        lightbox.setAttribute('aria-hidden','true');
-        pdfFrame.src = '';
-        pdfCaption.textContent = '';
-        document.body.style.overflow = '';
-      }
+function openFeature(i) {
+  current = i;
+  modalImg.src = features[i].img;
+  modalText.innerHTML = features[i].text;
+  modalTitle.textContent = features[i].title;
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
 
-      pdfButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const src = btn.getAttribute('data-pdf');
-          const caption = btn.getAttribute('data-caption') || '';
-          openPDF(src, caption, caption);
-        });
-        btn.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-        });
-      });
+document.querySelectorAll(".feature-card").forEach((card, i) => {
+  card.addEventListener("click", () => openFeature(i));
+});
 
-      closeBtn.addEventListener('click', closePDF);
-      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closePDF(); });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('open')) closePDF();
-      });
-    })();
-  </script>
+document.getElementById("closeBtn").onclick = () => {
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+};
+document.getElementById("prevBtn").onclick = () => openFeature((current + features.length - 1) % features.length);
+document.getElementById("nextBtn").onclick = () => openFeature((current + 1) % features.length);
+
+document.addEventListener("keydown", e => {
+  if (!modal.classList.contains("open")) return;
+  if (e.key === "Escape") document.getElementById("closeBtn").click();
+  if (e.key === "ArrowLeft") document.getElementById("prevBtn").click();
+  if (e.key === "ArrowRight") document.getElementById("nextBtn").click();
+});
+</script>
 
 </body>
 </html>
+
 
