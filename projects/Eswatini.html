@@ -167,43 +167,72 @@
       <div class="video-caption"><em>see an overview of my trip here</em></div>
     </div>
 
-   <!-- As-built / Quality Control card (with PDF + action buttons) -->
+  <!-- As-built / Quality Control card (with PDF thumbnails + action buttons) -->
 <section class="doc-card" aria-labelledby="qc-heading">
   <h3 id="qc-heading" class="doc-title">As-Built — Quality control</h3>
   <p class="doc-sub">
-    <strong>Quality control</strong> — summary of my QC role, testing, and documentation (expand below to open the report and forms).
+    <strong>Quality control</strong> — summary of my QC role, testing, and documentation (click the thumbnails to open each PDF).
   </p>
 
-  <!-- Inline thumbnail (click to open full PDF in lightbox) -->
-  <button class="doc-btn" data-pdf="../images/eswatini/NyakuzaAs-BuiltDesign.pdf"
-          data-caption="Nyakuza — As-Built Design (full PDF)">
-    Open As-Built PDF
-  </button>
+  <!-- Inline PDF thumbnail (click to open full PDF in lightbox) -->
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start;">
+    <!-- Large As-Built thumbnail -->
+    <div class="pdf-thumb-wrap" style="background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 8px 18px rgba(0,0,0,0.06);">
+      <div class="doc-btn" role="button" tabindex="0"
+           data-pdf="../images/eswatini/NyakuzaAs-BuiltDesign.pdf"
+           data-caption="Nyakuza — As-Built Design (full PDF)"
+           aria-label="Open As-Built PDF">
+        <!-- show first page of PDF inline as a thumbnail; some browsers will render the PDF page here -->
+        <iframe src="../images/eswatini/NyakuzaAs-BuiltDesign.pdf#page=1&view=fitH"
+                class="pdf-thumb"
+                title="As-Built PDF preview"
+                style="width:100%; height:300px; border:0; display:block;"></iframe>
+      </div>
+      <div style="padding:10px 12px;">
+        <strong style="display:block; margin-bottom:6px; color:#111;">Nyakuza — As-Built Design (preview)</strong>
+        <div style="color:#444; font-size:14px;">Click the preview to open the full PDF.</div>
+      </div>
+    </div>
 
-  <div style="margin-top:12px; color:#333;">
-    <p><strong>My role (brief)</strong></p>
-    <p>
-      As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete
-      mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design.
-      I coordinated with local masons to ensure alignment with the design drawings and maintained QC forms
-      and concrete test records.
-    </p>
-  </div>
+    <!-- Right column: role + smaller PDF thumbnails -->
+    <div>
+      <div style="margin-bottom:12px; color:#333;">
+        <p><strong>My role (brief)</strong></p>
+        <p>
+          As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete
+          mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design.
+          I coordinated with local masons to ensure alignment with the design drawings and maintained QC forms
+          and concrete test records.
+        </p>
+      </div>
 
-  <!-- Action buttons for concrete ratios and QC forms (open in same lightbox) -->
-  <div class="doc-actions" aria-hidden="false" style="margin-top:12px;">
-    <button class="doc-btn" data-pdf="../images/eswatini/Nyakuza-Concretemixratios.pdf"
-            data-caption="Nyakuza — Concrete mix ratios (PDF)">
-      Concrete mix ratios
-    </button>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <!-- small thumbnail: Concrete ratios -->
+        <div class="doc-btn" role="button" tabindex="0"
+             data-pdf="../images/eswatini/Nyakuza-Concretemixratios.pdf"
+             data-caption="Nyakuza — Concrete mix ratios (PDF)"
+             aria-label="Open Concrete mix ratios PDF"
+             style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
+          <div style="font-weight:700; color:#111; margin-bottom:6px;">Concrete mix ratios</div>
+          <div style="font-size:13px; color:#555;">Click to open PDF</div>
+        </div>
 
-    <button class="doc-btn" data-pdf="../images/eswatini/Nyakuza_QCforms.pdf"
-            data-caption="Nyakuza — Quality control forms (PDF)">
-      Quality Control forms
-    </button>
+        <!-- small thumbnail: QC forms -->
+        <div class="doc-btn" role="button" tabindex="0"
+             data-pdf="../images/eswatini/Nyakuza_QCforms.pdf"
+             data-caption="Nyakuza — Quality control forms (PDF)"
+             aria-label="Open Quality Control forms PDF"
+             style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
+          <div style="font-weight:700; color:#111; margin-bottom:6px;">Quality Control forms</div>
+          <div style="font-size:13px; color:#555;">Click to open PDF</div>
+        </div>
+      </div>
 
+     
+    </div>
   </div>
 </section>
+
 
   </div>
 
