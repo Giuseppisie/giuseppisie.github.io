@@ -68,6 +68,37 @@
     .video-frame iframe { width:100%; height:100%; border:0; }
     .media-caption { text-align:center; font-style:italic; margin-top:12px; }
 
+    /* ---------- DOC / PDF PREVIEW ---------- */
+    .doc-card { background:#fff; border-radius:12px; padding:22px; box-shadow:0 8px 20px rgba(0,0,0,0.06); max-width:900px; margin:28px auto; }
+    .doc-title { font-weight:800; font-size:18px; margin:0 0 8px; color:#111; }
+    .doc-sub { color:#444; margin: 0 0 14px; }
+    .doc-actions { display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; }
+    .doc-btn {
+      background: var(--card);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:10px;
+      border: none;
+      cursor: pointer;
+      font-weight:700;
+      text-decoration: none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .doc-btn:hover, .doc-btn:focus { transform: translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.12); outline: none; }
+
+    .pdf-thumb { width:100%; max-height:480px; object-fit:cover; border-radius:8px; border:1px solid rgba(0,0,0,0.04); display:block; }
+
+    /* Lightbox / PDF modal (unchanged) */
+    .lightbox { position: fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.85); z-index:3000; padding:20px; }
+    .lightbox.open { display:flex; }
+    .lightbox-inner { width:100%; max-width:1200px; height:92vh; background:#fff; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
+    .lightbox-toolbar { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1)); color:#fff; }
+    .lightbox-close { background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .lightbox-frame { flex:1; border:0; width:100%; height:100%; }
+    .lightbox-caption { padding:10px 16px; font-style:italic; color:#222; background:#fff; text-align:center; }
+
     /* ---------- FEATURES ---------- */
     .features-wrap { margin-top:36px; }
     .features-heading { font-size:22px; font-weight:700; margin-bottom:16px; }
@@ -98,6 +129,7 @@
 
     @media (max-width: 900px) {
       .features-grid { grid-template-columns:1fr; }
+      .video-frame { width:100%; aspect-ratio: 16/9; }
     }
 
     /* ---------- MODAL ---------- */
@@ -171,40 +203,38 @@
   <section class="overview-full">
     <h2>Project overview</h2>
     <div class="meta">Role: Quality Control Manager · Location: Eswatini · Year: 2024</div>
-    
-        <p>
-          This summer was my most memorable yet. Over the course of nine weeks, I lived and worked in Eswatini alongside
-          13 Duke classmates, staff from <strong>Engineers In Action</strong>, local masons and volunteers, and the resilient
-          communities of Emanyonyaneni and Nsizatje (Hosea Inkhundla). Together we built a <strong>128-meter suspended
-          footbridge</strong> — the longest pedestrian bridge in Eswatini to date — that now connects more than 3,000 residents
-          to schools, markets, and health clinics across the Ingwavuma River.
-        </p>
 
-        <p>
-          One moment I’ll never forget is hearing the story of a local man who, after losing a leg, still carried his children across the river
-          to school and nearly lost his life doing so. When the bridge was finished he shared, with the greatest joy, that he can now cross safely
-          — and so can his children. That moment made the work feel deeply meaningful.
-        </p>
+    <p>
+      This summer was my most memorable yet. Over the course of nine weeks, I lived and worked in Eswatini alongside
+      13 Duke classmates, staff from <strong>Engineers In Action</strong>, local masons and volunteers, and the resilient
+      communities of Emanyonyaneni and Nsizatje (Hosea Inkhundla). Together we built a <strong>128-meter suspended
+      footbridge</strong> — the longest pedestrian bridge in Eswatini to date — that now connects more than 3,000 residents
+      to schools, markets, and health clinics across the Ingwavuma River.
+    </p>
 
-        <p>
-          The project was physically and mentally demanding: every rock, nail, bag of cement, and plank was lifted, mixed, and placed by hand.
-          We slept in tents for weeks, adapted to new local foods, and worked long, often exhausting days from sunrise well past sunset — weekdays
-          and weekends alike. Hygiene conditions were basic and resources limited, but those hardships only deepened our appreciation for the
-          community’s hospitality and for the skills we were learning in the field.
-        </p>
+    <p>
+      One moment I’ll never forget is hearing the story of a local man who, after losing a leg, still carried his children across the river
+      to school and nearly lost his life doing so. When the bridge was finished he shared, with the greatest joy, that he can now cross safely
+      — and so can his children. That moment made the work feel deeply meaningful.
+    </p>
 
-        <p>
-          As <strong>Quality Control Manager</strong>, I led inspection checkpoints on critical elements — verifying concrete mix quality and placement,
-          monitoring anchor and cable tensioning, documenting as-built conditions, and maintaining QC forms and test records. I coordinated closely
-          with design and construction leads and with local masons to ensure the bridge was executed carefully and safely.
-        </p>
+    <p>
+      The project was physically and mentally demanding: every rock, nail, bag of cement, and plank was lifted, mixed, and placed by hand.
+      We slept in tents for weeks, adapted to new local foods, and worked long, often exhausting days from sunrise well past sunset — weekdays
+      and weekends alike. Hygiene conditions were basic and resources limited, but those hardships only deepened our appreciation for the
+      community’s hospitality and for the skills we were learning in the field.
+    </p>
 
-        <p style="margin-top:12px;">
-          I can’t say “grateful” enough. It was an honor to serve this community, to learn from them, and to help leave a lasting, life-changing
-          connection across the Ingwavuma River.
-        </p>
-  
-    
+    <p>
+      As <strong>Quality Control Manager</strong>, I led inspection checkpoints on critical elements — verifying concrete mix quality and placement,
+      monitoring anchor and cable tensioning, documenting as-built conditions, and maintaining QC forms and test records. I coordinated closely
+      with design and construction leads and with local masons to ensure the bridge was executed carefully and safely.
+    </p>
+
+    <p style="margin-top:12px;">
+      I can’t say “grateful” enough. It was an honor to serve this community, to learn from them, and to help leave a lasting, life-changing
+      connection across the Ingwavuma River.
+    </p>
   </section>
 
   <!-- VIDEO -->
@@ -215,6 +245,71 @@
     </div>
     <div class="media-caption"><em>See an overview of the project here</em></div>
   </section>
+
+  <!-- ======= RESTORED: As-built / Quality Control card (with PDF thumbnails + action buttons) ======= -->
+  <section class="doc-card" aria-labelledby="qc-heading">
+    <h3 id="qc-heading" class="doc-title">Quality Control Manager Role</h3>
+    <p class="doc-sub">
+      <strong>Quality control</strong> — summary of my QC role, testing, and documentation (click the thumbnails to open each PDF).
+    </p>
+
+    <!-- Inline PDF thumbnail (click to open full PDF in lightbox) -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start;">
+      <!-- Large As-Built thumbnail -->
+      <div class="pdf-thumb-wrap" style="background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 8px 18px rgba(0,0,0,0.06);">
+        <div class="doc-btn pdf-open" role="button" tabindex="0"
+             data-pdf="../images/eswatini/NyakuzaAs-BuiltDesign.pdf"
+             data-caption="Nyakuza — As-Built Design (full PDF)"
+             aria-label="Open As-Built PDF">
+          <!-- iframe preview (some browsers render first page inline) -->
+          <iframe src="../images/eswatini/NyakuzaAs-BuiltDesign.pdf#page=1&view=fitH"
+                  class="pdf-thumb"
+                  title="As-Built PDF preview"
+                  style="width:100%; height:300px; border:0; display:block;"></iframe>
+        </div>
+        <div style="padding:10px 12px;">
+          <strong style="display:block; margin-bottom:6px; color:#111;">Nyakuza — As-Built Design (preview)</strong>
+          <div style="color:#444; font-size:14px;">Click the preview to open the full PDF.</div>
+        </div>
+      </div>
+
+      <!-- Right column: role + smaller PDF thumbnails -->
+      <div>
+        <div style="margin-bottom:12px; color:#333;">
+          <p><strong>My role (brief)</strong></p>
+          <p>
+            As Quality Control Manager I oversaw inspection checkpoints during construction, verified concrete
+            mix delivery and placement, monitored anchor and cable tensioning, and documented deviations from design.
+            My partner and I coordinated with the Design and Construction Managers, along with the local masons to ensure alignment with the design drawings and maintained QC forms
+            and concrete test records. We had to ensure that all community members were aware of the construction safety criteria during the build every step of the way.
+          </p>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <!-- small thumbnail: Concrete ratios -->
+          <div class="doc-btn pdf-open" role="button" tabindex="0"
+               data-pdf="../images/eswatini/Nyakuza-Concretemixratios.pdf"
+               data-caption="Nyakuza — Concrete mix ratios (PDF)"
+               aria-label="Open Concrete mix ratios PDF"
+               style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
+            <div style="font-weight:700; color:#111; margin-bottom:6px;">Concrete mix ratios</div>
+            <div style="font-size:13px; color:#555;">Click to open PDF</div>
+          </div>
+
+          <!-- small thumbnail: QC forms -->
+          <div class="doc-btn pdf-open" role="button" tabindex="0"
+               data-pdf="../images/eswatini/Nyakuza_QCforms.pdf"
+               data-caption="Nyakuza — Quality control forms (PDF)"
+               aria-label="Open Quality Control forms PDF"
+               style="background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,0.06); cursor:pointer; min-width:180px;">
+            <div style="font-weight:700; color:#111; margin-bottom:6px;">Quality Control forms</div>
+            <div style="font-size:13px; color:#555;">Click to open PDF</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ======= END RESTORED QC SECTION ======= -->
 
   <!-- FEATURES -->
   <section class="features-wrap">
@@ -248,6 +343,20 @@
   </section>
 </div>
 
+<!-- LIGHTBOX (for PDFs) - restored -->
+<div id="pdfLightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="lightbox-inner" role="document">
+    <div class="lightbox-toolbar">
+      <div id="pdfTitle" style="font-weight:700;">Document</div>
+      <button class="lightbox-close" aria-label="Close document">✕</button>
+    </div>
+
+    <!-- iframe used to present the PDF; src is set dynamically -->
+    <iframe id="pdfFrame" class="lightbox-frame" src="" title="PDF viewer"></iframe>
+    <div id="pdfCaption" class="lightbox-caption" aria-live="polite"></div>
+  </div>
+</div>
+
 <!-- FEATURE MODAL -->
 <div id="featureModal" class="modal" aria-hidden="true">
   <div class="modal-content">
@@ -268,77 +377,131 @@
 </div>
 
 <script>
-const features = [
-  {
-    title: "Life on the homestead",
-    img: "../images/eswatini/life-homestead-full.jpg",
-    text: `
-      <p><strong>Overview:</strong> Living on-site required managing food, water, tools, and safety.</p>
-      <ul>
-        <li>Daily logistics</li>
-        <li>Tool and site safety</li>
-        <li>Living alongside community members</li>
-      </ul>`
-  },
-  {
-    title: "Community relations",
-    img: "../images/eswatini/community-full.jpg",
-    text: `
-      <p><strong>Overview:</strong> Collaboration with village leaders and local masons.</p>
-      <ul>
-        <li>Community training</li>
-        <li>Shared decision making</li>
-        <li>Maintenance planning</li>
-      </ul>`
-  },
-  {
-    title: "Duke team",
-    img: "../images/eswatini/duke-team-full.jpg",
-    text: `
-      <p><strong>Overview:</strong> Duke students worked across design, QC, and construction.</p>
-      <ul>
-        <li>Design reviews</li>
-        <li>Quality control checks</li>
-        <li>Leadership in the field</li>
-      </ul>`
-  }
-];
+  (function(){
+    /* PDF lightbox script (restored exactly) */
+    const lightbox = document.getElementById('pdfLightbox');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const pdfCaption = document.getElementById('pdfCaption');
+    const pdfTitle = document.getElementById('pdfTitle');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
 
-let current = 0;
-const modal = document.getElementById("featureModal");
-const modalImg = document.getElementById("modalImg");
-const modalText = document.getElementById("modalText");
-const modalTitle = document.getElementById("modalTitle");
+    // Buttons that open PDFs: selector matches .pdf-open elements
+    const pdfButtons = Array.from(document.querySelectorAll('.pdf-open[data-pdf]'));
 
-function openFeature(i) {
-  current = i;
-  modalImg.src = features[i].img;
-  modalText.innerHTML = features[i].text;
-  modalTitle.textContent = features[i].title;
-  modal.classList.add("open");
-  document.body.style.overflow = "hidden";
-}
+    function openPDF(src, caption, title) {
+      pdfFrame.src = src;
+      pdfCaption.textContent = caption || '';
+      pdfTitle.textContent = title || 'Document';
+      lightbox.classList.add('open');
+      lightbox.style.display = 'flex';
+      lightbox.setAttribute('aria-hidden','false');
+      closeBtn.focus();
+      document.body.style.overflow = 'hidden';
+    }
 
-document.querySelectorAll(".feature-card").forEach((card, i) => {
-  card.addEventListener("click", () => openFeature(i));
-});
+    function closePDF() {
+      lightbox.classList.remove('open');
+      lightbox.style.display = 'none';
+      lightbox.setAttribute('aria-hidden','true');
+      pdfFrame.src = ''; // remove src so the browser stops loading the PDF
+      pdfCaption.textContent = '';
+      document.body.style.overflow = '';
+    }
 
-document.getElementById("closeBtn").onclick = () => {
-  modal.classList.remove("open");
-  document.body.style.overflow = "";
-};
-document.getElementById("prevBtn").onclick = () => openFeature((current + features.length - 1) % features.length);
-document.getElementById("nextBtn").onclick = () => openFeature((current + 1) % features.length);
+    pdfButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const src = btn.getAttribute('data-pdf');
+        const caption = btn.getAttribute('data-caption') || '';
+        openPDF(src, caption, caption);
+      });
+      // keyboard activation
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+      });
+    });
 
-document.addEventListener("keydown", e => {
-  if (!modal.classList.contains("open")) return;
-  if (e.key === "Escape") document.getElementById("closeBtn").click();
-  if (e.key === "ArrowLeft") document.getElementById("prevBtn").click();
-  if (e.key === "ArrowRight") document.getElementById("nextBtn").click();
-});
+    closeBtn.addEventListener('click', closePDF);
+    // click background to close
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closePDF(); });
+
+    // ESC to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closePDF();
+    });
+
+    /* Feature modal script (unchanged from prior file) */
+    const features = [
+      {
+        title: "Life on the homestead",
+        img: "../images/eswatini/life-homestead-full.jpg",
+        text: `
+          <p><strong>Overview:</strong> Living on-site required managing food, water, tools, and safety.</p>
+          <ul>
+            <li>Daily logistics</li>
+            <li>Tool and site safety</li>
+            <li>Living alongside community members</li>
+          </ul>`
+      },
+      {
+        title: "Community relations",
+        img: "../images/eswatini/community-full.jpg",
+        text: `
+          <p><strong>Overview:</strong> Collaboration with village leaders and local masons.</p>
+          <ul>
+            <li>Community training</li>
+            <li>Shared decision making</li>
+            <li>Maintenance planning</li>
+          </ul>`
+      },
+      {
+        title: "Duke team",
+        img: "../images/eswatini/duke-team-full.jpg",
+        text: `
+          <p><strong>Overview:</strong> Duke students worked across design, QC, and construction.</p>
+          <ul>
+            <li>Design reviews</li>
+            <li>Quality control checks</li>
+            <li>Leadership in the field</li>
+          </ul>`
+      }
+    ];
+
+    let current = 0;
+    const modal = document.getElementById("featureModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalText = document.getElementById("modalText");
+    const modalTitle = document.getElementById("modalTitle");
+
+    function openFeature(i) {
+      current = i;
+      modalImg.src = features[i].img;
+      modalText.innerHTML = features[i].text;
+      modalTitle.textContent = features[i].title;
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    document.querySelectorAll(".feature-card").forEach((card, i) => {
+      card.addEventListener("click", () => openFeature(i));
+    });
+
+    document.getElementById("closeBtn").onclick = () => {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    };
+    document.getElementById("prevBtn").onclick = () => openFeature((current + features.length - 1) % features.length);
+    document.getElementById("nextBtn").onclick = () => openFeature((current + 1) % features.length);
+
+    document.addEventListener("keydown", e => {
+      if (!modal.classList.contains("open")) return;
+      if (e.key === "Escape") document.getElementById("closeBtn").click();
+      if (e.key === "ArrowLeft") document.getElementById("prevBtn").click();
+      if (e.key === "ArrowRight") document.getElementById("nextBtn").click();
+    });
+
+  })();
 </script>
 
 </body>
 </html>
-
 
