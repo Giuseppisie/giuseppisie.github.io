@@ -395,68 +395,69 @@
 (function(){
   // Feature data: set title, text (HTML), and photo arrays for each feature.
   // I fixed syntax errors (missing commas) and normalized file names to match what you listed.
-  const features = [
-    {
-      title: "Life on the homestead",
-      text: `
-        <p>Life on the homestead was a hard, humbling apprenticeship in living with very little and relying on one another. We were hosted by the Sconze family — Mage and Babe and their children and nieces — who treated our whole group like family while we built. The students, masons, and Bridgecore crew slept in cramped huts or in tents we pitched around the compound: concrete and dirt floors, sleeping bags layered close together, and no running water. We quickly learned the realities of the site — latrines for toilets, a rainwater spout that served as our sink, and, until we moved them, bats in the men’s hut that forced some of us into tents. Storms ripped tents from the ground on wild nights; I helped mend seams and zippers with a needle and thread while we held the tents down, and eventually chose a tent over the even more cramped women’s hut because it felt, oddly, like more space and air.</p>
-        <p>The daily rhythm was intense and very physical. Each morning we loaded a tractor and pushed wheelbarrows of bricks and cement to the worksite, laboring from sunrise well past sunset and sometimes finishing by flashlight. Food was simple and communal: scrambled eggs when we had power, bread when we didn’t, and local staples like incwancwa (a sour cornmeal porridge). The community and the Sconze family adapted meals for us — the nieces, Nothondo and Nosipo, prepared dinners; the family learned we preferred beans and graciously accommodated us. Water was precious: we boiled and bucketed it for showers, taking turns so the rainwater supply lasted, and washed clothes in the river on weekends. On day two, twelve teammates fell sick from contaminated water; we were taken to a powerless clinic and treated with charcoal water — a stark reminder of how fragile health can be in the field.</p>
-        <p>Even with the hardships, the generosity and warmth we received made the experience unforgettable. The homestead kept pigs, goats, and chickens; roosters crowed around the clock and sometimes kept us awake, but the family’s kindness balanced every difficulty. Mage and Babe looked out for us, rallied the community when we needed help, and invited us into church and daily life — MP taught us hacky sack, the nieces showed us how to wash clothes in the river, and the whole family welcomed us into their routines. I’m deeply grateful for their hospitality and for the lessons learned: the work tested our bodies and patience, but it taught us cooperation, resilience, and what it means to serve a community with real, lasting impact.</p>
-      `,
-      photos: [
-        "../images/eswatini/wash.JPEG",
-        "../images/eswatini/cook.jpeg",
-        "../images/eswatini/louse.jpeg",
-        "../images/eswatini/yoga.jpeg",
-        "../images/eswatini/laundry.jpeg"
-      ]
-    },
-    {
-      title: "Community relations",
-      text: `
-        <p>We could not have built this bridge without the community. On the first day our translator Thola introduced us to village elders and neighbors who had petitioned for the bridge after losing loved ones to the river. The community welcomed us and even gave many team members Swazi names — mine was 'Nonhlanla', meaning luck — which we wore proudly on our helmets as a symbol of belonging.</p>
-        <p>Language and gender norms were initial barriers. We learned basic siSwati phrases to greet and communicate, but much was shared through smiles and shared meals. Men at first hesitated when women took shovels; the women persevered and gradually earned equal trust by working side-by-side in the pits. We also shared music, sport, and laughter — even a friendly soccer match — and by the end we sang and danced together. The bridge that we built was their gift; in return they gave us friendship, culture, and purpose.</p>
-      `,
-      photos: [
-        "../images/eswatini/soccer.jpg",
-        "../images/eswatini/promise.JPEG",
-        "../images/eswatini/MP.jpeg"
-        "../images/eswatini/michael.jpeg"
-        "../images/eswatini/nothondo.jpeg"
-        "../images/eswatini/twins.jpg"
-      ]
-    },
-    {
-      title: "Duke team",
-      text: `
-        <p>The Duke team barely knew one another before the project. We met once on campus and then again at the Johannesburg airport, arriving from across the world. Almost immediately, we became a family — helping one another adjust to a new way of living, working, and communicating in an unfamiliar environment.</p>
-        <p>We shared everything: extra T-shirts, hand sanitizer, repairs by headlamp, built furniture, cooked meals for each other, and used a chore chart so daily tasks stayed balanced. While each student had a role, we all stepped beyond our descriptions to support the project and each other. We had disagreements, but we grew through them and left with deep friendships that I’m grateful for.</p>
-        <p><strong>Team roster (14 students, alphabetized by last name):</strong></p>
-        <ul>
-          <li>Ben Atkeson ’28 — Safety Manager</li>
-          <li>Ella Cohen ’28 — Logistics Manager</li>
-          <li>Noah Ewig ’27 — Design Manager</li>
-          <li>Sienna Giuseppi ’28 — Quality Control Manager</li>
-          <li>Michael Hidalgo ’27</li>
-          <li>Ali Kalo ’27 — Design Manager</li>
-          <li>Quinn Mair ’27 — Construction Manager</li>
-          <li>Signe Marthinson ’27 — Cultural Relations Manager</li>
-          <li>Austin McGuire ’28</li>
-          <li>Abby Mirsky ’28 — Media Manager</li>
-          <li>Natalie Olsen ’27 — On-site Project Manager</li>
-          <li>Thomas Roberts ’28 — Construction Manager</li>
-          <li>Madeline Stevens ’28 — Quality Control Manager</li>
-          <li>Isaiah Williams ’28 — Cultural Relations Manager</li>
-        </ul>
-      `,
-      photos: [
-        "../images/eswatini/end.JPEG",
-        "../images/eswatini/cablessmile.jpeg",
-        "../images/eswatini/izah.JPEG",
-        "../images/eswatini/madsigme.JPG"
-      ]
-    }
-  ];
+const features = [
+  {
+    title: "Life on the homestead",
+    text: `
+      <p>Life on the homestead was a hard, humbling apprenticeship in living with very little and relying on one another. We were hosted by the Sconze family — Mage and Babe and their children and nieces — who treated our whole group like family while we built. The students, masons, and Bridgecore crew slept in cramped huts or in tents we pitched around the compound: concrete and dirt floors, sleeping bags layered close together, and no running water. We quickly learned the realities of the site — latrines for toilets, a rainwater spout that served as our sink, and, until we moved them, bats in the men’s hut that forced some of us into tents. Storms ripped tents from the ground on wild nights; I helped mend seams and zippers with a needle and thread while we held the tents down, and eventually chose a tent over the even more cramped women’s hut because it felt, oddly, like more space and air.</p>
+      <p>The daily rhythm was intense and very physical. Each morning we loaded a tractor and pushed wheelbarrows of bricks and cement to the worksite, laboring from sunrise well past sunset and sometimes finishing by flashlight. Food was simple and communal: scrambled eggs when we had power, bread when we didn’t, and local staples like incwancwa (a sour cornmeal porridge). The community and the Sconze family adapted meals for us — the nieces, Nothondo and Nosipo, prepared dinners; the family learned we preferred beans and graciously accommodated us. Water was precious: we boiled and bucketed it for showers, taking turns so the rainwater supply lasted, and washed clothes in the river on weekends. On day two, twelve teammates fell sick from contaminated water; we were taken to a powerless clinic and treated with charcoal water — a stark reminder of how fragile health can be in the field.</p>
+      <p>Even with the hardships, the generosity and warmth we received made the experience unforgettable. The homestead kept pigs, goats, and chickens; roosters crowed around the clock and sometimes kept us awake, but the family’s kindness balanced every difficulty. Mage and Babe looked out for us, rallied the community when we needed help, and invited us into church and daily life — MP taught us hacky sack, the nieces showed us how to wash clothes in the river, and the whole family welcomed us into their routines. I’m deeply grateful for their hospitality and for the lessons learned: the work tested our bodies and patience, but it taught us cooperation, resilience, and what it means to serve a community with real, lasting impact.</p>
+    `,
+    photos: [
+      "../images/eswatini/wash.JPEG",
+      "../images/eswatini/cook.jpeg",
+      "../images/eswatini/louse.jpeg",
+      "../images/eswatini/yoga.jpeg",
+      "../images/eswatini/laundry.jpeg"
+    ]
+  },
+  {
+    title: "Community relations",
+    text: `
+      <p>We could not have built this bridge without the community. On the first day our translator Thola introduced us to village elders and neighbors who had petitioned for the bridge after losing loved ones to the river. The community welcomed us and even gave many team members Swazi names — mine was 'Nonhlanla', meaning luck — which we wore proudly on our helmets as a symbol of belonging.</p>
+      <p>Language and gender norms were initial barriers. We learned basic siSwati phrases to greet and communicate, but much was shared through smiles and shared meals. Men at first hesitated when women took shovels; the women persevered and gradually earned equal trust by working side-by-side in the pits. We also shared music, sport, and laughter — even a friendly soccer match — and by the end we sang and danced together. The bridge that we built was their gift; in return they gave us friendship, culture, and purpose.</p>
+    `,
+    photos: [
+      "../images/eswatini/soccer.jpg",
+      "../images/eswatini/promise.JPEG",
+      "../images/eswatini/MP.jpeg",
+      "../images/eswatini/michael.jpeg",
+      "../images/eswatini/nothondo.jpeg",
+      "../images/eswatini/twins.jpg"
+    ]
+  },
+  {
+    title: "Duke team",
+    text: `
+      <p>The Duke team barely knew one another before the project. We met once on campus and then again at the Johannesburg airport, arriving from across the world. Almost immediately, we became a family — helping one another adjust to a new way of living, working, and communicating in an unfamiliar environment.</p>
+      <p>We shared everything: extra T-shirts, hand sanitizer, repairs by headlamp, built furniture, cooked meals for each other, and used a chore chart so daily tasks stayed balanced. While each student had a role, we all stepped beyond our descriptions to support the project and each other. We had disagreements, but we grew through them and left with deep friendships that I’m grateful for.</p>
+      <p><strong>Team roster (14 students, alphabetized by last name):</strong></p>
+      <ul>
+        <li>Ben Atkeson ’28 — Safety Manager</li>
+        <li>Ella Cohen ’28 — Logistics Manager</li>
+        <li>Noah Ewig ’27 — Design Manager</li>
+        <li>Sienna Giuseppi ’28 — Quality Control Manager</li>
+        <li>Michael Hidalgo ’27</li>
+        <li>Ali Kalo ’27 — Design Manager</li>
+        <li>Quinn Mair ’27 — Construction Manager</li>
+        <li>Signe Marthinson ’27 — Cultural Relations Manager</li>
+        <li>Austin McGuire ’28</li>
+        <li>Abby Mirsky ’28 — Media Manager</li>
+        <li>Natalie Olsen ’27 — On-site Project Manager</li>
+        <li>Thomas Roberts ’28 — Construction Manager</li>
+        <li>Madeline Stevens ’28 — Quality Control Manager</li>
+        <li>Isaiah Williams ’28 — Cultural Relations Manager</li>
+      </ul>
+    `,
+    photos: [
+      "../images/eswatini/end.JPEG",
+      "../images/eswatini/cablessmile.jpeg",
+      "../images/eswatini/izah.JPEG",
+      "../images/eswatini/madsigme.JPG"
+    ]
+  }
+];
+
 
   // Modal elements
   const modal = document.getElementById('featureModal');
