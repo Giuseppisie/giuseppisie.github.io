@@ -394,7 +394,7 @@
 <script>
 (function(){
   // Feature data: set title, text (HTML), and photo arrays for each feature.
-  // Update the photo file paths to your real images.
+  // I fixed syntax errors (missing commas) and normalized file names to match what you listed.
   const features = [
     {
       title: "Life on the homestead",
@@ -404,11 +404,11 @@
         <p>Even with the hardships, the generosity and warmth we received made the experience unforgettable. The homestead kept pigs, goats, and chickens; roosters crowed around the clock and sometimes kept us awake, but the family’s kindness balanced every difficulty. Mage and Babe looked out for us, rallied the community when we needed help, and invited us into church and daily life — MP taught us hacky sack, the nieces showed us how to wash clothes in the river, and the whole family welcomed us into their routines. I’m deeply grateful for their hospitality and for the lessons learned: the work tested our bodies and patience, but it taught us cooperation, resilience, and what it means to serve a community with real, lasting impact.</p>
       `,
       photos: [
-        "../images/eswatini/wash.jepg",
+        "../images/eswatini/wash.JPEG",
         "../images/eswatini/cook.jpeg",
         "../images/eswatini/decomp.JPEG",
-        "../images/eswatini/louse.jpeg"
-        "../images/eswatini/yoga.jpeg"
+        "../images/eswatini/louse.jpeg",
+        "../images/eswatini/yoga.jpeg",
         "../images/eswatini/laundry.jpeg"
       ]
     },
@@ -448,8 +448,8 @@
         </ul>
       `,
       photos: [
-         "../images/eswatini/end.JPEG",
-        "../images/eswatini/cablessmile.jpeg"
+        "../images/eswatini/end.JPEG",
+        "../images/eswatini/cablessmile.jpeg",
         "../images/eswatini/izah.JPEG",
         "../images/eswatini/madsigme.JPG"
       ]
@@ -478,14 +478,10 @@
     galleryThumbs.innerHTML = '';
     currentPhoto = 0;
 
-    // If no photos, show placeholder
     const photos = (f.photos && f.photos.length) ? f.photos : [];
-
-    // set main to first photo or blank
     galleryMain.src = photos[0] || '';
     galleryMain.alt = f.title || 'Feature image';
 
-    // create thumbnails
     photos.forEach((src, i) => {
       const t = document.createElement('button');
       t.className = 'thumb';
@@ -521,7 +517,6 @@
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
-    // focus close button for accessibility
     closeBtn.focus();
   }
 
@@ -565,7 +560,6 @@
     if (!modal.classList.contains('open')) return;
     if (e.key === 'Escape') closeFeature();
     if (e.key === 'ArrowLeft') {
-      // if gallery has images, navigate photos; otherwise navigate features
       const photos = features[currentFeature].photos || [];
       if (photos.length) {
         galleryPrev.click();
@@ -592,6 +586,7 @@
   features.forEach(f => (f.photos || []).forEach(src => { const i = new Image(); i.src = src; }));
 })();
 </script>
+
 
 
 </body>
