@@ -357,190 +357,239 @@
   </div>
 </div>
 
-<!-- FEATURE MODAL -->
-<div id="featureModal" class="modal" aria-hidden="true">
-  <div class="modal-content">
+<!-- ===== Feature modal with photo highlight reel: DROP THIS IN PLACE OF YOUR OLD featureModal ===== -->
+<div id="featureModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-content" role="document" aria-labelledby="modalTitle" style="max-width:1100px;">
     <div class="modal-header">
       <div id="modalTitle">Feature</div>
       <div>
-        <button class="modal-btn" id="prevBtn">◀</button>
-        <button class="modal-btn" id="nextBtn">▶</button>
-        <button class="modal-btn" id="closeBtn">✕</button>
+        <button class="modal-btn" id="prevBtn" aria-label="Previous feature">◀</button>
+        <button class="modal-btn" id="nextBtn" aria-label="Next feature">▶</button>
+        <button class="modal-btn" id="closeBtn" aria-label="Close">✕</button>
       </div>
     </div>
 
-    <div class="modal-body">
-      <img id="modalImg" alt="">
-      <div class="modal-text" id="modalText"></div>
+    <!-- Gallery + text -->
+    <div class="modal-body" style="flex-direction:column; gap:12px; padding:16px;">
+      <!-- MAIN IMAGE & nav -->
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button id="galleryPrev" class="modal-btn" aria-label="Previous photo" style="flex:0 0 auto;">◀</button>
+        <div style="flex:1 1 auto; display:flex; justify-content:center;">
+          <img id="galleryMain" src="" alt="" style="max-width:100%; max-height:60vh; object-fit:contain; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.45);">
+        </div>
+        <button id="galleryNext" class="modal-btn" aria-label="Next photo" style="flex:0 0 auto;">▶</button>
+      </div>
+
+      <!-- thumbnails row -->
+      <div id="galleryThumbs" style="display:flex; gap:8px; align-items:center; justify-content:center; overflow-x:auto; padding:8px 6px;">
+        <!-- thumbnails injected by JS -->
+      </div>
+
+      <!-- descriptive text -->
+      <div id="modalText" class="modal-text" style="padding-top:6px; border-top:1px solid rgba(0,0,0,0.06);"></div>
     </div>
   </div>
 </div>
 
 <script>
-  (function(){
-    /* PDF lightbox script (restored exactly) */
-    const lightbox = document.getElementById('pdfLightbox');
-    const pdfFrame = document.getElementById('pdfFrame');
-    const pdfCaption = document.getElementById('pdfCaption');
-    const pdfTitle = document.getElementById('pdfTitle');
-    const closeBtn = lightbox.querySelector('.lightbox-close');
-
-    // Buttons that open PDFs: selector matches .pdf-open elements
-    const pdfButtons = Array.from(document.querySelectorAll('.pdf-open[data-pdf]'));
-
-    function openPDF(src, caption, title) {
-      pdfFrame.src = src;
-      pdfCaption.textContent = caption || '';
-      pdfTitle.textContent = title || 'Document';
-      lightbox.classList.add('open');
-      lightbox.style.display = 'flex';
-      lightbox.setAttribute('aria-hidden','false');
-      closeBtn.focus();
-      document.body.style.overflow = 'hidden';
+(function(){
+  // Feature data: set title, text (HTML), and photo arrays for each feature.
+  // Update the photo file paths to your real images.
+  const features = [
+    {
+      title: "Life on the homestead",
+      text: `
+        <p>Life on the homestead was a hard, humbling apprenticeship in living with very little and relying on one another. We were hosted by the Sconze family — Mage and Babe and their children and nieces — who treated our whole group like family while we built. The students, masons, and Bridgecore crew slept in cramped huts or in tents we pitched around the compound: concrete and dirt floors, sleeping bags layered close together, and no running water. We quickly learned the realities of the site — latrines for toilets, a rainwater spout that served as our sink, and, until we moved them, bats in the men’s hut that forced some of us into tents. Storms ripped tents from the ground on wild nights; I helped mend seams and zippers with a needle and thread while we held the tents down, and eventually chose a tent over the even more cramped women’s hut because it felt, oddly, like more space and air.</p>
+        <p>The daily rhythm was intense and very physical. Each morning we loaded a tractor and pushed wheelbarrows of bricks and cement to the worksite, laboring from sunrise well past sunset and sometimes finishing by flashlight. Food was simple and communal: scrambled eggs when we had power, bread when we didn’t, and local staples like incwancwa (a sour cornmeal porridge). The community and the Sconze family adapted meals for us — the nieces, Nothondo and Nosipo, prepared dinners; the family learned we preferred beans and graciously accommodated us. Water was precious: we boiled and bucketed it for showers, taking turns so the rainwater supply lasted, and washed clothes in the river on weekends. On day two, twelve teammates fell sick from contaminated water; we were taken to a powerless clinic and treated with charcoal water — a stark reminder of how fragile health can be in the field.</p>
+        <p>Even with the hardships, the generosity and warmth we received made the experience unforgettable. The homestead kept pigs, goats, and chickens; roosters crowed around the clock and sometimes kept us awake, but the family’s kindness balanced every difficulty. Mage and Babe looked out for us, rallied the community when we needed help, and invited us into church and daily life — MP taught us hacky sack, the nieces showed us how to wash clothes in the river, and the whole family welcomed us into their routines. I’m deeply grateful for their hospitality and for the lessons learned: the work tested our bodies and patience, but it taught us cooperation, resilience, and what it means to serve a community with real, lasting impact.</p>
+      `,
+      photos: [
+        "../images/eswatini/life-homestead-1.jpg",
+        "../images/eswatini/life-homestead-2.jpg",
+        "../images/eswatini/life-homestead-3.jpg",
+        "../images/eswatini/life-homestead-4.jpg"
+      ]
+    },
+    {
+      title: "Community relations",
+      text: `
+        <p>We could not have built this bridge without the community. On the first day our translator Thola introduced us to village elders and neighbors who had petitioned for the bridge after losing loved ones to the river. The community welcomed us and even gave many team members Swazi names — mine was 'Nonhlanla', meaning luck — which we wore proudly on our helmets as a symbol of belonging.</p>
+        <p>Language and gender norms were initial barriers. We learned basic siSwati phrases to greet and communicate, but much was shared through smiles and shared meals. Men at first hesitated when women took shovels; the women persevered and gradually earned equal trust by working side-by-side in the pits. We also shared music, sport, and laughter — even a friendly soccer match — and by the end we sang and danced together. The bridge that we built was their gift; in return they gave us friendship, culture, and purpose.</p>
+      `,
+      photos: [
+        "../images/eswatini/community-1.jpg",
+        "../images/eswatini/community-2.jpg",
+        "../images/eswatini/community-3.jpg"
+      ]
+    },
+    {
+      title: "Duke team",
+      text: `
+        <p>The Duke team barely knew one another before the project. We met once on campus and then again at the Johannesburg airport, arriving from across the world. Almost immediately, we became a family — helping one another adjust to a new way of living, working, and communicating in an unfamiliar environment.</p>
+        <p>We shared everything: extra T-shirts, hand sanitizer, repairs by headlamp, built furniture, cooked meals for each other, and used a chore chart so daily tasks stayed balanced. While each student had a role, we all stepped beyond our descriptions to support the project and each other. We had disagreements, but we grew through them and left with deep friendships that I’m grateful for.</p>
+        <p><strong>Team roster (14 students, alphabetized by last name):</strong></p>
+        <ul>
+          <li>Ben Atkeson ’28 — Safety Manager</li>
+          <li>Ella Cohen ’28 — Logistics Manager</li>
+          <li>Noah Ewig ’27 — Design Manager</li>
+          <li>Sienna Giuseppi ’28 — Quality Control Manager</li>
+          <li>Michael Hidalgo ’27</li>
+          <li>Ali Kalo ’27 — Design Manager</li>
+          <li>Quinn Mair ’27 — Construction Manager</li>
+          <li>Signe Marthinson ’27 — Cultural Relations Manager</li>
+          <li>Austin McGuire ’28</li>
+          <li>Abby Mirsky ’28 — Media Manager</li>
+          <li>Natalie Olsen ’27 — On-site Project Manager</li>
+          <li>Thomas Roberts ’28 — Construction Manager</li>
+          <li>Madeline Stevens ’28 — Quality Control Manager</li>
+          <li>Isaiah Williams ’28 — Cultural Relations Manager</li>
+        </ul>
+      `,
+      photos: [
+        "../images/eswatini/duke-1.jpg",
+        "../images/eswatini/duke-2.jpg",
+        "../images/eswatini/duke-3.jpg"
+      ]
     }
+  ];
 
-    function closePDF() {
-      lightbox.classList.remove('open');
-      lightbox.style.display = 'none';
-      lightbox.setAttribute('aria-hidden','true');
-      pdfFrame.src = ''; // remove src so the browser stops loading the PDF
-      pdfCaption.textContent = '';
-      document.body.style.overflow = '';
-    }
+  // Modal elements
+  const modal = document.getElementById('featureModal');
+  const galleryMain = document.getElementById('galleryMain');
+  const galleryThumbs = document.getElementById('galleryThumbs');
+  const modalText = document.getElementById('modalText');
+  const modalTitle = document.getElementById('modalTitle');
+  const prevFeatureBtn = document.getElementById('prevBtn');
+  const nextFeatureBtn = document.getElementById('nextBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const galleryPrev = document.getElementById('galleryPrev');
+  const galleryNext = document.getElementById('galleryNext');
 
-    pdfButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const src = btn.getAttribute('data-pdf');
-        const caption = btn.getAttribute('data-caption') || '';
-        openPDF(src, caption, caption);
+  let currentFeature = 0;
+  let currentPhoto = 0;
+
+  function populateGallery(featureIndex) {
+    const f = features[featureIndex];
+    modalTitle.textContent = f.title || '';
+    modalText.innerHTML = f.text || '';
+    galleryThumbs.innerHTML = '';
+    currentPhoto = 0;
+
+    // If no photos, show placeholder
+    const photos = (f.photos && f.photos.length) ? f.photos : [];
+
+    // set main to first photo or blank
+    galleryMain.src = photos[0] || '';
+    galleryMain.alt = f.title || 'Feature image';
+
+    // create thumbnails
+    photos.forEach((src, i) => {
+      const t = document.createElement('button');
+      t.className = 'thumb';
+      t.type = 'button';
+      t.style.border = '0';
+      t.style.padding = '0';
+      t.style.background = 'transparent';
+      t.style.cursor = 'pointer';
+      t.style.flex = '0 0 auto';
+      t.setAttribute('aria-label', `Open photo ${i+1}`);
+      t.innerHTML = `<img src="${src}" alt="${f.title} thumb ${i+1}" style="width:100px; height:64px; object-fit:cover; border-radius:6px; box-shadow:0 6px 16px rgba(0,0,0,0.12);">`;
+      t.addEventListener('click', () => {
+        currentPhoto = i;
+        galleryMain.src = src;
+        highlightActiveThumb(i);
       });
-      // keyboard activation
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-      });
+      galleryThumbs.appendChild(t);
     });
 
-    closeBtn.addEventListener('click', closePDF);
-    // click background to close
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closePDF(); });
+    highlightActiveThumb(0);
+  }
 
-    // ESC to close
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('open')) closePDF();
+  function highlightActiveThumb(idx) {
+    Array.from(galleryThumbs.children).forEach((btn, i) => {
+      btn.style.opacity = (i === idx) ? '1' : '0.6';
+      btn.style.transform = (i === idx) ? 'scale(1.02)' : 'scale(1)';
     });
+  }
 
-    /* Feature modal script (updated content) */
-    const features = [
-      {
-        title: "Life on the homestead",
-        img: "../images/eswatini/life-homestead-full.jpg",
-        text: `
-          <p>Life on the homestead was a hard, humbling apprenticeship in living with very little and relying on one another. We were hosted by the Sconze family — Mage and Babe and their children and nieces — who treated our whole group like family while we built. The students, masons, and Bridgecore crew slept in cramped huts or in tents we pitched around the compound: concrete and dirt floors, sleeping bags layered close together, and no running water. We quickly learned the realities of the site — latrines for toilets, a rainwater spout that served as our sink, and, until we moved them, bats in the men’s hut that forced some of us into tents. Storms ripped tents from the ground on wild nights; I helped mend seams and zippers with a needle and thread while we held the tents down, and eventually chose a tent over the even more cramped women’s hut because it felt, oddly, like more space and more air.</p>
+  function openFeature(i) {
+    currentFeature = i;
+    populateGallery(i);
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    // focus close button for accessibility
+    closeBtn.focus();
+  }
 
-          <p>The daily rhythm was intense and very physical. Each morning we loaded a tractor and pushed wheelbarrows of bricks and cement to the worksite, laboring from sunrise well past sunset and sometimes finishing by flashlight. Food was simple and communal: scrambled eggs when we had power, bread when we didn’t, and local staples like incwancwa (a sour cornmeal porridge). The community and the Sconze family adapted meals for us — the nieces, Nothondo and Nosipo, prepared dinners; the family learned we preferred beans and graciously accommodated us. Water was precious: we boiled and bucketed it for showers, taking turns so the rainwater supply lasted, and washed clothes in the river on weekends. On day two, twelve teammates fell sick from contaminated water; we were taken to a powerless clinic and treated with charcoal water — a stark reminder of how fragile health can be in the field.</p>
+  function closeFeature() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    galleryMain.src = '';
+    galleryThumbs.innerHTML = '';
+  }
 
-          <p>Even with the hardships, the generosity and warmth we received made the experience unforgettable. The homestead kept pigs, goats, and chickens; roosters crowed around the clock and sometimes kept us awake, but the family’s kindness balanced every difficulty. Mage and Babe looked out for us, rallied the community when we needed help, and invited us into church and daily life — MP taught us hacky sack, the nieces showed us how to wash clothes in the river, and the whole family welcomed us into their routines. I’m deeply grateful for their hospitality and for the lessons learned: the work tested our bodies and patience, but it taught us cooperation, resilience, and what it means to serve a community with real, lasting impact.</p>
-        `
-      },
-      {
-        title: "Community relations",
-        img: "../images/eswatini/community-full.jpg",
-        text: `
-          <p>Community relations were at the heart of this project — the bridge could not have been built without the people who live there. On our very first day at the site, our translator, Thola, introduced us to the community. Elder men and women came to the site daily — the same individuals who had petitioned for years for this bridge after watching loved ones risk, and in some cases lose, their lives to the violent Ingwavuma River. Their presence was a reminder that this project was deeply personal, rooted in loss, hope, and long-awaited change.</p>
+  // attach click handlers to your feature cards (they have class .feature-card)
+  document.querySelectorAll('.feature-card').forEach((card, i) => {
+    card.addEventListener('click', () => openFeature(i));
+    card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openFeature(i); });
+    card.setAttribute('tabindex', '0');
+  });
 
-          <p>Despite the strong language barrier, connection came quickly. We learned basic SiSwati phrases like <em>Sanibonani</em> (hello) and <em>Yebo</em> (yes), but much of our communication was carried through smiles, shared meals, and time spent side by side. Younger community members spoke English fluently and eagerly asked about our lives back home, while many elders — understandably proud of their Swazi roots — chose not to speak English even when they could. On our first day of work, the community gave each of us SiSwati names as a sign of welcome. Mine was <strong>Nonhlanhla</strong>, meaning <em>luck</em>. We wore these names proudly on our helmets, honored to be embraced with such kindness and trust.</p>
+  closeBtn.addEventListener('click', closeFeature);
+  prevFeatureBtn.addEventListener('click', () => openFeature((currentFeature - 1 + features.length) % features.length));
+  nextFeatureBtn.addEventListener('click', () => openFeature((currentFeature + 1) % features.length));
 
-          <p>There were challenges to navigate as well. Gender dynamics were especially difficult at first. Men often took tools from my teammates and me, laughing as we learned to swing pickaxes or move earth. But we persisted. The women on our team deliberately took longer shifts in the pits and carried heavier loads, determined to prove our capability. Our teammates and the masons stood beside us, reinforcing that we were equals on the site. At the same time, the local women impressed us in their own way — carrying heavy buckets of water effortlessly balanced on their heads, up steep cliffs from the river to supply our concrete. We tried to mirror their technique, but balancing even a fraction of that weight was far harder than it looked.</p>
+  // gallery navigation
+  galleryPrev.addEventListener('click', () => {
+    const photos = features[currentFeature].photos || [];
+    if (!photos.length) return;
+    currentPhoto = (currentPhoto - 1 + photos.length) % photos.length;
+    galleryMain.src = photos[currentPhoto];
+    highlightActiveThumb(currentPhoto);
+  });
+  galleryNext.addEventListener('click', () => {
+    const photos = features[currentFeature].photos || [];
+    if (!photos.length) return;
+    currentPhoto = (currentPhoto + 1) % photos.length;
+    galleryMain.src = photos[currentPhoto];
+    highlightActiveThumb(currentPhoto);
+  });
 
-          <p>As weeks passed, relationships deepened. Members of the local soccer team eventually challenged us to a match, and on a free weekend we took the field — with our masons joining the American side because we needed all the help we could get. The local team’s chemistry and stamina far surpassed ours, but the entire community showed up to cheer, celebrating the effort as much as the game itself. By the end of the trip, we knew each other’s favorite songs — Maroon 5 played alongside local artists — and we sang, danced, and passed rocks together for hours. Each workday ended with a cheer shouted in unison: <strong>“Bottebete!”</strong> (Bridge!). On the last day we cried and hugged our new friends; the bridge was a gift we brought, and in return they shared friendship and love.</p>
-        `
-      },
-      {
-        title: "Duke team",
-        img: "../images/eswatini/duke-team-full.jpg",
-        text: `         
-  
-          <p>
-  The Duke team barely knew one another before the project. We met once on campus and then again in the Johannesburg airport, arriving from across the world. Almost immediately, we became a family—helping one another adjust to a completely new way of living, working, and communicating in an unfamiliar environment.
-</p>
-
-<p>
-  We shared everything we had. We lent extra T-shirts and hand sanitizer, repaired each other’s clothes by headlamp at night, and even built furniture for teammates who missed having something as simple as a table. We cooked meals we knew others would enjoy and played games together in the evenings. A daily chore chart kept us functioning as a unit, but furthermore we knew the project would only succeed if everyone contributed beyond their individual roles and helped eachother endlessly.
-</p>
-
-<p>
-I am incredibly greatful for the members of my travel team, and am excited to continue many of these friendships back at Duke. </p>
-
-<p><strong>Team roster (14 students):</strong></p>
-
-<ul>
-  <li>Ben Atkeson ’28 — Safety Manager</li>
-  <li>Ella Cohen ’28 — Logistics Manager</li>
-  <li>Noah Ewig ’27 — Design Manager</li>
-  <li>Sienna Giuseppi ’28 — Quality Control Manager</li>
-  <li>Michael Hidalgo ’27</li>
-  <li>Ali Kalo ’27 — Design Manager</li>
-  <li>Quinn Mair ’27 — Construction Manager</li>
-  <li>Signe Marthinson ’27 — Cultural Relations Manager</li>
-  <li>Austin McGuire ’28</li>
-  <li>Abby Mirsky ’28 — Media Manager</li>
-  <li>Natalie Olsen ’27 — On-site Project Manager</li>
-  <li>Thomas Roberts ’28 — Construction Manager</li>
-  <li>Madeline Stevens ’28 — Quality Control Manager</li>
-  <li>Isaiah Williams ’28 — Cultural Relations Manager</li>
-</ul>
-        `
+  // keyboard support
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') closeFeature();
+    if (e.key === 'ArrowLeft') {
+      // if gallery has images, navigate photos; otherwise navigate features
+      const photos = features[currentFeature].photos || [];
+      if (photos.length) {
+        galleryPrev.click();
+      } else {
+        prevFeatureBtn.click();
       }
-    ];
-
-    let current = 0;
-    const modal = document.getElementById("featureModal");
-    const modalImg = document.getElementById("modalImg");
-    const modalText = document.getElementById("modalText");
-    const modalTitle = document.getElementById("modalTitle");
-
-    function openFeature(i) {
-      current = i;
-      modalImg.src = features[i].img;
-      modalImg.alt = features[i].title;
-      modalText.innerHTML = features[i].text;
-      modalTitle.textContent = features[i].title;
-      modal.classList.add("open");
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = "hidden";
-      // focus close button for accessibility
-      document.getElementById('closeBtn').focus();
     }
+    if (e.key === 'ArrowRight') {
+      const photos = features[currentFeature].photos || [];
+      if (photos.length) {
+        galleryNext.click();
+      } else {
+        nextFeatureBtn.click();
+      }
+    }
+  });
 
-    document.querySelectorAll(".feature-card").forEach((card, i) => {
-      // click
-      card.addEventListener("click", () => openFeature(i));
-      // keyboard
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openFeature(i);
-        }
-      });
-    });
+  // close when clicking backdrop
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeFeature();
+  });
 
-    document.getElementById("closeBtn").onclick = () => {
-      modal.classList.remove("open");
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = "";
-    };
-    document.getElementById("prevBtn").onclick = () => openFeature((current + features.length - 1) % features.length);
-    document.getElementById("nextBtn").onclick = () => openFeature((current + 1) % features.length);
-
-    document.addEventListener("keydown", e => {
-      if (!modal.classList.contains("open")) return;
-      if (e.key === "Escape") document.getElementById("closeBtn").click();
-      if (e.key === "ArrowLeft") document.getElementById("prevBtn").click();
-      if (e.key === "ArrowRight") document.getElementById("nextBtn").click();
-    });
-
-  })();
+  // Preload images for smoother UX
+  features.forEach(f => (f.photos || []).forEach(src => { const i = new Image(); i.src = src; }));
+})();
 </script>
+
 
 </body>
 </html>
