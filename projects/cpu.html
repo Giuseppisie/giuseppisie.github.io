@@ -69,6 +69,15 @@
     .meta { color:#666; margin-bottom:12px; font-size:14px; }
     .content p { line-height:1.6; margin-bottom:16px; color:#222; }
 
+    /* Key Components formatting (intro) */
+    .kc-wrap { margin-top: 18px; }
+    .kc-title { font-weight: 900; font-size: 18px; color: #111; margin-bottom: 10px; }
+    .kc-list { background: transparent; padding: 0; margin: 0; list-style: none; color: #222; }
+    .kc-item { margin: 10px 0 6px 0; }
+    .kc-term { display:block; font-weight:700; color: #111; }
+    .kc-desc { display:block; margin-left:18px; color:#333; }
+    .kc-desc::before { content: "— "; font-weight:700; color:#111; margin-right:6px; }
+
     /* Schematic / large thumbnail card */
     .media-full {
       width:100%;
@@ -159,6 +168,13 @@
       .modal-main img { max-height:45vh; }
       .feature-card img { height:140px; }
     }
+
+    /* Schematic-only lightbox (full-page image) */
+    #schemModal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.95); z-index:9000; padding:20px; }
+    #schemModal.open { display:flex; }
+    .schem-frame { width:100%; max-width:1600px; max-height:92vh; position:relative; display:flex; align-items:center; justify-content:center; }
+    .schem-img { max-width:100%; max-height:92vh; object-fit:contain; border-radius:6px; box-shadow:0 40px 120px rgba(0,0,0,0.7); }
+    .schem-close { position:fixed; top:18px; right:18px; z-index:9100; background:rgba(255,255,255,0.12); color:#fff; border:0; padding:10px 12px; border-radius:8px; cursor:pointer; font-weight:800; }
   </style>
 </head>
 
@@ -195,40 +211,72 @@
 
       <div>
         <p>
-          This project implements a 16-bit, word-addressed, MIPS-like RISC CPU in Logisim. The design is a single-cycle
-          CPU intended as an educational reference: it demonstrates a clear datapath, an ALU with common ops, a small register file,
-          separate instruction ROM and data RAM, PC and branch/jump logic, and simple I/O (TTY/keyboard). It is not pipelined — the emphasis is teaching fundamentals and correctness.
+          The project aims to provide a hands-on experience in CPU design, specifically in the context of MIPS-like RISC architectures. By implementing the architecture in Logisim, it offers a clear, visual approach to understanding how processors execute instructions and handle data. It serves as an educational tool to grasp fundamental concepts in computer architecture and digital logic design.
         </p>
 
-        <p>
-          The implementation includes an assembler / testbench (used to generate ROM images), a memory write latch (to match Logisim RAM timing),
-          and a small set of MIPS-inspired instructions (R/I/J forms, load/store, branches, jal/jr). Use the schematic thumbnail below and the feature boxes to explore the ALU, memory, PC/registers, decode, and control.
-        </p>
+        <!-- Key Components block (reformatted per request) -->
+        <section class="kc-wrap" aria-labelledby="kc-heading">
+          <div id="kc-heading" class="kc-title">Key Components</div>
+
+          <ul class="kc-list" role="list">
+            <li class="kc-item">
+              <span class="kc-term">Logisim-Based Design</span>
+              <span class="kc-desc">The entire design is implemented using Logisim, a graphical tool for designing and simulating digital circuits.</span>
+            </li>
+
+            <li class="kc-item">
+              <span class="kc-term">MIPS-like RISC Architecture</span>
+              <span class="kc-desc">The CPU follows a 16-bit RISC (Reduced Instruction Set Computing) architecture, designed for simplicity and efficiency.</span>
+            </li>
+
+            <li class="kc-item">
+              <span class="kc-term">Instruction Set</span>
+              <span class="kc-desc">The CPU supports a set of instructions that are typical of MIPS architectures, with all operations executed in a single cycle for simplicity.</span>
+            </li>
+
+            <li class="kc-item">
+              <span class="kc-term">Single-Cycle CPU Design</span>
+              <span class="kc-desc">The project focuses on implementing a single-cycle CPU, meaning that every instruction completes in one clock cycle.</span>
+            </li>
+
+            <li class="kc-item">
+              <span class="kc-term">Instruction Execution Pipeline</span>
+              <span class="kc-desc">The design involves a basic instruction execution pipeline, helping understand how instructions are fetched, decoded, and executed.</span>
+            </li>
+
+            <li class="kc-item">
+              <span class="kc-term">No Pipelining or Optimizations</span>
+              <span class="kc-desc">Currently, the design does not include pipelining or any further performance optimizations. It focuses on the basic single-cycle design for educational purposes.</span>
+            </li>
+          </ul>
+        </section>
       </div>
     </section>
 
     <!-- Schematic / large thumbnail -->
     <section class="media-full" aria-labelledby="media-heading">
       <h3 id="media-heading" style="margin:0 0 10px; font-size:18px; color:#111;">Schematic preview</h3>
-      <div class="media-thumb" id="openSchematic" role="button" tabindex="0" aria-label="Open schematic">
+
+      <!-- this thumbnail now opens the schematic-only lightbox -->
+      <div class="media-thumb" id="openSchematic" role="button" tabindex="0" aria-label="Open full schematic">
         <!-- replace with your schematic screenshot -->
-        <img src="../images/projects/cs/cpu.png" alt="CPU schematic (click to open)">
+        <img src="../images/projects/cs/cpu.png" alt="CPU schematic (click to open full-screen)">
       </div>
-      <div class="media-caption"><em>Click to view full CPU schematic.</em></div>
+      <div class="media-caption"><em>Click to view full CPU schematic (opens full-screen).</em></div>
     </section>
 
-    <!-- Doc card (download / PDF) -->
+    <!-- Doc card (PDF) - removed the .circ download per request -->
     <section class="doc-card" aria-labelledby="docs-heading">
       <h3 id="docs-heading" class="doc-title">Design files & notes</h3>
-      <p class="doc-sub"><strong>Files:</strong> Logisim .circ, assembler, testbench, project spec PDF.</p>
+      <p class="doc-sub"><strong>Files:</strong> spec PDF, assembler, testbench (Logisim `.circ` available on request).</p>
 
       <p style="color:#333;">
-        Put your Logisim `.circ` file and the spec PDF on the server or repo and link the buttons below — they are placeholders now.
+        If you'd like the Logisim `.circ` file published on the site, tell me where you'd like it linked and I will add a download button. For now the page links to the spec PDF.
       </p>
 
       <div class="doc-actions">
-        <a class="doc-btn" href="#" onclick="alert('Link to .circ or download location')">Download .circ</a>
-        <a class="doc-btn ghost" href="#" onclick="alert('Open spec PDF')">Open spec PDF</a>
+        <!-- removed the Download .circ button as requested; kept PDF link -->
+        <a class="doc-btn ghost" href="#" onclick="alert('Open spec PDF (replace with real link)')">Open spec PDF</a>
       </div>
     </section>
 
@@ -248,8 +296,8 @@
           </div>
         </div>
 
-           <!-- ALU operation -->
-        <div class="feature-card" data-index="3" role="button" tabindex="0">
+           <!-- Instruction decode -->
+        <div class="feature-card" data-index="1" role="button" tabindex="0">
           <img src="../images/projects/cs/decoder.png" alt="Instruction decode">
           <div class="feature-meta">
             <div class="feature-title">Instruction decode</div>
@@ -258,7 +306,7 @@
         </div>
 
          <!-- memory -->
-        <div class="feature-card" data-index="1" role="button" tabindex="0">
+        <div class="feature-card" data-index="2" role="button" tabindex="0">
           <img src="../images/projects/cs/RAM.png" alt="Memory">
           <div class="feature-meta">
             <div class="feature-title">Memory</div>
@@ -266,8 +314,8 @@
           </div>
         </div>
 
-         <!-- PC and reg -->
-        <div class="feature-card" data-index="2" role="button" tabindex="0">
+         <!-- PC and registers -->
+        <div class="feature-card" data-index="3" role="button" tabindex="0">
           <img src="../images/projects/cs/pcrom.png" alt="PC & Registers">
           <div class="feature-meta">
             <div class="feature-title">PC & Registers</div>
@@ -323,6 +371,14 @@
     </div>
   </div>
 
+  <!-- Schematic-only full-screen lightbox -->
+  <div id="schemModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <button id="schemClose" class="schem-close" aria-label="Close schematic">✕</button>
+    <div class="schem-frame" role="document">
+      <img id="schemImg" class="schem-img" src="../images/projects/cs/cpu.png" alt="Full CPU schematic">
+    </div>
+  </div>
+
   <script>
     (function(){
       // Feature data: text and photo arrays (replace photo paths with your real images)
@@ -333,50 +389,49 @@
                  <p>Use this block to test arithmetic edge cases and to trace how immediates are applied from instruction decode.</p>`,
           photos: [
             "../images/projects/cs/ALU.png",
-             "../images/cpu/decode.png"
-          
+            "../images/cpu/decode.png"
           ]
         },
-
-            {
-          title: "ALU operations",
-          text: `<p>alu operations write here.</p>`,
+        {
+          title: "Instruction decode",
+          text: `<p>R/I/J formats, opcode and funct fields are decoded into control signals and immediates. Sign-extension and operand selection occur here.</p>`,
           photos: [
-            "../images/cpu/adder.png", 
-            "../images/cpu/barrelshift.png"
-            
+            "../images/projects/cs/decoder.png",
+            "../images/cpu/decode.png"
           ]
         },
-        
         {
           title: "Memory",
           text: `<p>Separate instruction ROM and data RAM. For stable RAM writes in Logisim the project uses a memory_latch wrapper that captures writes on the falling edge.</p>
                  <p>Memory map includes a small IO region mapped to the TTY/keyboard.</p>`,
           photos: [
-            " ../images/cpu/RAM.png",
-      
+            "../images/projects/cs/RAM.png"
           ]
         },
-        
-    
+        {
+          title: "PC & Registers",
+          text: `<p>16-bit PC, link register and an 8-entry register file. Branch and jump logic update the PC; register writes are controlled by RegWrite and destination selects.</p>`,
+          photos: [
+            "../images/projects/cs/pcrom.png"
+          ]
+        },
         {
           title: "Control unit",
-          text: `<p>Instructions are decoded from the Combinational unit that generates control signals (ALUop, MemRead, MemWrite, RegWrite, Branch, Jump) based on opcode/funct. Designed for clarity and testability.</p>`,
+          text: `<p>Combinational control unit generates ALUop, MemRead, MemWrite, RegWrite, Branch, and Jump from opcode/funct. Designed to be explicit and testable.</p>`,
           photos: [
-            "../images/cpu/decode.png"
-           
+            "../images/cpu/control-thumb.jpg"
           ]
         },
         {
           title: "I/O & TTY",
           text: `<p>TTY device accepts writes and shows ASCII in the console buffer; keyboard input is non-blocking. Useful for simple demos & programs.</p>`,
           photos: [
-            "../images/cpu/io.png"
+            "../images/projects/cs/io.png"
           ]
         }
       ];
 
-      // DOM refs
+      // DOM refs for feature modal
       const cards = Array.from(document.querySelectorAll('.feature-card'));
       const modal = document.getElementById('featureModal');
       const modalTitle = document.getElementById('modalTitle');
@@ -440,7 +495,7 @@
         });
       }
 
-      // attach
+      // attach feature card handlers
       cards.forEach((card,i) => {
         card.addEventListener('click', () => openFeature(i));
         card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openFeature(i); });
@@ -450,7 +505,7 @@
       modalPrev.addEventListener('click', () => openFeature((currentFeature - 1 + features.length) % features.length));
       modalNext.addEventListener('click', () => openFeature((currentFeature + 1) % features.length));
 
-      // keyboard nav
+      // keyboard nav for feature modal
       document.addEventListener('keydown', (e) => {
         if (!modal.classList.contains('open')) return;
         if (e.key === 'Escape') closeFeature();
@@ -460,8 +515,40 @@
 
       modal.addEventListener('click', (e) => { if (e.target === modal) closeFeature(); });
 
-      // open schematic thumb to first feature for convenience
-      document.getElementById('openSchematic').addEventListener('click', () => openFeature(0));
+      // --- Schematic-only lightbox behavior (separate from feature modal) ---
+      const schemThumb = document.getElementById('openSchematic');
+      const schemModal = document.getElementById('schemModal');
+      const schemImg = document.getElementById('schemImg');
+      const schemClose = document.getElementById('schemClose');
+
+      function openSchem(){
+        schemModal.classList.add('open');
+        schemModal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        schemClose.focus();
+      }
+      function closeSchem(){
+        schemModal.classList.remove('open');
+        schemModal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+
+      // open schematic full-screen (does not open feature modal)
+      schemThumb.addEventListener('click', openSchem);
+      schemThumb.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openSchem(); });
+
+      schemClose.addEventListener('click', closeSchem);
+      schemModal.addEventListener('click', (e) => { if (e.target === schemModal) closeSchem(); });
+
+      document.addEventListener('keydown', (e) => {
+        if (!schemModal.classList.contains('open')) return;
+        if (e.key === 'Escape') closeSchem();
+      });
+
+      // preload feature images and schematic image for snappier UI
+      features.forEach(f => (f.photos || []).forEach(src => { const i = new Image(); i.src = src; }));
+      // preload schematic
+      (new Image()).src = schemImg.src;
     })();
   </script>
 </body>
