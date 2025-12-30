@@ -248,6 +248,15 @@
           </div>
         </div>
 
+           <!-- ALU operation -->
+        <div class="feature-card" data-index="3" role="button" tabindex="0">
+          <img src="../images/projects/cs/decoder.png" alt="Instruction decode">
+          <div class="feature-meta">
+            <div class="feature-title">Instruction decode</div>
+            <div class="feature-excerpt">R/I/J formats, opcode/funct field handling, immediate sign-extension.</div>
+          </div>
+        </div>
+
          <!-- memory -->
         <div class="feature-card" data-index="1" role="button" tabindex="0">
           <img src="../images/projects/cs/RAM.png" alt="Memory">
@@ -266,15 +275,7 @@
           </div>
         </div>
 
-         <!-- decoder -->
-        <div class="feature-card" data-index="3" role="button" tabindex="0">
-          <img src="../images/projects/cs/decoder.png" alt="Instruction decode">
-          <div class="feature-meta">
-            <div class="feature-title">Instruction decode</div>
-            <div class="feature-excerpt">R/I/J formats, opcode/funct field handling, immediate sign-extension.</div>
-          </div>
-        </div>
-
+          <!-- control unit -->
         <div class="feature-card" data-index="4" role="button" tabindex="0">
           <img src="../images/cpu/control-thumb.jpg" alt="Control unit">
           <div class="feature-meta">
@@ -331,46 +332,46 @@
           text: `<p>The ALU implements add, subtract, AND, NOT, and logical shifts (SLL/SRL). It supplies status flags (zero) used by branch logic.</p>
                  <p>Use this block to test arithmetic edge cases and to trace how immediates are applied from instruction decode.</p>`,
           photos: [
-            "../images/cpu/alu-1.jpg",
-            "../images/cpu/alu-2.jpg"
+            "../images/projects/cs/ALU.png",
+             "../images/cpu/decode.png"
+          
           ]
         },
+
+            {
+          title: "ALU operations",
+          text: `<p>alu operations write here.</p>`,
+          photos: [
+            "../images/cpu/adder.png", 
+            "../images/cpu/barrelshift.png"
+            
+          ]
+        },
+        
         {
           title: "Memory",
           text: `<p>Separate instruction ROM and data RAM. For stable RAM writes in Logisim the project uses a memory_latch wrapper that captures writes on the falling edge.</p>
                  <p>Memory map includes a small IO region mapped to the TTY/keyboard.</p>`,
           photos: [
-            "../images/cpu/mem-1.jpg",
-            "../images/cpu/mem-2.jpg"
+            " ../images/cpu/RAM.png",
+      
           ]
         },
-        {
-          title: "PC & Registers",
-          text: `<p>16-bit PC, increment/branch/jump logic, and an 8-word register file. $r0 is fixed to 0; $r7 used as the link register for jal.</p>`,
-          photos: [
-            "../images/cpu/pc-1.jpg",
-            "../images/cpu/regs-1.jpg"
-          ]
-        },
-        {
-          title: "Instruction decode",
-          text: `<p>Decoder breaks instructions into opcode/funct and fields, selects ALU inputs, sign-extends immediates, and routes control signals.</p>`,
-          photos: [
-            "../images/cpu/decode-1.jpg"
-          ]
-        },
+        
+    
         {
           title: "Control unit",
-          text: `<p>Combinational unit that generates control signals (ALUop, MemRead, MemWrite, RegWrite, Branch, Jump) based on opcode/funct. Designed for clarity and testability.</p>`,
+          text: `<p>Instructions are decoded from the Combinational unit that generates control signals (ALUop, MemRead, MemWrite, RegWrite, Branch, Jump) based on opcode/funct. Designed for clarity and testability.</p>`,
           photos: [
-            "../images/cpu/control-1.jpg"
+            "../images/cpu/decode.png"
+           
           ]
         },
         {
           title: "I/O & TTY",
           text: `<p>TTY device accepts writes and shows ASCII in the console buffer; keyboard input is non-blocking. Useful for simple demos & programs.</p>`,
           photos: [
-            "../images/cpu/tty-1.jpg"
+            "../images/cpu/io.png"
           ]
         }
       ];
