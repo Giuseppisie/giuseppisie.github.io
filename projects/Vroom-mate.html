@@ -1,1 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vroom-mate — Quick Remote Dorm Vacuum</title>
+
+  <style>
+    :root{
+      --bg:#a0c0bc;
+      --card:#427b76;
+      --accent:#b0ab52;
+      --content-max:1100px;
+      --page-pad:20px;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background:var(--bg);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* Topbar */
+    .topbar{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 20px;z-index:1000;background:rgba(0,0,0,0.25);backdrop-filter:blur(4px)}
+    .topbar-left{display:flex;align-items:center;gap:20px}
+    .brand{color:#fff;font-weight:800;font-size:18px;text-decoration:none;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+    .topnav{display:flex;gap:10px}
+    .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
+    .spacer{height:60px}
+
+    /* hero large thumbnail */
+    .hero{position:relative;height:52vh;background-image:url("../images/projects/vroommate/hero.jpg");background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
+    .hero::after{content:"";position:absolute;inset:0;background:rgba(66,123,118,0.35)}
+    .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(28px,5vw,44px);font-weight:800;text-shadow:0 8px 24px rgba(0,0,0,.6);padding:0 20px;text-align:center}
+
+    .page{max-width:var(--content-max);margin:0 auto;padding:36px var(--page-pad) 80px;box-sizing:border-box}
+    .content{background:#fff;padding:28px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.06);color:#222;margin-bottom:24px}
+    .meta{color:#666;margin-bottom:12px;font-size:14px}
+    .content p{line-height:1.6;margin-bottom:14px;color:#222}
+
+    /* Key components list (term + indented dash desc) */
+    .kc-wrap{margin-top:14px}
+    .kc-title{font-weight:900;font-size:18px;color:#111;margin-bottom:10px}
+    .kc-list{padding:0;margin:0;list-style:none}
+    .kc-item{margin:10px 0}
+    .kc-term{display:block;font-weight:700;color:#111}
+    .kc-desc{display:block;margin-left:18px;color:#333}
+    .kc-desc::before{content:"— ";font-weight:700;color:#111;margin-right:4px}
+
+    /* timeline / steps */
+    .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    @media (max-width:900px){.timeline{grid-template-columns:1fr}}
+    .step-card{background:var(--card);color:#fff;border-radius:12px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform .12s}
+    .step-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.2)}
+    .step-card img{width:100%;height:180px;object-fit:cover;display:block}
+    .step-meta{padding:14px}
+    .step-title{font-weight:800;font-size:16px}
+    .step-excerpt{margin-top:8px;font-size:14px;opacity:0.95}
+
+    /* features grid */
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:18px}
+    @media(max-width:900px){.features-grid{grid-template-columns:1fr}}
+    .feature-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.06);cursor:pointer}
+    .feature-thumb{width:100%;height:140px;object-fit:cover;display:block}
+    .feature-body{padding:12px}
+    .feature-title{font-weight:800;color:#111}
+    .feature-desc{margin-top:6px;color:#444;font-size:14px}
+
+    /* modal / lightbox */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.85);z-index:9000;padding:20px}
+    .modal.open{display:flex}
+    .modal-inner{width:100%;max-width:1100px;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:linear-gradient(90deg,#427b76,#5a9b93);color:#fff}
+    .modal-body{padding:18px;display:flex;flex-direction:column;gap:12px}
+    .modal-main img{max-width:100%;max-height:65vh;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.45);display:block;margin:auto}
+    .thumbs{display:flex;gap:8px;overflow-x:auto;padding-top:6px}
+    .thumbs img{width:110px;height:66px;object-fit:cover;border-radius:6px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+    .modal-text{font-size:15px;color:#222;line-height:1.6;padding-top:8px;border-top:1px solid rgba(0,0,0,.06)}
+
+    .modal-close{background:rgba(255,255,255,.12);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+
+    /* schematic full-screen (for hero) */
+    #schemModal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.95);z-index:10000;padding:20px}
+    #schemModal.open{display:flex}
+    .schem-frame{width:100%;max-width:1600px;max-height:92vh;display:flex;align-items:center;justify-content:center}
+    .schem-img{max-width:100%;max-height:92vh;object-fit:contain;border-radius:6px;box-shadow:0 40px 120px rgba(0,0,0,.7)}
+    .schem-close{position:fixed;top:18px;right:18px;background:rgba(255,255,255,.12);color:#fff;border:0;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:800}
+
+  </style>
+</head>
+<body>
+
+  <!-- top bar -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <div class="topbar-left">
+      <a class="brand" href="../index.html">Sienna Giuseppi</a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../about.html">About</a>
+        <a href="../index.html#engineering-projects">Projects</a>
+        <a href="../index.html#experiences">Experiences</a>
+        <a href="../resume.html">Resume</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="spacer" aria-hidden="true"></div>
+
+  <!-- hero (large thumbnail) -->
+  <section class="hero" role="banner" aria-label="Project hero image">
+    <div class="hero-title">Vroom-mate — quick remote dorm vacuum (1-week build)</div>
+  </section>
+
+  <div class="page">
+
+    <!-- overview -->
+    <section class="content" aria-labelledby="overview-h">
+      <h2 id="overview-h" style="margin:0 0 8px;font-size:20px;color:#111">Project overview</h2>
+      <div class="meta">Course: ME490 Product Design · Role: Designer & builder · Tools: SolidWorks, Illustrator, Arduino, laser cutter, 3D printers · Week: 1</div>
+
+      <p>
+        In the first week of ME490 the brief was intentionally broad: build a solution to a problem using available campus resources.
+        Vroom-mate is a compact, remote-control vacuum for dorm rooms — a pared-down Roomba that you can drive with an IR remote, built from lab scavenged parts in a week.
+      </p>
+
+      <!-- Key Components (term + indented dash description) -->
+      <section class="kc-wrap" aria-labelledby="kc-h">
+        <div id="kc-h" class="kc-title">Key Components</div>
+        <ul class="kc-list" role="list">
+          <li class="kc-item">
+            <span class="kc-term">Design inspiration & brief</span>
+            <span class="kc-desc">Campus kit + limited time: a simple remote vacuum to reduce manual crawling with a handheld vacuum in dorms.</span>
+          </li>
+
+          <li class="kc-item">
+            <span class="kc-term">Mechanical base & shell</span>
+            <span class="kc-desc">Laser-cut wooden base, 3-wheel drivetrain, 3D-printed lid and dust cylinder — sized to fit under dorm furniture and house components.</span>
+          </li>
+
+          <li class="kc-item">
+            <span class="kc-term">Electronics & control</span>
+            <span class="kc-desc">Arduino microcontroller + IR receiver (remote control for forward/back/left/right and fan on/off) and motor driver for two drive motors.</span>
+          </li>
+
+          <li class="kc-item">
+            <span class="kc-term">Collection & airflow</span>
+            <span class="kc-desc">A fan draws light debris into a 3D-printed cylinder lined with breathable fabric to trap particles while allowing airflow.</span>
+          </li>
+
+          <li class="kc-item">
+            <span class="kc-term">Power</span>
+            <span class="kc-desc">Separate battery supplies: 9V for fan, 4×AA for Arduino & motors, mounted for easy replacement.</span>
+          </li>
+
+          <li class="kc-item">
+            <span class="kc-term">Rapid prototyping approach</span>
+            <span class="kc-desc">Solderless breadboard testing, laser cutting, and multi-part 3D printing (split prints to fit printers) for a one-week turnaround.</span>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- timeline / play-by-play steps (click each to open modal with photos) -->
+    <section class="content" aria-labelledby="timeline-h">
+      <h3 id="timeline-h" style="margin:0 0 8px;font-size:18px;color:#111">Play-by-play: week-long build</h3>
+      <div class="meta">Each step can have 1–6 photos — click a card to view the step gallery.</div>
+
+      <div class="timeline" role="list">
+        <!-- Step 1: Problem discovery -->
+        <div class="step-card" data-step="0" role="button" tabindex="0">
+          <img src="../images/projects/vroommate/step1_brainstorm.jpg" alt="Problem discovery">
+          <div class="step-meta">
+            <div class="step-title">1 — Problem discovery</div>
+            <div class="step-excerpt">Noticed vacuuming in dorm was tedious; Roomba would solve it but a full robot is overkill — aim for a handheld remote vacuum base.</div>
+          </div>
+        </div>
+
+        <!-- Step 2: Concept & sizing -->
+        <div class="step-card" data-step="1" role="button" tabindex="0">
+          <img src="../images/projects/vroommate/step2_sketch.jpg" alt="Concept and sizing">
+          <div class="step-meta">
+            <div class="step-title">2 — Concept & sizing</div>
+            <div class="step-excerpt">Designed a 1-ft diameter base with a 6″ fan hole; sketched slots for a 3-wheel layout in Illustrator for laser cutting.</div>
+          </div>
+        </div>
+
+        <!-- Step 3: Laser cut base & wheel mounting -->
+        <div class="step-card" data-step="2" role="button" tabindex="0">
+          <img src="../images/projects/vroommate/step3_base.jpg" alt="Laser cut base">
+          <div class="step-meta">
+            <div class="step-title">3 — Fabrication: base</div>
+            <div class="step-excerpt">Cut wood base on the laser, mounted motors, axel (nail + washers) for the free wheel, and secured components.</div>
+          </div>
+        </div>
+
+        <!-- Step 4: Electronics & IR control -->
+        <div class="step-card" data-step="3" role="button" tabindex="0">
+          <img src="../images/projects/vroommate/step4_electronics.jpg" alt="Electronics and IR">
+          <div class="step-meta">
+            <div class="step-title">4 — Electronics & IR</div>
+            <div class="step-excerpt">Wired Arduino, IR receiver, motor driver, fan, and buttons on a solderless breadboard. Programmed forward/back/left/right + fan toggle.</div>
+          </div>
+        </div>
+
+        <!-- Step 5: 3D printed lid & dust cylinder -->
+        <div class="step-card" data-step="4" role="button" tabindex="0">
+          <img src="../images/projects/vroommate/step5_3d.jpg" alt="3D printed parts">
+          <div class="step-meta">
+            <div class="step-title">5 — 3D printing & fit</div>
+            <div class="step-excerpt">Designed top in SolidWorks and printed in four parts (to fit printers). Printed dust cylinder and rim to secure fabric filter.</div>
+          </div>
+        </div>
+
+        <!-- Step 6: Testing & finishing -->
+        <div class="step-card" data-step="5" role="button" tabindex="0">
+          <img src="../images/projects/vroommate/step6_test.jpg" alt="Testing and finish">
+          <div class="step-meta">
+            <div class="step-title">6 — Test & finish</div>
+            <div class="step-excerpt">Tested pickup on pom-poms & yarn, adjusted battery arrangement (9V fan, 4×AA motors), glued final assembly, painted the lid black.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Features grid (high-level system components) -->
+    <section class="content" aria-labelledby="features-h">
+      <h3 id="features-h" style="margin:0 0 8px;font-size:18px;color:#111">Highlighted features</h3>
+      <div class="meta">Click a card to read a fuller description and view photos of that subsystem.</div>
+
+      <div class="features-grid">
+        <article class="feature-card" data-feature="0" role="button" tabindex="0">
+          <img class="feature-thumb" src="../images/projects/vroommate/feature_design.jpg" alt="Design & concept">
+          <div class="feature-body">
+            <div class="feature-title">Design & concept</div>
+            <div class="feature-desc">Problem framing, sketches, sizing, and decisions (1-ft base, 3 wheels, low profile).</div>
+          </div>
+        </article>
+
+        <article class="feature-card" data-feature="1" role="button" tabindex="0">
+          <img class="feature-thumb" src="../images/projects/vroommate/feature_mech.jpg" alt="Mechanical base">
+          <div class="feature-body">
+            <div class="feature-title">Mechanical base</div>
+            <div class="feature-desc">Laser cut base, motor mount strategy, wheel axle, and fan mount geometry.</div>
+          </div>
+        </article>
+
+        <article class="feature-card" data-feature="2" role="button" tabindex="0">
+          <img class="feature-thumb" src="../images/projects/vroommate/feature_elec.jpg" alt="Electronics and control">
+          <div class="feature-body">
+            <div class="feature-title">Electronics & controls</div>
+            <div class="feature-desc">Arduino + IR receiver mapping to remote buttons and motor driver integration.</div>
+          </div>
+        </article>
+
+        <article class="feature-card" data-feature="3" role="button" tabindex="0">
+          <img class="feature-thumb" src="../images/projects/vroommate/feature_power.jpg" alt="Power solutions">
+          <div class="feature-body">
+            <div class="feature-title">Power & batteries</div>
+            <div class="feature-desc">9V supply for fan, 4×AA for Arduino & motors, battery placement and connector strategy.</div>
+          </div>
+        </article>
+
+        <article class="feature-card" data-feature="4" role="button" tabindex="0">
+          <img class="feature-thumb" src="../images/projects/vroommate/feature_3d.jpg" alt="3D printed lid & filter">
+          <div class="feature-body">
+            <div class="feature-title">3D print & dust collection</div>
+            <div class="feature-desc">Multi-part lid, printed cylinder, fabric filter and retention rim design with tight tolerances.</div>
+          </div>
+        </article>
+
+        <article class="feature-card" data-feature="5" role="button" tabindex="0">
+          <img class="feature-thumb" src="../images/projects/vroommate/feature_test.jpg" alt="Testing and validation">
+          <div class="feature-body">
+            <div class="feature-title">Testing & validation</div>
+            <div class="feature-desc">System tests with pom-poms/yarn, battery runtime checks, and drive/steering tuning.</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- design files / notes -->
+    <section class="content" aria-labelledby="files-h">
+      <h3 id="files-h" style="margin:0 0 8px;font-size:18px;color:#111">Design files & notes</h3>
+      <p class="meta">Attach your SolidWorks files, Illustrator cut files, Arduino code and assembly notes here.</p>
+
+      <p style="color:#333">Place your files in the repo / server and link them below. Example:</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <!-- Example links — replace href with your server paths -->
+        <a class="kc-term" style="background:var(--card);color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none" href="../files/vroommate/vroommate_solidworks.zip" target="_blank" rel="noopener">Download SolidWorks (zip)</a>
+
+        <a class="kc-term" style="background:#fff;color:var(--card);padding:8px 12px;border-radius:8px;border:1px solid rgba(66,123,118,.12);text-decoration:none" href="../files/vroommate/illustrator_cut.ai" target="_blank" rel="noopener">Illustrator cut file</a>
+
+        <a class="kc-term" style="background:var(--card);color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none" href="../files/vroommate/arduino_code.ino" target="_blank" rel="noopener">Arduino code (.ino)</a>
+      </div>
+      <p style="margin-top:12px;color:#444">If you'd like a "view in Logisim" style help modal like the CPU page, I can add instructions for how to open circuit files in their program of choice.</p>
+    </section>
+
+  </div> <!-- /.page -->
+
+  <!-- Generic feature modal -->
+  <div id="featureModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-inner" role="document">
+      <div class="modal-header">
+        <div id="modalTitle" style="font-weight:800">Step</div>
+        <div>
+          <button id="modalClose" class="modal-close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-main">
+          <img id="modalMainImg" src="" alt="gallery image">
+        </div>
+
+        <div id="modalThumbs" class="thumbs" aria-hidden="false"></div>
+
+        <div id="modalText" class="modal-text"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- schematic-only full-screen for hero -->
+  <div id="schemModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <button id="schemClose" class="schem-close" aria-label="Close schematic">✕</button>
+    <div class="schem-frame" role="document">
+      <!-- open a large hero / schematic image here -->
+      <img id="schemImg" class="schem-img" src="../images/projects/vroommate/hero.jpg" alt="Vroommate full image">
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      /* ======= Data: replace the image paths with your actual photos =======
+         Steps array: each step has title, text, and photos[] (paths)
+         Features array: each feature has title, text, photos[]
+         =================================================================== */
+      const steps = [
+        {
+          title: "Problem discovery",
+          text: "<p>Brainstormed dorm problems with classmates and roommate; observed vacuuming was tedious. Goal: a simple, remote-controlled vacuum to make quick cleanups easier.</p>",
+          photos: [
+            "../images/projects/vroommate/step1_brainstorm.jpg",
+            "../images/projects/vroommate/step1_notes.jpg"
+          ]
+        },
+        {
+          title: "Concept & sizing",
+          text: "<p>Measured constraints, decided on a 1-ft base and 6″ fan hole. Drew the layout and wheel slots in Adobe Illustrator for laser cutting.</p>",
+          photos: [
+            "../images/projects/vroommate/step2_sketch.jpg",
+            "../images/projects/vroommate/step2_layout.jpg"
+          ]
+        },
+        {
+          title: "Laser cut base & wheel mounting",
+          text: "<p>Laser cut wood base, mounted drive motors, made a simple axle for the free wheel (nail + washers), screw-mounted fan and motor driver.</p>",
+          photos: [
+            "../images/projects/vroommate/step3_base.jpg",
+            "../images/projects/vroommate/step3_mounts.jpg"
+          ]
+        },
+        {
+          title: "Electronics & IR control",
+          text: "<p>Wired Arduino, IR receiver, motor driver and fan on a solderless breadboard. Programmed remote mapping: forward/back/left/right + fan toggle. Debugged power draw.</p>",
+          photos: [
+            "../images/projects/vroommate/step4_electronics.jpg",
+            "../images/projects/vroommate/step4_breadboard.jpg"
+          ]
+        },
+        {
+          title: "3D print lid & dust cylinder",
+          text: "<p>Designed SolidWorks lid in four printable parts; printed cylinder, stretched fabric filter over it, glued rims and assembled toleranced fit pieces.</p>",
+          photos: [
+            "../images/projects/vroommate/step5_3d_1.jpg",
+            "../images/projects/vroommate/step5_3d_2.jpg"
+          ]
+        },
+        {
+          title: "Testing & finish",
+          text: "<p>Tested pickup with pom-poms & yarn; adjusted battery layout (9V for fan, 4×AA for motors/Arduino), glued final assembly and painted the lid black.</p>",
+          photos: [
+            "../images/projects/vroommate/step6_test.jpg",
+            "../images/projects/vroommate/step6_after.jpg"
+          ]
+        }
+      ];
+
+      const features = [
+        {
+          title: "Design & concept",
+          text: "<p>Problem framing, sketches, and material constraints. Decision: minimal feature set (manual remote) to prioritize speed and low complexity during a single week.</p>",
+          photos: ["../images/projects/vroommate/feature_design.jpg"]
+        },
+        {
+          title: "Mechanical base",
+          text: "<p>Laser cut base with wheel cutouts, simple motor mounts, and fan hole geometry sized for available fan. Chose 3-wheel layout for low cost and simplicity.</p>",
+          photos: ["../images/projects/vroommate/feature_mech.jpg"]
+        },
+        {
+          title: "Electronics & control",
+          text: "<p>Arduino + IR receiver maps remote inputs to motor driver PWM & direction pins. Fan controlled with separate power; added manual switch to avoid idle battery drain.</p>",
+          photos: ["../images/projects/vroommate/feature_elec.jpg"]
+        },
+        {
+          title: "Power",
+          text: "<p>Empirically found fan needs more current: used 9V battery for fan and a 4×AA pack for motors & Arduino. Batteries mounted on opposite side for balance and easy replacement.</p>",
+          photos: ["../images/projects/vroommate/feature_power.jpg"]
+        },
+        {
+          title: "3D printed lid & dust cylinder",
+          text: "<p>Split lid into multiple parts to fit printers; tight tolerances on retention rim to hold the fabric filter. Cyclinder and rim design trap debris while allowing air through.</p>",
+          photos: ["../images/projects/vroommate/feature_3d.jpg"]
+        },
+        {
+          title: "Testing & validation",
+          text: "<p>Validation with lightweight debris (pom-poms, yarn), tested steering, battery life and fan suction; iterated placements and mounting for stability.</p>",
+          photos: ["../images/projects/vroommate/feature_test.jpg"]
+        }
+      ];
+
+      /* ======= Attach modal behavior to timeline step cards ======= */
+      const stepCards = Array.from(document.querySelectorAll('.step-card'));
+      const featureCards = Array.from(document.querySelectorAll('.feature-card'));
+
+      const modal = document.getElementById('featureModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalMainImg = document.getElementById('modalMainImg');
+      const modalThumbs = document.getElementById('modalThumbs');
+      const modalText = document.getElementById('modalText');
+      const modalClose = document.getElementById('modalClose');
+
+      let currentGallery = [];
+      function openGallery(item){
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        modalClose.focus();
+
+        // set title/text and thumbnails
+        modalTitle.textContent = item.title || 'Gallery';
+        modalText.innerHTML = item.text || '';
+        modalThumbs.innerHTML = '';
+        currentGallery = item.photos || [];
+        if(currentGallery.length) {
+          modalMainImg.src = currentGallery[0];
+          modalMainImg.alt = item.title || 'image';
+        } else {
+          modalMainImg.src = '';
+        }
+
+        currentGallery.forEach((src,i) => {
+          // create thumb with error fallback
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = item.title + ' thumb ' + (i+1);
+          img.tabIndex = 0;
+          img.addEventListener('click', () => {
+            modalMainImg.src = src;
+          });
+          img.addEventListener('error', () => {
+            // friendly placeholder if missing
+            img.src = 'data:image/svg+xml;utf8,'+encodeURIComponent(
+              `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="132"><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#aaa" font-family="sans-serif" font-size="14">Image not found</text></svg>`
+            );
+          });
+          modalThumbs.appendChild(img);
+        });
+      }
+
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+        modalMainImg.src = '';
+        modalThumbs.innerHTML = '';
+      }
+
+      // wire step cards
+      stepCards.forEach((card, idx) => {
+        card.addEventListener('click', () => openGallery(steps[idx]));
+        card.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openGallery(steps[idx]); });
+      });
+
+      // wire feature cards
+      featureCards.forEach((card, idx) => {
+        card.addEventListener('click', () => openGallery(features[idx]));
+        card.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openGallery(features[idx]); });
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape') { if(modal.classList.contains('open')) closeModal(); }});
+
+      /* schematic full-screen behavior (hero click) */
+      const schemThumb = document.querySelector('.hero');
+      const schemModal = document.getElementById('schemModal');
+      const schemClose = document.getElementById('schemClose');
+
+      function openSchem(){ schemModal.classList.add('open'); schemModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; schemClose.focus(); }
+      function closeSchem(){ schemModal.classList.remove('open'); schemModal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+
+      // click hero to open full-screen image
+      schemThumb.addEventListener('click', openSchem);
+      schemThumb.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openSchem();});
+      schemClose.addEventListener('click', closeSchem);
+      schemModal.addEventListener('click', (e)=>{ if(e.target===schemModal) closeSchem(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeSchem(); });
+
+    })();
+  </script>
+
+</body>
+</html>
 
