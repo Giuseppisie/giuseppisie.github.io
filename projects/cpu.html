@@ -1,155 +1,460 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>16-bit MIPS-like CPU — Project</title>
-  
+
   <style>
-    :root{
-      --bg:#f3f6f5;
-      --card:#ffffff;
-      --accent:#2f7f76;
-      --muted:#666;
-      --max:1100px;
+    :root {
+      --bg: #a0c0bc;
+      --card: #427b76;
+      --accent: #b0ab52;
+      --content-max: 1100px;
+      --page-pad: 20px;
     }
-    body{ margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:#111; }
-    .wrap{ max-width:var(--max); margin:36px auto; padding:24px; }
-    .hero{ background:linear-gradient(90deg, rgba(47,127,118,0.06), rgba(176,171,82,0.03)); padding:28px; border-radius:12px; display:flex; gap:18px; align-items:center; }
-    .hero h1{ margin:0; font-size:22px; color:var(--accent); }
-    .hero p{ margin:6px 0 0 0; color:var(--muted); }
 
-    .card{ background:var(--card); border-radius:12px; padding:18px; margin-top:20px; box-shadow:0 10px 30px rgba(10,10,10,0.05); }
-    h2{ margin:0 0 12px 0; font-size:18px; color:#0f403d; }
-    .meta{ color:var(--muted); font-size:13px; margin-bottom:10px; }
+    html,body{height:100%}
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
+      color: #111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-    .grid{ display:grid; grid-template-columns: 1fr 320px; gap:18px; align-items:start; }
-    .small{ font-size:14px; color:var(--muted); }
-    pre { background:#f7f8f8; padding:12px; border-radius:8px; overflow:auto; font-size:13px; }
+    /* ---------- TOP BAR (matches Eswatini page) ---------- */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(4px);
+    }
+    .topbar-left { display:flex; align-items:center; gap:20px; white-space:nowrap; }
+    .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); text-decoration:none; }
+    .topnav { display:flex; gap:10px; align-items:center; margin-left:8px; }
+    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 10px; border-radius:8px; transition: background .12s; }
+    .topnav a:hover, .topnav a:focus { background: rgba(255,255,255,0.08); outline:none; }
 
-    table{ width:100%; border-collapse:collapse; font-size:13px; }
-    th, td{ text-align:left; padding:8px 6px; border-bottom:1px solid #eee; }
-    th{ background:#fbfcfb; color:#0f403d; }
+    .spacer { height:60px; }
 
-    .actions{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
-    .btn{ background:var(--accent); color:#fff; padding:10px 12px; border-radius:8px; text-decoration:none; font-weight:700; }
-    .btn.ghost{ background:#fff; color:var(--accent); border:1px solid rgba(47,127,118,0.12); }
+    /* ---------- HERO (large thumbnail) ---------- */
+    .hero {
+      position: relative;
+      height: 52vh;
+      width: 100%;
+      background-image: url("../images/cpu/hero.jpg");
+      background-size: cover;
+      background-position: center center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
+    .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,44px); font-weight:800; text-align:center; padding:0 20px; text-shadow:0 8px 24px rgba(0,0,0,0.6); }
 
-    @media (max-width:1000px){
-      .grid{ grid-template-columns:1fr; }
+    /* ---------- MAIN PAGE WRAPPER ---------- */
+    .page { max-width: var(--content-max); margin: 0 auto; padding: 36px var(--page-pad) 80px; box-sizing: border-box; }
+
+    .content { background:#fff; padding: 28px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.06); color:#222; margin-bottom:24px; }
+    .meta { color:#666; margin-bottom:12px; font-size:14px; }
+    .content p { line-height:1.6; margin-bottom:16px; color:#222; }
+
+    /* Schematic / large thumbnail card */
+    .media-full {
+      width:100%;
+      background:#fff;
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.06);
+      margin-bottom:24px;
+    }
+    .media-thumb {
+      width:100%;
+      border-radius:8px;
+      overflow:hidden;
+      background:#f5f5f5;
+      box-shadow:0 6px 16px rgba(0,0,0,0.04);
+      display:block;
+      cursor:pointer;
+    }
+    .media-thumb img { display:block; width:100%; height:420px; object-fit:cover; }
+    @media (max-width:900px) { .media-thumb img { height:240px; } }
+    .media-caption { margin-top:10px; color:#333; font-style:italic; font-size:14px; text-align:center; }
+
+    /* Doc card */
+    .doc-card { background:#fff; border-radius:12px; padding:22px; box-shadow:0 8px 20px rgba(0,0,0,0.06); max-width:900px; margin:28px auto; }
+    .doc-title { font-weight:800; font-size:18px; margin:0 0 8px; color:#111; }
+    .doc-sub { color:#444; margin: 0 0 14px; }
+    .doc-actions { display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; }
+    .doc-btn {
+      background: var(--card);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:10px;
+      border: none;
+      cursor: pointer;
+      font-weight:700;
+      text-decoration: none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .doc-btn.ghost { background:#fff; color:var(--card); border:1px solid rgba(66,123,118,0.12); }
+
+    /* Features grid */
+    .features-wrap { margin-top:18px; }
+    .features-grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:20px;
+    }
+    @media (max-width: 900px) { .features-grid { grid-template-columns:1fr; } }
+
+    .feature-card {
+      background: var(--card);
+      color:#fff;
+      border-radius:12px;
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform .15s, box-shadow .15s;
+      display:flex;
+      flex-direction:column;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow:0 20px 40px rgba(0,0,0,.2);
+    }
+    .feature-card img { width:100%; height:160px; object-fit:cover; display:block; }
+    .feature-meta { padding:16px; flex:1; }
+    .feature-title { font-size:18px; font-weight:800; }
+    .feature-excerpt { font-size:14px; margin-top:8px; opacity:0.95; }
+
+    /* Modal (feature lightbox) */
+    .modal { position: fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.85); z-index:3000; padding:20px; }
+    .modal.open { display:flex; }
+    .modal-inner { width:100%; max-width:1100px; background:#fff; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
+    .modal-header { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1)); color:#fff; }
+    .modal-body { padding:18px; display:flex; gap:18px; flex-direction:column; }
+    .modal-gallery { display:flex; align-items:center; gap:12px; }
+    .modal-main { width:100%; text-align:center; }
+    .modal-main img { max-width:100%; max-height:60vh; object-fit:contain; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.45); }
+    .thumbs { display:flex; gap:8px; overflow-x:auto; padding-top:10px; }
+    .thumbs img { width:110px; height:66px; object-fit:cover; border-radius:6px; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.12); }
+    .modal-text { font-size:15px; line-height:1.6; color:#222; padding-top:8px; border-top:1px solid rgba(0,0,0,0.06); }
+
+    .modal-close { background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .modal-nav { background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; margin-right:8px; }
+
+    @media (max-width:900px) {
+      .modal-main img { max-height:45vh; }
+      .feature-card img { height:140px; }
     }
   </style>
 </head>
+
 <body>
-  <main class="wrap">
-    <section class="hero card">
-      <div style="flex:1">
-        <h1>16-bit MIPS-like CPU (Duke 250/16)</h1>
-        <p class="small">A Logisim single-cycle implementation of a 16-bit, word-addressed MIPS-like RISC CPU for teaching CPU design and architecture.</p>
-      </div>
-      <div style="text-align:right;">
-        <div class="small">Role: Designer & implementer</div>
-        <div class="small" style="margin-top:8px;">Tools: Logisim (cpu.circ), assembler/simulator, RAM/ROM images</div>
+
+  <!-- TOP BAR -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <div class="topbar-left">
+      <a class="brand" href="../index.html">Sienna Giuseppi</a>
+
+      <nav class="topnav" aria-label="Primary">
+        <a href="../about.html">About</a>
+        <a href="../index.html#engineering-projects">Projects</a>
+        <a href="../index.html#experiences">Experiences</a>
+        <a href="../resume.html">Resume</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="spacer" aria-hidden="true"></div>
+
+  <!-- HERO IMAGE -->
+  <section class="hero" role="banner" aria-label="Project hero image">
+    <div class="hero-title">16-bit MIPS-like CPU — Logisim</div>
+  </section>
+
+  <!-- MAIN PAGE -->
+  <div class="page">
+
+    <!-- Overview -->
+    <section class="content overview-full" aria-labelledby="project-overview-heading">
+      <h2 id="project-overview-heading" style="margin:0 0 8px; font-size:20px; color:#111;">Project overview</h2>
+      <div class="meta" style="margin-bottom:12px;">Role: Designer & implementer · Tools: Logisim, assembler, testbench · Year: 2024</div>
+
+      <div>
+        <p>
+          This project implements a 16-bit, word-addressed, MIPS-like RISC CPU in Logisim. The design is a single-cycle
+          CPU intended as an educational reference: it demonstrates a clear datapath, an ALU with common ops, a small register file,
+          separate instruction ROM and data RAM, PC and branch/jump logic, and simple I/O (TTY/keyboard). It is not pipelined — the emphasis is teaching fundamentals and correctness.
+        </p>
+
+        <p>
+          The implementation includes an assembler / testbench (used to generate ROM images), a memory write latch (to match Logisim RAM timing),
+          and a small set of MIPS-inspired instructions (R/I/J forms, load/store, branches, jal/jr). Use the schematic thumbnail below and the feature boxes to explore the ALU, memory, PC/registers, decode, and control.
+        </p>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Project overview</h2>
-      <p class="meta">Objective • Build a functional 16-bit MIPS-like RISC CPU in Logisim; single-cycle, word-addressed, Harvard-style memory.</p>
+    <!-- Schematic / large thumbnail -->
+    <section class="media-full" aria-labelledby="media-heading">
+      <h3 id="media-heading" style="margin:0 0 10px; font-size:18px; color:#111;">Schematic preview</h3>
+      <div class="media-thumb" id="openSchematic" role="button" tabindex="0" aria-label="Open schematic">
+        <!-- replace with your schematic screenshot -->
+        <img src="../images/cpu/large-schematic.jpg" alt="CPU schematic (click to open)">
+      </div>
+      <div class="media-caption"><em>Click the schematic to open the ALU feature gallery (or change to open a full schematic viewer).</em></div>
+    </section>
 
-      <p>
-        This project implements the Duke 250/16 instruction set in a single-cycle Logisim CPU. It includes instruction fetch (ROM), data memory (RAM with the provided memory_latch wrapper), a tri-stated register file, an ALU that supports arithmetic/logical/shift ops, PC + next-PC logic, and I/O (TTY + keyboard). The design follows the course specification (instruction formats, clock/reset behavior, and memory layout). For the full assignment spec see the provided PDF. :contentReference[oaicite:0]{index=0}
+    <!-- Doc card (download / PDF) -->
+    <section class="doc-card" aria-labelledby="docs-heading">
+      <h3 id="docs-heading" class="doc-title">Design files & notes</h3>
+      <p class="doc-sub"><strong>Files:</strong> Logisim .circ, assembler, testbench, project spec PDF.</p>
+
+      <p style="color:#333;">
+        Put your Logisim `.circ` file and the spec PDF on the server or repo and link the buttons below — they are placeholders now.
       </p>
 
-      <div class="grid" style="margin-top:16px;">
-        <div>
-          <h2>Key features</h2>
-          <ul class="small">
-            <li>R, I, and J instruction formats (4-bit opcode; 16-bit word-size)</li>
-            <li>Instruction support: addi, sub, add, not, and, sll, srl, lw, sw, bgez, beq, j, jr, jal, input, output.</li>
-            <li>8 general-purpose registers ($r0..$r7; $r0 hardwired to 0; $r7 is link register).</li>
-            <li>Harvard architecture: separate ROM for instructions and RAM for data (use memory_latch with RAM in Logisim Evolution).</li>
-            <li>Clocking rules and reset behavior as required by the spec (register file and TTY on rising edge; PC, RAM, keyboard on falling edge; reset asynchronously clears PC/regs/TTY/keyboard).</li>
-          </ul>
+      <div class="doc-actions">
+        <a class="doc-btn" href="#" onclick="alert('Link to .circ or download location')">Download .circ</a>
+        <a class="doc-btn ghost" href="#" onclick="alert('Open spec PDF')">Open spec PDF</a>
+      </div>
+    </section>
 
-          <h2 style="margin-top:12px;">Implementation notes</h2>
-          <p class="small">
-            - The register file uses tri-state outputs + decoder (per spec recommendation). <br>
-            - Data RAM is driven through the provided memory_latch circuit to work properly with Logisim Evolution's RAM timing model. <br>
-            - Input instruction is non-blocking: returns ascii or 128 to indicate no data present (bits 15–8 zeroed; bit7 set to 1 when no data). <br>
-            - Output writes low 7 bits to a 13×80 TTY (rising-edge triggered).
-          </p>
+    <!-- Features grid -->
+    <section class="content features-wrap" aria-labelledby="features-heading">
+      <h3 id="features-heading" style="margin:0 0 8px; font-size:18px; color:#111;">Highlighted features</h3>
+      <div class="meta">Click a card to open photos & a short description.</div>
 
-          <div class="actions">
-            <a class="btn" href="#" onclick="alert('Place cpu.circ in the project folder and link it here for download')">Download cpu.circ</a>
-            <a class="btn ghost" href="#" onclick="alert('Open the provided PDF in your local file manager (it’s the assignment spec).')">View spec (PDF)</a>
+      <div class="features-grid">
+        <div class="feature-card" data-index="0" role="button" tabindex="0">
+          <img src="../images/cpu/alu-thumb.jpg" alt="ALU">
+          <div class="feature-meta">
+            <div class="feature-title">ALU</div>
+            <div class="feature-excerpt">Adder/subtractor, AND, NOT, logical shifts — includes zero flag for branches.</div>
           </div>
         </div>
 
-        <aside>
-          <h2>Quick reference</h2>
-          <div class="small">
-            <strong>Word size:</strong> 16 bits (word-addressed) <br>
-            <strong>Registers:</strong> 8 ($r0..$r7) <br>
-            <strong>Memory:</strong> ROM (instr) + RAM (data w/ memory_latch) <br>
-            <strong>Clocking:</strong> regfile &amp; TTY rising-edge, PC &amp; RAM &amp; keyboard falling-edge<br>
-            <strong>Reset:</strong> async reset must clear PC, registers, TTY, keyboard buffer (does not clear ROM/RAM content).
+        <div class="feature-card" data-index="1" role="button" tabindex="0">
+          <img src="../images/cpu/memory-thumb.jpg" alt="Memory">
+          <div class="feature-meta">
+            <div class="feature-title">Memory</div>
+            <div class="feature-excerpt">Instruction ROM + data RAM, memory_latch to handle Logisim timing for writes.</div>
           </div>
-        </aside>
+        </div>
+
+        <div class="feature-card" data-index="2" role="button" tabindex="0">
+          <img src="../images/cpu/pc-thumb.jpg" alt="PC & Registers">
+          <div class="feature-meta">
+            <div class="feature-title">PC & Registers</div>
+            <div class="feature-excerpt">16-bit PC, link register, 8-register file, PC-relative branches and jumps.</div>
+          </div>
+        </div>
+
+        <div class="feature-card" data-index="3" role="button" tabindex="0">
+          <img src="../images/cpu/decode-thumb.jpg" alt="Instruction decode">
+          <div class="feature-meta">
+            <div class="feature-title">Instruction decode</div>
+            <div class="feature-excerpt">R/I/J formats, opcode/funct field handling, immediate sign-extension.</div>
+          </div>
+        </div>
+
+        <div class="feature-card" data-index="4" role="button" tabindex="0">
+          <img src="../images/cpu/control-thumb.jpg" alt="Control unit">
+          <div class="feature-meta">
+            <div class="feature-title">Control unit</div>
+            <div class="feature-excerpt">Generates ALU, memory, register and PC control signals from opcode/funct.</div>
+          </div>
+        </div>
+
+        <div class="feature-card" data-index="5" role="button" tabindex="0">
+          <img src="../images/cpu/tty-thumb.jpg" alt="I/O and TTY">
+          <div class="feature-meta">
+            <div class="feature-title">I/O & TTY</div>
+            <div class="feature-excerpt">Simple keyboard & TTY device mapping for console I/O.</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Instruction set (summary)</h2>
-      <p class="small">Below are the primary instructions implemented (opcode shown in 4-bit binary):</p>
+  </div> <!-- /.page -->
 
-      <table>
-        <thead><tr><th>Mnemonic</th><th>Opcode</th><th>Type</th><th>Operation (high level)</th></tr></thead>
-        <tbody>
-          <tr><td>addi</td><td>0000</td><td>I</td><td>$rt = $rs + Imm (6-bit signed immediate, sign-extended)</td></tr>
-          <tr><td>sub</td><td>0001</td><td>R</td><td>$rd = $rs - $rt</td></tr>
-          <tr><td>add</td><td>0010</td><td>R</td><td>$rd = $rs + $rt</td></tr>
-          <tr><td>not</td><td>0011</td><td>R</td><td>$rd = NOT($rs)</td></tr>
-          <tr><td>and</td><td>0100</td><td>R</td><td>$rd = $rs AND $rt</td></tr>
-          <tr><td>sll / srl</td><td>0101 / 0110</td><td>R</td><td>shift by shamt (logical)</td></tr>
-          <tr><td>lw / sw</td><td>0111 / 1000</td><td>I</td><td>load/store word: Mem[$rs + D]</td></tr>
-          <tr><td>bgez / beq</td><td>1001 / 1010</td><td>I</td><td>conditional branches (PC-relative)</td></tr>
-          <tr><td>j / jal</td><td>1011 / 1101</td><td>J</td><td>jump to address; jal saves PC+1 into $r7</td></tr>
-          <tr><td>jr</td><td>1100</td><td>R</td><td>PC = $rs (return)</td></tr>
-          <tr><td>input / output</td><td>1110 / 1111</td><td>R</td><td>I/O with keyboard and TTY</td></tr>
-        </tbody>
-      </table>
+  <!-- Feature modal/lightbox (re-usable) -->
+  <div id="featureModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-inner" role="document">
+      <div class="modal-header">
+        <div id="modalTitle" style="font-weight:800;">Feature</div>
+        <div>
+          <button id="modalPrev" class="modal-nav" aria-label="Previous feature">◀</button>
+          <button id="modalNext" class="modal-nav" aria-label="Next feature">▶</button>
+          <button id="modalClose" class="modal-close" aria-label="Close">✕</button>
+        </div>
+      </div>
 
-      <p class="small" style="margin-top:10px;">
-        The pdf assignment defines full R/I/J encodings and immediate sizes — see the spec for bitfield layout and special behaviors (e.g., immediate sign-extension and the non-blocking input format). :contentReference[oaicite:1]{index=1}
-      </p>
-    </section>
+      <div class="modal-body">
+        <div class="modal-gallery">
+          <div class="modal-main">
+            <img id="modalMainImg" src="" alt="">
+          </div>
+        </div>
 
-    <section class="card">
-      <h2>Memory model &amp; testing</h2>
-      <p class="small">
-        The assembler provided with the course generates ROM and RAM images. The memory layout reserves upper halves for kernel, with user instructions in 0x0000–0x7FFF and data/stack ranges as documented in the spec. Use the provided `hwtest.py` automated tester and the assembler/simulator to generate tests. The pdf includes detailed instructions on using the memory_latch with Logisim Evolution RAM — follow it exactly to avoid read/write timing problems. :contentReference[oaicite:2]{index=2}
-      </p>
+        <div id="modalThumbs" class="thumbs" aria-hidden="false"></div>
 
-      <h2 style="margin-top:12px;">Notes for the grader / demo</h2>
-      <ul class="small">
-        <li>To boot: load ROM and RAM images into the Logisim components, ensure clock starts low, pulse reset, then step the clock.</li>
-        <li>Name the register file subcircuit <em>RegisterFile</em> and the reset input <em>reset</em> for the grader to detect probes.</li>
-        <li>Place probes named r0..r7 on each register so the autograder can read them.</li>
-      </ul>
-    </section>
+        <div id="modalText" class="modal-text"></div>
+      </div>
+    </div>
+  </div>
 
-    <section class="card">
-      <h2>Challenges, learnings &amp; next steps</h2>
-      <p class="small">
-        Building the single-cycle CPU forces you to reconcile instruction timing, edge-triggering constraints, and real RAM timing by using the memory_latch wrapper. The tri-state+decoder register file is a good exercise in physical-like design (avoids monolithic muxes). Next steps: add pipelining (stall/hazard handling), richer instruction set, or an interrupt/exception model.
-      </p>
-    </section>
+  <script>
+    (function(){
+      // Feature data: text and photo arrays (replace photo paths with your real images)
+      const features = [
+        {
+          title: "ALU",
+          text: `<p>The ALU implements add, subtract, AND, NOT, and logical shifts (SLL/SRL). It supplies status flags (zero) used by branch logic.</p>
+                 <p>Use this block to test arithmetic edge cases and to trace how immediates are applied from instruction decode.</p>`,
+          photos: [
+            "../images/cpu/alu-1.jpg",
+            "../images/cpu/alu-2.jpg"
+          ]
+        },
+        {
+          title: "Memory",
+          text: `<p>Separate instruction ROM and data RAM. For stable RAM writes in Logisim the project uses a memory_latch wrapper that captures writes on the falling edge.</p>
+                 <p>Memory map includes a small IO region mapped to the TTY/keyboard.</p>`,
+          photos: [
+            "../images/cpu/mem-1.jpg",
+            "../images/cpu/mem-2.jpg"
+          ]
+        },
+        {
+          title: "PC & Registers",
+          text: `<p>16-bit PC, increment/branch/jump logic, and an 8-word register file. $r0 is fixed to 0; $r7 used as the link register for jal.</p>`,
+          photos: [
+            "../images/cpu/pc-1.jpg",
+            "../images/cpu/regs-1.jpg"
+          ]
+        },
+        {
+          title: "Instruction decode",
+          text: `<p>Decoder breaks instructions into opcode/funct and fields, selects ALU inputs, sign-extends immediates, and routes control signals.</p>`,
+          photos: [
+            "../images/cpu/decode-1.jpg"
+          ]
+        },
+        {
+          title: "Control unit",
+          text: `<p>Combinational unit that generates control signals (ALUop, MemRead, MemWrite, RegWrite, Branch, Jump) based on opcode/funct. Designed for clarity and testability.</p>`,
+          photos: [
+            "../images/cpu/control-1.jpg"
+          ]
+        },
+        {
+          title: "I/O & TTY",
+          text: `<p>TTY device accepts writes and shows ASCII in the console buffer; keyboard input is non-blocking. Useful for simple demos & programs.</p>`,
+          photos: [
+            "../images/cpu/tty-1.jpg"
+          ]
+        }
+      ];
 
-    <footer style="margin-top:18px; text-align:center; color:var(--muted); font-size:13px;">
-      Source: Assignment &amp; spec (Duke 250/16). See original PDF for full details and bit-level encodings. :contentReference[oaicite:3]{index=3}
-    </footer
-  </main>
+      // DOM refs
+      const cards = Array.from(document.querySelectorAll('.feature-card'));
+      const modal = document.getElementById('featureModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalMainImg = document.getElementById('modalMainImg');
+      const modalThumbs = document.getElementById('modalThumbs');
+      const modalText = document.getElementById('modalText');
+      const modalClose = document.getElementById('modalClose');
+      const modalPrev = document.getElementById('modalPrev');
+      const modalNext = document.getElementById('modalNext');
+
+      let currentFeature = 0;
+      let currentPhoto = 0;
+
+      function openFeature(i){
+        currentFeature = i;
+        renderFeature();
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        modalClose.focus();
+      }
+
+      function closeFeature(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+        modalMainImg.src = '';
+        modalThumbs.innerHTML = '';
+      }
+
+      function renderFeature(){
+        const f = features[currentFeature];
+        modalTitle.textContent = f.title;
+        modalText.innerHTML = f.text;
+        modalThumbs.innerHTML = '';
+        currentPhoto = 0;
+        const photos = f.photos || [];
+        modalMainImg.src = photos[0] || '';
+        modalMainImg.alt = f.title;
+
+        photos.forEach((src,i) => {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = `${f.title} thumb ${i+1}`;
+          img.tabIndex = 0;
+          img.addEventListener('click', () => {
+            currentPhoto = i;
+            modalMainImg.src = src;
+            highlightThumb(i);
+          });
+          img.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); img.click(); }});
+          modalThumbs.appendChild(img);
+        });
+        highlightThumb(0);
+      }
+
+      function highlightThumb(idx){
+        Array.from(modalThumbs.children).forEach((el,i) => {
+          el.style.opacity = (i === idx) ? '1' : '0.6';
+          el.style.transform = (i === idx) ? 'scale(1.02)' : 'scale(1)';
+        });
+      }
+
+      // attach
+      cards.forEach((card,i) => {
+        card.addEventListener('click', () => openFeature(i));
+        card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openFeature(i); });
+      });
+
+      modalClose.addEventListener('click', closeFeature);
+      modalPrev.addEventListener('click', () => openFeature((currentFeature - 1 + features.length) % features.length));
+      modalNext.addEventListener('click', () => openFeature((currentFeature + 1) % features.length));
+
+      // keyboard nav
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') closeFeature();
+        if (e.key === 'ArrowLeft') modalPrev.click();
+        if (e.key === 'ArrowRight') modalNext.click();
+      });
+
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeFeature(); });
+
+      // open schematic thumb to first feature for convenience
+      document.getElementById('openSchematic').addEventListener('click', () => openFeature(0));
+    })();
+  </script>
 </body>
 </html>
-
