@@ -266,20 +266,62 @@
     </section>
 
     <!-- Doc card (PDF) -->
-    <section class="doc-card" aria-labelledby="docs-heading">
-      <h3 id="docs-heading" class="doc-title">Design files & notes</h3>
-      <p class="doc-sub"><strong>Files:</strong> spec PDF, assembler, testbench, and Logisim `.circ`</p>
+    <!-- Put this inside your doc-card where your download links are -->
+<style>
+  /* Small help modal for opening .circ */
+  #circHelpModal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); z-index:10000; }
+  #circHelpModal.open { display:flex; }
+  .circHelpInner { background:#fff; padding:18px; max-width:680px; width:92%; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,0.3); color:#222; }
+  .circHelpClose { float:right; background:#eee; border:0; padding:6px 10px; border-radius:6px; cursor:pointer; }
+  .circHelpPre { background:#f7f7f7; padding:10px; border-radius:6px; font-family:monospace; white-space:pre-wrap; margin-top:10px; }
+</style>
 
-      <p style="color:#333;">
-        circ file attached here:
-      </p>
+<div style="margin-top:8px;">
+  <a class="doc-btn" href="../images/projects/cs/cpu.circ" target="_blank" rel="noopener" download>Download / Open cpu.circ</a>
+  <button class="doc-btn ghost" id="circHelpBtn" type="button">How to open .circ</button>
+</div>
 
-      <div class="doc-actions">
-        <!-- link to circ file (opens in browser/download) -->
-        <a class="doc-btn" href="../images/projects/cs/cpu.circ" download>Open cpu.circ</a>
-        <a class="doc-btn ghost" href="#" onclick="alert('Open spec PDF (replace with real link)')">Open spec PDF</a>
-      </div>
-    </section>
+<div id="circHelpModal" role="dialog" aria-hidden="true" aria-modal="true">
+  <div class="circHelpInner" role="document">
+    <button class="circHelpClose" id="circHelpClose">✕</button>
+    <h3 style="margin-top:0;">How to open the cpu.circ file</h3>
+    <p>To view and run the circuit you will need a Logisim-compatible application (Logisim or Logisim-evolution). The steps below assume you have Java installed.</p>
+
+    <ol>
+      <li>Download the <strong>cpu.circ</strong> file (button above).</li>
+      <li>Download and run <strong>Logisim</strong> or <strong>Logisim-evolution</strong> (both are Java apps). If you have a JAR, run: <code>java -jar logisim-evolution.jar</code>.</li>
+      <li>In the Logisim app: <strong>File → Open</strong> and choose the downloaded <code>cpu.circ</code>.</li>
+      <li>Use the simulator controls or the clock pin to step/run the design. Explore subcircuits and probes for signals.</li>
+    </ol>
+
+    <div class="circHelpPre">
+      Example (command line to run Logisim-evolution jar):\n\njava -jar /path/to/logisim-evolution.jar
+    </div>
+
+    <p>If you prefer not to run anything, click the schematic hero above or open the exported PNG/SVG for a full visual of the CPU.</p>
+  </div>
+</div>
+
+<script>
+  // modal behavior
+  document.getElementById('circHelpBtn').addEventListener('click', () => {
+    const m = document.getElementById('circHelpModal');
+    m.classList.add('open');
+    m.setAttribute('aria-hidden','false');
+  });
+  document.getElementById('circHelpClose').addEventListener('click', () => {
+    const m = document.getElementById('circHelpModal');
+    m.classList.remove('open');
+    m.setAttribute('aria-hidden','true');
+  });
+  // close on escape
+  document.addEventListener('keydown', (e) => {
+    const m = document.getElementById('circHelpModal');
+    if (!m.classList.contains('open')) return;
+    if (e.key === 'Escape') { m.classList.remove('open'); m.setAttribute('aria-hidden','true'); }
+  });
+</script>
+
 
     <!-- Features grid -->
     <section class="content features-wrap" aria-labelledby="features-heading">
