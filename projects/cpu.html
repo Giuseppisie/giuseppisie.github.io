@@ -58,6 +58,7 @@
       align-items:center;
       justify-content:center;
     }
+    
     .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
     .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,44px); font-weight:800; text-align:center; padding:0 20px; text-shadow:0 8px 24px rgba(0,0,0,0.6); }
 
@@ -213,7 +214,7 @@
         <!-- replace with your schematic screenshot -->
         <img src="../images/projects/cs/cpu.png" alt="CPU schematic (click to open)">
       </div>
-      <div class="media-caption"><em>Click the schematic to open the CPU feature gallery (or change to open a full schematic viewer).</em></div>
+      <div class="media-caption"><em>Click to view full CPU schematic.</em></div>
     </section>
 
     <!-- Doc card (download / PDF) -->
@@ -237,6 +238,8 @@
       <div class="meta">Click a card to open photos & a short description.</div>
 
       <div class="features-grid">
+
+         <!-- ALU -->
         <div class="feature-card" data-index="0" role="button" tabindex="0">
           <img src="../images/projects/cs/ALU.png" alt="ALU">
           <div class="feature-meta">
@@ -245,24 +248,27 @@
           </div>
         </div>
 
+         <!-- memory -->
         <div class="feature-card" data-index="1" role="button" tabindex="0">
-          <img src="../images/cpu/memory-thumb.jpg" alt="Memory">
+          <img src="../images/projects/cs/RAM.png" alt="Memory">
           <div class="feature-meta">
             <div class="feature-title">Memory</div>
             <div class="feature-excerpt">Instruction ROM + data RAM, memory_latch to handle Logisim timing for writes.</div>
           </div>
         </div>
 
+         <!-- PC and reg -->
         <div class="feature-card" data-index="2" role="button" tabindex="0">
-          <img src="../images/cpu/pc-thumb.jpg" alt="PC & Registers">
+          <img src="../images/projects/cs/pcrom.png" alt="PC & Registers">
           <div class="feature-meta">
             <div class="feature-title">PC & Registers</div>
             <div class="feature-excerpt">16-bit PC, link register, 8-register file, PC-relative branches and jumps.</div>
           </div>
         </div>
 
+         <!-- decoder -->
         <div class="feature-card" data-index="3" role="button" tabindex="0">
-          <img src="../images/cpu/decode-thumb.jpg" alt="Instruction decode">
+          <img src="../images/projects/cs/decoder.png" alt="Instruction decode">
           <div class="feature-meta">
             <div class="feature-title">Instruction decode</div>
             <div class="feature-excerpt">R/I/J formats, opcode/funct field handling, immediate sign-extension.</div>
@@ -277,8 +283,9 @@
           </div>
         </div>
 
+          <!-- io -->
         <div class="feature-card" data-index="5" role="button" tabindex="0">
-          <img src="../images/cpu/tty-thumb.jpg" alt="I/O and TTY">
+          <img src="../images/projects/cs/io.png" alt="I/O and TTY">
           <div class="feature-meta">
             <div class="feature-title">I/O & TTY</div>
             <div class="feature-excerpt">Simple keyboard & TTY device mapping for console I/O.</div>
