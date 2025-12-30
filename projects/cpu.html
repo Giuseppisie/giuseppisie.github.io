@@ -231,22 +231,22 @@
 
             <li class="kc-item">
               <span class="kc-term">Instruction Set</span>
-              <span class="kc-desc">The CPU supports a set of instructions that are typical of MIPS architectures, with all operations executed in a single cycle for simplicity.</span>
+              <span class="kc-desc">The CPU supports a set of instructions typical of MIPS, with most operations executed in a single cycle for clarity and teaching.</span>
             </li>
 
             <li class="kc-item">
               <span class="kc-term">Single-Cycle CPU Design</span>
-              <span class="kc-desc">The project focuses on implementing a single-cycle CPU, meaning that every instruction completes in one clock cycle.</span>
+              <span class="kc-desc">Every instruction completes in one clock cycle in the current implementation to keep the design simple and observable.</span>
             </li>
 
             <li class="kc-item">
               <span class="kc-term">Instruction Execution Pipeline</span>
-              <span class="kc-desc">The design involves a basic instruction execution pipeline, helping understand how instructions are fetched, decoded, and executed.</span>
+              <span class="kc-desc">A basic fetch–decode–execute flow is implemented to demonstrate how instructions are fetched, decoded, and executed.</span>
             </li>
 
             <li class="kc-item">
               <span class="kc-term">No Pipelining or Optimizations</span>
-              <span class="kc-desc">Currently, the design does not include pipelining or any further performance optimizations. It focuses on the basic single-cycle design for educational purposes.</span>
+              <span class="kc-desc">The project intentionally excludes pipelining and advanced optimizations to remain focused on fundamentals.</span>
             </li>
           </ul>
         </section>
@@ -265,17 +265,18 @@
       <div class="media-caption"><em>Click to view full CPU schematic (opens full-screen).</em></div>
     </section>
 
-    <!-- Doc card (PDF) - removed the .circ download per request -->
+    <!-- Doc card (PDF) -->
     <section class="doc-card" aria-labelledby="docs-heading">
       <h3 id="docs-heading" class="doc-title">Design files & notes</h3>
-      <p class="doc-sub"><strong>Files:</strong> spec PDF, assembler, testbench (Logisim `.circ` available on request).</p>
+      <p class="doc-sub"><strong>Files:</strong> spec PDF, assembler, testbench, and Logisim `.circ`</p>
 
       <p style="color:#333;">
-        If you'd like the Logisim `.circ` file published on the site, tell me where you'd like it linked and I will add a download button. For now the page links to the spec PDF.
+        circ file attached here:
       </p>
 
       <div class="doc-actions">
-        <!-- removed the Download .circ button as requested; kept PDF link -->
+        <!-- link to circ file (opens in browser/download) -->
+        <a class="doc-btn" href="../images/projects/cs/cpu.circ" download>Open cpu.circ</a>
         <a class="doc-btn ghost" href="#" onclick="alert('Open spec PDF (replace with real link)')">Open spec PDF</a>
       </div>
     </section>
@@ -296,39 +297,39 @@
           </div>
         </div>
 
-           <!-- Instruction decode -->
+           <!-- ALU operations -->
         <div class="feature-card" data-index="1" role="button" tabindex="0">
+          <img src="../images/cpu/adder.png" alt="ALU operations">
+          <div class="feature-meta">
+            <div class="feature-title">ALU operations</div>
+            <div class="feature-excerpt">Adders, barrel shifter, bitwise logic — basic building blocks used by instructions.</div>
+          </div>
+        </div>
+
+         <!-- Instruction decode -->
+        <div class="feature-card" data-index="2" role="button" tabindex="0">
           <img src="../images/projects/cs/decoder.png" alt="Instruction decode">
           <div class="feature-meta">
             <div class="feature-title">Instruction decode</div>
-            <div class="feature-excerpt">R/I/J formats, opcode/funct field handling, immediate sign-extension.</div>
+            <div class="feature-excerpt">Opcode decoding and control signal generation.</div>
           </div>
         </div>
 
          <!-- memory -->
-        <div class="feature-card" data-index="2" role="button" tabindex="0">
+        <div class="feature-card" data-index="3" role="button" tabindex="0">
           <img src="../images/projects/cs/RAM.png" alt="Memory">
           <div class="feature-meta">
             <div class="feature-title">Memory</div>
-            <div class="feature-excerpt">Instruction ROM + data RAM, memory_latch to handle Logisim timing for writes.</div>
+            <div class="feature-excerpt">Instruction ROM and data RAM with write safety latch.</div>
           </div>
         </div>
 
          <!-- PC and registers -->
-        <div class="feature-card" data-index="3" role="button" tabindex="0">
+        <div class="feature-card" data-index="4" role="button" tabindex="0">
           <img src="../images/projects/cs/pcrom.png" alt="PC & Registers">
           <div class="feature-meta">
             <div class="feature-title">PC & Registers</div>
-            <div class="feature-excerpt">16-bit PC, link register, 8-register file, PC-relative branches and jumps.</div>
-          </div>
-        </div>
-
-          <!-- control unit -->
-        <div class="feature-card" data-index="4" role="button" tabindex="0">
-          <img src="../images/cpu/control-thumb.jpg" alt="Control unit">
-          <div class="feature-meta">
-            <div class="feature-title">Control unit</div>
-            <div class="feature-excerpt">Generates ALU, memory, register and PC control signals from opcode/funct.</div>
+            <div class="feature-excerpt">Program counter behavior and register file structure.</div>
           </div>
         </div>
 
@@ -337,7 +338,7 @@
           <img src="../images/projects/cs/io.png" alt="I/O and TTY">
           <div class="feature-meta">
             <div class="feature-title">I/O & TTY</div>
-            <div class="feature-excerpt">Simple keyboard & TTY device mapping for console I/O.</div>
+            <div class="feature-excerpt">TTY/keyboard mapping for simple console I/O.</div>
           </div>
         </div>
       </div>
@@ -381,50 +382,64 @@
 
   <script>
     (function(){
-      // Feature data: text and photo arrays (replace photo paths with your real images)
+      // Feature data: clarified descriptions (images should be replaced with your exact paths)
       const features = [
         {
           title: "ALU",
-          text: `<p>The ALU implements add, subtract, AND, NOT, and logical shifts (SLL/SRL). It supplies status flags (zero) used by branch logic.</p>
-                 <p>Use this block to test arithmetic edge cases and to trace how immediates are applied from instruction decode.</p>`,
+          text: `
+            <p>The ALU receives two register inputs through a multiplexer (Input 1 and Input 2). It supports eleven operations in this design. Each operation produces a result, and an ALU-op multiplexer selects which result is forwarded as the ALU output.</p>
+            <p>The ALU also provides status flags (for example, zero) used by branch logic and control signals. Operations include arithmetic, logical, and shift variants implemented using standard combinational building blocks.</p>
+          `,
           photos: [
-            "../images/projects/cs/ALU.png",
-            "../images/cpu/decode.png"
+            "../images/projects/cs/ALU.png"
+          ]
+        },
+        {
+          title: "ALU operations",
+          text: `
+            <p>Many arithmetic instructions use a 16-bit adder built from cascaded one-bit adders (ripple or carry-aware design). The design uses a barrel shifter to implement fast left and right logical shifts. Bitwise operations such as NOT and AND are provided by combinational logic gates and are selected by the ALU-op multiplexer.</p>
+            <p>These primitive units are composed to support instruction-level operations such as add, sub, shift, and, or, and immediate arithmetic.</p>
+          `,
+          photos: [
+            "../images/cpu/adder.png",
+            "../images/cpu/barrelshift.png"
           ]
         },
         {
           title: "Instruction decode",
-          text: `<p>R/I/J formats, opcode and funct fields are decoded into control signals and immediates. Sign-extension and operand selection occur here.</p>`,
+          text: `
+            <p>The opcode is taken from bits 12–15 of the 16-bit instruction read from instruction ROM. A 16-to-1 decoder (or equivalent logic) selects which operation type is requested.</p>
+            <p>Decoded signals are combined with AND/OR logic to generate control outputs like MemRead, MemWrite, RegWrite, Branch, and Jump. These control signals are distributed to other CPU stages to coordinate data flow and state changes.</p>
+          `,
           photos: [
-            "../images/projects/cs/decoder.png",
-            "../images/cpu/decode.png"
+            "../images/projects/cs/decoder.png"
           ]
         },
         {
           title: "Memory",
-          text: `<p>Separate instruction ROM and data RAM. For stable RAM writes in Logisim the project uses a memory_latch wrapper that captures writes on the falling edge.</p>
-                 <p>Memory map includes a small IO region mapped to the TTY/keyboard.</p>`,
+          text: `
+            <p>Memory is split into instruction ROM and data RAM. Instruction ROM holds the program; the data RAM stores runtime data and stack/heap values.</p>
+            <p>Because Logisim's synchronous behavior can cause write-timing issues, the design uses a memory_latch wrapper to capture and stabilize writes (ensuring predictable write behavior within the single-cycle design).</p>
+          `,
           photos: [
             "../images/projects/cs/RAM.png"
           ]
         },
         {
           title: "PC & Registers",
-          text: `<p>16-bit PC, link register and an 8-entry register file. Branch and jump logic update the PC; register writes are controlled by RegWrite and destination selects.</p>`,
+          text: `
+            <p>The Program Counter (PC) increments by 4 (bits) by default to advance to the next word-aligned instruction. Branch or jump instructions modify the PC according to decoded control signals (PC-relative branches or immediate jump addresses).</p>
+            <p>The register file consists of a fixed small set of general-purpose registers (refer to the instruction document for the exact register count and layout). Each register is implemented as a 16-bit storage element composed of 16 D flip-flops (one flip-flop per bit), with standard write-enable gating for register writes.</p>
+          `,
           photos: [
             "../images/projects/cs/pcrom.png"
           ]
         },
         {
-          title: "Control unit",
-          text: `<p>Combinational control unit generates ALUop, MemRead, MemWrite, RegWrite, Branch, and Jump from opcode/funct. Designed to be explicit and testable.</p>`,
-          photos: [
-            "../images/cpu/control-thumb.jpg"
-          ]
-        },
-        {
           title: "I/O & TTY",
-          text: `<p>TTY device accepts writes and shows ASCII in the console buffer; keyboard input is non-blocking. Useful for simple demos & programs.</p>`,
+          text: `
+            <p>I/O is memory-mapped: a small I/O region in the address space is reserved for the TTY and keyboard devices. Writes to the TTY update the on-screen console buffer; keyboard input is captured into a device register for the CPU to read. This simple mapping allows programs to perform console I/O without special instructions.</p>
+          `,
           photos: [
             "../images/projects/cs/io.png"
           ]
