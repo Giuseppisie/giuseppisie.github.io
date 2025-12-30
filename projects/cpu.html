@@ -1,1 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>16-bit MIPS-like CPU — Project</title>
+
+  <style>
+    :root{
+      --bg:#f3f6f5;
+      --card:#ffffff;
+      --accent:#2f7f76;
+      --muted:#666;
+      --max:1100px;
+    }
+    body{ margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:#111; }
+    .wrap{ max-width:var(--max); margin:36px auto; padding:24px; }
+    .hero{ background:linear-gradient(90deg, rgba(47,127,118,0.06), rgba(176,171,82,0.03)); padding:28px; border-radius:12px; display:flex; gap:18px; align-items:center; }
+    .hero h1{ margin:0; font-size:22px; color:var(--accent); }
+    .hero p{ margin:6px 0 0 0; color:var(--muted); }
+
+    .card{ background:var(--card); border-radius:12px; padding:18px; margin-top:20px; box-shadow:0 10px 30px rgba(10,10,10,0.05); }
+    h2{ margin:0 0 12px 0; font-size:18px; color:#0f403d; }
+    .meta{ color:var(--muted); font-size:13px; margin-bottom:10px; }
+
+    .grid{ display:grid; grid-template-columns: 1fr 320px; gap:18px; align-items:start; }
+    .small{ font-size:14px; color:var(--muted); }
+    pre { background:#f7f8f8; padding:12px; border-radius:8px; overflow:auto; font-size:13px; }
+
+    table{ width:100%; border-collapse:collapse; font-size:13px; }
+    th, td{ text-align:left; padding:8px 6px; border-bottom:1px solid #eee; }
+    th{ background:#fbfcfb; color:#0f403d; }
+
+    .actions{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+    .btn{ background:var(--accent); color:#fff; padding:10px 12px; border-radius:8px; text-decoration:none; font-weight:700; }
+    .btn.ghost{ background:#fff; color:var(--accent); border:1px solid rgba(47,127,118,0.12); }
+
+    @media (max-width:1000px){
+      .grid{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero card">
+      <div style="flex:1">
+        <h1>16-bit MIPS-like CPU (Duke 250/16)</h1>
+        <p class="small">A Logisim single-cycle implementation of a 16-bit, word-addressed MIPS-like RISC CPU for teaching CPU design and architecture.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="small">Role: Designer & implementer</div>
+        <div class="small" style="margin-top:8px;">Tools: Logisim (cpu.circ), assembler/simulator, RAM/ROM images</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Project overview</h2>
+      <p class="meta">Objective • Build a functional 16-bit MIPS-like RISC CPU in Logisim; single-cycle, word-addressed, Harvard-style memory.</p>
+
+      <p>
+        This project implements the Duke 250/16 instruction set in a single-cycle Logisim CPU. It includes instruction fetch (ROM), data memory (RAM with the provided memory_latch wrapper), a tri-stated register file, an ALU that supports arithmetic/logical/shift ops, PC + next-PC logic, and I/O (TTY + keyboard). The design follows the course specification (instruction formats, clock/reset behavior, and memory layout). For the full assignment spec see the provided PDF. :contentReference[oaicite:0]{index=0}
+      </p>
+
+      <div class="grid" style="margin-top:16px;">
+        <div>
+          <h2>Key features</h2>
+          <ul class="small">
+            <li>R, I, and J instruction formats (4-bit opcode; 16-bit word-size)</li>
+            <li>Instruction support: addi, sub, add, not, and, sll, srl, lw, sw, bgez, beq, j, jr, jal, input, output.</li>
+            <li>8 general-purpose registers ($r0..$r7; $r0 hardwired to 0; $r7 is link register).</li>
+            <li>Harvard architecture: separate ROM for instructions and RAM for data (use memory_latch with RAM in Logisim Evolution).</li>
+            <li>Clocking rules and reset behavior as required by the spec (register file and TTY on rising edge; PC, RAM, keyboard on falling edge; reset asynchronously clears PC/regs/TTY/keyboard).</li>
+          </ul>
+
+          <h2 style="margin-top:12px;">Implementation notes</h2>
+          <p class="small">
+            - The register file uses tri-state outputs + decoder (per spec recommendation). <br>
+            - Data RAM is driven through the provided memory_latch circuit to work properly with Logisim Evolution's RAM timing model. <br>
+            - Input instruction is non-blocking: returns ascii or 128 to indicate no data present (bits 15–8 zeroed; bit7 set to 1 when no data). <br>
+            - Output writes low 7 bits to a 13×80 TTY (rising-edge triggered).
+          </p>
+
+          <div class="actions">
+            <a class="btn" href="#" onclick="alert('Place cpu.circ in the project folder and link it here for download')">Download cpu.circ</a>
+            <a class="btn ghost" href="#" onclick="alert('Open the provided PDF in your local file manager (it’s the assignment spec).')">View spec (PDF)</a>
+          </div>
+        </div>
+
+        <aside>
+          <h2>Quick reference</h2>
+          <div class="small">
+            <strong>Word size:</strong> 16 bits (word-addressed) <br>
+            <strong>Registers:</strong> 8 ($r0..$r7) <br>
+            <strong>Memory:</strong> ROM (instr) + RAM (data w/ memory_latch) <br>
+            <strong>Clocking:</strong> regfile &amp; TTY rising-edge, PC &amp; RAM &amp; keyboard falling-edge<br>
+            <strong>Reset:</strong> async reset must clear PC, registers, TTY, keyboard buffer (does not clear ROM/RAM content).
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Instruction set (summary)</h2>
+      <p class="small">Below are the primary instructions implemented (opcode shown in 4-bit binary):</p>
+
+      <table>
+        <thead><tr><th>Mnemonic</th><th>Opcode</th><th>Type</th><th>Operation (high level)</th></tr></thead>
+        <tbody>
+          <tr><td>addi</td><td>0000</td><td>I</td><td>$rt = $rs + Imm (6-bit signed immediate, sign-extended)</td></tr>
+          <tr><td>sub</td><td>0001</td><td>R</td><td>$rd = $rs - $rt</td></tr>
+          <tr><td>add</td><td>0010</td><td>R</td><td>$rd = $rs + $rt</td></tr>
+          <tr><td>not</td><td>0011</td><td>R</td><td>$rd = NOT($rs)</td></tr>
+          <tr><td>and</td><td>0100</td><td>R</td><td>$rd = $rs AND $rt</td></tr>
+          <tr><td>sll / srl</td><td>0101 / 0110</td><td>R</td><td>shift by shamt (logical)</td></tr>
+          <tr><td>lw / sw</td><td>0111 / 1000</td><td>I</td><td>load/store word: Mem[$rs + D]</td></tr>
+          <tr><td>bgez / beq</td><td>1001 / 1010</td><td>I</td><td>conditional branches (PC-relative)</td></tr>
+          <tr><td>j / jal</td><td>1011 / 1101</td><td>J</td><td>jump to address; jal saves PC+1 into $r7</td></tr>
+          <tr><td>jr</td><td>1100</td><td>R</td><td>PC = $rs (return)</td></tr>
+          <tr><td>input / output</td><td>1110 / 1111</td><td>R</td><td>I/O with keyboard and TTY</td></tr>
+        </tbody>
+      </table>
+
+      <p class="small" style="margin-top:10px;">
+        The pdf assignment defines full R/I/J encodings and immediate sizes — see the spec for bitfield layout and special behaviors (e.g., immediate sign-extension and the non-blocking input format). :contentReference[oaicite:1]{index=1}
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Memory model &amp; testing</h2>
+      <p class="small">
+        The assembler provided with the course generates ROM and RAM images. The memory layout reserves upper halves for kernel, with user instructions in 0x0000–0x7FFF and data/stack ranges as documented in the spec. Use the provided `hwtest.py` automated tester and the assembler/simulator to generate tests. The pdf includes detailed instructions on using the memory_latch with Logisim Evolution RAM — follow it exactly to avoid read/write timing problems. :contentReference[oaicite:2]{index=2}
+      </p>
+
+      <h2 style="margin-top:12px;">Notes for the grader / demo</h2>
+      <ul class="small">
+        <li>To boot: load ROM and RAM images into the Logisim components, ensure clock starts low, pulse reset, then step the clock.</li>
+        <li>Name the register file subcircuit <em>RegisterFile</em> and the reset input <em>reset</em> for the grader to detect probes.</li>
+        <li>Place probes named r0..r7 on each register so the autograder can read them.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Challenges, learnings &amp; next steps</h2>
+      <p class="small">
+        Building the single-cycle CPU forces you to reconcile instruction timing, edge-triggering constraints, and real RAM timing by using the memory_latch wrapper. The tri-state+decoder register file is a good exercise in physical-like design (avoids monolithic muxes). Next steps: add pipelining (stall/hazard handling), richer instruction set, or an interrupt/exception model.
+      </p>
+    </section>
+
+    <footer style="margin-top:18px; text-align:center; color:var(--muted); font-size:13px;">
+      Source: Assignment &amp; spec (Duke 250/16). See original PDF for full details and bit-level encodings. :contentReference[oaicite:3]{index=3}
+    </footer>
+  </main>
+</body>
+</html>
 
