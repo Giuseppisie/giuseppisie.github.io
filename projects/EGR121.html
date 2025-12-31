@@ -165,7 +165,7 @@
       }
     }
 
-    /* ---- DC2/DC3 modal styles (margins & readability) ---- */
+    /* ---- DC2/DC3/DC4 modal styles (margins & readability) ---- */
     .detail-modal{
       position:fixed;
       inset:0;
@@ -306,15 +306,14 @@
     </article>
 
     <!-- DC4 -->
-    <article class="project-tile">
+    <article class="project-tile" id="dc4Tile" tabindex="0" role="button" aria-pressed="false">
       <div class="project-row">
-        <div class="project-img" style="background-image:url('../images/projects/egr121/ruethumb.jpg')"></div>
+        <div class="project-img" style="background-image:url('../images/projects/egr121/dc4_thumb.jpg')"></div>
         <div class="project-text">
           <h3 class="project-title">DC4 — Rube Goldberg Machine</h3>
           <p class="project-desc">
             A large-scale collaborative Rube Goldberg machine integrating
             mechanical and electronic subsystems to trigger sequential events. I was in charge of building the <em>Legally Blonde</em> themed component, in which a switch triggers the rotation of a gavel carrying the ball.
-            
           </p>
         </div>
       </div>
@@ -371,8 +370,7 @@
     </div>
   </div>
 
-  <!-- DC3 DETAIL MODAL (new) -->
-  <!-- Source for DC3 memo and details: DC3 Technical Memo. See file citation embedded below. -->
+  <!-- DC3 DETAIL MODAL (unchanged) -->
   <div id="dc3Modal" class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="detail-inner" role="document" aria-labelledby="dc3Title">
       <div class="detail-header">
@@ -413,12 +411,11 @@
                 <li><strong>Manufacturing cost awareness:</strong> The design prioritized few, low-cost parts (frame, tops, wheels, pins, conductor) and simple painting/stenciling for branding to keep per-unit cost low (detailed cost breakdown in memo).</li>
               </ul>
 
-              <p>These points and the manufacturing/assembly decisions (wheel pins glued, shelling to reduce plastic, cost estimates) are documented in our DC3 Technical Memo (see button below). For detailed drawings, tolerances, and the production plan, open the memo.</p>
+              <p>These points and the manufacturing/assembly decisions (wheel pins glued, shelling to reduce plastic, cost estimates) are documented in our DC3 Technical Memo (see button below).</p>
             </div>
           </div>
 
           <div class="cta-row">
-            <!-- Keep filename as submitted: DC3 Technical Memo.pdf -->
             <a class="btn" href="../images/projects/201/DC3%20Technical%20Memo.pdf" target="_blank" rel="noopener">Open full DC3 memo</a>
             <button id="dc3CloseBtn" class="btn ghost">Close</button>
           </div>
@@ -427,8 +424,60 @@
     </div>
   </div>
 
-  <!-- IMPORTANT: The DC3 memo is the file the assistant used to summarize design decisions. -->
-  <!-- File citation for internal reference: :contentReference[oaicite:0]{index=0} -->
+  <!-- DC4 DETAIL MODAL (NEW: same format as DC2, video + photos + role description) -->
+  <div id="dc4Modal" class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="detail-inner" role="document" aria-labelledby="dc4Title">
+      <div class="detail-header">
+        <div id="dc4Title" style="font-weight:800">DC4 — Rube Goldberg Machine (SportBot)</div>
+        <div>
+          <button id="dc4Close" class="modal-close" aria-label="Close details">✕</button>
+        </div>
+      </div>
+
+      <div class="detail-body">
+        <!-- left column: video + thumbs -->
+        <div class="media-col">
+          <div class="media-player" id="dc4MainMedia" aria-live="polite">
+            <div class="media-missing">Loading media…</div>
+          </div>
+
+          <div class="carousel-thumbs" id="dc4Thumbs" role="list"></div>
+
+          <div class="carousel-caption" id="dc4Caption">Play the full team run or my Legally Blonde module video, or click photos to enlarge.</div>
+        </div>
+
+        <!-- right column: description -->
+        <div class="info-col">
+          <div>
+            <div class="info-title">My role — Legally Blonde module</div>
+            <div class="info-text">
+              <p>
+                The DC4 SportBot was a multi-team Rube Goldberg machine with a movie theme. Our 12-person group assigned subteams; my subteam (4 people) built the Legally Blonde component. The Legally Blonde module was designed to receive a ball, route it via wire rails, trigger a gavel rotation for 2 seconds via a 555-timer-driven motor, then pass the ball to the next track. (Design and circuit details are in the SportBot documentation.)
+              </p>
+
+              <p><strong>How it worked (summary):</strong></p>
+              <ul class="bullets">
+                <li><strong>Frame & routing:</strong> I laser-cut a Harvard Law-style frame to act as the physical structure; the ball enters at the back and follows wire rails that wrap it toward the gavel entrance.</li>
+                <li><strong>Gavel mechanism:</strong> The gavel was constructed from a modified toilet-paper roll reinforced with papier-mâché and a small PVC shaft; a 3D-printed collar fit the motor's rotating pin to the gavel securely.</li>
+                <li><strong>Switch & timing:</strong> The ball depresses a switch in the gavel entrance that triggers a 555-timer circuit, commanding the motor to rotate the gavel for ~2 seconds (deliver ball to exit rail) — wiring and switch are embedded inside the gavel housing for neatness and reliability.</li>
+                <li><strong>Wiring & packaging:</strong> All wiring routed through the gavel body and frame so motion did not tangle or pull on wires; 3D-printed motor mounts were iterated for wear resistance and fit.</li>
+                <li><strong>Integration:</strong> The output exit aligns to the next module's entry. The SportBot documentation includes the Legally Blonde circuit schematic and action summary (see memo). :contentReference[oaicite:1]{index=1}</li>
+              </ul>
+
+              <p>
+                Below are video(s) and photos: one full-team run video, one video of my component, and three photos (gavel close-up, frame routing, integrated view). Click the memo button for full documentation including schematics and team reflections.
+              </p>
+            </div>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn" href="../images/projects/egr121/DC4%20SportBot%20Documentation.pdf" target="_blank" rel="noopener">Open full DC4 memo</a>
+            <button id="dc4CloseBtn" class="btn ghost">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     (function(){
@@ -507,7 +556,7 @@
       dc2Modal.addEventListener('click', (e)=>{ if(e.target===dc2Modal) closeDc2(); });
       document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && dc2Modal.classList.contains('open')) closeDc2(); });
 
-      /* ----------------- DC3 behavior (new) ----------------- */
+      /* ----------------- DC3 behavior (unchanged) ----------------- */
       const dc3Tile = document.getElementById('dc3Tile');
       const dc3Modal = document.getElementById('dc3Modal');
       const dc3Close = document.getElementById('dc3Close');
@@ -516,7 +565,6 @@
       const dc3Thumbs = document.getElementById('dc3Thumbs');
       const dc3Caption = document.getElementById('dc3Caption');
 
-      // DC3 images (replace paths with your actual image filenames if needed)
       const dc3Media = [
         { type: 'image', src: '../images/projects/201/happymeal%20toy.jpeg', caption: 'Assembled Happy Zoo Train (engine + body)' },
         { type: 'image', src: '../images/projects/201/exploadedviewtoy.png', caption: 'Toy exploded view' },
@@ -524,15 +572,12 @@
         { type: 'image', src: '../images/projects/201/framedraw.png', caption: 'Solidworks frame drawing' },
         { type: 'image', src: '../images/projects/201/pigcar.png', caption: 'Solidworks animal car drawing' },
         { type: 'image', src: '../images/projects/201/wheeldraw.png', caption: 'Solidworks wheels drawing' },
-        { type: 'image', src: '../images/projects/201/pindraw.png', caption: 'Solidworks pin drawing' },
-
-
+        { type: 'image', src: '../images/projects/201/pindraw.png', caption: 'Solidworks pin drawing' }
       ];
 
       function renderMainDc3(item){
         dc3MainMedia.innerHTML = '';
         if(!item){ dc3MainMedia.appendChild(document.createElement('div')).textContent='No media'; return; }
-        if(item.type === 'video'){ /* none expected for DC3 */ }
         const img = document.createElement('img'); img.src = item.src; img.alt = item.caption || '';
         img.addEventListener('error', ()=>{ img.style.opacity='0.45'; img.title='Image missing'; });
         dc3MainMedia.appendChild(img);
@@ -567,17 +612,88 @@
       dc3CloseBtn.addEventListener('click', closeDc3);
       dc3Modal.addEventListener('click', (e)=>{ if(e.target===dc3Modal) closeDc3(); });
 
-      // close both modals on ESC if open
-      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ if(dc3Modal.classList.contains('open')) closeDc3(); if(dc2Modal.classList.contains('open')) closeDc2(); }});
-
       // Preload dc3 images gracefully
       dc3Media.forEach(s => { const i=new Image(); i.src=s.src; });
 
-      // Note: If thumbnails don't show, check file paths. The DC3 memo used to write the summary is included as a file.
-      // Internal reference/citation for the memo used to produce the summary: :contentReference[oaicite:1]{index=1}
+      /* ----------------- DC4 behavior (NEW) ----------------- */
+      const dc4Tile = document.getElementById('dc4Tile');
+      const dc4Modal = document.getElementById('dc4Modal');
+      const dc4Close = document.getElementById('dc4Close');
+      const dc4CloseBtn = document.getElementById('dc4CloseBtn');
+      const dc4MainMedia = document.getElementById('dc4MainMedia');
+      const dc4Thumbs = document.getElementById('dc4Thumbs');
+      const dc4Caption = document.getElementById('dc4Caption');
+
+      // DC4 media: one full-team video, one component video, three photos
+      const dc4Media = [
+        { type: 'video', src: '../images/projects/egr121/dc4_fullteam.mp4', caption: 'Full team SportBot run' },
+        { type: 'video', src: '../images/projects/egr121/dc4_legallyblonde.mp4', caption: 'Legally Blonde module — solo run' },
+        { type: 'image', src: '../images/projects/egr121/dc4_gavel.jpg', caption: 'Gavel close-up with embedded switch & wiring' },
+        { type: 'image', src: '../images/projects/egr121/dc4_frame.jpg', caption: 'Laser-cut frame and routing rails' },
+        { type: 'image', src: '../images/projects/egr121/dc4_integration.jpg', caption: 'Integrated module aligned with next track' }
+      ];
+
+      function renderMainDc4(item){
+        dc4MainMedia.innerHTML = '';
+        if(!item){ dc4MainMedia.appendChild(document.createElement('div')).textContent = 'No media'; return; }
+        if(item.type === 'video' || isVideo(item.src)){
+          const v = document.createElement('video');
+          v.src = item.src; v.controls = true; v.preload='metadata'; v.style.maxWidth='100%'; v.playsInline = true;
+          v.addEventListener('error', ()=>{ dc4MainMedia.innerHTML=''; const m=document.createElement('div'); m.className='media-missing'; m.textContent='Video not found'; dc4MainMedia.appendChild(m);});
+          dc4MainMedia.appendChild(v);
+        } else {
+          const img = document.createElement('img'); img.src = item.src; img.alt = item.caption || '';
+          img.addEventListener('error', ()=>{ img.style.opacity='0.45'; img.title='Image missing'; });
+          dc4MainMedia.appendChild(img);
+        }
+        dc4Caption.textContent = item.caption || '';
+      }
+
+      function buildThumbsDc4(list){
+        dc4Thumbs.innerHTML = '';
+        list.forEach((it, idx) => {
+          if(it.type === 'video' || isVideo(it.src)){
+            const poster = document.createElement('img');
+            poster.src = it.src.replace(/\.[^/.]+$/, '.jpg'); poster.alt = it.caption || 'video';
+            poster.addEventListener('click', ()=>{ renderMainDc4(it); highlightThumb(dc4Thumbs, idx); });
+            poster.addEventListener('error', ()=> { const box=document.createElement('div'); box.className='media-missing'; box.style.width='80px'; box.style.height='52px'; box.style.cursor='pointer'; box.textContent='VIDEO'; box.addEventListener('click', ()=>{ renderMainDc4(it); highlightThumb(dc4Thumbs, idx);}); dc4Thumbs.appendChild(box); });
+            dc4Thumbs.appendChild(poster);
+          } else {
+            const t = document.createElement('img'); t.src = it.src; t.alt = it.caption || '';
+            t.tabIndex = 0; t.addEventListener('click', ()=>{ renderMainDc4(it); highlightThumb(dc4Thumbs, idx); });
+            t.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); t.click(); }});
+            t.addEventListener('error', ()=>{ t.style.opacity='0.4'; t.title='Image missing'; });
+            dc4Thumbs.appendChild(t);
+          }
+        });
+        highlightThumb(dc4Thumbs, 0);
+      }
+
+      function openDc4(){
+        dc4Modal.classList.add('open'); dc4Modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+        const primary = dc4Media.find(m => (m.type==='video' || isVideo(m.src))) || dc4Media[0];
+        renderMainDc4(primary); buildThumbsDc4(dc4Media);
+      }
+
+      function closeDc4(){ dc4Modal.classList.remove('open'); dc4Modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; dc4MainMedia.innerHTML=''; dc4Thumbs.innerHTML=''; }
+
+      dc4Tile.addEventListener('click', openDc4);
+      dc4Tile.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openDc4(); });
+      dc4Close.addEventListener('click', closeDc4);
+      dc4CloseBtn.addEventListener('click', closeDc4);
+      dc4Modal.addEventListener('click', (e)=>{ if(e.target===dc4Modal) closeDc4(); });
+
+      // close both modals on ESC if open
+      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ if(dc3Modal.classList.contains('open')) closeDc3(); if(dc2Modal.classList.contains('open')) closeDc2(); if(dc4Modal.classList.contains('open')) closeDc4(); }});
+
+      // Preload dc4 images/posters
+      dc4Media.forEach(s => {
+        if(!isVideo(s.src)){ const i=new Image(); i.src=s.src; }
+        else { const p=s.src.replace(/\.[^/.]+$/, '.jpg'); const ip=new Image(); ip.src=p; }
+      });
+
     })();
   </script>
 </body>
 </html>
 
-</html>
