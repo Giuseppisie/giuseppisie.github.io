@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EGR 121 — Design Projects</title>
+  <title>EGR 121 — Engineering Design Projects</title>
 
   <style>
     :root{
@@ -54,6 +54,34 @@
 
     .spacer{height:60px}
 
+    /* ---------- HERO ---------- */
+    .hero{
+      position:relative;
+      height:52vh;
+      background-image:url("../images/projects/egr121/hero.jpg");
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(66,123,118,0.35);
+    }
+    .hero-title{
+      position:relative;
+      z-index:1;
+      color:#fff;
+      font-size:clamp(28px,5vw,44px);
+      font-weight:800;
+      text-shadow:0 8px 24px rgba(0,0,0,.6);
+      text-align:center;
+      padding:0 20px;
+    }
+
     /* ---------- PAGE ---------- */
     .page{
       max-width:var(--content-max);
@@ -82,14 +110,14 @@
       margin-bottom:14px;
     }
 
-    /* ---------- PROJECT TILES ---------- */
+    /* ---------- PROJECT BOXES ---------- */
     .project-tile{
       background:#fff;
       border-radius:12px;
       box-shadow:0 8px 20px rgba(0,0,0,.06);
       margin-bottom:22px;
-      cursor:pointer;
       transition:transform .15s, box-shadow .15s;
+      cursor:pointer;
     }
     .project-tile:hover{
       transform:translateY(-4px);
@@ -98,8 +126,8 @@
 
     .project-row{
       display:flex;
-      gap:20px;
-      padding:18px;
+      gap:22px;
+      padding:20px;
       align-items:center;
     }
 
@@ -130,7 +158,6 @@
     @media (max-width:800px){
       .project-row{
         flex-direction:column;
-        align-items:flex-start;
       }
       .project-img{
         width:100%;
@@ -157,26 +184,30 @@
 
   <div class="spacer"></div>
 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-title">EGR 121 — Engineering Design & Communication</div>
+  </section>
+
   <div class="page">
 
     <!-- COURSE DESCRIPTION -->
     <section class="content">
-      <h2>EGR 121 — Engineering Design & Communication</h2>
+      <h2>Course Overview</h2>
       <p>
-        EGR 121 introduces first-year students to the process of team-based creative
+        EGR 121 introduces first years to the process of team-based creative
         conceptualization, visualization, prototyping, and product realization.
-        Students use computer-aided design tools to create custom circuit boards and
-        CNC-machined components, producing functional prototype systems through
-        hands-on, iterative design challenges.
+        Students use computer-aided design tools to create custom circuit boards
+        and CNC-machined components to produce prototype systems.
       </p>
       <p>
-        The course emphasizes collaboration, design documentation, testing, and
-        communication through a sequence of increasingly complex design challenges.
+        Design concepts are introduced and reinforced through hands-on assignments
+        emphasizing collaboration, documentation, and iterative improvement.
       </p>
     </section>
 
     <!-- DC2 -->
-    <article class="project-tile" tabindex="0">
+    <article class="project-tile">
       <div class="project-row">
         <div class="project-img" style="background-image:url('../images/projects/egr121/dc2_thumb.jpg')"></div>
         <div class="project-text">
@@ -192,32 +223,32 @@
     </article>
 
     <!-- DC3 -->
-    <article class="project-tile" tabindex="0">
+    <article class="project-tile">
       <div class="project-row">
         <div class="project-img" style="background-image:url('../images/projects/egr121/dc3_thumb.jpg')"></div>
         <div class="project-text">
           <h3 class="project-title">DC3 — Happy Meal Toy</h3>
           <p class="project-desc">
-            A team-based consumer product design project centered on manufacturability,
-            safety, and cost. We designed a modular toy system intended for mass
-            production, complete with CAD models, tolerancing analysis, material
-            selection, and manufacturing documentation.
+            A consumer product design project emphasizing manufacturability,
+            safety, and cost. Our team designed a modular toy system with full
+            CAD models, tolerancing, and manufacturing documentation intended
+            for mass production.
           </p>
         </div>
       </div>
     </article>
 
     <!-- DC4 -->
-    <article class="project-tile" tabindex="0">
+    <article class="project-tile">
       <div class="project-row">
         <div class="project-img" style="background-image:url('../images/projects/egr121/dc4_thumb.jpg')"></div>
         <div class="project-text">
-          <h3 class="project-title">DC4 — Rube Goldberg Machine (SportBot)</h3>
+          <h3 class="project-title">DC4 — Rube Goldberg Machine</h3>
           <p class="project-desc">
-            A large-scale collaborative Rube Goldberg machine involving multiple teams
-            and integrated electronic circuits. Our four-person subteam designed themed
-            modules inspired by <em>Legally Blonde</em> and <em>Titanic</em>, each using
-            custom circuitry and mechanical actuation to trigger sequential events.
+            A large-scale collaborative Rube Goldberg machine integrating
+            mechanical and electronic subsystems. Our four-person subteam built
+            themed modules inspired by <em>Legally Blonde</em> and <em>Titanic</em>,
+            each using custom circuitry to trigger sequential events.
           </p>
         </div>
       </div>
