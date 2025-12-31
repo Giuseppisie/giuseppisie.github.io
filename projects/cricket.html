@@ -3,703 +3,681 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EGR 121 — Engineering Design Projects</title>
+  <title>Reptile Release Feeder — Cricket Crew</title>
 
   <style>
-    :root{
-      --bg:#a0c0bc;
-      --card:#427b76;
-      --accent:#b0ab52;
-      --content-max:1100px;
-      --page-pad:20px;
+    :root {
+      --bg: #a0c0bc;
+      --card: #427b76;
+      --accent: #b0ab52;
+      --content-max: 1100px;
+      --demo-side-margin: 0.5in;
+      --demo-video-w: 360px;
+      --demo-video-h: 640px;
+      --gap: 28px;
     }
 
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-      background:var(--bg);
-      color:#111;
+    html,body { height:100%; margin:0; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
+      color: #111;
       -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* ---------- TOP BAR ---------- */
-    .topbar{
-      position:fixed;
-      top:0; left:0; right:0;
-      height:60px;
-      display:flex;
-      align-items:center;
-      padding:0 20px;
-      z-index:1000;
-      background:rgba(0,0,0,0.25);
-      backdrop-filter:blur(4px);
+    /* TOPBAR */
+    .topbar {
+      position: fixed; inset: 0 0 auto 0; height:60px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 0 20px; z-index:1000;
+      background: rgba(0,0,0,0.22); backdrop-filter: blur(4px);
     }
-    .topbar-left{display:flex;align-items:center;gap:20px}
-    .brand{
-      color:#fff;
-      font-weight:800;
-      font-size:18px;
-      text-decoration:none;
-      text-shadow:0 2px 8px rgba(0,0,0,.4);
-    }
-    .topnav{display:flex;gap:10px}
-    .topnav a{
-      color:#fff;
-      text-decoration:none;
-      font-weight:700;
-      padding:8px 10px;
-      border-radius:8px;
-    }
+    .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); }
+    .topbar a { color:#fff; text-decoration:none; font-weight:700; background:var(--card); padding:8px 12px; border-radius:8px; }
 
-    .spacer{height:60px}
+    .spacer { height:60px; }
 
-    /* ---------- HERO ---------- */
-    .hero{
-      position:relative;
-      height:52vh;
-      background-image:url("../images/projects/201/happymeal%20toy.jpeg");
-      background-size:cover;
-      background-position:center;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    /* HERO */
+    .hero {
+      position: relative; height: 52vh; width:100%;
+      background-image: url("../images/reptile/hero_releaser.png"); /* replace with your hero */
+      background-size: cover; background-position:center; display:flex;
+      align-items:center; justify-content:center;
     }
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:rgba(66,123,118,0.35);
-    }
-    .hero-title{
-      position:relative;
-      z-index:1;
-      color:#fff;
-      font-size:clamp(28px,5vw,44px);
-      font-weight:800;
-      text-shadow:0 8px 24px rgba(0,0,0,.6);
-      text-align:center;
-      padding:0 20px;
-    }
+    .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
+    .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(28px,5vw,48px); font-weight:800; text-shadow:0 8px 24px rgba(0,0,0,0.6); padding:0 20px; text-align:center; }
 
-    /* ---------- PAGE ---------- */
-    .page{
-      max-width:var(--content-max);
-      margin:0 auto;
-      padding:36px var(--page-pad) 80px;
-      box-sizing:border-box;
-    }
+    /* MAIN CONTENT (centered area) */
+    .content { padding: 40px 20px 32px; max-width: var(--content-max); margin: 0 auto; }
 
-    .content{
-      background:#fff;
-      padding:28px;
-      border-radius:12px;
-      box-shadow:0 8px 20px rgba(0,0,0,.06);
-      margin-bottom:28px;
+    /* Intro box (centered, constrained) */
+    .project-intro {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      margin: 0 auto 28px;
+      max-width: 900px;
     }
+    .project-intro p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+      margin: 0 0 18px 0;
+    }
+    .project-intro p:last-child { margin-bottom: 0; }
 
-    .content h2{
-      margin:0 0 10px;
-      font-size:22px;
-      color:#111;
+    /* DEMO card centered */
+    .demo-wrapper { display:flex; justify-content:center; padding-bottom: 24px; }
+    .demo-card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      padding: 28px;
+      width: calc(100% - (var(--demo-side-margin) * 2));
+      max-width: var(--content-max);
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+    .demo-card h2 { margin: 0 0 16px 0; font-size:22px; font-weight:700; color:#111; }
+    .demo-grid { display:flex; gap: var(--gap); align-items:flex-start; }
+    .video-col { flex: 0 0 var(--demo-video-w); width: var(--demo-video-w); height: var(--demo-video-h); display:flex; align-items:stretch; }
+    .project-video { width:100%; height:100%; border-radius:10px; background:#000; object-fit:cover; display:block; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+    .text-col { flex:1; font-size:17px; line-height:1.6; color:#333; }
+
+    /* FEATURES - 3x grid */
+    .features {
+      margin: 28px auto 60px;
+      max-width: var(--content-max,1100px);
+      padding: 0 20px;
+    }
+    .features-heading { font-size: 28px; color: #111; margin: 0 0 16px 0; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
     }
 
-    .content p{
-      line-height:1.6;
-      color:#333;
-      margin-bottom:14px;
+    .feature-card {
+      background: var(--card);
+      color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease;
+      display: block;
+      cursor: pointer;
+    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.18); }
+
+    .feature-summary { display:block; padding:0; cursor:pointer; }
+    .feature-thumb {
+      width: 100%;
+      height: 170px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.06);
+      padding: 10px;
+      display:block;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .feature-meta { padding: 14px 16px 18px 16px; display:flex; flex-direction:column; gap:8px; }
+    .feature-title { font-weight:700; font-size:18px; color:#fff; }
+    .feature-excerpt { font-size:14px; color: rgba(255,255,255,0.9); line-height:1.35; margin:0; }
+
+    /* hide inline expanded body (we'll use modal for full-screen) */
+    .feature-body { display: none !important; }
+
+    @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 720px) { .features-grid { grid-template-columns: 1fr; } .feature-thumb { height: 44vw; } }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      display: none; align-items:center; justify-content:center; z-index:2000; padding:28px;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal {
+      background: #fff; width:100%; max-width:1100px; max-height:92vh;
+      border-radius:12px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 30px 80px rgba(0,0,0,0.45);
+    }
+    .modal-top { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid rgba(0,0,0,0.06); background: linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1)); color:#fff; }
+    .modal-title { font-size:20px; font-weight:800; }
+    .modal-close, .modal-prev, .modal-next { background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .modal-controls { display:flex; gap:8px; align-items:center; }
+
+    .modal-body { display:flex; gap:20px; padding:20px; overflow:auto; background:#fff; }
+    .modal-img { flex: 0 0 460px; max-width:52%; border-radius:8px; object-fit:cover; box-shadow:0 10px 30px rgba(0,0,0,0.18); }
+    .modal-text { flex:1; color:#111; font-size:16px; line-height:1.6; }
+    .modal-text ul { margin-top:12px; padding-left:20px; }
+
+    @media (max-width:900px) {
+      .modal { max-width: calc(100% - 40px); }
+      .modal-body { flex-direction: column; }
+      .modal-img { max-width:100%; width:100%; height:auto; flex:none; }
     }
 
-    /* ---------- PROJECT BOXES ---------- */
-    .project-tile{
-      background:#fff;
-      border-radius:12px;
-      box-shadow:0 8px 20px rgba(0,0,0,.06);
-      margin-bottom:22px;
-      transition:transform .15s, box-shadow .15s;
-      cursor:pointer;
-    }
-    .project-tile:hover{
-      transform:translateY(-4px);
-      box-shadow:0 18px 36px rgba(0,0,0,.15);
-    }
+    .modal-close:focus, .modal-prev:focus, .modal-next:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 2px; }
 
-    .project-row{
-      display:flex;
-      gap:22px;
-      padding:20px;
-      align-items:center;
-    }
+    /* Full images/lightbox (reused) */
+    .full-images-section { max-width: 1100px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+    .full-images-title { font-size: 22px; font-weight: 700; color: #111; margin: 0 0 16px; }
+    .full-board-wrap { margin-bottom: 20px; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    .full-board-img { display:block; width:100%; height:auto; object-fit:contain; border:0; }
+    .cad-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width:1100px; margin: 0 auto 24px; }
+    .cad-figure { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin: 0; }
+    .cad-img { display:block; width:100%; height:100%; object-fit:contain; }
+    .img-caption { padding: 10px 14px; color: #333; font-size:14px; }
+    .img-caption em { font-style: italic; color: #333; }
+    .img-btn { border: 0; padding: 0; margin: 0; background: transparent; cursor: pointer; display:block; width:100%; text-align:left; }
+    .img-btn:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 4px; }
 
-    .project-img{
-      flex:0 0 200px;
-      height:200px;
-      border-radius:10px;
-      background-size:cover;
-      background-position:center;
-    }
-
-    .project-text{
-      flex:1;
-    }
-
-    .project-title{
-      font-size:20px;
-      font-weight:800;
-      margin:0 0 8px;
-      color:#111;
-    }
-
-    .project-desc{
-      color:#444;
-      line-height:1.55;
-    }
-
-    @media (max-width:800px){
-      .project-row{
-        flex-direction:column;
-      }
-      .project-img{
-        width:100%;
-        height:220px;
-      }
-    }
-
-    /* ---- DC2/DC3/DC4 modal styles (margins & readability) ---- */
-    .detail-modal{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background:rgba(0,0,0,0.85);
-      z-index:11000;
-      padding:64px 20px; /* comfortable top/bottom margin */
-      box-sizing:border-box;
-    }
-    .detail-modal.open{display:flex}
-
-    .detail-inner{
-      width:100%;
-      max-width:1300px;
-      max-height: calc(100vh - 128px);
-      background:#fff;
-      border-radius:12px;
-      overflow:auto;
-      display:flex;
-      flex-direction:column;
-      box-shadow:0 30px 80px rgba(0,0,0,.45);
-    }
-
-    .detail-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:12px 16px;
-      background:linear-gradient(90deg,#427b76,#5a9b93);
-      color:#fff;
-      flex:0 0 auto;
-    }
-
-    .detail-body{
-      display:flex;
-      gap:18px;
-      padding:18px;
-      flex-direction:row;
-      align-items:flex-start;
-    }
-    @media (max-width:900px){ .detail-body{flex-direction:column} }
-
-    .media-col{flex:0 0 42%; display:flex; flex-direction:column; gap:12px}
-    .info-col{flex:1.1; display:flex; flex-direction:column; gap:12px; min-width:260px}
-
-    .media-player{background:#111; border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center; min-height:240px}
-    .media-player video, .media-player img{max-width:100%; max-height:58vh; display:block; border-radius:6px; object-fit:contain}
-
-    .carousel-thumbs{display:flex;gap:8px;overflow-x:auto;padding-top:6px}
-    .carousel-thumbs img{width:80px;height:52px;object-fit:cover;border-radius:6px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.12)}
-    .carousel-caption{font-size:13px;color:#333;margin-top:6px;text-align:left}
-
-    .info-title{font-size:18px;font-weight:800;margin:0;color:#111}
-    .info-text{color:#333;line-height:1.6}
-    .bullets{margin:8px 0 0 18px;color:#333}
-
-    .cta-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
-    .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-    .btn.ghost{background:#fff;color:var(--card);border:1px solid rgba(66,123,118,0.12)}
-
-    .modal-close{background:rgba(255,255,255,0.12);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
-
-    .media-missing{width:100%;height:220px;display:flex;align-items:center;justify-content:center;background:#f3f3f3;color:#666;border-radius:8px}
+    .lightbox { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); z-index: 3000; padding: 20px; }
+    .lightbox.open { display: flex; }
+    .lightbox-inner { max-width: 1400px; width: 100%; max-height: 92vh; overflow: auto; position: relative; display:flex; flex-direction:column; align-items:center; }
+    .lightbox-inner img { max-width: 100%; max-height: calc(92vh - 80px); object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    .lightbox-caption { margin-top: 12px; color: #fff; font-style: italic; font-size: 15px; text-align: center; max-width: 95%; }
+    .lightbox-close { position: absolute; top: 18px; right: 18px; background: rgba(255,255,255,0.12); color: #fff; border: none; padding: 8px 10px; border-radius: 8px; font-size: 18px; cursor: pointer; z-index:3100; }
   </style>
 </head>
-
 <body>
 
   <!-- TOP BAR -->
-  <div class="topbar" role="navigation">
-    <div class="topbar-left">
-      <a class="brand" href="../index.html">Sienna Giuseppi</a>
-      <nav class="topnav">
-        <a href="../about.html">About</a>
-        <a href="../index.html#engineering-projects">Projects</a>
-        <a href="../index.html#experiences">Experiences</a>
-        <a href="../resume.html">Resume</a>
-      </nav>
-    </div>
+  <div class="topbar">
+    <div class="brand">Sienna Giuseppi</div>
+    <a href="../index.html#engineering-projects">Back to projects</a>
   </div>
-
   <div class="spacer"></div>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-title">EGR 121 — Engineering Design & Communication</div>
+  <section class="hero" aria-label="Project hero image">
+    <div class="hero-title">Reptile Release Feeder — Cricket Crew</div>
   </section>
 
-  <div class="page">
-
-    <!-- COURSE DESCRIPTION -->
-    <section class="content">
-      <h2>Course Overview</h2>
+  <!-- MAIN: intro -->
+  <main class="content" aria-labelledby="project-intro-heading">
+    <section class="project-intro" id="project-intro">
       <p>
-        EGR 121 introduces first years to the process of team-based creative
-        conceptualization, visualization, prototyping, and product realization.
-        Students use computer-aided design tools to create custom circuit boards
-        and CNC-machined components to produce prototype systems.
+        The Reptile Release Feeder is designed to slowly dispense crickets over a two-hour window to mimic natural prey distribution and discourage rapid feeding or competition with birds. The system emphasizes durability, ease of maintenance, and low cost so it can be replicated across habitats. Design criteria (capacity, timing, safety, run-time, and maintenance) were developed with the client and captured in the team memo. :contentReference[oaicite:0]{index=0}
       </p>
+
       <p>
-        Design concepts are introduced and reinforced through hands-on assignments
-        emphasizing collaboration, documentation, and iterative improvement.
+        Our prototype holds approximately 150 crickets, supports randomized or staggered release timing, and uses a low-noise, low-visibility mechanism to remain unobtrusive for zoo visitors while providing a reliable feeding experience for keepers.
       </p>
     </section>
+  </main>
 
-    <!-- DC2 -->
-    <article class="project-tile" id="dc2Tile" tabindex="0" role="button" aria-pressed="false">
-      <div class="project-row">
-        <div class="project-img" style="background-image:url('../images/projects/201/frontQSM.png')"></div>
-        <div class="project-text">
-          <h3 class="project-title">DC2 — Mousetrap Car</h3>
-          <p class="project-desc">
-            A mechanical energy conversion challenge focused on translating the
-            stored energy of a single mousetrap into controlled motion across a
-            sandy surface. Our team iterated on wheel geometry, drivetrain ratios,
-            and traction strategies to optimize performance under strict constraints.
+  <!-- DEMO -->
+  <section class="demo-wrapper" aria-labelledby="project-demo-heading">
+    <div class="demo-card" role="region" aria-label="Project demo card">
+      <h2 id="project-demo-heading">Project Demo</h2>
+
+      <div class="demo-grid">
+        <!-- VIDEO column (portrait) - placeholder -->
+        <div class="video-col">
+          <!-- If you have a demo video, replace src & poster below -->
+          <video class="project-video" controls preload="metadata" poster="../images/reptile/demo_poster.jpg" playsinline>
+            <source src="../images/reptile/demo_full.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- TEXT column -->
+        <div class="text-col">
+          <p><strong>Demo overview</strong></p>
+          <p>
+            The demo shows the hopper dispensing crickets at randomized intervals (configurable between ~2–10 minutes) and the unit operating quietly for extended periods. Timing is handled by a simple microcontroller-based scheduler that triggers short actuation pulses to avoid crushing prey.
+          </p>
+
+          <p><strong>Design priorities</strong></p>
+          <ul>
+            <li><strong>Cricket survival:</strong> internal temperature and gentle release ensure crickets survive the dispense interval.</li>
+            <li><strong>Randomized release:</strong> timing variability to simulate natural prey behavior and reduce predictability.</li>
+            <li><strong>Keeper usability:</strong> easy-fill hopper and tool-less disassembly for cleaning in under five minutes.</li>
+          </ul>
+
+          <p>
+            For full technical detail, schematics, and test results see the feature sections and the attached memos (links in features).
           </p>
         </div>
       </div>
-    </article>
+    </div>
+  </section>
 
-    <!-- DC3 -->
-    <article class="project-tile" id="dc3Tile" tabindex="0" role="button" aria-pressed="false">
-      <div class="project-row">
-        <div class="project-img" style="background-image:url('../images/projects/201/happymeal%20toy.jpeg')"></div>
-        <div class="project-text">
-          <h3 class="project-title">DC3 — Happy Meal Toy</h3>
-          <p class="project-desc">
-            A consumer product design project emphasizing manufacturability,
-            safety, and cost. Our team designed a modular toy system with full
-            CAD models, tolerancing, and manufacturing documentation intended
-            for mass production.
-          </p>
-        </div>
-      </div>
-    </article>
+  <!-- FEATURES -->
+  <section class="features" aria-labelledby="features-heading">
+    <h2 id="features-heading" class="features-heading">Features</h2>
 
-    <!-- DC4 -->
-    <article class="project-tile" id="dc4Tile" tabindex="0" role="button" aria-pressed="false">
-      <div class="project-row">
-        <div class="project-img" style="background-image:url('../images/projects/201/ruethumb.jpg')"></div>
-        <div class="project-text">
-          <h3 class="project-title">DC4 — Rube Goldberg Machine</h3>
-          <p class="project-desc">
-            A large-scale collaborative Rube Goldberg machine integrating
-            mechanical and electronic subsystems to trigger sequential events. I was in charge of building the <em>Legally Blonde</em> themed component, in which a switch triggers the rotation of a gavel carrying the ball.
-          </p>
-        </div>
-      </div>
-    </article>
+    <div class="features-grid">
 
-  </div>
-
-  <!-- DC2 DETAIL MODAL (buttons moved under images) -->
-  <div id="dc2Modal" class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="detail-inner" role="document" aria-labelledby="dc2Title">
-      <div class="detail-header">
-        <div id="dc2Title" style="font-weight:800">DC2 — Mousetrap Car (team QSM)</div>
-        <div>
-          <button id="dc2Close" class="modal-close" aria-label="Close details">✕</button>
-        </div>
-      </div>
-
-      <div class="detail-body">
-        <div class="media-col">
-          <div class="media-player" id="dc2MainMedia" aria-live="polite">
-            <div class="media-missing">Loading media…</div>
-          </div>
-
-          <div class="carousel-thumbs" id="dc2Thumbs" role="list"></div>
-
-          <div class="carousel-caption" id="dc2Caption">Click thumbnails to view photos (or play the video above).</div>
-
-          <!-- MOVED: buttons now live under the images -->
-          <div class="cta-row" style="margin-top:12px;">
-            <a class="btn" href="../images/projects/201/dc2memo.pdf" target="_blank" rel="noopener">Open full DC2 memo</a>
-            <button id="dc2CloseBtn" class="btn ghost">Close</button>
-          </div>
-        </div>
-
-        <div class="info-col">
-          <div>
-            <div class="info-title">What my team designed and why</div>
-            <div class="info-text">
-              <p>Below is a concise, bulleted summary of our DC2 design choices (Full memo attached):</p>
-
-              <ul class="bullets">
-                <li><strong>Triangular chassis:</strong> Chosen because angling the mousetrap lever increased the length of string travel in the final ~30° of rotation, giving more consistent energy transfer; the triangular shape also allowed weight reduction by removing material from faces while maintaining stiffness.</li>
-                <li><strong>Cardboard (large, smooth) driving wheels:</strong> Cardboard wheels provided a good balance of low weight, sufficient diameter to avoid sinking in sand, and a moderate moment of inertia—smooth, larger wheels outperformed heavily treaded options under the available torque.</li>
-                <li><strong>Lever & dowel choice:</strong> A wooden dowel lever (tested 4" vs 8") was selected for its combination of stiffness, low mass, and ease of attachment; lever length was finalized after prototyping to balance torque and string travel.</li>
-                <li><strong>Bearings for guiding wheels:</strong> Bearings used on non-driving wheels reduced axle friction and helped the car roll further in sand; driving wheels mounted directly produced a simpler drive interface to the axle.</li>
-                <li><strong>Adding weight (rear washers):</strong> After initial lever tuning, metal washers were added at the rear to improve traction and balance without sinking the vehicle; mass placement was tuned for best distance vs carrying capacity.</li>
-                <li><strong>Release method & robustness:</strong> Because the vehicle must be released by cutting a string in a 6-minute testing window, we prioritized durability and repeatable setup.</li>
-                <li><strong>Creativity:</strong> We were inspired by our triangular base to give our vehicle a 'shipwreck' theme, decorating the base as a pirate ship raising its sail, and wheels with aquatic elements.</li>
-              </ul>
-
-              <p>These decisions were arrived at via iterative prototyping and a Pugh-matrix approach detailed in the team memo.</p>
+      <!-- Feature 1: Release Mechanism -->
+      <details class="feature-card" data-index="0">
+        <summary class="feature-summary">
+          <img src="../images/reptile/release_thumb.png" alt="release mechanism" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Release Mechanism</div>
+            <div class="feature-excerpt">
+              Low-impact actuator dispenses crickets either randomly or staggered over time.
             </div>
           </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/reptile/release_full.png">
+          <img src="../images/reptile/release_full.png" alt="release mechanism detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              The dispensing mechanism is designed to push small batches of crickets out at short intervals (configurable via onboard controls). It uses a gentle rotor wheel with cups sized to hold a few crickets each, minimizing crushing and ensuring live prey are delivered intact.
+            </p>
+
+            <p>Key points:</p>
+            <ul>
+              <li>Adjustable dispense volume per actuation</li>
+              <li>Random timing between 2–10 minutes (client spec).</li>
+              <li>Actuation pulse short enough to avoid damaging crickets.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- Feature 2: Hopper & Capacity -->
+      <details class="feature-card" data-index="1">
+        <summary class="feature-summary">
+          <img src="../images/reptile/hopper_thumb.png" alt="hopper thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Hopper & Capacity</div>
+            <div class="feature-excerpt">
+              Holds ~150 crickets, easy to refill and clean.
+            </div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/reptile/hopper_full.png">
+          <img src="../images/reptile/hopper_full.png" alt="hopper detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              The hopper is sized to meet client capacity (~150 crickets) and is built with smooth internal surfaces to prevent jams and to allow quick hand-cleaning. The feed angle and outlet design prevent cricket climbing and accidental escapes inside the housing.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Feature 3: Timing Logic & Electronics -->
+      <details class="feature-card" data-index="2">
+        <summary class="feature-summary">
+          <img src="../images/reptile/electronics_thumb.png" alt="electronics thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Timing Logic & Electronics</div>
+            <div class="feature-excerpt">
+              Microcontroller schedules randomized/staggered release and power management.
+            </div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/reptile/electronics_full.png">
+          <img src="../images/reptile/electronics_full.png" alt="electronics detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              A small MCU handles actuator timing, adjustable release patterns, and battery monitoring. Safety interlocks prevent actuation during hopper access. Power management is sized to run at least 14 hours per charge per client requirement.
+            </p>
+
+            <ul>
+              <li>Configurable randomization window (2–10 min)</li>
+              <li>Battery life target: 14 hours on one charge (design goal)</li>
+              <li>Protected connectors for easy maintenance</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- Feature 4: Temperature & Cricket Survival -->
+      <details class="feature-card" data-index="3">
+        <summary class="feature-summary">
+          <img src="../images/reptile/temp_thumb.png" alt="temperature control" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Thermal Control & Cricket Survival</div>
+            <div class="feature-excerpt">
+              Passive thermal design plus optional heater to keep crickets healthy.
+            </div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/reptile/temp_full.png">
+          <img src="../images/reptile/temp_full.png" alt="temperature detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              The internal environment is managed to keep crickets in the 22–32°C range to ensure survival for the release window, using passive insulation and, where necessary, low-power heaters controlled by a thermostat.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Feature 5: Maintenance & Cleaning -->
+      <details class="feature-card" data-index="4">
+        <summary class="feature-summary">
+          <img src="../images/reptile/maintenance_thumb.png" alt="maintenance thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Maintenance & Cleaning</div>
+            <div class="feature-excerpt">Tool-less disassembly for fast cleaning and service.</div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/reptile/maintenance_full.png">
+          <img src="../images/reptile/maintenance_full.png" alt="maintenance detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              The feeder is designed for quick field servicing: the hopper and rotor sub-assembly remove without tools and can be cleaned in under 10 minutes, meeting the team's maintainability goals.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Feature 6: Safety & Appearance -->
+      <details class="feature-card" data-index="5">
+        <summary class="feature-summary">
+          <img src="../images/reptile/safety_thumb.png" alt="safety thumbnail" class="feature-thumb">
+          <div class="feature-meta">
+            <div class="feature-title">Safety & Appearance</div>
+            <div class="feature-excerpt">No openings <1" and discrete aesthetics for visitor experience.</div>
+          </div>
+        </summary>
+
+        <div class="feature-body" data-full="../images/reptile/safety_full.png">
+          <img src="../images/reptile/safety_full.png" alt="safety detail" class="feature-fullimg">
+          <div class="feature-text">
+            <p>
+              All openings exceed the no-less-than-1-inch safety constraint and interior geometry avoids sharp corners. The housing is acoustically damped to be visually and audibly unobtrusive in the exhibit.
+            </p>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- BEGIN: Full Images block -->
+  <section class="full-images-section" aria-labelledby="full-images-heading" >
+    <h2 id="full-images-heading" class="full-images-title">Full images</h2>
+
+    <!-- Large full prototype photo -->
+    <div class="full-board-wrap">
+      <button class="img-btn" data-src="../images/reptile/full_releaser.png" data-caption="Full prototype — hopper, rotor, and electronics box">
+        <img src="../images/reptile/full_releaser.png" alt="Full prototype photo" class="full-board-img">
+      </button>
+      <div class="img-caption"><em>Prototype overview</em></div>
+    </div>
+
+    <!-- Two-column CAD row -->
+    <div class="cad-row">
+      <figure class="cad-figure">
+        <button class="img-btn" data-src="../images/reptile/exploded.png" data-caption="Exploded view — component layout">
+          <img src="../images/reptile/exploded.png" alt="Exploded view" class="cad-img">
+        </button>
+        <figcaption class="img-caption"><em>Exploded view — component layout</em></figcaption>
+      </figure>
+
+      <figure class="cad-figure">
+        <button class="img-btn" data-src="../images/reptile/cad_label.png" data-caption="CAD view — labeled parts">
+          <img src="../images/reptile/cad_label.png" alt="CAD labeled" class="cad-img">
+        </button>
+        <figcaption class="img-caption"><em>Labeled CAD view — mounting & routing</em></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Lightbox modal (reused for all images) -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox-close" aria-label="Close full image">✕</button>
+    <div class="lightbox-inner">
+      <img id="lightboxImg" src="" alt="">
+      <div id="lightboxCaption" class="lightbox-caption" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="featureModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="modal-title">
+      <div class="modal-top">
+        <div class="modal-title" id="modal-title">Feature title</div>
+        <div class="modal-controls">
+          <button class="modal-prev" type="button" aria-label="Previous feature">◀ Prev</button>
+          <button class="modal-next" type="button" aria-label="Next feature">Next ▶</button>
+          <button class="modal-close" type="button" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <!-- default image element (may be replaced by video node when needed) -->
+        <img src="" alt="" class="modal-img" id="modalImg">
+        <div class="modal-text">
+          <div id="modalDesc"></div>
+          <ul id="modalList"></ul>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- DC3 DETAIL MODAL (buttons moved under images) -->
-  <div id="dc3Modal" class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="detail-inner" role="document" aria-labelledby="dc3Title">
-      <div class="detail-header">
-        <div id="dc3Title" style="font-weight:800">DC3 — Happy Meal Toy (team Happy Zoo)</div>
-        <div>
-          <button id="dc3Close" class="modal-close" aria-label="Close details">✕</button>
-        </div>
-      </div>
+<script>
+  // Collect feature data from the page
+  const featureCards = Array.from(document.querySelectorAll('.feature-card'));
+  const features = featureCards.map(card => {
+    const title = card.querySelector('.feature-title')?.textContent?.trim() || '';
+    const excerpt = card.querySelector('.feature-excerpt')?.textContent?.trim() || '';
+    const body = card.querySelector('.feature-body');
+    let fullSrc = body?.getAttribute('data-full') || '';
+    if (!fullSrc) {
+      const img = body?.querySelector('img');
+      const vid = body?.querySelector('video source');
+      if (img) fullSrc = img.src || img.getAttribute('src') || '';
+      else if (vid) fullSrc = vid.getAttribute('src') || '';
+    }
 
-      <div class="detail-body">
-        <!-- left column: photo carousel -->
-        <div class="media-col">
-          <div class="media-player" id="dc3MainMedia" aria-live="polite">
-            <div class="media-missing">Loading photos…</div>
-          </div>
+    const paragraphs = Array.from(body?.querySelectorAll('.feature-text p') || [])
+                           .map(p => p.textContent.trim())
+                           .filter(t => t.length > 0);
 
-          <div class="carousel-thumbs" id="dc3Thumbs" role="list">
-            <!-- thumbnails inserted by JS -->
-          </div>
+    const listItems = Array.from(body?.querySelectorAll('.feature-text ul li') || [])
+                           .map(li => li.textContent.trim())
+                           .filter(t => t.length > 0);
 
-          <div class="carousel-caption" id="dc3Caption">Click thumbnails to enlarge photos. Full memo available via button.</div>
+    return { title, excerpt, fullSrc, paragraphs, listItems };
+  });
 
-          <!-- MOVED: buttons under images -->
-          <div class="cta-row" style="margin-top:12px;">
-            <a class="btn" href="../images/projects/201/DC3%20Technical%20Memo.pdf" target="_blank" rel="noopener">Open full DC3 memo</a>
-            <button id="dc3CloseBtn" class="btn ghost">Close</button>
-          </div>
-        </div>
+  // Modal elements
+  const modalOverlay = document.getElementById('featureModal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalImg = document.getElementById('modalImg');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalList = document.getElementById('modalList');
+  const btnClose = modalOverlay.querySelector('.modal-close');
+  const btnPrev = modalOverlay.querySelector('.modal-prev');
+  const btnNext = modalOverlay.querySelector('.modal-next');
 
-        <!-- right column: description, bullets -->
-        <div class="info-col">
-          <div>
-            <div class="info-title">What my team designed and why</div>
-            <div class="info-text">
-              <p>Summary of our DC3 'Happy Zoo Train' toy design choices and rationale (full memo attached):</p>
+  let currentIndex = 0;
 
-              <ul class="bullets">
-                <li><strong>Mix-and-match peg-hole system:</strong> We designed a consistent peg & hole interface so every car top fits any frame; this encourages collecting and replay value by letting kids connect cars into longer trains.</li>
-                <li><strong>Generic, paintable animal bodies:</strong> The body car uses a single injection-molded shape that can be painted as different animals (pig, tiger, etc.), lowering tooling cost while increasing collectible variety.</li>
-                <li><strong>Injection-moldable geometry:</strong> Parts were designed with moldability in mind (no overhangs, separate conductor figure) to allow efficient mass production and minimize post-processing.</li>
-                <li><strong>Tolerances for snap-fit & durability:</strong> We used ~0.15 mm CTF tolerances on critical features (peg holes, conductor legs) so parts snap together securely but remain separable for play.</li>
-                <li><strong>No choking hazards & safety:</strong> Each toy was sized to avoid small removable hazards; wheel pins are glued after assembly to ensure permanence where needed.</li>
-                <li><strong>Material & sustainability choices:</strong> Polyethylene (PE) was selected—lightweight, durable, recyclable—and the car tops are shelled to reduce material use and cost.</li>
-                <li><strong>Manufacturing cost awareness:</strong> The design prioritized few, low-cost parts (frame, tops, wheels, pins, conductor) and simple painting/stenciling for branding to keep per-unit cost low (detailed cost breakdown in memo).</li>
-              </ul>
+  function renderMedia(fullSrc, title) {
+    const isVideo = /\.(mp4|webm|ogg)$/i.test(fullSrc);
+    const modalBody = document.querySelector('.modal-body');
 
-              <p>These points and the manufacturing/assembly decisions (wheel pins glued, shelling to reduce plastic, cost estimates) are documented in our DC3 Technical Memo.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    // remove existing media nodes (img or video)
+    const existingImg = modalBody.querySelector('img.modal-img');
+    const existingVideo = modalBody.querySelector('video.modal-img');
+    if (existingImg) existingImg.remove();
+    if (existingVideo) existingVideo.remove();
 
-  <!-- DC4 DETAIL MODAL (buttons moved under images) -->
-  <div id="dc4Modal" class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="detail-inner" role="document" aria-labelledby="dc4Title">
-      <div class="detail-header">
-        <div id="dc4Title" style="font-weight:800">DC4 — Rube Goldberg Machine (SportBot)</div>
-        <div>
-          <button id="dc4Close" class="modal-close" aria-label="Close details">✕</button>
-        </div>
-      </div>
+    if (isVideo) {
+      const video = document.createElement('video');
+      video.setAttribute('controls', '');
+      video.setAttribute('playsinline', '');
+      video.className = 'modal-img';
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.alt = title || '';
+      const source = document.createElement('source');
+      source.src = fullSrc;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      modalBody.insertBefore(video, modalBody.querySelector('.modal-text'));
+      video.muted = true;
+      video.play().catch(()=>{/* autoplay may be blocked; that's fine */});
+      return;
+    } else {
+      const img = document.createElement('img');
+      img.id = 'modalImg';
+      img.className = 'modal-img';
+      img.src = fullSrc || '';
+      img.alt = title || '';
+      modalBody.insertBefore(img, modalBody.querySelector('.modal-text'));
+    }
+  }
 
-      <div class="detail-body">
-        <!-- left column: video + thumbs -->
-        <div class="media-col">
-          <div class="media-player" id="dc4MainMedia" aria-live="polite">
-            <div class="media-missing">Loading media…</div>
-          </div>
+  function openModal(index) {
+    if (index < 0 || index >= features.length) return;
+    currentIndex = index;
+    const f = features[index];
 
-          <div class="carousel-thumbs" id="dc4Thumbs" role="list"></div>
+    modalTitle.textContent = f.title || 'Feature';
+    renderMedia(f.fullSrc || '', f.title);
 
-          <div class="carousel-caption" id="dc4Caption">Play the full team run or my Legally Blonde module video, or click photos to enlarge.</div>
-
-          <!-- MOVED: buttons under images -->
-          <div class="cta-row" style="margin-top:12px;">
-            <a class="btn" href="../images/projects/egr121/DC4%20SportBot%20Documentation.pdf" target="_blank" rel="noopener">Open full DC4 memo</a>
-            <button id="dc4CloseBtn" class="btn ghost">Close</button>
-          </div>
-        </div>
-
-        <!-- right column: description -->
-        <div class="info-col">
-          <div>
-            <div class="info-title">My role — Legally Blonde module</div>
-            <div class="info-text">
-              <p>
-                The DC4 SportBot was a multi-team Rube Goldberg machine with a movie theme. Our 12-person group assigned subteams; I was responsible for the Legally Blonde component. The Legally Blonde module was designed to receive a ball, route it via wire rails, trigger a gavel rotation 90 degrees via a 555-timer-driven motor, then pass the ball to the next track. (Design and circuit details are in the SportBot documentation.)
-              </p>
-
-              <p><strong>How it worked (summary):</strong></p>
-              <ul class="bullets">
-                <li><strong>Frame & routing:</strong> I laser-cut a Harvard Law-style frame to act as the physical structure; the ball enters at the back and follows wire rails that wrap it toward the gavel entrance.</li>
-                <li><strong>Gavel mechanism:</strong> The gavel was constructed from a modified toilet-paper roll reinforced with papier-mâché and a small PVC shaft; a 3D-printed collar fit the motor's rotating pin to the gavel securely.</li>
-                <li><strong>Switch & timing:</strong> The ball depresses a switch in the gavel entrance that triggers a 555-timer circuit, commanding the motor to rotate the gavel for ~2 seconds (deliver ball to exit rail) — wiring and switch are embedded inside the gavel housing for neatness and reliability.</li>
-                <li><strong>Wiring & packaging:</strong> All wiring routed through the gavel body and frame so motion did not tangle or pull on wires; 3D-printed motor mounts were iterated for wear resistance and fit.</li>
-                <li><strong>Integration:</strong> The output exit aligns to the next module's entry. The SportBot documentation includes the Legally Blonde circuit schematic and action summary (see memo).</li>
-              </ul>
-
-              <p>
-                Below are video(s) and photos: one full-team run video, one video of my component, and three photos (gavel close-up, frame routing, integrated view). Click the memo button for full documentation including schematics and team reflections.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    (function(){
-      /* ----------------- DC2 behavior (unchanged) ----------------- */
-      const dc2Tile = document.getElementById('dc2Tile');
-      const dc2Modal = document.getElementById('dc2Modal');
-      const dc2Close = document.getElementById('dc2Close');
-      const dc2CloseBtn = document.getElementById('dc2CloseBtn');
-      const dc2MainMedia = document.getElementById('dc2MainMedia');
-      const dc2Thumbs = document.getElementById('dc2Thumbs');
-      const dc2Caption = document.getElementById('dc2Caption');
-
-      const mediaSources = [
-        { type: 'video', src: '../images/projects/201/mousecar.mp4', caption: 'DC2 test run (video)' },
-        { type: 'image', src: '../images/projects/201/frontQSM.png', caption: 'Front isometric photo' },
-        { type: 'image', src: '../images/projects/201/frontisoQSM.png', caption: 'Front isometric drawing' },
-        { type: 'image', src: '../images/projects/201/backQSM.png', caption: 'Rear isometric photo' },
-        { type: 'image', src: '../images/projects/201/backisoQSM.png', caption: 'Back isometric drawing' },
-        { type: 'image', src: '../images/projects/201/wheelQSM.png', caption: 'Wheel design iterations' },
-        { type: 'image', src: '../images/projects/201/planningQSM.png', caption: 'Brainstorming sketches' }
-      ];
-
-      function isVideo(src){ return /\.mp4$/i.test(src) || /\.webm$/i.test(src) || /\.ogg$/i.test(src); }
-
-      function renderMainDc2(item){
-        dc2MainMedia.innerHTML = '';
-        if(!item){ dc2MainMedia.appendChild(document.createElement('div')).textContent = 'No media'; return; }
-        if(item.type === 'video' || isVideo(item.src)){
-          const v = document.createElement('video');
-          v.src = item.src; v.controls = true; v.preload='metadata'; v.style.maxWidth='100%'; v.playsInline = true;
-          v.addEventListener('error', ()=>{ dc2MainMedia.innerHTML=''; const m=document.createElement('div'); m.className='media-missing'; m.textContent='Video not found'; dc2MainMedia.appendChild(m);});
-          dc2MainMedia.appendChild(v);
-        } else {
-          const img = document.createElement('img'); img.src = item.src; img.alt = item.caption || '';
-          img.addEventListener('error', ()=>{ img.style.opacity='0.45'; img.title='Image missing'; });
-          dc2MainMedia.appendChild(img);
-        }
-        dc2Caption.textContent = item.caption || '';
-      }
-
-      function buildThumbsDc2(list){
-        dc2Thumbs.innerHTML = '';
-        list.forEach((it, idx) => {
-          if(it.type === 'video' || isVideo(it.src)){
-            const poster = document.createElement('img');
-            poster.src = it.src.replace(/\.[^/.]+$/, '.jpg'); poster.alt = it.caption || 'video';
-            poster.addEventListener('click', ()=>{ renderMainDc2(it); highlightThumb(dc2Thumbs, idx); });
-            poster.addEventListener('error', ()=> { const box=document.createElement('div'); box.className='media-missing'; box.style.width='80px'; box.style.height='52px'; box.style.cursor='pointer'; box.textContent='VIDEO'; box.addEventListener('click', ()=>{ renderMainDc2(it); highlightThumb(dc2Thumbs, idx);}); dc2Thumbs.appendChild(box); });
-            dc2Thumbs.appendChild(poster);
-          } else {
-            const t = document.createElement('img'); t.src = it.src; t.alt = it.caption || '';
-            t.tabIndex = 0; t.addEventListener('click', ()=>{ renderMainDc2(it); highlightThumb(dc2Thumbs, idx); });
-            t.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); t.click(); }});
-            t.addEventListener('error', ()=>{ t.style.opacity='0.4'; t.title='Image missing'; });
-            dc2Thumbs.appendChild(t);
-          }
-        });
-        highlightThumb(dc2Thumbs, 0);
-      }
-
-      function highlightThumb(container, idx){
-        Array.from(container.children).forEach((el,i)=>{ el.style.opacity=(i===idx)?'1':'0.6'; el.style.transform=(i===idx)?'scale(1.03)':'scale(1)'; });
-      }
-
-      function openDc2(){
-        dc2Modal.classList.add('open'); dc2Modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
-        const primary = mediaSources.find(m => (m.type==='video' || isVideo(m.src))) || mediaSources[0];
-        renderMainDc2(primary); buildThumbsDc2(mediaSources);
-      }
-      function closeDc2(){ dc2Modal.classList.remove('open'); dc2Modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; dc2MainMedia.innerHTML=''; dc2Thumbs.innerHTML=''; }
-
-      dc2Tile.addEventListener('click', openDc2);
-      dc2Tile.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openDc2(); });
-      dc2Close.addEventListener('click', closeDc2);
-      dc2CloseBtn.addEventListener('click', closeDc2);
-      dc2Modal.addEventListener('click', (e)=>{ if(e.target===dc2Modal) closeDc2(); });
-      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && dc2Modal.classList.contains('open')) closeDc2(); });
-
-      /* ----------------- DC3 behavior (unchanged) ----------------- */
-      const dc3Tile = document.getElementById('dc3Tile');
-      const dc3Modal = document.getElementById('dc3Modal');
-      const dc3Close = document.getElementById('dc3Close');
-      const dc3CloseBtn = document.getElementById('dc3CloseBtn');
-      const dc3MainMedia = document.getElementById('dc3MainMedia');
-      const dc3Thumbs = document.getElementById('dc3Thumbs');
-      const dc3Caption = document.getElementById('dc3Caption');
-
-      const dc3Media = [
-        { type: 'image', src: '../images/projects/201/happymeal%20toy.jpeg', caption: 'Assembled Happy Zoo Train (engine + body)' },
-        { type: 'image', src: '../images/projects/201/exploadedviewtoy.png', caption: 'Toy exploded view' },
-        { type: 'image', src: '../images/projects/201/enginecar.png', caption: 'Solidworks engine car drawing' },
-        { type: 'image', src: '../images/projects/201/framedraw.png', caption: 'Solidworks frame drawing' },
-        { type: 'image', src: '../images/projects/201/pigcar.png', caption: 'Solidworks animal car drawing' },
-        { type: 'image', src: '../images/projects/201/wheeldraw.png', caption: 'Solidworks wheels drawing' },
-        { type: 'image', src: '../images/projects/201/pindraw.png', caption: 'Solidworks pin drawing' }
-      ];
-
-      function renderMainDc3(item){
-        dc3MainMedia.innerHTML = '';
-        if(!item){ dc3MainMedia.appendChild(document.createElement('div')).textContent='No media'; return; }
-        const img = document.createElement('img'); img.src = item.src; img.alt = item.caption || '';
-        img.addEventListener('error', ()=>{ img.style.opacity='0.45'; img.title='Image missing'; });
-        dc3MainMedia.appendChild(img);
-        dc3Caption.textContent = item.caption || '';
-      }
-
-      function buildThumbsDc3(list){
-        dc3Thumbs.innerHTML = '';
-        list.forEach((it, idx) => {
-          const t = document.createElement('img');
-          t.src = it.src; t.alt = it.caption || '';
-          t.tabIndex = 0;
-          t.addEventListener('click', ()=>{ renderMainDc3(it); highlightThumb(dc3Thumbs, idx); });
-          t.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); t.click(); }});
-          t.addEventListener('error', ()=>{ t.style.opacity='0.4'; t.title='Image missing'; });
-          dc3Thumbs.appendChild(t);
-        });
-        highlightThumb(dc3Thumbs, 0);
-      }
-
-      function openDc3(){
-        dc3Modal.classList.add('open'); dc3Modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
-        const primary = dc3Media[0] || null;
-        if(primary) renderMainDc3(primary);
-        buildThumbsDc3(dc3Media);
-      }
-      function closeDc3(){ dc3Modal.classList.remove('open'); dc3Modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; dc3MainMedia.innerHTML=''; dc3Thumbs.innerHTML=''; }
-
-      dc3Tile.addEventListener('click', openDc3);
-      dc3Tile.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openDc3(); });
-      dc3Close.addEventListener('click', closeDc3);
-      dc3CloseBtn.addEventListener('click', closeDc3);
-      dc3Modal.addEventListener('click', (e)=>{ if(e.target===dc3Modal) closeDc3(); });
-
-      // Preload dc3 images gracefully
-      dc3Media.forEach(s => { const i=new Image(); i.src=s.src; });
-
-      /* ----------------- DC4 behavior (NEW) ----------------- */
-      const dc4Tile = document.getElementById('dc4Tile');
-      const dc4Modal = document.getElementById('dc4Modal');
-      const dc4Close = document.getElementById('dc4Close');
-      const dc4CloseBtn = document.getElementById('dc4CloseBtn');
-      const dc4MainMedia = document.getElementById('dc4MainMedia');
-      const dc4Thumbs = document.getElementById('dc4Thumbs');
-      const dc4Caption = document.getElementById('dc4Caption');
-
-      // DC4 media: one full-team video, one component video, design plan, circuit schematic, finished photos
-      const dc4Media = [
-        { type: 'video', src: '../images/projects/201/ruefull.mp4', caption: 'Full team SportBot run' },
-        { type: 'video', src: '../images/projects/201/legallyrue.mp4', caption: 'Legally Blonde module — solo run' },
-        { type: 'image', src: '../images/projects/201/designrue.png', caption: 'Gavel function' },
-        { type: 'image', src: '../images/projects/201/functionrue.png', caption: 'Gavel diagram with embedded switch & wiring' },
-        { type: 'image', src: '../images/projects/201/legalcirc.png', caption: 'Tinkercad plan for circuit schematic' },
-        { type: 'image', src: '../images/projects/201/ruethumb.jpg', caption: 'Front view' },
-        { type: 'image', src: '../images/projects/201/rueside.jpg', caption: 'Side view' }
-      ];
-
-      function renderMainDc4(item){
-        dc4MainMedia.innerHTML = '';
-        if(!item){ dc4MainMedia.appendChild(document.createElement('div')).textContent = 'No media'; return; }
-        if(item.type === 'video' || isVideo(item.src)){
-          const v = document.createElement('video');
-          v.src = item.src; v.controls = true; v.preload='metadata'; v.style.maxWidth='100%'; v.playsInline = true;
-          v.addEventListener('error', ()=>{ dc4MainMedia.innerHTML=''; const m=document.createElement('div'); m.className='media-missing'; m.textContent='Video not found'; dc4MainMedia.appendChild(m);});
-          dc4MainMedia.appendChild(v);
-        } else {
-          const img = document.createElement('img'); img.src = item.src; img.alt = item.caption || '';
-          img.addEventListener('error', ()=>{ img.style.opacity='0.45'; img.title='Image missing'; });
-          dc4MainMedia.appendChild(img);
-        }
-        dc4Caption.textContent = item.caption || '';
-      }
-
-      function buildThumbsDc4(list){
-        dc4Thumbs.innerHTML = '';
-        list.forEach((it, idx) => {
-          if(it.type === 'video' || isVideo(it.src)){
-            const poster = document.createElement('img');
-            poster.src = it.src.replace(/\.[^/.]+$/, '.jpg'); poster.alt = it.caption || 'video';
-            poster.addEventListener('click', ()=>{ renderMainDc4(it); highlightThumb(dc4Thumbs, idx); });
-            poster.addEventListener('error', ()=> { const box=document.createElement('div'); box.className='media-missing'; box.style.width='80px'; box.style.height='52px'; box.style.cursor='pointer'; box.textContent='VIDEO'; box.addEventListener('click', ()=>{ renderMainDc4(it); highlightThumb(dc4Thumbs, idx);}); dc4Thumbs.appendChild(box); });
-            dc4Thumbs.appendChild(poster);
-          } else {
-            const t = document.createElement('img'); t.src = it.src; t.alt = it.caption || '';
-            t.tabIndex = 0; t.addEventListener('click', ()=>{ renderMainDc4(it); highlightThumb(dc4Thumbs, idx); });
-            t.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); t.click(); }});
-            t.addEventListener('error', ()=>{ t.style.opacity='0.4'; t.title='Image missing'; });
-            dc4Thumbs.appendChild(t);
-          }
-        });
-        highlightThumb(dc4Thumbs, 0);
-      }
-
-      function openDc4(){
-        dc4Modal.classList.add('open'); dc4Modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
-        const primary = dc4Media.find(m => (m.type==='video' || isVideo(m.src))) || dc4Media[0];
-        renderMainDc4(primary); buildThumbsDc4(dc4Media);
-      }
-
-      function closeDc4(){ dc4Modal.classList.remove('open'); dc4Modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; dc4MainMedia.innerHTML=''; dc4Thumbs.innerHTML=''; }
-
-      dc4Tile.addEventListener('click', openDc4);
-      dc4Tile.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openDc4(); });
-      dc4Close.addEventListener('click', closeDc4);
-      dc4CloseBtn.addEventListener('click', closeDc4);
-      dc4Modal.addEventListener('click', (e)=>{ if(e.target===dc4Modal) closeDc4(); });
-
-      // close both modals on ESC if open
-      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ if(dc3Modal.classList.contains('open')) closeDc3(); if(dc2Modal.classList.contains('open')) closeDc2(); if(dc4Modal.classList.contains('open')) closeDc4(); }});
-
-      // Preload dc4 images/posters
-      dc4Media.forEach(s => {
-        if(!isVideo(s.src)){ const i=new Image(); i.src=s.src; }
-        else { const p=s.src.replace(/\.[^/.]+$/, '.jpg'); const ip=new Image(); ip.src=p; }
+    // paragraphs
+    modalDesc.innerHTML = '';
+    if (f.paragraphs && f.paragraphs.length) {
+      f.paragraphs.forEach(text => {
+        const p = document.createElement('p');
+        p.textContent = text;
+        modalDesc.appendChild(p);
       });
+    } else {
+      modalDesc.textContent = f.excerpt || '';
+    }
 
-    })();
-  </script>
+    // list
+    modalList.innerHTML = '';
+    if (f.listItems && f.listItems.length) {
+      f.listItems.forEach(li => {
+        const el = document.createElement('li');
+        el.textContent = li;
+        modalList.appendChild(el);
+      });
+    }
+
+    modalOverlay.classList.add('open');
+    modalOverlay.setAttribute('aria-hidden', 'false');
+    btnClose.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('open');
+    modalOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // stop/remove any playing video
+    const video = document.querySelector('.modal-body video');
+    if (video) { video.pause(); video.remove(); }
+    // ensure base img exists for next open
+    const modalBody = document.querySelector('.modal-body');
+    if (!modalBody.querySelector('img.modal-img')) {
+      const img = document.createElement('img');
+      img.id = 'modalImg';
+      img.className = 'modal-img';
+      img.src = '';
+      img.alt = '';
+      modalBody.insertBefore(img, modalBody.querySelector('.modal-text'));
+    }
+  }
+
+  function showPrev() { openModal((currentIndex - 1 + features.length) % features.length); }
+  function showNext() { openModal((currentIndex + 1) % features.length); }
+
+  // Attach click handlers
+  featureCards.forEach((card, idx) => {
+    const summary = card.querySelector('.feature-summary');
+    summary.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // let links behave normally
+      e.preventDefault();
+      openModal(idx);
+    });
+    summary.setAttribute('tabindex','0');
+    summary.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(idx); }
+    });
+  });
+
+  // Modal controls
+  btnClose.addEventListener('click', closeModal);
+  btnPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
+  btnNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
+
+  modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!modalOverlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
+  });
+
+  // Lightbox for full images
+  (function(){
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const closeBtn = document.querySelector('.lightbox-close');
+    const imgButtons = Array.from(document.querySelectorAll('.img-btn'));
+
+    function open(src, caption, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || caption || 'Full image';
+      lightboxCaption.textContent = caption || '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden','false');
+      closeBtn.focus();
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden','true');
+      lightboxImg.src = '';
+      lightboxCaption.textContent = '';
+      document.body.style.overflow = '';
+    }
+
+    imgButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const src = btn.getAttribute('data-src') || (btn.querySelector('img')?.src);
+        const caption = btn.getAttribute('data-caption') || (btn.querySelector('img')?.alt) || '';
+        const alt = btn.querySelector('img')?.alt || '';
+        open(src, caption, alt);
+      });
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+      });
+    });
+
+    closeBtn.addEventListener('click', close);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) close();
+    });
+  })();
+
+  // Preload images for features and full images (skip videos)
+  features.forEach(f => {
+    if (f.fullSrc && !/\.(mp4|webm|ogg)$/i.test(f.fullSrc)) {
+      const img = new Image();
+      img.src = f.fullSrc;
+    }
+  });
+  Array.from(document.querySelectorAll('.img-btn')).forEach(btn => {
+    const s = btn.getAttribute('data-src');
+    if (s && !/\.(mp4|webm|ogg)$/i.test(s)) { const i = new Image(); i.src = s; }
+  });
+</script>
+
+<!-- Design criteria & objectives used in this page are taken from the team memo. -->
+<!-- Citation: team memo (Design criteria and objectives). --> :contentReference[oaicite:1]{index=1}
+
 </body>
 </html>
-
