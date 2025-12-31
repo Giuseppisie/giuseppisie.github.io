@@ -110,7 +110,7 @@
       margin-bottom:14px;
     }
 
-    /* ---------- PROJECT BOXES ---------- */
+    /* ---------- PROJECT BOXES (left square image) ---------- */
     .project-tile{
       background:#fff;
       border-radius:12px;
@@ -118,6 +118,7 @@
       margin-bottom:22px;
       transition:transform .15s, box-shadow .15s;
       cursor:pointer;
+      overflow:hidden;
     }
     .project-tile:hover{
       transform:translateY(-4px);
@@ -131,12 +132,15 @@
       align-items:center;
     }
 
+    /* square image on left */
     .project-img{
-      flex:0 0 200px;
-      height:200px;
+      flex:0 0 220px;
+      width:220px;
+      height:220px;
       border-radius:10px;
       background-size:cover;
       background-position:center;
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
     }
 
     .project-text{
@@ -153,17 +157,95 @@
     .project-desc{
       color:#444;
       line-height:1.55;
+      margin:0;
     }
 
-    @media (max-width:800px){
-      .project-row{
-        flex-direction:column;
-      }
-      .project-img{
-        width:100%;
-        height:220px;
-      }
+    .project-cta{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      align-items:center;
     }
+
+    .btn{
+      background:var(--card);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:8px;
+      border:0;
+      cursor:pointer;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    @media (max-width:900px){
+      .project-row{flex-direction:column;align-items:flex-start}
+      .project-img{width:100%;height:220px;flex:0 0 auto}
+    }
+
+    /* ---------- Modal ---------- */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.78);
+      z-index:2000;
+      padding:20px;
+    }
+    .modal.open{display:flex}
+    .modal-box{
+      width:100%;
+      max-width:1100px;
+      background:#fff;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,.5);
+      display:flex;
+      flex-direction:column;
+      max-height:88vh;
+    }
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 18px;
+      background:linear-gradient(90deg,var(--card),#5a9b93);
+      color:#fff;
+    }
+    .modal-body{
+      padding:18px;
+      overflow:auto;
+    }
+    .modal-grid{
+      display:grid;
+      grid-template-columns:360px 1fr;
+      gap:18px;
+    }
+    @media (max-width:900px){ .modal-grid{grid-template-columns:1fr} }
+
+    .modal-media{
+      background:#f6f6f6;
+      border-radius:8px;
+      padding:8px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:center;
+    }
+    .modal-media img, .modal-media video{
+      width:100%;
+      border-radius:6px;
+      object-fit:contain;
+      max-height:48vh;
+    }
+
+    .modal-info h3{margin:0 0 8px}
+    .modal-info p{margin:0 0 10px;color:#333;line-height:1.55}
+    .deliverables-list{margin:8px 0;padding-left:18px;color:#333}
+    .close-btn{background:rgba(255,255,255,.12);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+
   </style>
 </head>
 
@@ -185,7 +267,7 @@
   <div class="spacer"></div>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" role="banner" aria-label="EGR121 hero">
     <div class="hero-title">EGR 121 — Engineering Design & Communication</div>
   </section>
 
@@ -195,66 +277,259 @@
     <section class="content">
       <h2>Course Overview</h2>
       <p>
-        EGR 121 introduces first years to the process of team-based creative
-        conceptualization, visualization, prototyping, and product realization.
-        Students use computer-aided design tools to create custom circuit boards
-        and CNC-machined components to produce prototype systems.
-      </p>
-      <p>
-        Design concepts are introduced and reinforced through hands-on assignments
-        emphasizing collaboration, documentation, and iterative improvement.
+        EGR 121 introduces first years to the process of team-based creative conceptualization,
+        visualization, prototyping, and product realization. Students use computer-aided design tools
+        to create custom circuit boards and CNC-machined components to produce prototype systems.
+        Design concepts are introduced and supported through hands-on assignments emphasizing
+        documentation, iterative testing, and teamwork.
       </p>
     </section>
 
-    <!-- DC2 -->
-    <article class="project-tile">
+    <!-- PROJECT: DC2 -->
+    <article class="project-tile" data-project="dc2" tabindex="0" aria-label="Open DC2 details">
       <div class="project-row">
         <div class="project-img" style="background-image:url('../images/projects/201/frontQSM.png')"></div>
         <div class="project-text">
-          <h3 class="project-title">DC2 — Mousetrap Car</h3>
+          <h3 class="project-title">DC2 — Mousetrap Car (Quantum Sand Machine)</h3>
           <p class="project-desc">
-            A mechanical energy conversion challenge focused on translating the
-            stored energy of a single mousetrap into controlled motion across a
-            sandy surface. Our team iterated on wheel geometry, drivetrain ratios,
-            and traction strategies to optimize performance under strict constraints.
+            A challenge to convert stored energy from a single mousetrap into motion across a sandy course.
+            Our team iterated wheel geometry, lever length, and chassis shape (triangular chassis chosen)
+            to maximize distance while keeping weight reasonable. We tested wheel materials and lever attachments
+            to find the best tradeoffs for sand traction and torque transfer.
           </p>
+          <div class="project-cta">
+            <button class="btn" data-open="dc2">View details</button>
+          </div>
         </div>
       </div>
     </article>
 
-    <!-- DC3 -->
-    <article class="project-tile">
+    <!-- PROJECT: DC3 -->
+    <article class="project-tile" data-project="dc3" tabindex="0" aria-label="Open DC3 details">
       <div class="project-row">
         <div class="project-img" style="background-image:url('../images/projects/201/happymeal%20toy.jpeg')"></div>
         <div class="project-text">
-          <h3 class="project-title">DC3 — Happy Meal Toy</h3>
+          <h3 class="project-title">DC3 — Happy Meal Toy (Train)</h3>
           <p class="project-desc">
-            A consumer product design project emphasizing manufacturability,
-            safety, and cost. Our team designed a modular toy system with full
-            CAD models, tolerancing, and manufacturing documentation intended
-            for mass production.
+            Design for a mass-producible Happy Meal toy: a buildable train with interchangeable car bodies.
+            Each team-member designed a unique plastic part; parts were engineered for injection molding,
+            shelling to reduce material, and snap-fit / peg features for assembly and safe play.
           </p>
+          <div class="project-cta">
+            <button class="btn" data-open="dc3">View details</button>
+          </div>
         </div>
       </div>
     </article>
 
-    <!-- DC4 -->
-    <article class="project-tile">
+    <!-- PROJECT: DC4 -->
+    <article class="project-tile" data-project="dc4" tabindex="0" aria-label="Open DC4 details">
       <div class="project-row">
         <div class="project-img" style="background-image:url('../images/projects/egr121/dc4_thumb.jpg')"></div>
         <div class="project-text">
-          <h3 class="project-title">DC4 — Rube Goldberg Machine</h3>
+          <h3 class="project-title">DC4 — Rube Goldberg / SportBot (Group Module)</h3>
           <p class="project-desc">
-            A large-scale collaborative Rube Goldberg machine integrating
-            mechanical and electronic subsystems. Our four-person subteam built
-            themed modules inspired by <em>Legally Blonde</em> and <em>Titanic</em>,
-            each using custom circuitry to trigger sequential events.
+            Collaborative Rube Goldberg machine connecting four subteams. Our subteam built two themed modules
+            (Legally Blonde and Titanic) that included custom circuits (555 timer motor control, sensor triggers)
+            and mechanical housings that integrated into the larger machine.
           </p>
+          <div class="project-cta">
+            <button class="btn" data-open="dc4">View details</button>
+          </div>
         </div>
       </div>
     </article>
 
   </div>
 
+  <!-- Modal used for all three projects -->
+  <div id="projectModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-box" role="document">
+      <div class="modal-head">
+        <div id="modalTitle">Project</div>
+        <div>
+          <button id="modalClose" class="close-btn" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-media" id="modalMedia">
+            <!-- images/videos inserted here -->
+          </div>
+
+          <div class="modal-info">
+            <h3 id="modalHeading"></h3>
+            <p id="modalSummary"></p>
+
+            <h4>What my portion / role was</h4>
+            <p id="modalRole"></p>
+
+            <h4>Deliverables & documentation</h4>
+            <ul class="deliverables-list" id="modalDeliverables"></ul>
+
+            <div style="margin-top:12px;">
+              <a id="openPdfBtn" class="btn" href="#" target="_blank" rel="noopener">Open primary memo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      // project data extracted from your memos (DC2, DC3, DC4)
+      const projectData = {
+        dc2: {
+          id: 'dc2',
+          title: 'DC2 — Mousetrap Car (Quantum Sand Machine)',
+          summary: `A Quantum Sand Machine vehicle that uses one mousetrap's stored energy to traverse a sandy course. The team tested wheel materials, lever lengths and chassis geometry; we selected a triangular chassis and large smooth driving wheels to avoid sinking and to maximize distance.`,
+          role: `My contributions: worked on wheel selection and iteration, prototyped lever length variations, performed testing in the sandpit, and helped finalize the chassis geometry and weight distribution. I also contributed to the write-up and documentation of the testing results and appendices (sketches & wheel iteration figures).`,
+          media: [
+            '../images/projects/201/frontQSM.png',
+            '../images/projects/201/qsm_side.jpg'
+          ],
+          deliverables: [
+            {label:'DC2 technical memo (submitted)', href:'/mnt/data/annotated-memo DC2 - Quantum Sand Machines Assignment (5).pdf'},
+            {label:'Assignment brief', href:'/mnt/data/DC2 - Quantum Sand Machines Assignment [15% - DUE Feb 17].pdf'}
+          ],
+          memoFile: '/mnt/data/annotated-memo DC2 - Quantum Sand Machines Assignment (5).pdf'
+        },
+        dc3: {
+          id: 'dc3',
+          title: 'DC3 — Happy Meal Toy (Train)',
+          summary: `A train toy designed for Happy Meals with interchangeable car bodies and a peg-snap frame. Team decisions emphasized injection-molding DFM (shelling parts to reduce material), safety (choking-hazard avoidance), and manufacturability. Cost estimates and marketing material were included in the deliverables.`,
+          role: `My portion: designed the body-train car CAD geometry, defined critical-to-fit (CTF) dimensions, iterated the snap/peg interfaces, 3D-printed prototypes for fit testing, and participated in tolerance analysis and the marketing sheet.`,
+          media: [
+            '../images/projects/201/happy_assembled.jpg',
+            '../images/projects/201/happy_parts.jpg'
+          ],
+          deliverables: [
+            {label:'DC3 technical memo (team)', href:'/mnt/data/annotated-DC3 Technical Memo-1.pdf'},
+            {label:'DC3 assignment brief', href:'/mnt/data/DC3 Happy Meals Assignment v2 [20% - DUE Mar24 and Mar31].pdf'}
+          ],
+          memoFile: '/mnt/data/annotated-DC3 Technical Memo-1.pdf'
+        },
+        dc4: {
+          id: 'dc4',
+          title: 'DC4 — Rube Goldberg / SportBot (Legally Blonde & Titanic modules)',
+          summary: `Group Rube Goldberg machine integrating subteam modules. Our subteam implemented a Legally Blonde module (555-based motor timing to swing a gavel) and a Titanic module (Arduino + water sensing + music trigger). We focused on reliable sensor thresholds and mechanical housings to make the modules repeatable within the full chain.`,
+          role: `My portion: co-designed and built the Legally Blonde analog circuit (timer and motor actuation), assisted in mechanical housing design and wiring routing, and performed timing calibration and repeatability testing. I also helped integrate the subteam module into the larger SportBot chain.`,
+          media: [
+            '../images/projects/egr121/dc4_legallyblonde.jpg',
+            '../images/projects/egr121/dc4_titanic.jpg'
+          ],
+          deliverables: [
+            {label:'DC4 SportBot documentation', href:'/mnt/data/annotated-DC4 SportBot Documentation.pdf'}
+          ],
+          memoFile: '/mnt/data/annotated-DC4 SportBot Documentation.pdf'
+        }
+      };
+
+      // modal elements
+      const modal = document.getElementById('projectModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalHeading = document.getElementById('modalHeading');
+      const modalSummary = document.getElementById('modalSummary');
+      const modalRole = document.getElementById('modalRole');
+      const modalDeliverables = document.getElementById('modalDeliverables');
+      const modalMedia = document.getElementById('modalMedia');
+      const openPdfBtn = document.getElementById('openPdfBtn');
+      const closeBtn = document.getElementById('modalClose');
+
+      // open buttons
+      document.querySelectorAll('[data-open]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = btn.getAttribute('data-open');
+          openProjectModal(id);
+        });
+      });
+      // also make entire card clickable
+      document.querySelectorAll('.project-tile').forEach(tile => {
+        tile.addEventListener('click', (e) => {
+          // avoid double-firing when pressing inner button
+          const id = tile.getAttribute('data-project');
+          if (id) openProjectModal(id);
+        });
+      });
+
+      function clearMediaArea(){
+        modalMedia.innerHTML = '';
+      }
+
+      function openProjectModal(id){
+        const data = projectData[id];
+        if(!data) return;
+        modalTitle.textContent = data.title;
+        modalHeading.textContent = data.title;
+        modalSummary.textContent = data.summary;
+        modalRole.textContent = data.role;
+
+        // deliverables list
+        modalDeliverables.innerHTML = '';
+        data.deliverables.forEach(d => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = d.href;
+          a.textContent = d.label;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          li.appendChild(a);
+          modalDeliverables.appendChild(li);
+        });
+
+        // open primary memo quickly as button
+        openPdfBtn.href = data.memoFile || (data.deliverables[0] && data.deliverables[0].href) || '#';
+        openPdfBtn.textContent = 'Open primary memo';
+
+        // media area: prefer images; if video present, add <video>
+        clearMediaArea();
+        (data.media || []).forEach(src => {
+          if (/\.(mp4|webm|ogg)$/i.test(src)) {
+            const v = document.createElement('video');
+            v.src = src;
+            v.controls = true;
+            v.style.maxWidth = '100%';
+            v.style.borderRadius = '6px';
+            modalMedia.appendChild(v);
+          } else {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = data.title + ' image';
+            img.addEventListener('error', () => { img.style.opacity = '0.5'; img.title = 'Image missing'; });
+            modalMedia.appendChild(img);
+          }
+        });
+
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
+
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+        clearMediaArea();
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+      // accessibility: open with Enter when focused on tile
+      document.querySelectorAll('.project-tile').forEach(tile => {
+        tile.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            const id = tile.getAttribute('data-project');
+            if (id) openProjectModal(id);
+          }
+        });
+      });
+
+    })();
+  </script>
 </body>
 </html>
