@@ -59,6 +59,27 @@
     .step-title{font-weight:800;font-size:16px}
     .step-excerpt{margin-top:8px;font-size:14px;opacity:0.95}
 
+    /* media-full (large in-page image) */
+    .media-full {
+      width:100%;
+      background:#fff;
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.06);
+      margin:24px 0;
+    }
+    .media-thumb {
+      width:100%;
+      border-radius:8px;
+      overflow:hidden;
+      background:#f5f5f5;
+      box-shadow:0 6px 16px rgba(0,0,0,0.04);
+      display:block;
+      cursor:pointer;
+    }
+    .media-thumb img { display:block; width:100%; height:auto; object-fit:cover; border-radius:8px; }
+    .media-caption { margin-top:10px; color:#333; font-style:italic; font-size:14px; text-align:center; }
+
     /* modal / lightbox */
     .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.85);z-index:9000;padding:20px}
     .modal.open{display:flex}
@@ -204,6 +225,16 @@
         </div>
 
       </div>
+    </section>
+
+    <!-- NEW: Large in-page image (same as hero) -->
+    <section class="media-full" aria-labelledby="media-heading">
+      <h3 id="media-heading" style="margin:0 0 10px; font-size:18px; color:#111;">Project — full view</h3>
+
+      <div class="media-thumb" id="openProjectFull" role="button" tabindex="0" aria-label="Open full project image">
+        <img src="../images/projects/vroomate/productvroom.jpg" alt="Vroom-mate — full project view">
+      </div>
+      <div class="media-caption"><em>Click to view full project image.</em></div>
     </section>
 
     <!-- Project reflection (replaces design files & notes) -->
@@ -481,6 +512,19 @@
       schemModal.addEventListener('click', (e)=>{ if(e.target === schemModal) closeSchem(); });
       document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeSchem(); });
 
+      /* --- Tiny addition: make the new in-page image open the same full-screen modal --- */
+      const projectThumb = document.getElementById('openProjectFull');
+      if (projectThumb) {
+        projectThumb.addEventListener('click', () => {
+          // set schem image src (keeps same filename you used)
+          const schemImg = document.getElementById('schemImg');
+          schemImg.src = '../images/projects/vroomate/productvroom.jpg';
+          schemImg.alt = 'Vroommate full image';
+          openSchem();
+        });
+        projectThumb.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); projectThumb.click(); }});
+      }
+
       /* --- Global image/video error helper & placeholder --- */
       (function imageDebugHelpers(){
         const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent(
@@ -548,4 +592,5 @@
   </script>
 </body>
 </html>
+
 
