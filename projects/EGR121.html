@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EGR 121 — Projects showcase</title>
+  <title>EGR121 — Course Projects</title>
 
   <style>
     :root{
@@ -22,7 +22,7 @@
       -webkit-font-smoothing:antialiased;
     }
 
-    /* Topbar (same look as your other pages) */
+    /* Topbar */
     .topbar{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 20px;z-index:1000;background:rgba(0,0,0,0.25);backdrop-filter:blur(4px)}
     .topbar-left{display:flex;align-items:center;gap:20px}
     .brand{color:#fff;font-weight:800;font-size:18px;text-decoration:none;text-shadow:0 2px 8px rgba(0,0,0,.4)}
@@ -30,61 +30,59 @@
     .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
     .spacer{height:60px}
 
-    /* hero */
-    .hero{position:relative;height:36vh;background-image:url("../images/projects/egr121/hero.jpg");background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;cursor:default}
-    .hero::after{content:"";position:absolute;inset:0;background:rgba(66,123,118,0.35)}
-    .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(22px,4vw,34px);font-weight:800;text-shadow:0 8px 24px rgba(0,0,0,.6);padding:0 20px;text-align:center}
-
     .page{max-width:var(--content-max);margin:0 auto;padding:36px var(--page-pad) 80px;box-sizing:border-box}
     .content{background:#fff;padding:28px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.06);color:#222;margin-bottom:24px}
     .meta{color:#666;margin-bottom:12px;font-size:14px}
     .content p{line-height:1.6;margin-bottom:14px;color:#222}
 
-    /* project full-width card */
-    .project-card {
+    /* Project tiles (full width) */
+    .project-tile{
       display:block;
       width:100%;
-      background:#fff;
       border-radius:12px;
       overflow:hidden;
-      box-shadow:0 8px 20px rgba(0,0,0,0.06);
-      margin-bottom:18px;
-      cursor:pointer;
+      margin-bottom:20px;
       text-decoration:none;
       color:inherit;
-      border:1px solid rgba(66,123,118,0.08);
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
+      cursor:pointer;
+      background:#fff;
     }
-    .project-inner{display:flex;gap:18px;align-items:stretch;flex-direction:row}
-    @media (max-width:900px){ .project-inner{flex-direction:column} }
-    .project-thumb { flex:0 0 420px; max-width:420px; overflow:hidden; display:block; }
-    .project-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .project-body { padding:22px; flex:1; display:flex; flex-direction:column; justify-content:center; }
-    .project-title { font-size:20px; font-weight:900; color:#111; margin-bottom:8px; }
-    .project-desc { color:#333; line-height:1.5; }
+    .project-visual{
+      height:220px;
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+    .project-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.18))}
+    .project-body{padding:18px;display:flex;gap:18px;align-items:center}
+    .project-title{font-size:20px;font-weight:800}
+    .project-desc{color:#444;line-height:1.5}
+    .full-width{width:100%}
 
-    /* small helper row for actions inside project card */
-    .project-actions { margin-top:12px; display:flex; gap:12px; flex-wrap:wrap; }
-    .btn { background:var(--card); color:#fff; padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px; border:0; cursor:pointer; }
-
-    /* modal (project detail) */
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.85);z-index:20000;padding:20px}
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.85);z-index:9000;padding:20px}
     .modal.open{display:flex}
-    .modal-inner{width:100%;max-width:1100px;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:linear-gradient(90deg,#427b76,#5a9b93);color:#fff}
-    .modal-title{font-weight:800}
-    .modal-body{display:flex;gap:16px;padding:18px;flex-direction:column}
-    .modal-main{display:flex;gap:16px;flex-direction:column}
-    .modal-media { width:100%; max-height:60vh; display:flex; align-items:center; justify-content:center; background:#f5f5f5; border-radius:8px; overflow:hidden; }
-    .modal-media img, .modal-media video { width:100%; height:auto; max-height:60vh; object-fit:contain; display:block; }
-    .modal-grid { display:grid; grid-template-columns: 1fr 320px; gap:18px; }
-    @media (max-width:980px) { .modal-grid { grid-template-columns: 1fr; } }
-    .modal-thumbs { display:flex; gap:8px; overflow-x:auto; padding-top:8px; }
-    .modal-thumbs img{ width:110px; height:66px; object-fit:cover; border-radius:6px; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,.12) }
-    .modal-text { font-size:15px; color:#222; line-height:1.6; }
-    .modal-footer { padding:12px 18px; display:flex; justify-content:space-between; gap:12px; align-items:center; background:rgba(0,0,0,0.02); }
-    .modal-nav { background:rgba(255,255,255,0.12); color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; margin-right:8px; }
-    .modal-close { background:rgba(255,255,255,0.12); color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .modal-inner{width:100%;max-width:960px;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:linear-gradient(90deg,var(--card),#5a9b93);color:#fff}
+    .modal-body{padding:18px;display:flex;flex-direction:column;gap:12px}
+    .modal-close{background:rgba(255,255,255,.12);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
 
+    /* content within modal */
+    .modal-section{margin-bottom:8px}
+    .modal-section h4{margin:8px 0;font-size:16px}
+    .modal-section p{color:#222}
+
+    /* small docs list */
+    .docs{margin-top:8px}
+    .docs a{display:inline-block;margin-right:10px;color:var(--card);text-decoration:underline}
+
+    @media (max-width:800px){
+      .project-body{flex-direction:column;align-items:flex-start}
+    }
   </style>
 </head>
 <body>
@@ -104,128 +102,80 @@
 
   <div class="spacer" aria-hidden="true"></div>
 
-  <!-- hero -->
-  <section class="hero" role="banner" aria-label="EGR121 hero">
-    <div class="hero-title">EGR 121 — First-year design & prototyping projects</div>
-  </section>
-
   <div class="page">
 
-    <!-- course description -->
     <section class="content" aria-labelledby="course-h">
-      <h2 id="course-h" style="margin:0 0 8px;font-size:20px;color:#111">Course description</h2>
-      <div class="meta">EGR 121 — Team-based creative prototyping</div>
+      <h2 id="course-h" style="margin:0 0 8px;font-size:20px;color:#111">EGR 121 — Course summary</h2>
+      <div class="meta">Course projects: introductory team-based prototyping, CAD, boards, and CNC</div>
 
       <p>
-        EGR 121 introduces first years to the process of team-based creative conceptualization, visualization, prototyping, and product realization.
-        Students use computer-aided design tools to create custom circuit boards and CNC-machined components to produce prototype systems.
-        Design concepts are introduced and supported through hands-on assignments.
+        EGR 121 introduces first years to the process of team-based creative conceptualization, visualization, prototyping, and product realization. Students use computer-aided design tools to create custom circuit boards and CNC-machined components to produce prototype systems. Design concepts are introduced and supported through hands-on assignments and multi-phase design challenges.
+      </p>
+      <p>
+        Below are three assignments completed in the course (DC2–DC4). Click any project tile to open a focused view with the design rationale, implementation notes, and deliverables from your submitted memos.
       </p>
     </section>
 
-    <!-- projects list (three full-width cards) -->
-    <section class="content" aria-labelledby="projects-h">
-      <h3 id="projects-h" style="margin:0 0 8px;font-size:18px;color:#111">Course projects</h3>
-      <p class="meta">Click a project to open documentation, photos, schematics, and implementation notes.</p>
-
-      <!-- Project 1: Mousetrap Car DC2 -->
-      <article class="project-card" data-idx="0" role="button" tabindex="0" aria-pressed="false">
-        <div class="project-inner">
-          <div class="project-thumb">
-            <img src="../images/projects/egr121/mousetrap_car_thumb.jpg" alt="Mousetrap car thumbnail">
-          </div>
-          <div class="project-body">
-            <div class="project-title">Mousetrap Car — DC2</div>
-            <div class="project-desc">
-              A classic energy-storage mechanics project: design and build a wheeled vehicle powered by a mousetrap spring. Focus on energy transfer, gearing, and maximizing distance. Click to open design files, photos, and performance notes submitted for DC2.
-              <div class="project-actions">
-                <button class="btn" type="button">Open project</button>
-              </div>
-            </div>
+    <!-- Project: DC2 - Mousetrap Car -->
+    <article class="project-tile" role="button" tabindex="0" id="proj-dc2" data-title="Mousetrap Car — DC2">
+      <div class="project-visual" style="background-image:url('../images/projects/egr121/dc2_thumb.jpg')">
+        <div style="position:relative;z-index:2;color:#fff;font-weight:800;font-size:22px">Mousetrap Car — DC2</div>
+      </div>
+      <div class="project-body">
+        <div class="full-width">
+          <div class="project-title">Mousetrap Car — DC2 (Quantum Sand Machine)</div>
+          <div class="project-desc">
+            A timed design challenge to convert the potential energy in a single mousetrap into vehicle motion across a sandy test pit. Emphasis: maximize distance while respecting strict rules and a tight materials budget.
           </div>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <!-- Project 2: Happy Meal Toy DC3 -->
-      <article class="project-card" data-idx="1" role="button" tabindex="0" aria-pressed="false">
-        <div class="project-inner">
-          <div class="project-thumb">
-            <img src="../images/projects/egr121/happymeal_toy_thumb.jpg" alt="Happy Meal toy thumbnail">
-          </div>
-          <div class="project-body">
-            <div class="project-title">Happy Meal Toy — DC3</div>
-            <div class="project-desc">
-              Rapid-prototyped toy that demonstrates simple mechanisms, snap-fit assembly, and basic electronics where required. The assignment emphasizes CAD to manufacturable part translation and quick iteration. Click to view CAD exports, photos, and build notes.
-              <div class="project-actions">
-                <button class="btn" type="button">Open project</button>
-              </div>
-            </div>
+    <!-- Project: DC3 - Happy Meal Toy -->
+    <article class="project-tile" role="button" tabindex="0" id="proj-dc3" data-title="Happy Meal Toy — DC3">
+      <div class="project-visual" style="background-image:url('../images/projects/egr121/dc3_thumb.jpg')">
+        <div style="position:relative;z-index:2;color:#fff;font-weight:800;font-size:22px">Happy Meal Toy — DC3</div>
+      </div>
+      <div class="project-body">
+        <div class="full-width">
+          <div class="project-title">Happy Meal Toy — DC3 (Happy Zoo Train)</div>
+          <div class="project-desc">
+            Team-designed, injection-moldable train toy with interchangeable cars and functional wheels. Focus on manufacturability, cost analysis, choking-hazard compliance, and sustainability choices for mass production.
           </div>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <!-- Project 3: Rube Goldberg Machine DC4 -->
-      <article class="project-card" data-idx="2" role="button" tabindex="0" aria-pressed="false">
-        <div class="project-inner">
-          <div class="project-thumb">
-            <img src="../images/projects/egr121/rube_goldberg_thumb.jpg" alt="Rube Goldberg machine thumbnail">
-          </div>
-          <div class="project-body">
-            <div class="project-title">Rube Goldberg Machine — DC4</div>
-            <div class="project-desc">
-              Four teams collaborated to chain mechanisms into a single machine with the theme "movies." My subassembly included two movie-themed circuits/components: a "Legally Blonde" segment and a "Titanic" segment. Click to open team documentation, schematics, photos, and video of the full run.
-              <div class="project-actions">
-                <button class="btn" type="button">Open project</button>
-              </div>
-            </div>
+    <!-- Project: DC4 - Rube Goldberg / SportBot -->
+    <article class="project-tile" role="button" tabindex="0" id="proj-dc4" data-title="SportBot / Rube-Goldberg — DC4">
+      <div class="project-visual" style="background-image:url('../images/projects/egr121/dc4_thumb.jpg')">
+        <div style="position:relative;z-index:2;color:#fff;font-weight:800;font-size:22px">SportBot — DC4 (Rube-Goldberg)</div>
+      </div>
+      <div class="project-body">
+        <div class="full-width">
+          <div class="project-title">SportBot — DC4 (Rube-Goldberg Machine)</div>
+          <div class="project-desc">
+            Four teams collaborated to build a single machine that incorporated electronic circuits. Your subteam contributed two themed mechanisms (Legally Blonde and Titanic), each with its own circuit and mechanical action.
           </div>
         </div>
-      </article>
-
-    </section>
+      </div>
+    </article>
 
   </div> <!-- /.page -->
 
-  <!-- Project modal: shows project details, gallery, docs -->
+  <!-- Generic modal used for all three projects -->
   <div id="projectModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal-inner" role="document">
       <div class="modal-header">
-        <div class="modal-title" id="projectModalTitle">Project</div>
+        <div id="projectModalTitle" style="font-weight:800">Project</div>
         <div>
-          <button id="projPrev" class="modal-nav" aria-label="Previous project">◀</button>
-          <button id="projNext" class="modal-nav" aria-label="Next project">▶</button>
-          <button id="projClose" class="modal-close" aria-label="Close">✕</button>
+          <button id="projectModalClose" class="modal-close" aria-label="Close">✕</button>
         </div>
       </div>
 
       <div class="modal-body">
-        <div class="modal-grid">
-          <div class="modal-main">
-            <div class="modal-media" id="modalMedia">
-              <!-- image/video will be injected here -->
-            </div>
-
-            <div id="modalThumbs" class="modal-thumbs" aria-hidden="false"></div>
-
-            <div id="modalText" class="modal-text"></div>
-          </div>
-
-          <aside style="padding:0 0 0 6px;">
-            <div style="background:#fafafa;border-radius:8px;padding:12px;border:1px solid rgba(0,0,0,0.04);">
-              <h4 style="margin:0 0 8px;font-size:15px">Documentation</h4>
-              <div id="docLinks" style="display:flex;flex-direction:column;gap:8px"></div>
-            </div>
-          </aside>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <div>
-          <button id="projPrevBottom" class="modal-nav" aria-label="Previous project">◀ Prev</button>
-          <button id="projNextBottom" class="modal-nav" aria-label="Next project">Next ▶</button>
-        </div>
-        <div>
-          <button id="projCloseBottom" class="modal-close" aria-label="Close">Close</button>
+        <div id="projectModalContent">
+          <!-- JS will populate content here -->
         </div>
       </div>
     </div>
@@ -233,208 +183,102 @@
 
   <script>
     (function(){
-      /* --- data for the three projects --- */
-      const projects = [
-        {
-          id: "mousetrap_dc2",
-          title: "Mousetrap Car — DC2",
-          description: "<p>Design and build a wheeled vehicle powered by a mousetrap spring. This entry includes CAD files, photos of assembly, performance data (distance tests), and reflections on gearing and friction.</p>",
-          gallery: [
-            "../images/projects/egr121/mousetrap_car_1.jpg",
-            "../images/projects/egr121/mousetrap_car_2.jpg"
-          ],
-          docs: [
-            { label: "DC2 instructions", href: "../images/projects/egr121/DC2_instructions.pdf" },
-            { label: "Deliverables (CAD & report)", href: "../images/projects/egr121/mousetrap_deliverable.zip" }
-          ]
-        },
-        {
-          id: "happymeal_dc3",
-          title: "Happy Meal Toy — DC3",
-          description: "<p>Rapid toy prototyping focusing on manufacturable geometry and snap-fit features. Includes exported STL, laser layout (if used), assembly photos, and instructor deliverables for DC3.</p>",
-          gallery: [
-            "../images/projects/egr121/happymeal_1.jpg",
-            "../images/projects/egr121/happymeal_2.jpg"
-          ],
-          docs: [
-            { label: "DC3 instructions", href: "../images/projects/egr121/DC3_instructions.pdf" },
-            { label: "Toy deliverable (photos + stl)", href: "../images/projects/egr121/happymeal_deliverable.zip" }
-          ]
-        },
-        {
-          id: "rube_goldberg_dc4",
-          title: "Rube Goldberg Machine — DC4",
-          description: "<p>Four-team collaborative machine themed around movies. My team's subassemblies included 'Legally Blonde' and 'Titanic' components that incorporate small electronic circuits. This section contains schematics, video of the full run, and subassembly notes.</p>",
-          gallery: [
-            "../images/projects/egr121/rube_full_1.jpg",
-            "../images/projects/egr121/rube_full_2.jpg"
-          ],
-          docs: [
-            { label: "DC4 instructions", href: "../images/projects/egr121/DC4_instructions.pdf" },
-            { label: "Team deliverables (schematics, videos)", href: "../images/projects/egr121/rube_deliverable.zip" },
-            { label: "Legally Blonde circuit notes", href: "../images/projects/egr121/legally_blonde_notes.pdf" },
-            { label: "Titanic circuit notes", href: "../images/projects/egr121/titanic_notes.pdf" }
-          ]
-        }
-      ];
+      // data populated from your memos (sourced from uploaded PDFs)
+      // DC2: Mousetrap Car — summary + design choices and team notes
+      const DC2 = {
+        title: "Mousetrap Car — DC2 (Quantum Sand Machine)",
+        brief: `Design Challenge 2 required a vehicle that uses the stored potential energy of one mousetrap to traverse a sandy course. Teams were judged on the product of weight and distance, aesthetics, and innovation, with strict rules about allowed energy sources and starting constraints.`,
 
-      /* DOM refs */
-      const projectCards = Array.from(document.querySelectorAll('.project-card'));
-      const projectModal = document.getElementById('projectModal');
+        design: `<h4>Design choices</h4>
+        <p>The team decomposed the vehicle into power, chassis, and wheels. After ideation and Pugh-matrix scoring, the group selected a triangular chassis to improve lever mechanics and maximize string travel in the final 30° of lever motion. Large smooth wheels were chosen (over treads) because they offered better performance with the limited torque available from the mousetrap. Mass was concentrated toward the rear to improve traction and stability.</p>
+        <!-- :contentReference[oaicite:0]{index=0} -->`,
+
+        implementation: `<h4>Implementation & performance</h4>
+        <p>Construction used foamcore/cardboard and foundry materials with careful attention to low friction axle mounts and reliable lever-to-axle engagement. The team iterated wheel size and lever length and practiced setup/release to maximize successful trials. Final measured performance: 44.5 inches travelled at 1.09 lbs vehicle mass.</p>
+        <div class="docs">
+          <!-- These are the documentation deliverables described in the assignment. -->
+          <a href="../files/annotated-memo DC2 - Quantum Sand Machines Assignment (5).pdf" target="_blank">DC2 memo & appendices (submitted)</a>
+        </div>
+        <!-- :contentReference[oaicite:1]{index=1} -->`
+      };
+
+      // DC3: Happy Meal Toy — summary + design & implementation
+      const DC3 = {
+        title: "Happy Meal Toy — DC3 (Happy Zoo Train)",
+        brief: `Design Challenge 3 tasked teams with creating an injection-moldable, safe, and mass-producible Happy Meal toy. Deliverables required CAD, tolerance analysis, DFM discussion, cost estimation, and a marketing plan.`,
+
+        design: `<h4>Design choices</h4>
+        <p>The team designed a modular train toy comprising a frame, engine car, and body car. To encourage collectibility the design uses a peg-and-hole system that enables mix-and-match cars. Critical-to-fit dimensions and 0.15 mm tolerances were specified to ensure a repeatable snap-fit and robust assembly. To reduce material cost and improve sustainability the car tops were shelled and polyethylene (PE) was chosen to enable recycling.</p>
+        <!-- :contentReference[oaicite:2]{index=2} -->`,
+
+        implementation: `<h4>Implementation & deliverables</h4>
+        <p>Parts were modeled in SolidWorks, 3D printed for proof-of-concept, and tested for fit and choking-hazard compliance. The team prepared a manufacturing plan including tooling counts, per-part cost estimates, and post-molding operations (painting and gluing for the conductor figure). The final memo includes manufacturing cost tables, tolerance notes, and a marketing flyer for the Toy Fair.</p>
+        <div class="docs">
+          <a href="../files/annotated-DC3 Technical Memo-1.pdf" target="_blank">DC3 technical memo (submitted)</a>
+        </div>
+        <!-- :contentReference[oaicite:3]{index=3} -->`
+      };
+
+      // DC4: SportBot / Rube-Goldberg — summary + your sub-team notes
+      const DC4 = {
+        title: "SportBot — DC4 (Rube-Goldberg Machine)",
+        brief: `DC4 combined four teams to create a single Rube-Goldberg style machine that incorporated electronic circuits and mechanical interactions. Your sub-team implemented the Legally Blonde and Titanic themed mechanisms and their associated circuits.`,
+
+        design: `<h4>Design choices</h4>
+        <p>The larger SportBot required careful coordination across subteams. Your subteam split tasks: Sienna and Abby developed the Legally Blonde analog circuit with a 555-timer-based timing control to actuate a gavel mechanism; Nora and Sara developed the Titanic section using sensors to trigger audio and motion. The design choices focused on reliable timing, repeatability, and packaging the electronics to avoid wire tangling between moving parts.</p>
+        <!-- :contentReference[oaicite:4]{index=4} -->`,
+
+        implementation: `<h4>Implementation & lessons</h4>
+        <p>The team prototyped circuits in TinkerCad and iteratively tested hardware in the Foundry, developing water-sensing probes for the Titanic section and tuning the 555 timing constants for the Legally Blonde gavel. Challenges included creating robust sensors (metal probe testing) and ensuring consistent actuation. The documentation describes wiring diagrams, test procedures, and reflections on team communication and division of labor.</p>
+        <div class="docs">
+          <a href="../files/annotated-DC4 SportBot Documentation.pdf" target="_blank">DC4 documentation (submitted)</a>
+        </div>
+        <!-- :contentReference[oaicite:5]{index=5} -->`
+      };
+
+      const mapping = {
+        'proj-dc2': DC2,
+        'proj-dc3': DC3,
+        'proj-dc4': DC4
+      };
+
+      const modal = document.getElementById('projectModal');
       const modalTitle = document.getElementById('projectModalTitle');
-      const modalMedia = document.getElementById('modalMedia');
-      const modalThumbs = document.getElementById('modalThumbs');
-      const modalText = document.getElementById('modalText');
-      const docLinks = document.getElementById('docLinks');
-      const projClose = document.getElementById('projClose');
-      const projCloseBottom = document.getElementById('projCloseBottom');
-      const projPrev = document.getElementById('projPrev');
-      const projNext = document.getElementById('projNext');
-      const projPrevBottom = document.getElementById('projPrevBottom');
-      const projNextBottom = document.getElementById('projNextBottom');
+      const modalContent = document.getElementById('projectModalContent');
+      const modalClose = document.getElementById('projectModalClose');
 
-      let currentIndex = 0;
-      let currentMediaIndex = 0;
-
-      function isVideo(src){
-        return /\.mp4$/i.test(src) || /\.webm$/i.test(src) || /\.ogg$/i.test(src);
-      }
-
-      function renderModalForIndex(idx){
-        const p = projects[idx];
-        if(!p) return;
-        currentIndex = idx;
-        currentMediaIndex = 0;
-
-        modalTitle.textContent = p.title;
-        modalText.innerHTML = p.description || '';
-
-        // main media (first gallery item)
-        modalMedia.innerHTML = '';
-        if((p.gallery || []).length){
-          setMainMedia(p.gallery[0]);
-        } else {
-          modalMedia.innerHTML = '<div style="padding:18px;color:#666">No photos available</div>';
-        }
-
-        // thumbs
-        modalThumbs.innerHTML = '';
-        (p.gallery || []).forEach((src, i) => {
-          const t = document.createElement('img');
-          t.src = src;
-          t.alt = p.title + ' thumb ' + (i+1);
-          t.tabIndex = 0;
-          t.addEventListener('click', () => { currentMediaIndex = i; setMainMedia(src); });
-          t.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); }});
-          t.addEventListener('error', () => { t.style.opacity = '0.4'; t.title = 'Image missing'; });
-          modalThumbs.appendChild(t);
-        });
-
-        // docs
-        docLinks.innerHTML = '';
-        (p.docs || []).forEach(d => {
-          const a = document.createElement('a');
-          a.href = d.href;
-          a.textContent = d.label;
-          a.target = "_blank";
-          a.rel = "noopener";
-          a.style.display = 'inline-block';
-          a.style.padding = '8px 10px';
-          a.style.background = '#fff';
-          a.style.border = '1px solid rgba(0,0,0,0.06)';
-          a.style.borderRadius = '8px';
-          a.style.fontWeight = '700';
-          a.style.marginBottom = '6px';
-          docLinks.appendChild(a);
-        });
-
-        // open modal
-        projectModal.classList.add('open');
-        projectModal.setAttribute('aria-hidden','false');
+      function openProject(id){
+        const data = mapping[id];
+        if(!data) return;
+        modalTitle.textContent = data.title;
+        modalContent.innerHTML = `
+          <p style="font-weight:700">${data.brief}</p>
+          <div class="modal-section">${data.design}</div>
+          <div class="modal-section">${data.implementation}</div>
+        `;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
         document.body.style.overflow = 'hidden';
-        projClose.focus();
+        modalClose.focus();
       }
 
-      function setMainMedia(src){
-        modalMedia.innerHTML = '';
-        if(!src) return;
-        if(isVideo(src)){
-          const v = document.createElement('video');
-          v.src = src;
-          v.controls = true;
-          v.autoplay = false;
-          v.playsInline = true;
-          v.style.maxWidth = '100%';
-          modalMedia.appendChild(v);
-        } else {
-          const img = document.createElement('img');
-          img.src = src;
-          img.alt = modalTitle.textContent + ' image';
-          img.addEventListener('error', () => { img.style.opacity = '0.4'; img.title = 'Image missing'; });
-          modalMedia.appendChild(img);
-        }
-      }
+      // attach click handlers
+      document.querySelectorAll('.project-tile').forEach(el => {
+        el.addEventListener('click', () => openProject(el.id));
+        el.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openProject(el.id); });
+      });
 
-      function closeModal(){
-        projectModal.classList.remove('open');
-        projectModal.setAttribute('aria-hidden','true');
-        modalMedia.innerHTML = '';
-        modalThumbs.innerHTML = '';
-        docLinks.innerHTML = '';
-        modalText.innerHTML = '';
+      modalClose.addEventListener('click', () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
         document.body.style.overflow = '';
-      }
-
-      // attach click handlers to each project card and inner button
-      projectCards.forEach((card, idx) => {
-        card.addEventListener('click', (e) => {
-          // prevent double-firing if the inner "Open project" button is clicked (still open project)
-          renderModalForIndex(idx);
-        });
-        card.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); renderModalForIndex(idx); }
-        });
-        // also attach to the small button inside card for clarity
-        const btn = card.querySelector('.btn');
-        if(btn) btn.addEventListener('click', (ev) => { ev.stopPropagation(); renderModalForIndex(idx); });
+        modalContent.innerHTML = '';
       });
 
-      // modal nav
-      projClose.addEventListener('click', closeModal);
-      projCloseBottom.addEventListener('click', closeModal);
-
-      function showPrev(){
-        const prev = (currentIndex - 1 + projects.length) % projects.length;
-        renderModalForIndex(prev);
-      }
-      function showNext(){
-        const next = (currentIndex + 1) % projects.length;
-        renderModalForIndex(next);
-      }
-
-      projPrev.addEventListener('click', showPrev);
-      projPrevBottom.addEventListener('click', showPrev);
-      projNext.addEventListener('click', showNext);
-      projNextBottom.addEventListener('click', showNext);
-
-      // keyboard nav while modal is open
-      document.addEventListener('keydown', (e) => {
-        if(!projectModal.classList.contains('open')) return;
-        if(e.key === 'Escape') closeModal();
-        if(e.key === 'ArrowLeft') showPrev();
-        if(e.key === 'ArrowRight') showNext();
-      });
-
-      // close modal when clicking backdrop
-      projectModal.addEventListener('click', (e) => {
-        if(e.target === projectModal) closeModal();
-      });
-
-      // preload thumbnails to improve UX
-      projects.forEach(p => (p.gallery || []).forEach(src => { if(!/\.mp4$/i.test(src)){ const i = new Image(); i.src = src; } }));
+      modal.addEventListener('click', (e) => { if(e.target === modal) { modalClose.click(); } });
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('open')) modalClose.click(); });
 
     })();
   </script>
 </body>
 </html>
-
