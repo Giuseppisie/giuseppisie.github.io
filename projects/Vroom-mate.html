@@ -65,12 +65,14 @@
     .modal-inner{width:100%;max-width:1100px;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
     .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:linear-gradient(90deg,#427b76,#5a9b93);color:#fff}
     .modal-body{padding:18px;display:flex;flex-direction:column;gap:12px}
-    .modal-main img{max-width:100%;max-height:65vh;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.45);display:block;margin:auto}
+    .modal-main img,.modal-main video{max-width:100%;max-height:65vh;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.45);display:block;margin:auto}
     .thumbs{display:flex;gap:8px;overflow-x:auto;padding-top:6px}
     .thumbs img{width:110px;height:66px;object-fit:cover;border-radius:6px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+    .thumbs .video-thumb{width:110px;height:66px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:#222;color:#fff;font-weight:700;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.12)}
     .modal-text{font-size:15px;color:#222;line-height:1.6;padding-top:8px;border-top:1px solid rgba(0,0,0,.06)}
 
     .modal-close{background:rgba(255,255,255,.12);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+    .modal-nav{background:rgba(255,255,255,.12);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;margin-right:8px}
 
     /* schematic full-screen (for hero) */
     #schemModal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.95);z-index:10000;padding:20px}
@@ -100,7 +102,7 @@
 
   <!-- hero (large thumbnail) -->
   <section class="hero" role="banner" aria-label="Project hero image" tabindex="0">
-    <div class="hero-title">-mate — quick remote dorm vacuum (1-week build)</div>
+    <div class="hero-title">Vroom-mate — quick remote dorm vacuum (1-week build)</div>
   </section>
 
   <div class="page">
@@ -111,7 +113,7 @@
       <div class="meta">Course: ME490 Product Design · Role: Designer & builder · Tools: SolidWorks, Illustrator, Arduino, laser cutter, 3D printers · Week: 1</div>
 
       <p>
-        -mate is a compact remote-controlled vacuum built in one week from found parts and rapid-prototyping tools. The goal was not to create a full autonomous robot, but a small, low-profile remote vacuum that reduces the awkward, time-consuming crawling you do with a handheld vacuum in a dorm room.
+        Vroom-mate is a compact remote-controlled vacuum built in one week from found parts and rapid-prototyping tools. The goal was not to create a full autonomous robot, but a small, low-profile remote vacuum that reduces the awkward, time-consuming crawling you do with a handheld vacuum in a dorm room.
       </p>
 
       <!-- Key Components -->
@@ -194,7 +196,7 @@
 
         <!-- Step 6: Testing & finishing -->
         <div class="step-card" data-step="5" role="button" tabindex="0">
-          <img src="../images/projects/vroomate/productvroom.jpg" alt="Testing and finish">
+          <img src="../images/projects/vroomate/vroommatefull.jpeg" alt="Testing and finish">
           <div class="step-meta">
             <div class="step-title">6 — Testing, iteration & finish</div>
             <div class="step-excerpt">Suction tests, battery changes, final assembly and paint.</div>
@@ -230,19 +232,21 @@
 
   </div> <!-- /.page -->
 
-  <!-- Modal for step galleries -->
+  <!-- Modal for step galleries (has Prev/Next like Eswatini page) -->
   <div id="featureModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal-inner" role="document">
       <div class="modal-header">
         <div id="modalTitle" style="font-weight:800">Step</div>
         <div>
+          <button id="modalPrev" class="modal-nav" aria-label="Previous step">◀</button>
+          <button id="modalNext" class="modal-nav" aria-label="Next step">▶</button>
           <button id="modalClose" class="modal-close" aria-label="Close">✕</button>
         </div>
       </div>
 
       <div class="modal-body">
-        <div class="modal-main">
-          <img id="modalMainImg" src="" alt="gallery image">
+        <div class="modal-main" id="modalMain">
+          <!-- JS will inject <img> or <video> here -->
         </div>
 
         <div id="modalThumbs" class="thumbs" aria-hidden="false"></div>
@@ -256,30 +260,32 @@
   <div id="schemModal" aria-hidden="true" role="dialog" aria-modal="true">
     <button id="schemClose" class="schem-close" aria-label="Close schematic">✕</button>
     <div class="schem-frame" role="document">
-      <img id="schemImg" class="schem-img" src="../images/projects/vroommate/hero.jpg" alt="Vroommate full image">
+      <img id="schemImg" class="schem-img" src="../images/projects/vroomate/productvroom.jpg" alt="Vroommate full image">
     </div>
   </div>
 
   <script>
     (function(){
-      /* --- Detailed step text and photos: edit file paths as needed --- */
+      /* --- Corrected steps array (consistent folder name 'vroommate') --- */
       const steps = [
         {
           title: "Problem discovery",
           text: "<p>I started by brainstorming problems in dorm life with my roommate and family. Vacuuming in our dormroom felt tedious: using a small handheld vacuum meant crawling under beds, desks, and into corners. A full Roomba felt overkill for our usage, so I scoped a pared-down, remote-controlled vacuum that could be built quickly with lab resources.</p>",
           photos: [
-            "../images/projects/vroomate/ask.png"
+            "../images/projects/vroomate/ask.png",
+            "../images/projects/vroomate/step1_notes.jpg"
           ]
         },
         {
           title: "Concept & sizing",
           text: "<p>I sketched a plan and measured constraints. I decided on a 1-foot diameter base with a 6-inch fan hole and slots for a 3-wheel drive. Illustrator was used to create laser-ready cut files so I could iterate on the base geometry quickly. The goal was a low profile to fit under dorm furniture with obvious allowance for motor mounts and the fan.</p>",
           photos: [
-            "../images/projects/vroomate/planroomba.png"
+            "../images/projects/vroomate/planroomba.png",
+            "../images/projects/vroomate/step2_layout.jpg"
           ]
         },
         {
-          title: "Base fabrication",
+          title: "Fabrication: base & drivetrain",
           text: "<p>I laser-cut the base from scrap wood and mounted two motorized wheels and a free caster axle made from a nail and washers. I screwed the fan and the motor driver to the base and arranged components so they wouldn't interfere with wheel travel. The focus was speed and serviceability (batteries and motors accessible), not final aesthetics yet.</p>",
           photos: [
             "../images/projects/vroomate/adobeoutline.png",
@@ -293,7 +299,6 @@
             "../images/projects/vroomate/elecroomschem.png",
             "../images/projects/vroomate/vroommate1.jpeg",
             "../images/projects/vroomate/vroommate2.jpeg"
-
           ]
         },
         {
@@ -303,6 +308,7 @@
             "../images/projects/vroomate/vroommate3.jpeg",
             "../images/projects/vroomate/vroomparts.jpeg",
             "../images/projects/vroomate/attachvroom.jpg",
+            // sample MP4 — this will be rendered as a playable <video> in the modal
             "../images/projects/vroomate/roombatest.MP4"
           ]
         },
@@ -312,21 +318,104 @@
           photos: [
             "../images/projects/vroomate/vroommatefull.jpeg",
             "../images/projects/vroomate/fullbottem.jpg",
-            "../images/projects/vroomate/topvroom.jpg",
+            "../images/projects/vroomate/topvroom.jpg"
           ]
         }
       ];
 
-      /* --- Modal behavior --- */
+      /* --- DOM refs --- */
       const stepCards = Array.from(document.querySelectorAll('.step-card'));
       const modal = document.getElementById('featureModal');
       const modalTitle = document.getElementById('modalTitle');
-      const modalMainImg = document.getElementById('modalMainImg');
+      const modalMain = document.getElementById('modalMain');
       const modalThumbs = document.getElementById('modalThumbs');
       const modalText = document.getElementById('modalText');
       const modalClose = document.getElementById('modalClose');
+      const modalPrev = document.getElementById('modalPrev');
+      const modalNext = document.getElementById('modalNext');
 
-      function openGallery(item){
+      let currentStepIndex = 0;
+      let currentMediaIndex = 0;
+      let currentGallery = [];
+
+      /* --- helper: is video? --- */
+      function isVideo(src){
+        return /\.mp4$/i.test(src) || /\.webm$/i.test(src) || /\.ogg$/i.test(src);
+      }
+
+      /* --- render main panel as <img> or <video> --- */
+      function renderMain(mediaSrc){
+        modalMain.innerHTML = ''; // clear
+        if(!mediaSrc) return;
+        if(isVideo(mediaSrc)){
+          const v = document.createElement('video');
+          v.src = mediaSrc;
+          v.controls = true;
+          v.autoplay = false;
+          v.playsInline = true;
+          v.style.maxWidth = '100%';
+          v.style.borderRadius = '8px';
+          modalMain.appendChild(v);
+        } else {
+          const img = document.createElement('img');
+          img.src = mediaSrc;
+          img.alt = modalTitle.textContent + ' image';
+          // graceful error handler (will be enhanced by global handler below)
+          img.addEventListener('error', () => { img.style.opacity = '0.45'; img.title = 'Image missing'; });
+          modalMain.appendChild(img);
+        }
+      }
+
+      /* --- build thumbnails (supports images and video thumbnails) --- */
+      function buildThumbnails(gallery){
+        modalThumbs.innerHTML = '';
+        gallery.forEach((src, i) => {
+          if(isVideo(src)){
+            // try to show a poster image that matches video filename (jpg/png) if available
+            const posterJpg = src.replace(/\.[^/.]+$/, '.jpg');
+            const posterPng = src.replace(/\.[^/.]+$/, '.png');
+
+            // Create a video-like thumb. If poster exists on server it will show; if not, fallback to a simple styled div label.
+            const thumbImg = document.createElement('img');
+            thumbImg.src = posterJpg;
+            thumbImg.alt = 'video thumb';
+            thumbImg.className = 'maybe-poster';
+            // if poster fails, replace with a video-thumb div
+            thumbImg.addEventListener('error', () => {
+              const vdiv = document.createElement('div');
+              vdiv.className = 'video-thumb';
+              vdiv.innerHTML = 'VIDEO';
+              vdiv.addEventListener('click', () => { currentMediaIndex = i; renderMain(gallery[i]); highlightThumb(i); });
+              modalThumbs.replaceChild(vdiv, thumbImg);
+            });
+            thumbImg.addEventListener('click', () => { currentMediaIndex = i; renderMain(gallery[i]); highlightThumb(i); });
+            modalThumbs.appendChild(thumbImg);
+          } else {
+            const t = document.createElement('img');
+            t.src = src;
+            t.alt = modalTitle.textContent + ' thumb ' + (i+1);
+            t.tabIndex = 0;
+            t.addEventListener('click', () => { currentMediaIndex = i; renderMain(gallery[i]); highlightThumb(i); });
+            t.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); }});
+            // error handler
+            t.addEventListener('error', () => { t.style.opacity = '0.4'; t.title = 'Image missing'; });
+            modalThumbs.appendChild(t);
+          }
+        });
+        highlightThumb(currentMediaIndex || 0);
+      }
+
+      function highlightThumb(idx){
+        Array.from(modalThumbs.children).forEach((el,i) => {
+          el.style.opacity = (i === idx) ? '1' : '0.6';
+          el.style.transform = (i === idx) ? 'scale(1.02)' : 'scale(1)';
+        });
+      }
+
+      /* --- open gallery for a step index --- */
+      function openGalleryForStep(idx){
+        currentStepIndex = idx;
+        const item = steps[idx];
         modal.classList.add('open');
         modal.setAttribute('aria-hidden','false');
         document.body.style.overflow = 'hidden';
@@ -334,34 +423,51 @@
 
         modalTitle.textContent = item.title || 'Step';
         modalText.innerHTML = item.text || '';
-        modalThumbs.innerHTML = '';
-        const gallery = item.photos || [];
-        if(gallery.length) modalMainImg.src = gallery[0];
-        else modalMainImg.src = '';
-
-        gallery.forEach(src => {
-          const img = document.createElement('img');
-          img.src = src;
-          img.alt = item.title + ' thumbnail';
-          img.tabIndex = 0;
-          img.addEventListener('click', () => { modalMainImg.src = src; });
-          img.addEventListener('error', () => { img.style.opacity = '0.4'; img.title = 'Image missing'; });
-          modalThumbs.appendChild(img);
-        });
+        currentGallery = item.photos || [];
+        currentMediaIndex = 0;
+        // set first main
+        if(currentGallery.length) renderMain(currentGallery[0]);
+        else modalMain.innerHTML = '';
+        buildThumbnails(currentGallery);
       }
 
-      function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; modalMainImg.src = ''; modalThumbs.innerHTML = ''; }
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+        modalMain.innerHTML = '';
+        modalThumbs.innerHTML = '';
+      }
 
+      /* --- step cards attach --- */
       stepCards.forEach((card, idx) => {
-        card.addEventListener('click', () => openGallery(steps[idx]));
-        card.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openGallery(steps[idx]); });
+        card.addEventListener('click', () => openGalleryForStep(idx));
+        card.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openGalleryForStep(idx); });
       });
 
       modalClose.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
-      document.addEventListener('keydown', (e) => { if(e.key === 'Escape') { if(modal.classList.contains('open')) closeModal(); }});
 
-      /* --- Hero clicks open full-screen schematic/photo --- */
+      /* Prev/Next step nav */
+      modalPrev.addEventListener('click', () => {
+        const nextIdx = (currentStepIndex - 1 + steps.length) % steps.length;
+        openGalleryForStep(nextIdx);
+      });
+      modalNext.addEventListener('click', () => {
+        const nextIdx = (currentStepIndex + 1) % steps.length;
+        openGalleryForStep(nextIdx);
+      });
+
+      // keyboard nav
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowLeft') modalPrev.click();
+        if (e.key === 'ArrowRight') modalNext.click();
+      });
+
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+      /* --- Hero opens schematic fullscreen --- */
       const hero = document.querySelector('.hero');
       const schemModal = document.getElementById('schemModal');
       const schemClose = document.getElementById('schemClose');
@@ -375,7 +481,71 @@
       schemModal.addEventListener('click', (e)=>{ if(e.target === schemModal) closeSchem(); });
       document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeSchem(); });
 
+      /* --- Global image/video error helper & placeholder --- */
+      (function imageDebugHelpers(){
+        const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360">' +
+          '<rect width="100%" height="100%" fill="#eee"/>' +
+          '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" ' +
+          'font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#666">Image not found</text>' +
+          '</svg>'
+        );
+
+        function onImgError(e){
+          const img = e.target;
+          if (!img.dataset._missingHandled) {
+            console.warn('Image failed to load:', img.src);
+            img.dataset._missingHandled = '1';
+            img.src = placeholder;
+            img.style.opacity = '0.95';
+            img.title = 'Missing image: ' + (img.dataset.orig || img.src);
+          }
+        }
+
+        // Attach to existing images (thumbnails and modal thumbs)
+        document.querySelectorAll('img').forEach(img => {
+          if (!img.dataset.orig) img.dataset.orig = img.src;
+          img.addEventListener('error', onImgError);
+          // if already failed to load, trigger the handler after a tick
+          setTimeout(() => { if(img.naturalWidth === 0) onImgError({target: img}); }, 50);
+        });
+
+        // Observe dynamically inserted nodes
+        const mo = new MutationObserver((mutations) => {
+          for (const m of mutations) {
+            m.addedNodes && m.addedNodes.forEach(n => {
+              if (n.tagName === 'IMG') {
+                if (!n.dataset.orig) n.dataset.orig = n.src;
+                n.addEventListener('error', onImgError);
+                setTimeout(() => { if(n.naturalWidth === 0) onImgError({target:n}); }, 50);
+              } else if (n.querySelectorAll) {
+                n.querySelectorAll('img').forEach(i => {
+                  if (!i.dataset.orig) i.dataset.orig = i.src;
+                  i.addEventListener('error', onImgError);
+                  setTimeout(() => { if(i.naturalWidth === 0) onImgError({target:i}); }, 50);
+                });
+              }
+            });
+          }
+        });
+        mo.observe(document.body, { subtree: true, childList: true });
+      })();
+
+      /* --- Preload first images & video poster possibilities to smooth UX --- */
+      steps.forEach(s => (s.photos || []).forEach(src => {
+        if(!/\.mp4$/i.test(src)){
+          const i = new Image();
+          i.src = src;
+        } else {
+          // try to preload a matching poster if it exists (jpg)
+          const p = src.replace(/\.[^/.]+$/, '.jpg');
+          const ip = new Image();
+          ip.src = p;
+        }
+      }));
+
     })();
   </script>
 </body>
 </html>
+
