@@ -165,8 +165,7 @@
       }
     }
 
-    /* ---- DC2 modal styles (updated for margins, readability) ---- */
-    /* keep modal backdrop but reserve comfortable 1" (~96px) top & bottom */
+    /* ---- DC2/DC3 modal styles (margins & readability) ---- */
     .detail-modal{
       position:fixed;
       inset:0;
@@ -175,19 +174,18 @@
       justify-content:center;
       background:rgba(0,0,0,0.85);
       z-index:11000;
-      padding:64px 20px; /* top/bottom margin of ~64px (comfortable) */
+      padding:64px 20px; /* comfortable top/bottom margin */
       box-sizing:border-box;
     }
     .detail-modal.open{display:flex}
 
-    /* wider modal and limited height so top/bottom never get cut off */
     .detail-inner{
       width:100%;
-      max-width:1300px; /* slightly wider than before */
-      max-height: calc(100vh - 128px); /* honor the 64px top + 64px bottom padding */
+      max-width:1300px;
+      max-height: calc(100vh - 128px);
       background:#fff;
       border-radius:12px;
-      overflow:auto; /* allow scrolling inside modal if needed */
+      overflow:auto;
       display:flex;
       flex-direction:column;
       box-shadow:0 30px 80px rgba(0,0,0,.45);
@@ -212,15 +210,12 @@
     }
     @media (max-width:900px){ .detail-body{flex-direction:column} }
 
-    /* make left media column a bit narrower so text gets more room */
     .media-col{flex:0 0 42%; display:flex; flex-direction:column; gap:12px}
     .info-col{flex:1.1; display:flex; flex-direction:column; gap:12px; min-width:260px}
 
-    /* media player */
     .media-player{background:#111; border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center; min-height:240px}
     .media-player video, .media-player img{max-width:100%; max-height:58vh; display:block; border-radius:6px; object-fit:contain}
 
-    /* smaller thumb sizes to give space to text column */
     .carousel-thumbs{display:flex;gap:8px;overflow-x:auto;padding-top:6px}
     .carousel-thumbs img{width:80px;height:52px;object-fit:cover;border-radius:6px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.12)}
     .carousel-caption{font-size:13px;color:#333;margin-top:6px;text-align:left}
@@ -295,7 +290,7 @@
     </article>
 
     <!-- DC3 -->
-    <article class="project-tile">
+    <article class="project-tile" id="dc3Tile" tabindex="0" role="button" aria-pressed="false">
       <div class="project-row">
         <div class="project-img" style="background-image:url('../images/projects/201/happymeal%20toy.jpeg')"></div>
         <div class="project-text">
@@ -328,7 +323,7 @@
 
   </div>
 
-  <!-- DC2 DETAIL MODAL (only appears when clicking DC2 tile) -->
+  <!-- DC2 DETAIL MODAL (unchanged) -->
   <div id="dc2Modal" class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="detail-inner" role="document" aria-labelledby="dc2Title">
       <div class="detail-header">
@@ -339,20 +334,16 @@
       </div>
 
       <div class="detail-body">
-        <!-- left column: video + carousel -->
         <div class="media-col">
           <div class="media-player" id="dc2MainMedia" aria-live="polite">
             <div class="media-missing">Loading media…</div>
           </div>
 
-          <div class="carousel-thumbs" id="dc2Thumbs" role="list">
-            <!-- thumbnails inserted by JS -->
-          </div>
+          <div class="carousel-thumbs" id="dc2Thumbs" role="list"></div>
 
           <div class="carousel-caption" id="dc2Caption">Click thumbnails to view photos (or play the video above).</div>
         </div>
 
-        <!-- right column: description, bullets and memo link -->
         <div class="info-col">
           <div>
             <div class="info-title">What my team designed and why</div>
@@ -365,7 +356,7 @@
                 <li><strong>Lever & dowel choice:</strong> A wooden dowel lever (tested 4" vs 8") was selected for its combination of stiffness, low mass, and ease of attachment; lever length was finalized after prototyping to balance torque and string travel.</li>
                 <li><strong>Bearings for guiding wheels:</strong> Bearings used on non-driving wheels reduced axle friction and helped the car roll further in sand; driving wheels mounted directly produced a simpler drive interface to the axle.</li>
                 <li><strong>Adding weight (rear washers):</strong> After initial lever tuning, metal washers were added at the rear to improve traction and balance without sinking the vehicle; mass placement was tuned for best distance vs carrying capacity.</li>
-                <li><strong>Release method & robustness:</strong> Because the vehicle must be released by cutting a string in a 6-minute testing window, we prioritized durability and repeatable setup (simple attachment and consistent release).</li>
+                <li><strong>Release method & robustness:</strong> Because the vehicle must be released by cutting a string in a 6-minute testing window, we prioritized durability and repeatable setup.</li>
               </ul>
 
               <p>These decisions were arrived at via iterative prototyping and a Pugh-matrix approach detailed in the team memo. Click the button below to open the full memo (PDF).</p>
@@ -381,18 +372,76 @@
     </div>
   </div>
 
+  <!-- DC3 DETAIL MODAL (new) -->
+  <!-- Source for DC3 memo and details: DC3 Technical Memo. See file citation embedded below. -->
+  <div id="dc3Modal" class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="detail-inner" role="document" aria-labelledby="dc3Title">
+      <div class="detail-header">
+        <div id="dc3Title" style="font-weight:800">DC3 — Happy Meal Toy (team Happy Zoo)</div>
+        <div>
+          <button id="dc3Close" class="modal-close" aria-label="Close details">✕</button>
+        </div>
+      </div>
+
+      <div class="detail-body">
+        <!-- left column: photo carousel -->
+        <div class="media-col">
+          <div class="media-player" id="dc3MainMedia" aria-live="polite">
+            <div class="media-missing">Loading photos…</div>
+          </div>
+
+          <div class="carousel-thumbs" id="dc3Thumbs" role="list">
+            <!-- thumbnails inserted by JS -->
+          </div>
+
+          <div class="carousel-caption" id="dc3Caption">Click thumbnails to enlarge photos. Full memo available via button.</div>
+        </div>
+
+        <!-- right column: description, bullets and memo link -->
+        <div class="info-col">
+          <div>
+            <div class="info-title">What my team designed and why</div>
+            <div class="info-text">
+              <p>Summary of the DC3 design choices and rationale (based on our submitted technical memo):</p>
+
+              <ul class="bullets">
+                <li><strong>Mix-and-match peg-hole system:</strong> We designed a consistent peg & hole interface so every car top fits any frame; this encourages collecting and replay value by letting kids connect cars into longer trains.</li>
+                <li><strong>Generic, paintable animal bodies:</strong> The body car uses a single injection-molded shape that can be painted as different animals (pig, tiger, etc.), lowering tooling cost while increasing collectible variety.</li>
+                <li><strong>Injection-moldable geometry:</strong> Parts were designed with moldability in mind (no overhangs, separate conductor figure) to allow efficient mass production and minimize post-processing.</li>
+                <li><strong>Tolerances for snap-fit & durability:</strong> We used ~0.15 mm CTF tolerances on critical features (peg holes, conductor legs) so parts snap together securely but remain separable for play.</li>
+                <li><strong>No choking hazards & safety:</strong> Each toy was sized to avoid small removable hazards; wheel pins are glued after assembly to ensure permanence where needed.</li>
+                <li><strong>Material & sustainability choices:</strong> Polyethylene (PE) was selected—lightweight, durable, recyclable—and the car tops are shelled to reduce material use and cost.</li>
+                <li><strong>Manufacturing cost awareness:</strong> The design prioritized few, low-cost parts (frame, tops, wheels, pins, conductor) and simple painting/stenciling for branding to keep per-unit cost low (detailed cost breakdown in memo).</li>
+              </ul>
+
+              <p>These points and the manufacturing/assembly decisions (wheel pins glued, shelling to reduce plastic, cost estimates) are documented in our DC3 Technical Memo (see button below). For detailed drawings, tolerances, and the production plan, open the memo.</p>
+            </div>
+          </div>
+
+          <div class="cta-row">
+            <!-- Keep filename as submitted: DC3 Technical Memo.pdf -->
+            <a class="btn" href="../images/projects/201/DC3 Technical Memo.pdf" target="_blank" rel="noopener">Open full DC3 memo</a>
+            <button id="dc3CloseBtn" class="btn ghost">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPORTANT: The DC3 memo is the file the assistant used to summarize design decisions. -->
+  <!-- File citation for internal reference: :contentReference[oaicite:0]{index=0} -->
+
   <script>
     (function(){
-      // Only add behavior for DC2 modal. All other page content is untouched.
+      /* ----------------- DC2 behavior (unchanged) ----------------- */
       const dc2Tile = document.getElementById('dc2Tile');
-      const modal = document.getElementById('dc2Modal');
-      const modalClose = document.getElementById('dc2Close');
-      const modalCloseBtn = document.getElementById('dc2CloseBtn');
-      const mainMediaWrap = document.getElementById('dc2MainMedia');
-      const thumbs = document.getElementById('dc2Thumbs');
-      const caption = document.getElementById('dc2Caption');
+      const dc2Modal = document.getElementById('dc2Modal');
+      const dc2Close = document.getElementById('dc2Close');
+      const dc2CloseBtn = document.getElementById('dc2CloseBtn');
+      const dc2MainMedia = document.getElementById('dc2MainMedia');
+      const dc2Thumbs = document.getElementById('dc2Thumbs');
+      const dc2Caption = document.getElementById('dc2Caption');
 
-      // Media sources — keep these paths consistent with your existing folder layout
       const mediaSources = [
         { type: 'video', src: '../images/projects/201/mousecar.mp4', caption: 'DC2 test run (video)' },
         { type: 'image', src: '../images/projects/201/frontQSM.png', caption: 'Front isometric photo' },
@@ -403,138 +452,128 @@
         { type: 'image', src: '../images/projects/201/planningQSM.png', caption: 'Brainstorming sketches' }
       ];
 
-      function isVideo(src){
-        return /\.mp4$/i.test(src) || /\.webm$/i.test(src) || /\.ogg$/i.test(src);
-      }
+      function isVideo(src){ return /\.mp4$/i.test(src) || /\.webm$/i.test(src) || /\.ogg$/i.test(src); }
 
-      function renderMain(item){
-        mainMediaWrap.innerHTML = '';
-        if(!item){
-          const missing = document.createElement('div');
-          missing.className = 'media-missing';
-          missing.textContent = 'No media available';
-          mainMediaWrap.appendChild(missing);
-          caption.textContent = '';
-          return;
-        }
-
+      function renderMainDc2(item){
+        dc2MainMedia.innerHTML = '';
+        if(!item){ dc2MainMedia.appendChild(document.createElement('div')).textContent = 'No media'; return; }
         if(item.type === 'video' || isVideo(item.src)){
-          const video = document.createElement('video');
-          video.src = item.src;
-          video.controls = true;
-          video.preload = 'metadata';
-          video.style.maxWidth = '100%';
-          video.style.maxHeight = '58vh';
-          video.playsInline = true;
-          video.addEventListener('error', () => {
-            mainMediaWrap.innerHTML = '';
-            const m = document.createElement('div');
-            m.className = 'media-missing';
-            m.textContent = 'Video not found or not playable — check file path';
-            mainMediaWrap.appendChild(m);
-          });
-          mainMediaWrap.appendChild(video);
+          const v = document.createElement('video');
+          v.src = item.src; v.controls = true; v.preload='metadata'; v.style.maxWidth='100%'; v.playsInline = true;
+          v.addEventListener('error', ()=>{ dc2MainMedia.innerHTML=''; const m=document.createElement('div'); m.className='media-missing'; m.textContent='Video not found'; dc2MainMedia.appendChild(m);});
+          dc2MainMedia.appendChild(v);
         } else {
-          const img = document.createElement('img');
-          img.src = item.src;
-          img.alt = item.caption || 'DC2 image';
-          img.addEventListener('error', () => { img.style.opacity = '0.45'; img.title = 'Image missing; check path'; });
-          mainMediaWrap.appendChild(img);
+          const img = document.createElement('img'); img.src = item.src; img.alt = item.caption || '';
+          img.addEventListener('error', ()=>{ img.style.opacity='0.45'; img.title='Image missing'; });
+          dc2MainMedia.appendChild(img);
         }
-        caption.textContent = item.caption || '';
+        dc2Caption.textContent = item.caption || '';
       }
 
-      function buildThumbs(sources){
-        thumbs.innerHTML = '';
-        sources.forEach((it, idx) => {
+      function buildThumbsDc2(list){
+        dc2Thumbs.innerHTML = '';
+        list.forEach((it, idx) => {
           if(it.type === 'video' || isVideo(it.src)){
-            const posterJpg = it.src.replace(/\.[^/.]+$/, '.jpg');
             const poster = document.createElement('img');
-            poster.src = posterJpg;
-            poster.alt = it.caption || 'video thumb';
-            poster.addEventListener('click', () => { renderMain(it); highlightThumb(idx); });
-            poster.addEventListener('error', () => {
-              const box = document.createElement('div');
-              box.className = 'media-missing';
-              box.style.width = '80px';
-              box.style.height = '52px';
-              box.style.borderRadius = '6px';
-              box.style.display = 'flex';
-              box.style.alignItems = 'center';
-              box.style.justifyContent = 'center';
-              box.style.background = '#222';
-              box.style.color = '#fff';
-              box.style.fontWeight = '700';
-              box.style.cursor = 'pointer';
-              box.textContent = 'VIDEO';
-              box.addEventListener('click', () => { renderMain(it); highlightThumb(idx); });
-              thumbs.appendChild(box);
-            });
-            thumbs.appendChild(poster);
+            poster.src = it.src.replace(/\.[^/.]+$/, '.jpg'); poster.alt = it.caption || 'video';
+            poster.addEventListener('click', ()=>{ renderMainDc2(it); highlightThumb(dc2Thumbs, idx); });
+            poster.addEventListener('error', ()=> { const box=document.createElement('div'); box.className='media-missing'; box.style.width='80px'; box.style.height='52px'; box.style.cursor='pointer'; box.textContent='VIDEO'; box.addEventListener('click', ()=>{ renderMainDc2(it); highlightThumb(dc2Thumbs, idx);}); dc2Thumbs.appendChild(box); });
+            dc2Thumbs.appendChild(poster);
           } else {
-            const t = document.createElement('img');
-            t.src = it.src;
-            t.alt = it.caption || 'thumb';
-            t.tabIndex = 0;
-            t.addEventListener('click', () => { renderMain(it); highlightThumb(idx); });
-            t.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); }});
-            t.addEventListener('error', () => { t.style.opacity = '0.4'; t.title = 'Image missing'; });
-            thumbs.appendChild(t);
+            const t = document.createElement('img'); t.src = it.src; t.alt = it.caption || '';
+            t.tabIndex = 0; t.addEventListener('click', ()=>{ renderMainDc2(it); highlightThumb(dc2Thumbs, idx); });
+            t.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); t.click(); }});
+            t.addEventListener('error', ()=>{ t.style.opacity='0.4'; t.title='Image missing'; });
+            dc2Thumbs.appendChild(t);
           }
         });
-        highlightThumb(0);
+        highlightThumb(dc2Thumbs, 0);
       }
 
-      function highlightThumb(idx){
-        Array.from(thumbs.children).forEach((el,i) => {
-          el.style.opacity = (i === idx) ? '1' : '0.6';
-          el.style.transform = (i === idx) ? 'scale(1.03)' : 'scale(1)';
+      function highlightThumb(container, idx){
+        Array.from(container.children).forEach((el,i)=>{ el.style.opacity=(i===idx)?'1':'0.6'; el.style.transform=(i===idx)?'scale(1.03)':'scale(1)'; });
+      }
+
+      function openDc2(){
+        dc2Modal.classList.add('open'); dc2Modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+        const primary = mediaSources.find(m => (m.type==='video' || isVideo(m.src))) || mediaSources[0];
+        renderMainDc2(primary); buildThumbsDc2(mediaSources);
+      }
+      function closeDc2(){ dc2Modal.classList.remove('open'); dc2Modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; dc2MainMedia.innerHTML=''; dc2Thumbs.innerHTML=''; }
+
+      dc2Tile.addEventListener('click', openDc2);
+      dc2Tile.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openDc2(); });
+      dc2Close.addEventListener('click', closeDc2);
+      dc2CloseBtn.addEventListener('click', closeDc2);
+      dc2Modal.addEventListener('click', (e)=>{ if(e.target===dc2Modal) closeDc2(); });
+      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && dc2Modal.classList.contains('open')) closeDc2(); });
+
+      /* ----------------- DC3 behavior (new) ----------------- */
+      const dc3Tile = document.getElementById('dc3Tile');
+      const dc3Modal = document.getElementById('dc3Modal');
+      const dc3Close = document.getElementById('dc3Close');
+      const dc3CloseBtn = document.getElementById('dc3CloseBtn');
+      const dc3MainMedia = document.getElementById('dc3MainMedia');
+      const dc3Thumbs = document.getElementById('dc3Thumbs');
+      const dc3Caption = document.getElementById('dc3Caption');
+
+      // DC3 images (replace paths with your actual image filenames if needed)
+      const dc3Media = [
+        { type: 'image', src: '../images/projects/201/happymeal toy 1.jpg', caption: 'Assembled Happy Zoo Train (engine + body)' },
+        { type: 'image', src: '../images/projects/201/happymeal_frame.jpg', caption: 'Train frame & wheel assembly (exploded view)' },
+        { type: 'image', src: '../images/projects/201/happymeal_pig_vs_tiger.jpg', caption: 'Pig vs Tiger body paint variations (Appendix E)' },
+        { type: 'image', src: '../images/projects/201/happymeal_drawings.jpg', caption: 'CAD drawings and CTF dimensions (peg holes)' }
+      ];
+
+      function renderMainDc3(item){
+        dc3MainMedia.innerHTML = '';
+        if(!item){ dc3MainMedia.appendChild(document.createElement('div')).textContent='No media'; return; }
+        if(item.type === 'video'){ /* none expected for DC3 */ }
+        const img = document.createElement('img'); img.src = item.src; img.alt = item.caption || '';
+        img.addEventListener('error', ()=>{ img.style.opacity='0.45'; img.title='Image missing'; });
+        dc3MainMedia.appendChild(img);
+        dc3Caption.textContent = item.caption || '';
+      }
+
+      function buildThumbsDc3(list){
+        dc3Thumbs.innerHTML = '';
+        list.forEach((it, idx) => {
+          const t = document.createElement('img');
+          t.src = it.src; t.alt = it.caption || '';
+          t.tabIndex = 0;
+          t.addEventListener('click', ()=>{ renderMainDc3(it); highlightThumb(dc3Thumbs, idx); });
+          t.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); t.click(); }});
+          t.addEventListener('error', ()=>{ t.style.opacity='0.4'; t.title='Image missing'; });
+          dc3Thumbs.appendChild(t);
         });
+        highlightThumb(dc3Thumbs, 0);
       }
 
-      function openModal(){
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden','false');
-        document.body.style.overflow = 'hidden';
-
-        // prefer video if available
-        let primary = mediaSources.find(m => (m.type === 'video' || isVideo(m.src))) || mediaSources[0];
-        if(!primary) primary = mediaSources[0];
-        renderMain(primary);
-        buildThumbs(mediaSources);
+      function openDc3(){
+        dc3Modal.classList.add('open'); dc3Modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+        const primary = dc3Media[0] || null;
+        if(primary) renderMainDc3(primary);
+        buildThumbsDc3(dc3Media);
       }
+      function closeDc3(){ dc3Modal.classList.remove('open'); dc3Modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; dc3MainMedia.innerHTML=''; dc3Thumbs.innerHTML=''; }
 
-      function closeModal(){
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden','true');
-        document.body.style.overflow = '';
-        mainMediaWrap.innerHTML = '';
-        thumbs.innerHTML = '';
-      }
+      dc3Tile.addEventListener('click', openDc3);
+      dc3Tile.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openDc3(); });
+      dc3Close.addEventListener('click', closeDc3);
+      dc3CloseBtn.addEventListener('click', closeDc3);
+      dc3Modal.addEventListener('click', (e)=>{ if(e.target===dc3Modal) closeDc3(); });
 
-      // Attach handlers
-      dc2Tile.addEventListener('click', openModal);
-      dc2Tile.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openModal(); });
-      modalClose.addEventListener('click', closeModal);
-      modalCloseBtn.addEventListener('click', closeModal);
+      // close both modals on ESC if open
+      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ if(dc3Modal.classList.contains('open')) closeDc3(); if(dc2Modal.classList.contains('open')) closeDc2(); }});
 
-      // close on backdrop or ESC
-      modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
-      document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+      // Preload dc3 images gracefully
+      dc3Media.forEach(s => { const i=new Image(); i.src=s.src; });
 
-      // Preload images (graceful)
-      mediaSources.forEach(s => {
-        if(!isVideo(s.src)) {
-          const i = new Image();
-          i.src = s.src;
-        } else {
-          const p = s.src.replace(/\.[^/.]+$/, '.jpg');
-          const ip = new Image();
-          ip.src = p;
-        }
-      });
-
+      // Note: If thumbnails don't show, check file paths. The DC3 memo used to write the summary is included as a file.
+      // Internal reference/citation for the memo used to produce the summary: :contentReference[oaicite:1]{index=1}
     })();
   </script>
 </body>
+</html>
+
 </html>
