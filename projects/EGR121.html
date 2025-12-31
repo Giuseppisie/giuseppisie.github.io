@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EGR 121 — DC2 (Mousetrap Car) detail</title>
+  <title>EGR 121 — Engineering Design Projects</title>
 
   <style>
     :root{
@@ -13,6 +13,7 @@
       --content-max:1100px;
       --page-pad:20px;
     }
+
     html,body{height:100%}
     body{
       margin:0;
@@ -22,35 +23,156 @@
       -webkit-font-smoothing:antialiased;
     }
 
-    /* Topbar (keeps same styling) */
-    .topbar{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 20px;z-index:1000;background:rgba(0,0,0,0.25);backdrop-filter:blur(4px)}
+    /* ---------- TOP BAR ---------- */
+    .topbar{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:60px;
+      display:flex;
+      align-items:center;
+      padding:0 20px;
+      z-index:1000;
+      background:rgba(0,0,0,0.25);
+      backdrop-filter:blur(4px);
+    }
     .topbar-left{display:flex;align-items:center;gap:20px}
-    .brand{color:#fff;font-weight:800;font-size:18px;text-decoration:none;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+    .brand{
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      text-decoration:none;
+      text-shadow:0 2px 8px rgba(0,0,0,.4);
+    }
     .topnav{display:flex;gap:10px}
-    .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
+    .topnav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:8px 10px;
+      border-radius:8px;
+    }
+
     .spacer{height:60px}
 
-    /* Page wrapper */
-    .page{max-width:var(--content-max);margin:0 auto;padding:36px var(--page-pad) 80px;box-sizing:border-box}
-    .content{background:#fff;padding:28px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.06);color:#222;margin-bottom:24px}
+    /* ---------- HERO ---------- */
+    .hero{
+      position:relative;
+      height:52vh;
+      background-image:url("../images/projects/egr121/hero.jpg");
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(66,123,118,0.35);
+    }
+    .hero-title{
+      position:relative;
+      z-index:1;
+      color:#fff;
+      font-size:clamp(28px,5vw,44px);
+      font-weight:800;
+      text-shadow:0 8px 24px rgba(0,0,0,.6);
+      text-align:center;
+      padding:0 20px;
+    }
 
-    /* Project tile (same look as before) */
-    .project-tile{background:#fff;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.06);margin-bottom:22px;cursor:pointer}
-    .project-row{display:flex;gap:22px;padding:20px;align-items:center}
-    .project-img{flex:0 0 200px;height:200px;border-radius:10px;background-size:cover;background-position:center}
-    .project-text{flex:1}
-    .project-title{font-size:20px;font-weight:800;margin:0 0 8px;color:#111}
-    .project-desc{color:#444;line-height:1.55}
+    /* ---------- PAGE ---------- */
+    .page{
+      max-width:var(--content-max);
+      margin:0 auto;
+      padding:36px var(--page-pad) 80px;
+      box-sizing:border-box;
+    }
 
-    /* Modal for DC2 detail */
-    .detail-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:10000;padding:16px}
+    .content{
+      background:#fff;
+      padding:28px;
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
+      margin-bottom:28px;
+    }
+
+    .content h2{
+      margin:0 0 10px;
+      font-size:22px;
+      color:#111;
+    }
+
+    .content p{
+      line-height:1.6;
+      color:#333;
+      margin-bottom:14px;
+    }
+
+    /* ---------- PROJECT BOXES ---------- */
+    .project-tile{
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
+      margin-bottom:22px;
+      transition:transform .15s, box-shadow .15s;
+      cursor:pointer;
+    }
+    .project-tile:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 36px rgba(0,0,0,.15);
+    }
+
+    .project-row{
+      display:flex;
+      gap:22px;
+      padding:20px;
+      align-items:center;
+    }
+
+    .project-img{
+      flex:0 0 200px;
+      height:200px;
+      border-radius:10px;
+      background-size:cover;
+      background-position:center;
+    }
+
+    .project-text{
+      flex:1;
+    }
+
+    .project-title{
+      font-size:20px;
+      font-weight:800;
+      margin:0 0 8px;
+      color:#111;
+    }
+
+    .project-desc{
+      color:#444;
+      line-height:1.55;
+    }
+
+    @media (max-width:800px){
+      .project-row{
+        flex-direction:column;
+      }
+      .project-img{
+        width:100%;
+        height:220px;
+      }
+    }
+
+    /* ---- DC2 modal styles ---- */
+    .detail-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:11000;padding:16px}
     .detail-modal.open{display:flex}
     .detail-inner{width:100%;max-width:1100px;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
     .detail-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:linear-gradient(90deg,#427b76,#5a9b93);color:#fff}
     .detail-body{display:flex;gap:18px;padding:18px;flex-direction:row}
     @media (max-width:900px){ .detail-body{flex-direction:column} }
 
-    /* left column: video + carousel */
     .media-col{flex:0 0 52%; display:flex; flex-direction:column; gap:12px}
     .media-player{background:#111; border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center; min-height:280px}
     .media-player video, .media-player img{max-width:100%; max-height:60vh; display:block; border-radius:6px; object-fit:contain}
@@ -58,24 +180,24 @@
     .carousel-thumbs img{width:110px;height:66px;object-fit:cover;border-radius:6px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.12)}
     .carousel-caption{font-size:13px;color:#333;margin-top:6px;text-align:center}
 
-    /* right column: description */
     .info-col{flex:1; display:flex; flex-direction:column; gap:12px}
     .info-title{font-size:18px;font-weight:800;margin:0;color:#111}
     .info-text{color:#333;line-height:1.6}
     .bullets{margin:8px 0 0 18px;color:#333}
-    .cta-row{display:flex;gap:12px;margin-top:14px}
-    .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+    .cta-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+    .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
     .btn.ghost{background:#fff;color:var(--card);border:1px solid rgba(66,123,118,0.12)}
 
     .modal-close{background:rgba(255,255,255,0.12);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
 
-    /* small placeholder style for missing media */
     .media-missing{width:100%;height:320px;display:flex;align-items:center;justify-content:center;background:#f3f3f3;color:#666;border-radius:8px}
+
   </style>
 </head>
+
 <body>
 
-  <!-- TOP BAR (unchanged) -->
+  <!-- TOP BAR -->
   <div class="topbar" role="navigation">
     <div class="topbar-left">
       <a class="brand" href="../index.html">Sienna Giuseppi</a>
@@ -88,32 +210,81 @@
     </div>
   </div>
 
-  <div class="spacer" aria-hidden="true"></div>
+  <div class="spacer"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-title">EGR 121 — Engineering Design & Communication</div>
+  </section>
 
   <div class="page">
 
-    <!-- Keep your DC2 tile exactly as before but with an id to open modal -->
+    <!-- COURSE DESCRIPTION -->
     <section class="content">
-      <h2 style="margin:0 0 10px;font-size:22px;color:#111">Course projects — click a project to view details</h2>
-
-      <!-- DC2 tile (click to open modal) -->
-      <article class="project-tile" id="dc2Tile" aria-role="button" tabindex="0">
-        <div class="project-row">
-          <div class="project-img" style="background-image:url('../images/projects/201/frontQSM.png')"></div>
-          <div class="project-text">
-            <h3 class="project-title">DC2 — Mousetrap Car</h3>
-            <p class="project-desc">A mechanical energy conversion challenge focused on translating stored energy in a mousetrap into motion across a sandy surface. Click to open video, photos, design rationale, and the full memo.</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- (Other project tiles remain unchanged in your page) -->
-
+      <h2>Course Overview</h2>
+      <p>
+        EGR 121 introduces first years to the process of team-based creative
+        conceptualization, visualization, prototyping, and product realization.
+        Students use computer-aided design tools to create custom circuit boards
+        and CNC-machined components to produce prototype systems.
+      </p>
+      <p>
+        Design concepts are introduced and reinforced through hands-on assignments
+        emphasizing collaboration, documentation, and iterative improvement.
+      </p>
     </section>
 
-  </div> <!-- /.page -->
+    <!-- DC2 -->
+    <article class="project-tile" id="dc2Tile" tabindex="0" role="button" aria-pressed="false">
+      <div class="project-row">
+        <div class="project-img" style="background-image:url('../images/projects/201/frontQSM.png')"></div>
+        <div class="project-text">
+          <h3 class="project-title">DC2 — Mousetrap Car</h3>
+          <p class="project-desc">
+            A mechanical energy conversion challenge focused on translating the
+            stored energy of a single mousetrap into controlled motion across a
+            sandy surface. Our team iterated on wheel geometry, drivetrain ratios,
+            and traction strategies to optimize performance under strict constraints.
+          </p>
+        </div>
+      </div>
+    </article>
 
-  <!-- DC2 DETAIL MODAL -->
+    <!-- DC3 -->
+    <article class="project-tile">
+      <div class="project-row">
+        <div class="project-img" style="background-image:url('../images/projects/201/happymeal%20toy.jpeg')"></div>
+        <div class="project-text">
+          <h3 class="project-title">DC3 — Happy Meal Toy</h3>
+          <p class="project-desc">
+            A consumer product design project emphasizing manufacturability,
+            safety, and cost. Our team designed a modular toy system with full
+            CAD models, tolerancing, and manufacturing documentation intended
+            for mass production.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- DC4 -->
+    <article class="project-tile">
+      <div class="project-row">
+        <div class="project-img" style="background-image:url('../images/projects/egr121/dc4_thumb.jpg')"></div>
+        <div class="project-text">
+          <h3 class="project-title">DC4 — Rube Goldberg Machine</h3>
+          <p class="project-desc">
+            A large-scale collaborative Rube Goldberg machine integrating
+            mechanical and electronic subsystems. Our four-person subteam built
+            themed modules inspired by <em>Legally Blonde</em> and <em>Titanic</em>,
+            each using custom circuitry to trigger sequential events.
+          </p>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- DC2 DETAIL MODAL (only appears when clicking DC2 tile) -->
   <div id="dc2Modal" class="detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="detail-inner" role="document" aria-labelledby="dc2Title">
       <div class="detail-header">
@@ -127,7 +298,6 @@
         <!-- left column: video + carousel -->
         <div class="media-col">
           <div class="media-player" id="dc2MainMedia" aria-live="polite">
-            <!-- JS will inject <video> or fallback image here -->
             <div class="media-missing">Loading media…</div>
           </div>
 
@@ -138,12 +308,12 @@
           <div class="carousel-caption" id="dc2Caption">Click thumbnails to view photos (or play the video above).</div>
         </div>
 
-        <!-- right column: design rationale and memo button -->
+        <!-- right column: description, bullets and memo link -->
         <div class="info-col">
           <div>
             <div class="info-title">What my team designed and why</div>
             <div class="info-text">
-              <p>Below is a concise, bulleted summary of our DC2 design choices based on our team memo (decision method: brainstorming + Pugh scoring + prototyping):</p>
+              <p>Below is a concise, bulleted summary of our DC2 design choices (from the submitted memo):</p>
 
               <ul class="bullets">
                 <li><strong>Triangular chassis:</strong> Chosen because angling the mousetrap lever increased the length of string travel in the final ~30° of rotation, giving more consistent energy transfer; the triangular shape also allowed weight reduction by removing material from faces while maintaining stiffness.</li>
@@ -154,12 +324,11 @@
                 <li><strong>Release method & robustness:</strong> Because the vehicle must be released by cutting a string in a 6-minute testing window, we prioritized durability and repeatable setup (simple attachment and consistent release).</li>
               </ul>
 
-              <p>These decisions were arrived at via iterative prototyping and Pugh matrix scoring to balance power efficiency, mass, and build complexity. For more details, see the full team memo linked below. </p>
+              <p>These decisions were arrived at via iterative prototyping and a Pugh-matrix approach detailed in the team memo. Click the button below to open the full memo (PDF).</p>
             </div>
           </div>
 
           <div class="cta-row">
-            <!-- link to full memo PDF (UPDATE PATH to match your deployed location) -->
             <a class="btn" href="../files/dc2memo.pdf" target="_blank" rel="noopener">Open full DC2 memo</a>
             <button id="dc2CloseBtn" class="btn ghost">Close</button>
           </div>
@@ -170,111 +339,95 @@
 
   <script>
     (function(){
-      // Elements
-      const tile = document.getElementById('dc2Tile');
+      // Only add behavior for DC2 modal. All other page content is untouched.
+      const dc2Tile = document.getElementById('dc2Tile');
       const modal = document.getElementById('dc2Modal');
-      const closeBtn = document.getElementById('dc2Close');
-      const closeBtn2 = document.getElementById('dc2CloseBtn');
+      const modalClose = document.getElementById('dc2Close');
+      const modalCloseBtn = document.getElementById('dc2CloseBtn');
       const mainMediaWrap = document.getElementById('dc2MainMedia');
       const thumbs = document.getElementById('dc2Thumbs');
       const caption = document.getElementById('dc2Caption');
 
-      // Replace these source paths with your real file locations if different
+      // Media sources — keep these paths consistent with your existing folder layout
+      // Replace paths if you host media elsewhere. The code supports a video (mp4) + 4 photos.
       const mediaSources = [
-        // Primary video (replace with your actual video file). If absent, main media will fallback to first image.
-        { type: 'video', src: '../media/dc2_run.mp4', caption: 'DC2 run — video (replace path if needed)' },
-
-        // Photo carousel items (4)
+        { type: 'video', src: '../images/projects/201/dc2_run.mp4', caption: 'DC2 run — full test (video)' },
         { type: 'image', src: '../images/projects/201/frontQSM.png', caption: 'Front isometric photo' },
-        { type: 'image', src: '../images/projects/201/backQSM.png', caption: 'Back isometric photo' },
+        { type: 'image', src: '../images/projects/201/backQSM.png', caption: 'Rear isometric photo' },
         { type: 'image', src: '../images/projects/201/wheels_iter.png', caption: 'Wheel design iterations' },
         { type: 'image', src: '../images/projects/201/brainstorm.png', caption: 'Brainstorming sketches' }
       ];
 
-      // utility to detect video ext
-      function isVideoSource(item){ return item.type === 'video' || (/\.mp4|\.webm|\.ogg$/i).test(item.src); }
+      function isVideo(src){
+        return /\.mp4$/i.test(src) || /\.webm$/i.test(src) || /\.ogg$/i.test(src);
+      }
 
-      // render main media (video or image)
       function renderMain(item){
         mainMediaWrap.innerHTML = '';
-        if(!item) {
+        if(!item){
           const missing = document.createElement('div');
           missing.className = 'media-missing';
           missing.textContent = 'No media available';
           mainMediaWrap.appendChild(missing);
+          caption.textContent = '';
           return;
         }
 
-        if(item.type === 'video' || isVideoSource(item)) {
-          const v = document.createElement('video');
-          v.src = item.src;
-          v.controls = true;
-          v.preload = 'metadata';
-          v.style.maxWidth = '100%';
-          v.style.maxHeight = '60vh';
-          v.addEventListener('error', () => {
-            // show fallback or message
+        if(item.type === 'video' || isVideo(item.src)){
+          const video = document.createElement('video');
+          video.src = item.src;
+          video.controls = true;
+          video.preload = 'metadata';
+          video.style.maxWidth = '100%';
+          video.style.maxHeight = '60vh';
+          video.playsInline = true;
+          video.addEventListener('error', () => {
+            mainMediaWrap.innerHTML = '';
             const m = document.createElement('div');
             m.className = 'media-missing';
             m.textContent = 'Video not found or not playable — check file path';
-            mainMediaWrap.innerHTML = '';
             mainMediaWrap.appendChild(m);
           });
-          mainMediaWrap.appendChild(v);
+          mainMediaWrap.appendChild(video);
         } else {
           const img = document.createElement('img');
           img.src = item.src;
           img.alt = item.caption || 'DC2 image';
-          img.addEventListener('error', () => {
-            img.style.opacity = '0.45';
-            img.title = 'Image missing; check path';
-          });
+          img.addEventListener('error', () => { img.style.opacity = '0.45'; img.title = 'Image missing; check path'; });
           mainMediaWrap.appendChild(img);
         }
-        // update caption
         caption.textContent = item.caption || '';
       }
 
-      // build thumbnails
       function buildThumbs(sources){
         thumbs.innerHTML = '';
         sources.forEach((it, idx) => {
-          if(it.type === 'video' || isVideoSource(it)){
-            // try to use a poster image if exists (filename.jpg/png)
+          if(it.type === 'video' || isVideo(it.src)){
+            // try to use a poster image with same filename but jpg/png
             const posterJpg = it.src.replace(/\.[^/.]+$/, '.jpg');
-            const posterPng = it.src.replace(/\.[^/.]+$/, '.png');
-
-            // create img and fall back to VIDEO label if poster missing
-            const img = document.createElement('img');
-            img.src = posterJpg;
-            img.alt = it.caption || 'video thumb';
-            img.addEventListener('error', () => {
-              // replace with a styled div label
-              const div = document.createElement('div');
-              div.className = 'video-thumb';
-              div.textContent = 'VIDEO';
-              div.style.width = '110px';
-              div.style.height = '66px';
-              div.style.display = 'flex';
-              div.style.alignItems = 'center';
-              div.style.justifyContent = 'center';
-              div.style.background = '#222';
-              div.style.color = '#fff';
-              div.style.fontWeight = '700';
-              div.style.borderRadius = '6px';
-              div.style.cursor = 'pointer';
-              div.addEventListener('click', () => {
-                renderMain(it);
-                highlightThumb(idx);
-              });
-              thumbs.appendChild(div);
+            const poster = document.createElement('img');
+            poster.src = posterJpg;
+            poster.alt = it.caption || 'video thumb';
+            poster.addEventListener('click', () => { renderMain(it); highlightThumb(idx); });
+            poster.addEventListener('error', () => {
+              // fallback box if poster missing
+              const box = document.createElement('div');
+              box.className = 'media-missing';
+              box.style.width = '110px';
+              box.style.height = '66px';
+              box.style.borderRadius = '6px';
+              box.style.display = 'flex';
+              box.style.alignItems = 'center';
+              box.style.justifyContent = 'center';
+              box.style.background = '#222';
+              box.style.color = '#fff';
+              box.style.fontWeight = '700';
+              box.style.cursor = 'pointer';
+              box.textContent = 'VIDEO';
+              box.addEventListener('click', () => { renderMain(it); highlightThumb(idx); });
+              thumbs.appendChild(box);
             });
-            // If the poster exists, clicking will play video
-            img.addEventListener('click', () => {
-              renderMain(it);
-              highlightThumb(idx);
-            });
-            thumbs.appendChild(img);
+            thumbs.appendChild(poster);
           } else {
             const t = document.createElement('img');
             t.src = it.src;
@@ -286,7 +439,6 @@
             thumbs.appendChild(t);
           }
         });
-        // initial highlight
         highlightThumb(0);
       }
 
@@ -297,27 +449,18 @@
         });
       }
 
-      // open modal
       function openModal(){
         modal.classList.add('open');
         modal.setAttribute('aria-hidden','false');
         document.body.style.overflow = 'hidden';
-        // set primary media: prefer video (if exists and path valid), otherwise first image
-        // We'll try to set video first; if video fails to load, user can click thumbnails.
-        const first = mediaSources[0];
-        // if video is not present, fallback to next available image
-        let start = first;
-        if(isVideoSource(first)){
-          start = first;
-        } else {
-          // find first non-video
-          start = mediaSources.find(m => !isVideoSource(m)) || first;
-        }
-        renderMain(start);
+
+        // choose primary: prefer video if available, else first image
+        let primary = mediaSources.find(m => (m.type === 'video' || isVideo(m.src))) || mediaSources[0];
+        if(!primary) primary = mediaSources[0];
+        renderMain(primary);
         buildThumbs(mediaSources);
       }
 
-      // close modal
       function closeModal(){
         modal.classList.remove('open');
         modal.setAttribute('aria-hidden','true');
@@ -326,18 +469,28 @@
         thumbs.innerHTML = '';
       }
 
-      // attach handlers
-      tile.addEventListener('click', openModal);
-      tile.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openModal(); });
-      closeBtn.addEventListener('click', closeModal);
-      closeBtn2.addEventListener('click', closeModal);
+      // Attach handlers
+      dc2Tile.addEventListener('click', openModal);
+      dc2Tile.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openModal(); });
+      modalClose.addEventListener('click', closeModal);
+      modalCloseBtn.addEventListener('click', closeModal);
 
       // close on backdrop or ESC
       modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
       document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 
-      // graceful loading: if video path is placeholder and fails, we leave main media as first image when thumbnail clicked
-      // NOTE: Replace mediaSources paths above with your actual file locations on the server.
+      // Preload images (graceful)
+      mediaSources.forEach(s => {
+        if(!isVideo(s.src)) {
+          const i = new Image();
+          i.src = s.src;
+        } else {
+          // try poster jpg preload
+          const p = s.src.replace(/\.[^/.]+$/, '.jpg');
+          const ip = new Image();
+          ip.src = p;
+        }
+      });
 
     })();
   </script>
