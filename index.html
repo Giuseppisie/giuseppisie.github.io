@@ -185,6 +185,21 @@
     .year { font-weight:700; font-size:13px; color: rgba(255,255,255,0.95); }
     .status { font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; color:#fff; background: var(--accent); }
 
+    .section-subtitle{
+  margin: 8px 0 28px;          /* spacing under the title */
+  color: #3b4a47;              /* slightly darker than background, change as needed */
+  font-size: 15px;             /* subtitle size */
+  line-height: 1.5;
+  max-width: 900px;            /* keeps long lines readable */
+  font-weight: 500;
+  opacity: 0.95;
+}
+@media (max-width:720px){
+  .section-subtitle{ font-size:14px; margin-bottom:20px; }
+}
+
+    
+    
     /* Tablet: 2 columns */
     @media (max-width: 1024px) {
       .projects { grid-template-columns: repeat(2, 1fr); }
@@ -392,8 +407,13 @@
       </div>
     </header>
 
+
     <!-- Projects -->
-    <h2 id="engineering-projects" class="section-title">Engineering Projects</h2>
+<h2 id="engineering-projects" class="section-title">Engineering Projects</h2>
+<p id="engineering-projects-subtitle" class="section-subtitle">
+  Click below to see more details on some projects showcasing my technical skills
+</p>
+
 
     <section class="projects" id="projects-grid">
       <a class="card" href="projects/WavGuard.html">
@@ -462,6 +482,9 @@
 
     <!-- Experiences -->
     <h2 id="experiences" class="section-title">Experiences</h2>
+    <p id="engineering-projects-subtitle" class="section-subtitle">
+      Click below to see some of my extracurricular involvements 
+    </p>
 
       <section id="experiences" class="projects experiences">
       <a class="card" href="#">
