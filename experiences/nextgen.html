@@ -119,6 +119,14 @@
     .bullets{margin:8px 0 0 18px;color:#333}
 
     .small-note{font-size:13px;color:#666;margin-top:10px}
+
+    /* LinkedIn embed wrapper */
+    .embed-wrap{display:flex;justify-content:center}
+    .embed-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,0.06);max-width:720px;width:100%;}
+
+    .embed-caption{font-weight:700;margin-bottom:12px;color:#111}
+    .embed-center{display:flex;justify-content:center}
+    .embed-iframe{width:100%;max-width:504px;height:633px;border:0}
   </style>
 </head>
 
@@ -164,8 +172,24 @@
       </p>
     </section>
 
+    <!-- LINKEDIN EMBED (new white box placed directly under the overview) -->
+    <section class="content embed-wrap" aria-labelledby="linkedin-heading">
+      <div class="embed-card" aria-hidden="false">
+        <div id="linkedin-heading" class="embed-caption">See our inaugural cohort of Next-Gen mentees at Apple here:</div>
+        <div class="embed-center">
+          <iframe
+            class="embed-iframe"
+            src="https://www.linkedin.com/embed/feed/update/urn:li:share:7391515957900255233?collapsed=1"
+            allowfullscreen
+            title="Embedded LinkedIn post">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE / MY INVOLVEMENT (moved below embed) -->
     <section class="content" aria-labelledby="what-i-do">
-      <h2 id="what-i-do">My involvement</h2>
+      <h2 id="what-i-do">My involvement & mentorship</h2>
       <div class="meta">Monthly mentor meetings · Events & workshops · Career development</div>
 
       <p>
@@ -175,34 +199,34 @@
         and exposure to multiple technical disciplines.
       </p>
 
-      <ul class="bullets" aria-label="Key benefits and activities">
-        <li><strong>1:1 mentorship:</strong> Monthly meetings with an Apple hardware engineer for technical and career guidance.</li>
-        <li><strong>Structured learning:</strong> Workshops and cohort events covering topics such as prototyping, testing, and manufacturing workflows.</li>
-        <li><strong>Career prep:</strong> Resume reviews, mock interviews, and personalized feedback to prepare for internships and full-time roles.</li>
-        <li><strong>Network:</strong> Access to a national cohort (~200 students) and Apple mentor network.</li>
-        <li><strong>Cross-disciplinary exposure:</strong> Insights into hardware, software, and manufacturing careers at scale.</li>
+      <p>
+        I have been having great discussions with my mentor, <strong>Joe Zisa</strong>, a Product Design Engineer on the iPhone
+        thermals team. Joe and I meet monthly to discuss pathways into engineering and product design. He has connected
+        me with multiple colleagues across product development to give a broad perspective on how hardware products are
+        designed, prototyped, tested, and manufactured at scale.
+      </p>
+
+      <p>
+        Our conversations have covered practical career guidance (resume/interview feedback and skill development),
+        technical topics related to thermal management and mechanical packaging, and introductions to Apple engineers
+        who work in functions such as manufacturing engineering, validation testing, and component sourcing. These
+        connections have helped me better understand the product-development lifecycle and prioritize skills for
+        internships and future roles.
+      </p>
+
+      <ul class="bullets" aria-label="Key mentorship outcomes">
+        <li><strong>One-on-one mentorship:</strong> Monthly sessions with Joe focusing on technical growth and career steps.</li>
+        <li><strong>Network introductions:</strong> Warm introductions to Apple engineers in product development, testing, and manufacturing.</li>
+        <li><strong>Practical preparation:</strong> Resume review, mock interviews, and tailored project suggestions to strengthen my portfolio.</li>
+        <li><strong>Project guidance:</strong> Advice on prototyping, testing, and documentation to make my academic projects more industry-relevant.</li>
       </ul>
 
       <p class="small-note">
-        This fellowship is an opportunity to translate classroom and lab experience into industry-aligned skills while
-        gaining mentorship and peer support as I develop as an engineer.
+        This mentorship is an ongoing opportunity to translate classroom projects into industry-ready skills while receiving
+        direct feedback from practitioners at Apple.
       </p>
     </section>
   </main>
 
-  <div style="display:flex; justify-content:center;">
-  <div style="width:100%; max-width:504px;">
-    <iframe
-      src="https://www.linkedin.com/embed/feed/update/urn:li:share:7391515957900255233?collapsed=1"
-      style="width:100%; height:633px;"
-      frameborder="0"
-      allowfullscreen
-      title="Embedded LinkedIn post">
-    </iframe>
-  </div>
-</div>
-
-
 </body>
 </html>
-
