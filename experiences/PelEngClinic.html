@@ -59,15 +59,15 @@
 
     .feature-card{background:var(--card);color:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.12);text-decoration:none;display:flex;flex-direction:column;cursor:pointer}
     .feature-summary{display:block;padding:0}
-    /* Thumbnail now uses <object> to render first page of PDF inline (with fallback) */
+    /* Thumbnail uses <object> for PDF first page when supported; fallback image shown inside <object> */
     .feature-thumb{
       width:100%;
-      height:220px;
       display:block;
       background:#fff;
       border:0;
-      object-fit:cover;
+      min-height:160px;
     }
+    .feature-thumb img{width:100%;height:auto;display:block}
     .feature-meta{padding:14px 16px 18px 16px;display:flex;flex-direction:column;gap:8px}
     .feature-title{font-weight:800;font-size:16px;color:#fff}
     .feature-excerpt{font-size:13px;color:rgba(255,255,255,0.95);line-height:1.35;margin:0}
@@ -75,15 +75,49 @@
     /* Hidden feature-body (holds pdf link) */
     .feature-body{display:none}
 
-    /* Full-images gallery (lightbox) */
+    /* Full-images gallery (mosaic) */
     .full-images-section{max-width:var(--content-max);margin:0 auto;padding:0 0 24px}
     .full-images-title{font-size:20px;font-weight:700;color:#111;margin:0 0 12px}
-    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    @media (max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:540px){.gallery-grid{grid-template-columns:1fr}}
-    .gallery-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.06)}
-    .gallery-card img{display:block;width:100%;height:220px;object-fit:cover;border:0}
-    .gallery-caption{padding:10px 12px;color:#333;font-size:13px}
+
+    /* Mosaic: keep original photo aspect ratios by letting images determine height (no fixed row height) */
+    .mosaic-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: auto; /* let items size by content (preserves aspect ratio) */
+      gap: 12px;
+      align-items: start;
+      margin: 0 auto 24px;
+      max-width: 1100px;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+
+    .mosaic-item { display: block; border:0; padding:0; background:#fff; overflow:hidden; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.06); cursor:pointer; text-align:center; }
+    /* keep images at intrinsic ratio */
+    .mosaic-item img { width:100%; height:auto; display:block; }
+
+    /* video thumbnail element — sized to content width and preserve ratio */
+    .mosaic-thumb-video { width:100%; height:auto; max-height:360px; display:block; }
+
+    /* layout "spans" to create composition but item height still depends on image/video natural ratio */
+    .mosaic-item.large { grid-column: 1 / span 3; }
+    .mosaic-item.tall  { grid-column: span 2; }
+    .mosaic-item.wide  { grid-column: span 3; }
+    .mosaic-item.small { grid-column: span 2; }
+
+    /* responsive adjustments */
+    @media (max-width: 1000px) {
+      .mosaic-grid { grid-template-columns: repeat(4, 1fr); }
+      .mosaic-item.large { grid-column: 1 / span 2; }
+      .mosaic-item.wide  { grid-column: span 2; }
+    }
+    @media (max-width: 720px) {
+      .mosaic-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .mosaic-item.large, .mosaic-item.tall, .mosaic-item.wide, .mosaic-item.small { grid-column: auto; }
+    }
+    @media (max-width: 420px) {
+      .mosaic-grid { grid-template-columns: 1fr; }
+    }
 
     /* Lightbox (reused) */
     .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:3000;padding:20px}
@@ -162,7 +196,7 @@
     <figure class="class-photo" aria-labelledby="class-photo-caption">
       <!-- Replace the src with your class photo -->
       <img src="../images/experiences/egrclinic/egrclinic.png" alt="Pelham Engineering Clinic class photo — students and volunteers">
-      <figcaption id="class-photo-caption" class="class-caption"><strong>Pelham Engineering Clinic lesson</figcaption>
+      <figcaption id="class-photo-caption" class="class-caption"><strong>Pelham Engineering Clinic lesson</strong></figcaption>
     </figure>
 
     <!-- Features grid (6 lessons) -->
@@ -171,15 +205,16 @@
 
       <div class="features-grid">
 
-        <!-- FEATURE 1 aeordynamics -->
+        <!-- FEATURE 1 aerodynamics -->
         <div class="feature-card" data-index="0">
           <a class="feature-summary" href="#" aria-hidden="false">
-            <!-- Render first page thumbnail of the PDF inline if browser supports it; fallback to an image -->
+            <!-- Try to render first page of PDF inline; fallback content inside object shows if PDF can't render -->
             <object class="feature-thumb" data="../images/experiences/egrclinic/Areodynamics%20HUTCH%20.pdf#page=1" type="application/pdf" aria-label="Lesson 1 PDF thumbnail">
+              <img src="../images/projects/pelham/lesson1_thumb.jpg" alt="Aerodynamics thumbnail (fallback)">
             </object>
             <div class="feature-meta">
-              <div class="feature-title">Areodynamics</div>
-              <div class="feature-excerpt">Introduction to areodynamics through paper airplane testing.</div>
+              <div class="feature-title">Aerodynamics</div>
+              <div class="feature-excerpt">Introduction to aerodynamics through paper airplane testing.</div>
             </div>
           </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/Areodynamics%20HUTCH%20.pdf"></div>
@@ -189,193 +224,131 @@
         <div class="feature-card" data-index="1">
           <a class="feature-summary" href="#" aria-hidden="false">
             <object class="feature-thumb" data="../images/experiences/egrclinic/Bridge%20HUTCH.pdf#page=1" type="application/pdf">
-              <img src="../images/projects/pelham/lesson2_thumb.jpg" alt="Lesson 2 thumbnail">
+              <img src="../images/projects/pelham/lesson2_thumb.jpg" alt="Bridge thumbnail (fallback)">
             </object>
             <div class="feature-meta">
-              <div class="feature-title">Lesson 2 — Paper Circuits</div>
-              <div class="feature-excerpt">Introduction to .</div>
+              <div class="feature-title">Bridge</div>
+              <div class="feature-excerpt">Design and test simple truss bridges out of popsicle sticks and glue.</div>
             </div>
           </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/Bridge%20HUTCH.pdf"></div>
         </div>
 
-             <!-- FEATURE Catapult -->
-        <div class="feature-card" data-index="5">
+        <!-- FEATURE Catapult -->
+        <div class="feature-card" data-index="2">
           <a class="feature-summary" href="#" aria-hidden="false">
             <object class="feature-thumb" data="../images/experiences/egrclinic/catapults%20HUTCH.pdf#page=1" type="application/pdf">
-              <img src="../images/projects/pelham/lesson6_thumb.jpg" alt="Lesson 6 thumbnail">
+              <img src="../images/projects/pelham/lesson6_thumb.jpg" alt="Catapults thumbnail (fallback)">
             </object>
             <div class="feature-meta">
               <div class="feature-title">Catapults</div>
-              <div class="feature-excerpt">Intro to simple machines by desigining catapults.</div>
+              <div class="feature-excerpt">Intro to simple machines by designing catapults.</div>
             </div>
           </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/catapults%20HUTCH.pdf"></div>
         </div>
 
-           <!-- FEATURE paper circ -->
-        <div class="feature-card" data-index="1">
+        <!-- FEATURE Paper Circuits (filename corrected) -->
+        <div class="feature-card" data-index="3">
           <a class="feature-summary" href="#" aria-hidden="false">
-            <object class="feature-thumb" data="../images/experiences/egrclinic/paper%20circits%20HUTCH.pdf#page=1" type="application/pdf">
-              <img src="../images/projects/pelham/lesson2_thumb.jpg" alt="Lesson 2 thumbnail">
+            <!-- NOTE: corrected file name to 'paper%20circuits%20HUTCH.pdf' — make sure this exactly matches your file -->
+            <object class="feature-thumb" data="../images/experiences/egrclinic/paper%20circuits%20HUTCH.pdf#page=1" type="application/pdf">
+              <img src="../images/projects/pelham/lesson2_thumb.jpg" alt="Paper Circuits thumbnail (fallback)">
             </object>
             <div class="feature-meta">
               <div class="feature-title">Paper Circuits</div>
               <div class="feature-excerpt">Introduction to circuitry building with tin foil wires, LEDs, and coin cells.</div>
             </div>
           </a>
-          <div class="feature-body" data-full="../images/experiences/egrclinic/Bridge%20HUTCH.pdf"></div>
+          <div class="feature-body" data-full="../images/experiences/egrclinic/paper%20circuits%20HUTCH.pdf"></div>
         </div>
 
-        <!-- FEATURE eathquake -->
-        <div class="feature-card" data-index="2">
+        <!-- FEATURE Earthquake -->
+        <div class="feature-card" data-index="4">
           <a class="feature-summary" href="#" aria-hidden="false">
             <object class="feature-thumb" data="../images/experiences/egrclinic/Earthquake%20HUTCH.pdf#page=1" type="application/pdf">
+              <img src="../images/projects/pelham/lesson3_thumb.jpg" alt="Earthquake thumbnail (fallback)">
             </object>
             <div class="feature-meta">
               <div class="feature-title">Earthquakes</div>
-              <div class="feature-excerpt">Introduction to structure design and stability with towers and earthquake simulations.</div>
+              <div class="feature-excerpt">Structure design and stability with towers and earthquake simulations.</div>
             </div>
           </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/Earthquake%20HUTCH.pdf"></div>
         </div>
 
-        <!-- FEATURE egg drop -->
-        <div class="feature-card" data-index="3">
+        <!-- FEATURE Egg Drop -->
+        <div class="feature-card" data-index="5">
           <a class="feature-summary" href="#" aria-hidden="false">
             <object class="feature-thumb" data="../images/experiences/egrclinic/Egg%20drop%20SUMENG.pdf#page=1" type="application/pdf">
-              <img src="../images/projects/pelham/lesson4_thumb.jpg" alt="Lesson 4 thumbnail">
+              <img src="../images/projects/pelham/lesson4_thumb.jpg" alt="Egg Drop thumbnail (fallback)">
             </object>
             <div class="feature-meta">
               <div class="feature-title">Egg Drop</div>
-              <div class="feature-excerpt">Introduction to potential and kinnetic energy through egg drop device designs.</div>
+              <div class="feature-excerpt">Intro to potential and kinetic energy through egg drop device designs.</div>
             </div>
           </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/Egg%20drop%20SUMENG.pdf"></div>
         </div>
 
-        <!-- FEATURE boats -->
-        <div class="feature-card" data-index="4">
-          <a class="feature-summary" href="#" aria-hidden="false">
-            <object class="feature-thumb" data="../images/experiences/egrclinic/SUMENG%20Boats.pdf#page=1" type="application/pdf">
-              <img src="../images/projects/pelham/lesson5_thumb.jpg" alt="Lesson 5 thumbnail">
-            </object>
-            <div class="feature-meta">
-              <div class="feature-title">Boats</div>
-              <div class="feature-excerpt">Introduction to bouyancy through tin foil boats and paddel boats.</div>
-            </div>
-          </a>
-          <div class="feature-body" data-full="../images/experiences/egrclinic/SUMENG%20Boats.pdf"></div>
-        </div>
-
-   
-
       </div>
-
     </section>
 
     <!-- --- Mosaic gallery (10 photos) --- -->
-<section class="full-images-section" aria-labelledby="gallery-heading">
-  <h2 id="gallery-heading" class="full-images-title">Photo gallery</h2>
+    <section class="full-images-section" aria-labelledby="gallery-heading">
+      <h2 id="gallery-heading" class="full-images-title">Photo gallery</h2>
 
-  <div class="mosaic-grid" role="list">
-    <button class="img-btn mosaic-item large" data-src="../images/experiences/egrclinic/catapultboy.jpeg" data-caption="Gallery photo 1: description">
-      <img src="../images/experiences/egrclinic/catapultboy.jpeg" alt="Gallery photo 1">
-    </button>
+      <div class="mosaic-grid" role="list">
+        <!-- large photo (keeps original ratio) -->
+        <button class="img-btn mosaic-item large" data-src="../images/experiences/egrclinic/catapultboy.jpeg" data-caption="Students launching catapults">
+          <img src="../images/experiences/egrclinic/catapultboy.jpeg" alt="Students launching catapults">
+        </button>
 
-     <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/boatvid.mp4" data-caption="Gallery photo 9: description">
-      <img src="../images/experiences/egrclinic/rocketvid.mp4" alt="Gallery vid 1">
-    </button>
+        <!-- video thumbnail: actual video element shown in the thumbnail area -->
+        <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/boatvid.mp4" data-caption="Boat test video">
+          <video class="mosaic-thumb-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+            <source src="../images/experiences/egrclinic/boatvid.mp4" type="video/mp4">
+            <!-- fallback still image if video can't load -->
+            <img src="../images/experiences/egrclinic/boat_thumb.jpg" alt="Boat video (fallback)">
+          </video>
+        </button>
 
-    <button class="img-btn mosaic-item tall" data-src="../images/experiences/egrclinic/catapultgirl.jpeg" data-caption="Gallery photo 2: description">
-      <img src="../images/experiences/egrclinic/catapultgirl.jpeg" alt="Gallery photo 2">
-    </button>
+        <button class="img-btn mosaic-item tall" data-src="../images/experiences/egrclinic/catapultgirl.jpeg" data-caption="Catapult station">
+          <img src="../images/experiences/egrclinic/catapultgirl.jpeg" alt="Catapult station">
+        </button>
 
-     <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/boatvid.mp4" data-caption="Gallery photo 9: description">
-      <img src="../images/experiences/egrclinic/boatvid.mp4" alt="Gallery vid 2">
-    </button>
+        <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/rocketvid.mp4" data-caption="Rocket build video">
+          <video class="mosaic-thumb-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+            <source src="../images/experiences/egrclinic/rocketvid.mp4" type="video/mp4">
+            <img src="../images/experiences/egrclinic/rocket_thumb.jpg" alt="Rocket video (fallback)">
+          </video>
+        </button>
 
-    <button class="img-btn mosaic-item wide" data-src="../images/experiences/egrclinic/eggl.jpeg" data-caption="Gallery photo 3: description">
-      <img src="../images/experiences/egrclinic/eggl.jpeg" alt="Gallery photo 3">
-    </button>
+        <button class="img-btn mosaic-item wide" data-src="../images/experiences/egrclinic/eggl.jpeg" data-caption="Egg-drop winners">
+          <img src="../images/experiences/egrclinic/eggl.jpeg" alt="Egg-drop winners">
+        </button>
 
-    <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/lectureboat.jpeg" data-caption="Gallery photo 4: description">
-      <img src="../images/experiences/egrclinic/lectureboat.jpeg" alt="Gallery photo 4">
-    </button>
+        <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/lectureboat.jpeg" data-caption="Boat demonstration">
+          <img src="../images/experiences/egrclinic/lectureboat.jpeg" alt="Boat demonstration">
+        </button>
 
-    <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/pennyboat.jpeg" data-caption="Gallery photo 5: description">
-      <img src="../images/experiences/egrclinic/pennyboat.jpeg" alt="Gallery photo 5">
-    </button>
+        <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/pennyboat.jpeg" data-caption="Penny boat test">
+          <img src="../images/experiences/egrclinic/pennyboat.jpeg" alt="Penny boat test">
+        </button>
 
-    <button class="img-btn mosaic-item tall" data-src="../images/experiences/egrclinic/plans.jpeg" data-caption="Gallery photo 6: description">
-      <img src="../images/experiences/egrclinic/plans.jpeg" alt="Gallery photo 6">
-    </button>
+        <button class="img-btn mosaic-item tall" data-src="../images/experiences/egrclinic/plans.jpeg" data-caption="Design plans">
+          <img src="../images/experiences/egrclinic/plans.jpeg" alt="Design plans">
+        </button>
 
-    <button class="img-btn mosaic-item wide" data-src="../images/experiences/egrclinic/rocketbuild.jpeg" data-caption="Gallery photo 7: description">
-      <img src="../images/experiences/egrclinic/rocketbuild.jpeg" alt="Gallery photo 7">
-    </button>
+        <button class="img-btn mosaic-item wide" data-src="../images/experiences/egrclinic/rocketbuild.jpeg" data-caption="Rocket build station">
+          <img src="../images/experiences/egrclinic/rocketbuild.jpeg" alt="Rocket build station">
+        </button>
 
-    <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/tower.jpeg" data-caption="Gallery photo 8: description">
-      <img src="../images/experiences/egrclinic/tower.jpeg" alt="Gallery photo 8">
-    </button>
-  </div>
-</section>
-
-<style>
-/* Mosaic grid: paste into your page CSS (or inside <style>) */
-.mosaic-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 110px;
-  gap: 12px;
-  align-items: stretch;
-  margin: 0 auto 24px;
-  max-width: 1100px;
-  padding: 0 10px;
-  box-sizing: border-box;
-}
-
-/* size variants (arrangement) */
-.mosaic-item { display: block; border:0; padding:0; background:#fff; overflow:hidden; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.06); cursor:pointer; }
-.mosaic-item img { width:100%; height:100%; object-fit:cover; display:block; }
-
-/* Place items in a pleasing pattern */
-.mosaic-item.large { grid-column: 1 / span 3; grid-row: 1 / span 2; }
-.mosaic-item.tall  { grid-column: span 2; grid-row: span 2; }
-.mosaic-item.wide  { grid-column: span 3; grid-row: span 1; }
-.mosaic-item.small { grid-column: span 2; grid-row: span 1; }
-
-/* Specific ordering to achieve the intended layout (optional fine-tuning) */
-.mosaic-grid .mosaic-item:nth-child(1){ order:0; }  /* large */
-.mosaic-grid .mosaic-item:nth-child(2){ order:1; }  /* tall  */
-.mosaic-grid .mosaic-item:nth-child(3){ order:2; }  /* wide  */
-.mosaic-grid .mosaic-item:nth-child(4){ order:3; }
-.mosaic-grid .mosaic-item:nth-child(5){ order:4; }
-.mosaic-grid .mosaic-item:nth-child(6){ order:5; }
-.mosaic-grid .mosaic-item:nth-child(7){ order:6; }
-.mosaic-grid .mosaic-item:nth-child(8){ order:7; }
-.mosaic-grid .mosaic-item:nth-child(9){ order:8; }
-.mosaic-grid .mosaic-item:nth-child(10){ order:9; } /* large */
-
-/* Responsive: collapse to 3 columns then 2 then 1 */
-@media (max-width: 1000px) {
-  .mosaic-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 110px; }
-  .mosaic-item.large { grid-column: 1 / span 2; grid-row: 1 / span 2; }
-  .mosaic-item.wide  { grid-column: span 2; }
-}
-@media (max-width: 720px) {
-  .mosaic-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 120px; gap: 10px; }
-  .mosaic-item.large, .mosaic-item.tall, .mosaic-item.wide, .mosaic-item.small { grid-column: auto; grid-row: auto; }
-}
-@media (max-width: 420px) {
-  .mosaic-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
-}
-
-/* focus accessibility */
-.mosaic-item:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 4px; }
-</style>
-
- 
+        <button class="img-btn mosaic-item small" data-src="../images/experiences/egrclinic/tower.jpeg" data-caption="Tower challenge">
+          <img src="../images/experiences/egrclinic/tower.jpeg" alt="Tower challenge">
+        </button>
+      </div>
+    </section>
 
   </main>
 
@@ -398,26 +371,67 @@
 
   <script>
     (function(){
-      /* Lightbox behavior (gallery images) */
+      /* Lightbox behavior (gallery images & videos)
+         - If data-src points to an mp4/webm/ogg we open the lightbox with a video element.
+         - Otherwise we show an <img>.
+      */
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightboxImg');
       const lightboxCaption = document.getElementById('lightboxCaption');
       const closeBtn = document.querySelector('.lightbox-close');
       const imgButtons = Array.from(document.querySelectorAll('.img-btn'));
 
+      function isVideoFile(src){
+        return /\.(mp4|webm|ogg)$/i.test(src);
+      }
+
       function openLightbox(src, caption, alt){
-        lightboxImg.src = src;
-        lightboxImg.alt = alt || caption || 'Full image';
         lightboxCaption.textContent = caption || '';
+        // clear
+        const inner = lightbox.querySelector('.lightbox-inner');
+        // remove existing <img> if present
+        const existingImg = lightbox.querySelector('#lightboxImg');
+        if(existingImg) existingImg.remove();
+        // remove existing video if present
+        const existingVideo = inner.querySelector('video');
+        if(existingVideo) existingVideo.remove();
+
+        if(isVideoFile(src)){
+          const v = document.createElement('video');
+          v.controls = true;
+          v.autoplay = true;
+          v.playsInline = true;
+          v.loop = false;
+          v.preload = 'metadata';
+          v.style.maxWidth = '100%';
+          v.style.maxHeight = 'calc(92vh - 80px)';
+          const s = document.createElement('source');
+          s.src = src;
+          s.type = 'video/mp4';
+          v.appendChild(s);
+          inner.insertBefore(v, inner.firstElementChild);
+        } else {
+          const img = document.createElement('img');
+          img.id = 'lightboxImg';
+          img.src = src;
+          img.alt = alt || caption || 'Full image';
+          inner.insertBefore(img, inner.firstElementChild);
+        }
+
         lightbox.classList.add('open');
         lightbox.setAttribute('aria-hidden','false');
         closeBtn.focus();
         document.body.style.overflow = 'hidden';
       }
       function closeLightbox(){
+        // remove media nodes
+        const inner = lightbox.querySelector('.lightbox-inner');
+        const existingImg = inner.querySelector('#lightboxImg');
+        if(existingImg) existingImg.remove();
+        const existingVideo = inner.querySelector('video');
+        if(existingVideo){ existingVideo.pause(); existingVideo.remove(); }
         lightbox.classList.remove('open');
         lightbox.setAttribute('aria-hidden','true');
-        lightboxImg.src = '';
         lightboxCaption.textContent = '';
         document.body.style.overflow = '';
       }
@@ -435,13 +449,12 @@
       lightbox.addEventListener('click',(e)=>{ if(e.target === lightbox) closeLightbox(); });
       document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && lightbox.classList.contains('open')) closeLightbox(); });
 
-      /* FEATURE-TO-PDF modal behavior */
+      /* FEATURE-TO-PDF modal behavior (same as before) */
       const featureCards = Array.from(document.querySelectorAll('.feature-card'));
       const pdfModal = document.getElementById('pdfModal');
       const pdfFrame = document.getElementById('pdfFrame');
       const pdfClose = document.getElementById('pdfClose');
 
-      // Build array of PDFs from the DOM
       const features = featureCards.map(card => {
         const body = card.querySelector('.feature-body');
         const full = body?.getAttribute('data-full') || '';
@@ -451,17 +464,12 @@
       function openPdf(index){
         if(index < 0 || index >= features.length) return;
         const f = features[index];
+        pdfFrame.innerHTML = '';
         if(!f.full){
-          // nothing provided
           pdfFrame.innerHTML = '<div style="padding:24px;">No PDF provided for this lesson.</div>';
         } else {
-          // Try embedding with <object> (many browsers will render the PDF inline).
-          // Add '#page=1' to attempt to show first page; use fallback <iframe> as well.
           const src = f.full + (f.full.includes('#') ? '' : '#page=1');
-          // Clear
-          pdfFrame.innerHTML = '';
-
-          // Create object element
+          // Try object with iframe fallback (this displays the PDF nearly full-screen)
           const obj = document.createElement('object');
           obj.data = src;
           obj.type = 'application/pdf';
@@ -470,7 +478,6 @@
           obj.innerHTML = '<iframe src="' + src + '" style="width:100%;height:100%;border:0;">Your browser does not support inline PDFs. <a href="' + f.full + '" target="_blank" rel="noopener">Open PDF</a></iframe>';
           pdfFrame.appendChild(obj);
         }
-
         pdfModal.classList.add('open');
         pdfModal.setAttribute('aria-hidden','false');
         document.body.style.overflow = 'hidden';
@@ -484,7 +491,6 @@
         document.body.style.overflow = '';
       }
 
-      // Attach click handlers to feature cards
       featureCards.forEach((card, idx) => {
         const summary = card.querySelector('.feature-summary');
         summary.addEventListener('click', (e) => {
@@ -503,12 +509,8 @@
       // Accessibility: make feature summaries focusable
       document.querySelectorAll('.feature-summary').forEach(s => s.setAttribute('tabindex','0'));
 
-      // Preload thumbnails by creating Image objects for their fallback thumbnails
-      document.querySelectorAll('.feature-thumb img').forEach(img => { const i = new Image(); i.src = img.src; });
-
     })();
   </script>
 
 </body>
 </html>
-
