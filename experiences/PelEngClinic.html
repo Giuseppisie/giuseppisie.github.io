@@ -59,12 +59,20 @@
 
     .feature-card{background:var(--card);color:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.12);text-decoration:none;display:flex;flex-direction:column;cursor:pointer}
     .feature-summary{display:block;padding:0}
-    .feature-thumb{width:100%;height:160px;object-fit:cover;background:rgba(255,255,255,0.06);display:block;padding:10px}
+    /* Thumbnail now uses <object> to render first page of PDF inline (with fallback) */
+    .feature-thumb{
+      width:100%;
+      height:220px;
+      display:block;
+      background:#fff;
+      border:0;
+      object-fit:cover;
+    }
     .feature-meta{padding:14px 16px 18px 16px;display:flex;flex-direction:column;gap:8px}
     .feature-title{font-weight:800;font-size:16px;color:#fff}
     .feature-excerpt{font-size:13px;color:rgba(255,255,255,0.95);line-height:1.35;margin:0}
 
-    /* Hidden feature-body (holds slide link / embed) */
+    /* Hidden feature-body (holds pdf link) */
     .feature-body{display:none}
 
     /* Full-images gallery (lightbox) */
@@ -85,7 +93,24 @@
     .lightbox-caption{margin-top:12px;color:#fff;font-style:italic;font-size:15px;text-align:center;max-width:95%}
     .lightbox-close{position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);color:#fff;border:none;padding:8px 10px;border-radius:8px;font-size:18px;cursor:pointer;z-index:3100}
 
-    /* small helper */
+    /* PDF full-screen modal */
+    .pdf-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:4000;padding:40px;box-sizing:border-box}
+    .pdf-modal.open{display:flex}
+    .pdf-frame{
+      width:100%;
+      max-width:1400px;
+      height:calc(100vh - 120px); /* leaves comfortable margin top/bottom */
+      background:#fff;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6);
+    }
+    .pdf-frame object, .pdf-frame iframe { width:100%; height:100%; border:0; display:block; }
+
+    /* Close button for pdf */
+    .pdf-close{position:absolute;top:28px;right:28px;background:rgba(255,255,255,0.12);color:#fff;border:none;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:700;z-index:4100}
+
+    /* helper */
     .note{font-size:13px;color:#666;margin-top:8px}
   </style>
 </head>
@@ -142,112 +167,98 @@
 
     <!-- Features grid (6 lessons) -->
     <section class="features" aria-labelledby="features-heading">
-      <h2 id="features-heading" class="features-heading">Lesson modules & slides</h2>
+      <h2 id="features-heading" class="features-heading">Lesson modules & PDFs</h2>
 
       <div class="features-grid">
 
         <!-- FEATURE 1 -->
-        <details class="feature-card" data-index="0">
-          <summary class="feature-summary">
-            <img src="../images/projects/pelham/lesson1_thumb.jpg" alt="Lesson 1 thumbnail" class="feature-thumb">
+        <div class="feature-card" data-index="0">
+          <a class="feature-summary" href="#" aria-hidden="false">
+            <!-- Render first page thumbnail of the PDF inline if browser supports it; fallback to an image -->
+            <object class="feature-thumb" data="../images/experiences/egrclinic/Areodynamics%20HUTCH%20.pdf#page=1" type="application/pdf" aria-label="Lesson 1 PDF thumbnail">
+              <img src="../images/projects/pelham/lesson1_thumb.jpg" alt="Lesson 1 thumbnail">
+            </object>
             <div class="feature-meta">
               <div class="feature-title">Lesson 1 — Simple Machines</div>
               <div class="feature-excerpt">Introduce levers, pulleys, and ramps with hands-on challenges using cardboard and dowels.</div>
             </div>
-          </summary>
+          </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/Areodynamics%20HUTCH%20.pdf"></div>
-            <!-- hidden: the data-full should point to your Google Slides share/embed link -->
-          </div>
-        </details>
+        </div>
 
         <!-- FEATURE 2 -->
-        <details class="feature-card" data-index="1">
-          <summary class="feature-summary">
-            <img src="../images/projects/pelham/lesson2_thumb.jpg" alt="Lesson 2 thumbnail" class="feature-thumb">
+        <div class="feature-card" data-index="1">
+          <a class="feature-summary" href="#" aria-hidden="false">
+            <object class="feature-thumb" data="../images/experiences/egrclinic/Bridge%20HUTCH.pdf#page=1" type="application/pdf">
+              <img src="../images/projects/pelham/lesson2_thumb.jpg" alt="Lesson 2 thumbnail">
+            </object>
             <div class="feature-meta">
               <div class="feature-title">Lesson 2 — Paper Circuits</div>
               <div class="feature-excerpt">Basic circuit building with copper tape, LEDs, and coin cells to teach electricity safely.</div>
             </div>
-          </summary>
+          </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/Bridge%20HUTCH.pdf"></div>
-        </details>
+        </div>
 
         <!-- FEATURE 3 -->
-        <details class="feature-card" data-index="2">
-          <summary class="feature-summary">
-            <img src="../images/projects/pelham/lesson3_thumb.jpg" alt="Lesson 3 thumbnail" class="feature-thumb">
+        <div class="feature-card" data-index="2">
+          <a class="feature-summary" href="#" aria-hidden="false">
+            <object class="feature-thumb" data="../images/experiences/egrclinic/Earthquake%20HUTCH.pdf#page=1" type="application/pdf">
+              <img src="../images/projects/pelham/lesson3_thumb.jpg" alt="Lesson 3 thumbnail">
+            </object>
             <div class="feature-meta">
               <div class="feature-title">Lesson 3 — Bridge Building</div>
               <div class="feature-excerpt">Design and test simple truss bridges out of popsicle sticks and glue.</div>
             </div>
-          </summary>
+          </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/Earthquake%20HUTCH.pdf"></div>
-        </details>
+        </div>
 
         <!-- FEATURE 4 -->
-        <details class="feature-card" data-index="3">
-          <summary class="feature-summary">
-            <img src="../images/projects/pelham/lesson4_thumb.jpg" alt="Lesson 4 thumbnail" class="feature-thumb">
+        <div class="feature-card" data-index="3">
+          <a class="feature-summary" href="#" aria-hidden="false">
+            <object class="feature-thumb" data="../images/experiences/egrclinic/Egg%20drop%20SUMENG.pdf#page=1" type="application/pdf">
+              <img src="../images/projects/pelham/lesson4_thumb.jpg" alt="Lesson 4 thumbnail">
+            </object>
             <div class="feature-meta">
               <div class="feature-title">Lesson 4 — Balloon-Powered Vehicles</div>
               <div class="feature-excerpt">Build simple balloon cars to explore propulsion, friction, and steering.</div>
             </div>
-          </summary>
+          </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/Egg%20drop%20SUMENG.pdf"></div>
-        </details>
+        </div>
 
         <!-- FEATURE 5 -->
-        <details class="feature-card" data-index="4">
-          <summary class="feature-summary">
-            <img src="../images/projects/pelham/lesson5_thumb.jpg" alt="Lesson 5 thumbnail" class="feature-thumb">
+        <div class="feature-card" data-index="4">
+          <a class="feature-summary" href="#" aria-hidden="false">
+            <object class="feature-thumb" data="../images/experiences/egrclinic/SUMENG%20Boats.pdf#page=1" type="application/pdf">
+              <img src="../images/projects/pelham/lesson5_thumb.jpg" alt="Lesson 5 thumbnail">
+            </object>
             <div class="feature-meta">
               <div class="feature-title">Lesson 5 — Structural Materials</div>
               <div class="feature-excerpt">Simple material tests — compare paper, cardboard, tape, and wood to learn material properties.</div>
             </div>
-          </summary>
+          </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/SUMENG%20Boats.pdf"></div>
-        </details>
+        </div>
 
         <!-- FEATURE 6 -->
-        <details class="feature-card" data-index="5">
-          <summary class="feature-summary">
-            <img src="../images/projects/pelham/lesson6_thumb.jpg" alt="Lesson 6 thumbnail" class="feature-thumb">
+        <div class="feature-card" data-index="5">
+          <a class="feature-summary" href="#" aria-hidden="false">
+            <object class="feature-thumb" data="../images/experiences/egrclinic/catapults%20HUTCH.pdf#page=1" type="application/pdf">
+              <img src="../images/projects/pelham/lesson6_thumb.jpg" alt="Lesson 6 thumbnail">
+            </object>
             <div class="feature-meta">
               <div class="feature-title">Lesson 6 — Simple Robotics</div>
               <div class="feature-excerpt">Intro to motors and simple sensors: make a vibrating 'bug' robot from a motor and battery.</div>
             </div>
-          </summary>
+          </a>
           <div class="feature-body" data-full="../images/experiences/egrclinic/catapults%20HUTCH.pdf"></div>
-        </details>
-
-      <!-- FEATURE 7-->
-        <details class="feature-card" data-index="5">
-          <summary class="feature-summary">
-            <img src="../images/projects/pelham/lesson6_thumb.jpg" alt="Lesson 6 thumbnail" class="feature-thumb">
-            <div class="feature-meta">
-              <div class="feature-title">Lesson 6 — Simple Robotics</div>
-              <div class="feature-excerpt">Intro to motors and simple sensors: make a vibrating 'bug' robot from a motor and battery.</div>
-            </div>
-          </summary>
-          <div class="feature-body" data-full="../images/experiences/egrclinic/paper%20circuits%20HUTCH.pdf"></div>
-        </details>
-
-
-        <!-- FEATURE 8-->
-        <details class="feature-card" data-index="5">
-          <summary class="feature-summary">
-            <img src="../images/projects/pelham/lesson6_thumb.jpg" alt="Lesson 6 thumbnail" class="feature-thumb">
-            <div class="feature-meta">
-              <div class="feature-title">Lesson 6 — Simple Robotics</div>
-              <div class="feature-excerpt">Intro to motors and simple sensors: make a vibrating 'bug' robot from a motor and battery.</div>
-            </div>
-          </summary>
-          <div class="feature-body" data-full="../images/experiences/egrclinic/rockets%20SUMENG.pdf"></div>
-        </details>
+        </div>
 
       </div>
 
-      <p class="note">Replace each <code>data-full</code> on the feature-body elements with your Google Slides 'publish to web' or share link so clicking a feature opens the lesson slide deck (the modal behavior below uses that attribute).</p>
+      <p class="note">Thumbnails attempt to render the PDF first page inline; if a browser doesn't support inline PDF thumbnails it'll show the fallback image. Click any lesson to open the full PDF near full-screen.</p>
     </section>
 
     <!-- Full gallery -->
@@ -277,7 +288,6 @@
           <figcaption class="gallery-caption">Bridge load testing day.</figcaption>
         </figure>
 
-        <!-- add more gallery items as needed -->
       </div>
     </section>
 
@@ -292,31 +302,11 @@
     </div>
   </div>
 
-  <!-- Feature modal (reused approach like WavGuard) -->
-  <div id="featureModal" class="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;padding:28px;z-index:2500;">
-    <div class="modal" style="background:#fff;width:100%;max-width:1100px;max-height:92vh;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,0.45);">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(0,0,0,0.06);background:linear-gradient(90deg,rgba(66,123,118,1),rgba(86,153,140,1));color:#fff;">
-        <div id="modal-title" style="font-size:18px;font-weight:800">Lesson</div>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <button id="modal-prev" class="modal-prev" style="background:rgba(255,255,255,0.12);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700">◀ Prev</button>
-          <button id="modal-next" class="modal-next" style="background:rgba(255,255,255,0.12);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700">Next ▶</button>
-          <button id="modal-close" class="modal-close" style="background:rgba(255,255,255,0.12);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700">✕</button>
-        </div>
-      </div>
-
-      <div class="modal-body" style="display:flex;gap:20px;padding:20px;overflow:auto;background:#fff;">
-        <div style="flex:0 0 460px;max-width:52%;">
-          <!-- image or iframe will be inserted here -->
-          <div id="modalMediaWrap" style="width:100%;height:100%;min-height:280px;display:flex;align-items:center;justify-content:center"></div>
-        </div>
-        <div class="modal-text" style="flex:1;color:#111;font-size:16px;line-height:1.6;">
-          <div id="modalDesc"></div>
-          <ul id="modalList"></ul>
-          <div style="margin-top:14px;">
-            <a id="modalOpenSlides" class="btn" style="background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;" href="#" target="_blank" rel="noopener">Open slides</a>
-          </div>
-        </div>
-      </div>
+  <!-- PDF modal: nearly full-screen PDF only (no captions) -->
+  <div id="pdfModal" class="pdf-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <button id="pdfClose" class="pdf-close" aria-label="Close PDF">✕</button>
+    <div class="pdf-frame" id="pdfFrame" role="document" aria-label="PDF viewer">
+      <!-- object/iframe inserted here by JS -->
     </div>
   </div>
 
@@ -359,123 +349,80 @@
       lightbox.addEventListener('click',(e)=>{ if(e.target === lightbox) closeLightbox(); });
       document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && lightbox.classList.contains('open')) closeLightbox(); });
 
-      /* Feature modal behavior (uses the .feature-card details on the page) */
+      /* FEATURE-TO-PDF modal behavior */
       const featureCards = Array.from(document.querySelectorAll('.feature-card'));
-      const features = featureCards.map(card=>{
-        const title = card.querySelector('.feature-title')?.textContent?.trim() || '';
-        const excerpt = card.querySelector('.feature-excerpt')?.textContent?.trim() || '';
+      const pdfModal = document.getElementById('pdfModal');
+      const pdfFrame = document.getElementById('pdfFrame');
+      const pdfClose = document.getElementById('pdfClose');
+
+      // Build array of PDFs from the DOM
+      const features = featureCards.map(card => {
         const body = card.querySelector('.feature-body');
         const full = body?.getAttribute('data-full') || '';
-        // description can be just the excerpt (you can expand later)
-        return { title, excerpt, full };
+        return { full };
       });
 
-      const featureModal = document.getElementById('featureModal');
-      const modalTitle = document.getElementById('modal-title');
-      const modalMediaWrap = document.getElementById('modalMediaWrap');
-      const modalDesc = document.getElementById('modalDesc');
-      const modalList = document.getElementById('modalList');
-      const btnPrev = document.getElementById('modal-prev');
-      const btnNext = document.getElementById('modal-next');
-      const btnClose = document.getElementById('modal-close');
-      const btnOpenSlides = document.getElementById('modalOpenSlides');
-
-      let currentIndex = 0;
-
-      function renderFeature(index){
+      function openPdf(index){
         if(index < 0 || index >= features.length) return;
-        currentIndex = index;
         const f = features[index];
-        modalTitle.textContent = f.title || 'Lesson';
-        modalDesc.textContent = f.excerpt || '';
-        modalList.innerHTML = '';
-        // show media: if full is a slides link (google), embed as iframe if possible, otherwise show thumbnail
-        modalMediaWrap.innerHTML = '';
-        if(f.full && /\.(pptx|pdf)$/.test(f.full) || f.full.includes('docs.google.com') || f.full.includes('slides')){
-          // embed slide link or show button to open
-          const iframe = document.createElement('iframe');
-          iframe.src = f.full;
-          iframe.style.width = '100%';
-          iframe.style.height = '360px';
-          iframe.style.border = '0';
-          iframe.setAttribute('title', f.title || 'Slides');
-          modalMediaWrap.appendChild(iframe);
-        } else if(f.full && /\.(jpg|jpeg|png|gif)$/.test(f.full)){
-          const img = document.createElement('img');
-          img.src = f.full;
-          img.alt = f.title || '';
-          img.style.maxWidth = '100%';
-          img.style.borderRadius = '6px';
-          modalMediaWrap.appendChild(img);
+        if(!f.full){
+          // nothing provided
+          pdfFrame.innerHTML = '<div style="padding:24px;">No PDF provided for this lesson.</div>';
         } else {
-          // fallback: show a helpful placeholder and the Open slides button will be enabled if full exists
-          const box = document.createElement('div');
-          box.style.padding = '18px';
-          box.style.background = '#fafafa';
-          box.style.border = '1px solid rgba(0,0,0,0.06)';
-          box.style.borderRadius = '8px';
-          box.style.color = '#666';
-          box.style.textAlign = 'center';
-          box.innerText = f.full ? 'Slides will open in a new tab.' : 'No slide link provided — replace feature-body data-full with your Google Slides share/embed URL.';
-          modalMediaWrap.appendChild(box);
+          // Try embedding with <object> (many browsers will render the PDF inline).
+          // Add '#page=1' to attempt to show first page; use fallback <iframe> as well.
+          const src = f.full + (f.full.includes('#') ? '' : '#page=1');
+          // Clear
+          pdfFrame.innerHTML = '';
+
+          // Create object element
+          const obj = document.createElement('object');
+          obj.data = src;
+          obj.type = 'application/pdf';
+          obj.style.width = '100%';
+          obj.style.height = '100%';
+          obj.innerHTML = '<iframe src="' + src + '" style="width:100%;height:100%;border:0;">Your browser does not support inline PDFs. <a href="' + f.full + '" target="_blank" rel="noopener">Open PDF</a></iframe>';
+          pdfFrame.appendChild(obj);
         }
 
-        // configure Open slides button
-        if(f.full){
-          btnOpenSlides.href = f.full;
-          btnOpenSlides.style.pointerEvents = 'auto';
-          btnOpenSlides.style.opacity = '1';
-        } else {
-          btnOpenSlides.href = '#';
-          btnOpenSlides.style.pointerEvents = 'none';
-          btnOpenSlides.style.opacity = '0.6';
-        }
-      }
-
-      function openFeature(index){
-        renderFeature(index);
-        featureModal.style.display = 'flex';
-        featureModal.setAttribute('aria-hidden','false');
-        btnClose.focus();
+        pdfModal.classList.add('open');
+        pdfModal.setAttribute('aria-hidden','false');
         document.body.style.overflow = 'hidden';
+        pdfClose.focus();
       }
-      function closeFeature(){
-        featureModal.style.display = 'none';
-        featureModal.setAttribute('aria-hidden','true');
-        // remove any iframe/video to stop playback
-        modalMediaWrap.innerHTML = '';
+
+      function closePdf(){
+        pdfModal.classList.remove('open');
+        pdfModal.setAttribute('aria-hidden','true');
+        pdfFrame.innerHTML = '';
         document.body.style.overflow = '';
       }
-      function showPrev(){ openFeature((currentIndex - 1 + features.length) % features.length); }
-      function showNext(){ openFeature((currentIndex + 1) % features.length); }
 
+      // Attach click handlers to feature cards
       featureCards.forEach((card, idx) => {
         const summary = card.querySelector('.feature-summary');
-        summary.addEventListener('click', (e) => { e.preventDefault(); openFeature(idx); });
-        summary.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFeature(idx); }});
+        summary.addEventListener('click', (e) => {
+          e.preventDefault();
+          openPdf(idx);
+        });
+        summary.addEventListener('keydown', (e) => {
+          if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPdf(idx); }
+        });
       });
 
-      btnClose.addEventListener('click', closeFeature);
-      btnPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
-      btnNext.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
-      featureModal.addEventListener('click', (e) => { if (e.target === featureModal) closeFeature(); });
-      document.addEventListener('keydown', (e) => {
-        if (featureModal.style.display !== 'flex') return;
-        if (e.key === 'Escape') closeFeature();
-        if (e.key === 'ArrowLeft') showPrev();
-        if (e.key === 'ArrowRight') showNext();
-      });
+      pdfClose.addEventListener('click', closePdf);
+      pdfModal.addEventListener('click', (e) => { if(e.target === pdfModal) closePdf(); });
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && pdfModal.classList.contains('open')) closePdf(); });
 
-      // Accessibility: add tabindex to summaries
+      // Accessibility: make feature summaries focusable
       document.querySelectorAll('.feature-summary').forEach(s => s.setAttribute('tabindex','0'));
 
-      // Preload gallery thumbnails (gracefully)
-      document.querySelectorAll('.gallery-card img').forEach(img => {
-        const i = new Image(); i.src = img.src;
-      });
+      // Preload thumbnails by creating Image objects for their fallback thumbnails
+      document.querySelectorAll('.feature-thumb img').forEach(img => { const i = new Image(); i.src = img.src; });
 
     })();
   </script>
 
 </body>
 </html>
+
