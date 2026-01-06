@@ -1,1 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Artwork — Sienna Giuseppi</title>
+
+  <style>
+    :root{
+      --bg:#a0c0bc;
+      --card:#427b76;
+      --accent:#b0ab52;
+      --content-max:1100px;
+      --page-pad:20px;
+      --gap:18px;
+    }
+
+    html,body{height:100%;margin:0}
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background:var(--bg);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* Top bar (same as your other pages) */
+    .topbar{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 20px;z-index:1000;background:rgba(0,0,0,0.25);backdrop-filter:blur(4px)}
+    .topbar-left{display:flex;align-items:center;gap:20px}
+    .brand{color:#fff;font-weight:800;font-size:18px;text-decoration:none;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+    .topnav{display:flex;gap:10px}
+    .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
+    .spacer{height:60px}
+
+    /* Hero */
+    .hero{position:relative;height:36vh;background-image:url("../images/experiences/art/hero.jpg");background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
+    .hero::after{content:"";position:absolute;inset:0;background:rgba(66,123,118,0.35)}
+    .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(22px,4vw,36px);font-weight:800;text-shadow:0 8px 24px rgba(0,0,0,.6);padding:0 20px;text-align:center}
+
+    /* Page container */
+    .page{max-width:var(--content-max);margin:0 auto;padding:28px var(--page-pad) 80px;box-sizing:border-box}
+
+    /* Intro content */
+    .content{background:#fff;padding:24px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.06);margin-bottom:22px;color:#222}
+    .content h2{margin:0 0 10px;font-size:20px}
+    .content p{line-height:1.6;margin-bottom:8px;color:#333}
+    .sub{color:#666;font-size:14px;margin-bottom:12px}
+
+    /* Section heading */
+    .section{margin-bottom:28px}
+    .section h3{margin:0 0 10px;font-size:18px;color:#111}
+    .section .subtitle{color:#666;font-size:13px;margin-bottom:14px}
+
+    /* Art grid: preserve original aspect ratios by not fixing height */
+    .art-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      align-items:start;
+    }
+    @media (max-width:1000px){ .art-grid{ grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:600px){ .art-grid{ grid-template-columns: 1fr; } }
+
+    .art-card{
+      background:#fff;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 8px 20px rgba(0,0,0,0.06);
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease;
+    }
+    .art-card:focus, .art-card:hover{ transform:translateY(-6px); box-shadow:0 20px 40px rgba(0,0,0,0.12); outline:none; }
+
+    .art-img{ display:block; width:100%; height:auto; object-fit:contain; }
+    .art-caption{ padding:10px 12px; color:#333; font-size:14px; background:#fff; }
+
+    /* Lightbox */
+    .lightbox{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.9); z-index:3000; padding:20px; box-sizing:border-box; }
+    .lightbox.open{ display:flex; }
+    .lightbox-inner{ max-width:1400px; width:100%; max-height:92vh; overflow:auto; position:relative; display:flex; flex-direction:column; align-items:center; }
+    .lightbox-media{ max-width:100%; max-height:calc(92vh - 120px); border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+    .lightbox-close{ position:absolute; top:18px; right:18px; background:rgba(255,255,255,0.12); color:#fff; border:none; padding:10px 12px; border-radius:8px; cursor:pointer; font-weight:700; z-index:3100; }
+    .lightbox-caption{ margin-top:12px; color:#fff; font-style:italic; font-size:15px; text-align:center; max-width:95%; }
+
+    /* small helper */
+    .note{font-size:13px;color:#666;margin-top:8px}
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <div class="topbar-left">
+      <a class="brand" href="../index.html">Sienna Giuseppi</a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../about.html">About</a>
+        <a href="../index.html#engineering-projects">Projects</a>
+        <a href="../index.html#experiences">Experiences</a>
+        <a href="../resume.html">Resume</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="spacer" aria-hidden="true"></div>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Art hero">
+    <div class="hero-title">Artwork & Creative Practice</div>
+  </section>
+
+  <main class="page" role="main" aria-labelledby="art-intro">
+
+    <!-- INTRO -->
+    <section class="content" id="art-intro" aria-labelledby="art-intro-heading">
+      <h2 id="art-intro-heading">A brief note</h2>
+      <p class="sub">I have loved art from a young age and I'm always looking for new ways to experiment and grow creatively. Below are selections of works made over the years.</p>
+      <p>Here are some of my works over the years — click any image to view it full-screen.</p>
+    </section>
+
+    <!-- SCULPTING -->
+    <section class="section" aria-labelledby="sculpting-heading">
+      <h3 id="sculpting-heading">Sculpting</h3>
+      <div class="subtitle">Hand-built and mixed-media pieces</div>
+
+      <div class="art-grid" role="list">
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/sculpt1.jpg" data-caption="Sculpture — Title or short note 1">
+          <img class="art-img" src="../images/art/sculpt1_thumb.jpg" alt="Sculpture 1">
+          <div class="art-caption">Sculpture — (medium, year)</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/sculpt2.jpg" data-caption="Sculpture — Title or short note 2">
+          <img class="art-img" src="../images/art/sculpt2_thumb.jpg" alt="Sculpture 2">
+          <div class="art-caption">Sculpture — (medium, year)</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/sculpt3.jpg" data-caption="Sculpture — Title or short note 3">
+          <img class="art-img" src="../images/art/sculpt3_thumb.jpg" alt="Sculpture 3">
+          <div class="art-caption">Sculpture — (medium, year)</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- SKETCHES FROM AFRICA 2025 -->
+    <section class="section" aria-labelledby="sketches-heading">
+      <h3 id="sketches-heading">Sketches from Africa — 2025</h3>
+      <div class="subtitle">Travel sketches and studies made during 2025</div>
+
+      <div class="art-grid" role="list">
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/africa1.jpg" data-caption="Sketch — Market scene, Kenya, 2025">
+          <img class="art-img" src="../images/art/africa1_thumb.jpg" alt="Sketch Market scene Kenya 2025">
+          <div class="art-caption">Market scene — Kenya, 2025</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/africa2.jpg" data-caption="Sketch — Landscape study, 2025">
+          <img class="art-img" src="../images/art/africa2_thumb.jpg" alt="Sketch Landscape 2025">
+          <div class="art-caption">Landscape study — 2025</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/africa3.jpg" data-caption="Sketch — Portrait study, 2025">
+          <img class="art-img" src="../images/art/africa3_thumb.jpg" alt="Sketch Portrait 2025">
+          <div class="art-caption">Portrait study — 2025</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- HIGHSCHOOL ART -->
+    <section class="section" aria-labelledby="hs-heading">
+      <h3 id="hs-heading">Highschool art</h3>
+      <div class="subtitle">Selected pieces made during high school</div>
+
+      <div class="art-grid" role="list">
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/hs1.jpg" data-caption="Highschool piece 1">
+          <img class="art-img" src="../images/art/hs1_thumb.jpg" alt="Highschool piece 1">
+          <div class="art-caption">Highschool — piece 1</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/hs2.jpg" data-caption="Highschool piece 2">
+          <img class="art-img" src="../images/art/hs2_thumb.jpg" alt="Highschool piece 2">
+          <div class="art-caption">Highschool — piece 2</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/hs3.jpg" data-caption="Highschool piece 3">
+          <img class="art-img" src="../images/art/hs3_thumb.jpg" alt="Highschool piece 3">
+          <div class="art-caption">Highschool — piece 3</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/hs4.jpg" data-caption="Highschool piece 4">
+          <img class="art-img" src="../images/art/hs4_thumb.jpg" alt="Highschool piece 4">
+          <div class="art-caption">Highschool — piece 4</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/hs5.jpg" data-caption="Highschool piece 5">
+          <img class="art-img" src="../images/art/hs5_thumb.jpg" alt="Highschool piece 5">
+          <div class="art-caption">Highschool — piece 5</div>
+        </button>
+
+        <button class="art-card" role="button" tabindex="0" data-src="../images/art/hs6.jpg" data-caption="Highschool piece 6">
+          <img class="art-img" src="../images/art/hs6_thumb.jpg" alt="Highschool piece 6">
+          <div class="art-caption">Highschool — piece 6</div>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox-close" aria-label="Close full view">✕</button>
+    <div class="lightbox-inner" role="document">
+      <!-- image or video inserted here -->
+      <div id="lightboxMediaWrap"></div>
+      <div id="lightboxCaption" class="lightbox-caption" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const lightbox = document.getElementById('lightbox');
+      const mediaWrap = document.getElementById('lightboxMediaWrap');
+      const captionEl = document.getElementById('lightboxCaption');
+      const closeBtn = document.querySelector('.lightbox-close');
+
+      function isVideo(src){
+        return /\.(mp4|webm|ogg)$/i.test(src);
+      }
+
+      function openLightbox(src, caption, alt){
+        // clear existing
+        mediaWrap.innerHTML = '';
+        captionEl.textContent = caption || '';
+
+        if(isVideo(src)){
+          const v = document.createElement('video');
+          v.controls = true;
+          v.autoplay = true;
+          v.playsInline = true;
+          v.preload = 'metadata';
+          v.style.maxWidth = '100%';
+          v.style.maxHeight = 'calc(92vh - 120px)';
+          v.className = 'lightbox-media';
+          const s = document.createElement('source');
+          s.src = src;
+          s.type = 'video/mp4';
+          v.appendChild(s);
+          mediaWrap.appendChild(v);
+        } else {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = alt || caption || 'Artwork';
+          img.className = 'lightbox-media';
+          mediaWrap.appendChild(img);
+        }
+
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+        closeBtn.focus();
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox(){
+        const v = mediaWrap.querySelector('video');
+        if(v){ v.pause(); v.remove(); }
+        mediaWrap.innerHTML = '';
+        captionEl.textContent = '';
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+
+      // attach click handlers to all .art-card buttons
+      const cards = Array.from(document.querySelectorAll('.art-card'));
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const src = card.getAttribute('data-src');
+          const caption = card.getAttribute('data-caption') || '';
+          const alt = card.querySelector('img')?.alt || '';
+          openLightbox(src, caption, alt);
+        });
+        card.addEventListener('keydown', (e) => {
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); card.click(); }
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
 
