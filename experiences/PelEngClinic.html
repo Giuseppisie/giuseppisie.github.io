@@ -274,35 +274,107 @@
 
     </section>
 
-    <!-- Full gallery -->
-    <section class="full-images-section" aria-labelledby="gallery-heading">
-      <h2 id="gallery-heading" class="full-images-title">Photo gallery</h2>
+    <!-- --- Mosaic gallery (10 photos) --- -->
+<section class="full-images-section" aria-labelledby="gallery-heading">
+  <h2 id="gallery-heading" class="full-images-title">Photo gallery</h2>
 
-      <div class="gallery-grid">
-        <!-- Replace src / caption with your actual images -->
-        <figure class="gallery-card">
-          <button class="img-btn" data-src="../images/projects/pelham/gallery1.jpg" data-caption="Students building balloon cars">
-            <img src="../images/projects/pelham/gallery1_thumb.jpg" alt="Students building balloon cars">
-          </button>
-          <figcaption class="gallery-caption">Balloon car challenge — testing runs.</figcaption>
-        </figure>
+  <div class="mosaic-grid" role="list">
+    <button class="img-btn mosaic-item large" data-src="../images/projects/pelham/gallery1.jpg" data-caption="Gallery photo 1: description">
+      <img src="../images/experiences/egrclinic/catapultboy.jpeg" alt="Gallery photo 1">
+    </button>
 
-        <figure class="gallery-card">
-          <button class="img-btn" data-src="../images/projects/pelham/gallery2.jpg" data-caption="Paper circuits workshop">
-            <img src="../images/projects/pelham/gallery2_thumb.jpg" alt="Paper circuits workshop">
-          </button>
-          <figcaption class="gallery-caption">Paper circuits with LEDs.</figcaption>
-        </figure>
+     <button class="img-btn mosaic-item small" data-src="../images/projects/pelham/gallery9.jpg" data-caption="Gallery photo 9: description">
+      <img src="../images/projects/pelham/gallery9_thumb.jpg" alt="Gallery vid 1">
+    </button>
 
-        <figure class="gallery-card">
-          <button class="img-btn" data-src="../images/projects/pelham/gallery3.jpg" data-caption="Bridge testing">
-            <img src="../images/projects/pelham/gallery3_thumb.jpg" alt="Bridge testing">
-          </button>
-          <figcaption class="gallery-caption">Bridge load testing day.</figcaption>
-        </figure>
+    <button class="img-btn mosaic-item tall" data-src="../images/projects/pelham/gallery2.jpg" data-caption="Gallery photo 2: description">
+      <img src="../images/experiences/egrclinic/catapultgirl.jpeg" alt="Gallery photo 2">
+    </button>
 
-      </div>
-    </section>
+    <button class="img-btn mosaic-item wide" data-src="../images/projects/pelham/gallery3.jpg" data-caption="Gallery photo 3: description">
+      <img src="../images/experiences/egrclinic/eggl.jpeg" alt="Gallery photo 3">
+    </button>
+
+    <button class="img-btn mosaic-item small" data-src="../images/projects/pelham/gallery4.jpg" data-caption="Gallery photo 4: description">
+      <img src="../images/experiences/egrclinic/lectureboat.jpeg" alt="Gallery photo 4">
+    </button>
+
+    <button class="img-btn mosaic-item small" data-src="../images/projects/pelham/gallery5.jpg" data-caption="Gallery photo 5: description">
+      <img src="../images/experiences/egrclinic/pennyboat.jpeg" alt="Gallery photo 5">
+    </button>
+
+    <button class="img-btn mosaic-item tall" data-src="../images/projects/pelham/gallery6.jpg" data-caption="Gallery photo 6: description">
+      <img src="../images/experiences/egrclinic/plans.jpeg" alt="Gallery photo 6">
+    </button>
+
+    <button class="img-btn mosaic-item wide" data-src="../images/projects/pelham/gallery7.jpg" data-caption="Gallery photo 7: description">
+      <img src="../images/experiences/egrclinic/rocketbuild.jpeg" alt="Gallery photo 7">
+    </button>
+
+    <button class="img-btn mosaic-item small" data-src="../images/projects/pelham/gallery8.jpg" data-caption="Gallery photo 8: description">
+      <img src="../images/experiences/egrclinic/tower.jpeg" alt="Gallery photo 8">
+    </button>
+
+    <button class="img-btn mosaic-item large" data-src="../images/projects/pelham/gallery10.jpg" data-caption="Gallery photo 10: description">
+      <img src="../images/projects/pelham/gallery10_thumb.jpg" alt="Gallery photo 10">
+    </button>
+  </div>
+</section>
+
+<style>
+/* Mosaic grid: paste into your page CSS (or inside <style>) */
+.mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 110px;
+  gap: 12px;
+  align-items: stretch;
+  margin: 0 auto 24px;
+  max-width: 1100px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* size variants (arrangement) */
+.mosaic-item { display: block; border:0; padding:0; background:#fff; overflow:hidden; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.06); cursor:pointer; }
+.mosaic-item img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Place items in a pleasing pattern */
+.mosaic-item.large { grid-column: 1 / span 3; grid-row: 1 / span 2; }
+.mosaic-item.tall  { grid-column: span 2; grid-row: span 2; }
+.mosaic-item.wide  { grid-column: span 3; grid-row: span 1; }
+.mosaic-item.small { grid-column: span 2; grid-row: span 1; }
+
+/* Specific ordering to achieve the intended layout (optional fine-tuning) */
+.mosaic-grid .mosaic-item:nth-child(1){ order:0; }  /* large */
+.mosaic-grid .mosaic-item:nth-child(2){ order:1; }  /* tall  */
+.mosaic-grid .mosaic-item:nth-child(3){ order:2; }  /* wide  */
+.mosaic-grid .mosaic-item:nth-child(4){ order:3; }
+.mosaic-grid .mosaic-item:nth-child(5){ order:4; }
+.mosaic-grid .mosaic-item:nth-child(6){ order:5; }
+.mosaic-grid .mosaic-item:nth-child(7){ order:6; }
+.mosaic-grid .mosaic-item:nth-child(8){ order:7; }
+.mosaic-grid .mosaic-item:nth-child(9){ order:8; }
+.mosaic-grid .mosaic-item:nth-child(10){ order:9; } /* large */
+
+/* Responsive: collapse to 3 columns then 2 then 1 */
+@media (max-width: 1000px) {
+  .mosaic-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 110px; }
+  .mosaic-item.large { grid-column: 1 / span 2; grid-row: 1 / span 2; }
+  .mosaic-item.wide  { grid-column: span 2; }
+}
+@media (max-width: 720px) {
+  .mosaic-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 120px; gap: 10px; }
+  .mosaic-item.large, .mosaic-item.tall, .mosaic-item.wide, .mosaic-item.small { grid-column: auto; grid-row: auto; }
+}
+@media (max-width: 420px) {
+  .mosaic-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+}
+
+/* focus accessibility */
+.mosaic-item:focus { outline: 3px solid rgba(176,171,82,0.35); outline-offset: 4px; }
+</style>
+
 
   </main>
 
