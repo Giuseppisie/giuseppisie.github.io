@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product Space @ Duke — Fellowship</title>
+
+  <style>
+    :root{
+      --bg:#a0c0bc;
+      --card:#427b76;
+      --accent:#b0ab52;
+      --content-max:1100px;
+      --page-pad:20px;
+    }
+
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background:var(--bg);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* ---------- TOP BAR (same as your other pages) ---------- */
+    .topbar{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:60px;
+      display:flex;
+      align-items:center;
+      padding:0 20px;
+      z-index:1000;
+      background:rgba(0,0,0,0.25);
+      backdrop-filter:blur(4px);
+    }
+    .topbar-left{display:flex;align-items:center;gap:20px}
+    .brand{
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      text-decoration:none;
+      text-shadow:0 2px 8px rgba(0,0,0,.4);
+    }
+    .topnav{display:flex;gap:10px}
+    .topnav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:8px 10px;
+      border-radius:8px;
+    }
+
+    .spacer{height:60px}
+
+    /* ---------- HERO ---------- */
+    .hero{
+      position:relative;
+      height:44vh;
+      background-image:url("../images/experiences/productspace/hero.jpg"); /* change path if desired */
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(66,123,118,0.35);
+    }
+    .hero-title{
+      position:relative;
+      z-index:1;
+      color:#fff;
+      font-size:clamp(26px,4.5vw,42px);
+      font-weight:800;
+      text-shadow:0 8px 24px rgba(0,0,0,.6);
+      text-align:center;
+      padding:0 20px;
+    }
+
+    /* ---------- PAGE ---------- */
+    .page{
+      max-width:var(--content-max);
+      margin:0 auto;
+      padding:28px var(--page-pad) 80px;
+      box-sizing:border-box;
+    }
+
+    .content{
+      background:#fff;
+      padding:24px;
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
+      margin-bottom:24px;
+    }
+
+    .content h2{ margin:0 0 10px; font-size:22px; color:#111; }
+    .meta{ color:#666; font-size:14px; margin-bottom:12px; }
+    .content p{ line-height:1.6; color:#333; margin-bottom:12px; }
+    .bullets{ margin:8px 0 0 18px; color:#333 }
+
+    /* embed card */
+    .embed-card{
+      background:#fff;
+      border-radius:12px;
+      padding:16px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.06);
+      margin-bottom:22px;
+      max-width:var(--content-max);
+    }
+    .embed-caption{ font-weight:800; margin-bottom:12px; color:#111 }
+    .embed-frame-wrap{ display:flex; justify-content:center; }
+    .embed-frame{
+      width:100%;
+      max-width:980px;
+      height:640px;
+      border:1px solid rgba(0,0,0,0.08);
+      border-radius:8px;
+      overflow:hidden;
+    }
+    .embed-fallback{
+      padding:18px;
+      background:#fafafa;
+      border-radius:8px;
+      color:#555;
+      text-align:center;
+      font-size:15px;
+    }
+
+    @media (max-width:900px){
+      .embed-frame{ height:480px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <div class="topbar-left">
+      <a class="brand" href="../index.html">Sienna Giuseppi</a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../about.html">About</a>
+        <a href="../index.html#engineering-projects">Projects</a>
+        <a href="../index.html#experiences">Experiences</a>
+        <a href="../resume.html">Resume</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="spacer" aria-hidden="true"></div>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Product Space hero image">
+    <div class="hero-title">Product Space @ Duke — Fellow</div>
+  </section>
+
+  <main class="page" aria-labelledby="ps-intro-heading">
+
+    <section class="content" id="ps-intro" aria-labelledby="ps-intro-heading">
+      <h2 id="ps-intro-heading">Program overview</h2>
+      <div class="meta">Organization: Product Space · Chapter: Duke University · Role: Fellow</div>
+
+      <p>
+        Product Space is a national student program that connects students interested in product management and product development with practitioners, career resources, and hands-on project experiences. Duke's chapter brings the national network to campus through weekly sessions, mentorship, and project-based learning for student fellows.
+      </p>
+
+      <p>
+        As a Product Space fellow I attend weekly meetings and fireside chats with experienced product managers and engineers from a broad range of companies. These conversations help me understand the breadth of product careers and how design, analytics, and engineering intersect in real product teams.
+      </p>
+    </section>
+
+    <!-- EMBED: national program site (in a white card with caption) -->
+    <section class="embed-card" aria-labelledby="embed-caption">
+      <div id="embed-caption" class="embed-caption">See the national program site here:</div>
+      <div class="embed-frame-wrap" aria-hidden="false">
+        <!-- Attempt to embed Product Space. Note: some sites block embedding; a fallback link & message are provided. -->
+        <iframe class="embed-frame" src="https://www.productspace.org/" title="Product Space national site" sandbox="allow-scripts allow-same-origin allow-forms allow-popups">
+          <!-- If iframe is blocked by browser or site, show fallback content -->
+        </iframe>
+      </div>
+
+      <div style="margin-top:12px;font-size:13px;color:#666">
+        If the site does not load in the embed (some sites block embedding), open it directly:
+        <a href="https://www.productspace.org/" target="_blank" rel="noopener">productspace.org</a>
+      </div>
+    </section>
+
+    <section class="content" aria-labelledby="ps-involvement">
+      <h2 id="ps-involvement">My involvement</h2>
+      <div class="meta">Weekly fireside chats · Project-based product work (coming)</div>
+
+      <p>
+        I attend weekly Product Space sessions at Duke which typically take the form of fireside chats and panels.
+        Guests include product leaders and engineers from a wide array of companies and product areas — from digital workout equipment to ride-sharing, large platform companies, and language-learning apps. These sessions have featured representatives from companies such as:
+      </p>
+
+      <ul class="bullets" aria-label="Representative companies">
+        <li>Peloton / digital fitness hardware & software</li>
+        <li>Lyft — product & operations</li>
+        <li>Amazon — consumer product and platform teams</li>
+        <li>Meta — product strategy and growth</li>
+        <li>Duolingo — product for learning & engagement</li>
+      </ul>
+
+      <p>
+        Through these conversations I’ve been able to ask about problem discovery, roadmapping, cross-functional collaboration, and how product teams measure success. The talks are intentionally practical — speakers walk through real tradeoffs, prioritization, and how they validate product decisions with users and data.
+      </p>
+
+      <p>
+        In the second semester of the fellowship I will be working as a product manager on a student project with a small team. We'll apply customer discovery findings and early prototypes to define a minimum viable product and user tests. Tune back in for updates on the project progress and outcomes!
+      </p>
+    </section>
+
+  </main>
+
+</body>
+</html>
