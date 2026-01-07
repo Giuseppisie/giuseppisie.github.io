@@ -24,21 +24,35 @@
       min-height:100vh;
     }
 
-    /* Topbar (consistent with your site) */
-    .topbar{
+  .topbar{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:60px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 20px;
-      background: rgba(0,0,0,0.18);
-      backdrop-filter: blur(4px);
-      position:sticky;
-      top:0;
-      z-index:50;
+      padding:0 20px;
+      z-index:1000;
+      background:rgba(0,0,0,0.25);
+      backdrop-filter:blur(4px);
     }
-    .brand { color:#fff; font-weight:800; font-size:16px; text-shadow:0 2px 6px rgba(0,0,0,0.35); }
-    .topnav a { color:#fff; text-decoration:none; font-weight:700; background:var(--card); padding:8px 12px; border-radius:8px; }
+    .topbar-left{display:flex;align-items:center;gap:20px}
+    .brand{
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      text-decoration:none;
+      text-shadow:0 2px 8px rgba(0,0,0,.4);
+    }
+    .topnav{display:flex;gap:10px}
+    .topnav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:8px 10px;
+      border-radius:8px;
+    }
+
+    .spacer{height:60px}
 
     /* Page container */
     .page {
