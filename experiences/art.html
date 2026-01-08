@@ -119,23 +119,33 @@
       <p>Here are some of my works over the years — click any image to view it full-screen.</p>
     </section>
 
-    <!-- SCULPTING -->
-    <section class="section" aria-labelledby="sculpting-heading">
-      <h3 id="sculpting-heading">Sculpting</h3>
-      <div class="subtitle">Hand-built and mixed-media pieces</div>
 
-      <div class="art-grid" role="list">
-        <button class="art-card" role="button" tabindex="0" data-src="../images/experiences/art/face6.jpeg" data-caption="2025 'A Product of Nature' mixed media sculpture">
-          <img class="art-img" src="../images/experiences/art/face6.jpeg" alt="Sculpture 1">
-          <div class="art-caption">2025 'A Product of Nature' mixed media sculpture</div>
-        </button>
+    <!-- SCULPTING (two items; face sculpture opens its own 4-photo gallery) -->
+<section class="section" aria-labelledby="sculpting-heading">
+  <h3 id="sculpting-heading">Sculpting</h3>
+  <div class="subtitle">Hand-built and mixed-media pieces</div>
 
-        <button class="art-card" role="button" tabindex="0" data-src="../images/experiences/art/wiretree.jpeg" data-caption="Copper wire tree">
-          <img class="art-img" src="../images/experiences/art/wiretree.jpeg" alt="copper wire tree">
-          <div class="art-caption">2025 wire tree</div>
-        </button>
-      </div>
-    </section>
+  <div class="art-grid" role="list">
+    <!-- Face Sculpture: has a mini-gallery of 4 process photos -->
+    <button class="art-card" role="button" tabindex="0"
+            data-gallery="../images/experiences/art/face6.jpeg||../images/experiences/art/face1.jpeg||../images/experiences/art/face2.jpeg||../images/experiences/art/face3.jpeg"
+            data-src="../images/experiences/art/face6.jpeg"
+            data-caption="2025 'A Product of Nature' mixed media sculpture">
+      <img class="art-img" src="../images/experiences/art/face6.jpeg" alt="Face sculpture (finished)">
+      <div class="art-caption">2025 'A Product of Nature' mixed media sculpture (click to view process)</div>
+    </button>
+
+    <!-- Second sculpting thumbnail (single image) -->
+    <button class="art-card" role="button" tabindex="0"
+            data-src="../images/experiences/art/wiretree.jpeg"
+            data-caption="Copper wire tree">
+      <img class="art-img" src="../images/experiences/art/wiretree.jpeg" alt="Copper wire tree">
+      <div class="art-caption">2025 wire tree</div>
+    </button>
+  </div>
+</section>
+
+  
 
     <!-- SKETCHES FROM AFRICA 2025 -->
     <section class="section" aria-labelledby="sketches-heading">
@@ -224,80 +234,135 @@
   </div>
 
   <script>
-    (function(){
-      const lightbox = document.getElementById('lightbox');
-      const mediaWrap = document.getElementById('lightboxMediaWrap');
-      const captionEl = document.getElementById('lightboxCaption');
-      const closeBtn = document.querySelector('.lightbox-close');
+ /* ---------- Gallery-enabled lightbox (supports single images or multi-photo galleries) ---------- */
+(function(){
+  const lightbox = document.getElementById('lightbox');
+  const mediaWrap = document.getElementById('lightboxMediaWrap');
+  const captionEl = document.getElementById('lightboxCaption');
+  const closeBtn = document.querySelector('.lightbox-close');
 
-      function isVideo(src){
-        return /\.(mp4|webm|ogg)$/i.test(src);
+  function isVideo(src){ return /\.(mp4|webm|ogg)$/i.test(src); }
+
+  // current gallery state
+  let gallery = null; // { items: [src,...], index: n } or null
+
+  function openGalleryFromAttr(srcAttr, captionBase, alt){
+    // srcAttr: either data-gallery (|| separated) or single src string
+    let items;
+    if(!srcAttr) { items = []; }
+    else if(srcAttr.includes('||')) items = srcAttr.split('||').map(s => s.trim()).filter(Boolean);
+    else items = [srcAttr.trim()];
+
+    if(items.length === 0) return;
+    gallery = { items, index: 0, baseCaption: (captionBase || '') };
+    renderGalleryItem();
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden','false');
+    closeBtn.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function renderGalleryItem(){
+    if(!gallery) return;
+    mediaWrap.innerHTML = '';
+    const src = gallery.items[gallery.index];
+    const numInfo = gallery.items.length > 1 ? `${gallery.index+1}/${gallery.items.length} — ` : '';
+    captionEl.textContent = numInfo + (gallery.baseCaption || '');
+    if(isVideo(src)){
+      const v = document.createElement('video');
+      v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata';
+      v.style.maxWidth = '100%'; v.style.maxHeight = 'calc(92vh - 120px)'; v.className='lightbox-media';
+      const s = document.createElement('source'); s.src = src; s.type = 'video/mp4';
+      v.appendChild(s);
+      mediaWrap.appendChild(v);
+    } else {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = gallery.baseCaption || '';
+      img.className = 'lightbox-media';
+      mediaWrap.appendChild(img);
+    }
+  }
+
+  function closeLightbox(){
+    if(!gallery) return;
+    const v = mediaWrap.querySelector('video');
+    if(v){ v.pause(); v.remove(); }
+    mediaWrap.innerHTML = '';
+    captionEl.textContent = '';
+    gallery = null;
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  function showPrev(){
+    if(!gallery) return;
+    gallery.index = (gallery.index - 1 + gallery.items.length) % gallery.items.length;
+    renderGalleryItem();
+  }
+  function showNext(){
+    if(!gallery) return;
+    gallery.index = (gallery.index + 1) % gallery.items.length;
+    renderGalleryItem();
+  }
+
+  // attach handlers to art cards (works for all .art-card)
+  const cards = Array.from(document.querySelectorAll('.art-card'));
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const galleryAttr = card.getAttribute('data-gallery'); // multi images
+      const src = card.getAttribute('data-src');             // single thumbnail src
+      const caption = card.getAttribute('data-caption') || '';
+      const alt = card.querySelector('img')?.alt || '';
+      if(galleryAttr){
+        openGalleryFromAttr(galleryAttr, caption, alt);
+      } else if(src){
+        openGalleryFromAttr(src, caption, alt);
       }
+    });
+    card.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }});
+  });
 
-      function openLightbox(src, caption, alt){
-        // clear existing
-        mediaWrap.innerHTML = '';
-        captionEl.textContent = caption || '';
+  // click-away & close
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
 
-        if(isVideo(src)){
-          const v = document.createElement('video');
-          v.controls = true;
-          v.autoplay = true;
-          v.playsInline = true;
-          v.preload = 'metadata';
-          v.style.maxWidth = '100%';
-          v.style.maxHeight = 'calc(92vh - 120px)';
-          v.className = 'lightbox-media';
-          const s = document.createElement('source');
-          s.src = src;
-          s.type = 'video/mp4';
-          v.appendChild(s);
-          mediaWrap.appendChild(v);
-        } else {
-          const img = document.createElement('img');
-          img.src = src;
-          img.alt = alt || caption || 'Artwork';
-          img.className = 'lightbox-media';
-          mediaWrap.appendChild(img);
-        }
+  // keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') showPrev();
+    if(e.key === 'ArrowRight') showNext();
+  });
 
-        lightbox.classList.add('open');
-        lightbox.setAttribute('aria-hidden','false');
-        closeBtn.focus();
-        document.body.style.overflow = 'hidden';
-      }
+  // add simple visible prev/next buttons to the lightbox (helpful for touch)
+  const inner = document.querySelector('.lightbox-inner');
+  if(inner && !inner.querySelector('.gallery-nav')){
+    const prev = document.createElement('button');
+    prev.className = 'gallery-btn';
+    prev.setAttribute('aria-label','Previous image');
+    prev.textContent = '◀';
+    prev.style.position='absolute'; prev.style.left='14px'; prev.style.top='50%';
+    prev.style.transform='translateY(-50%)'; prev.style.zIndex='3200';
+    prev.addEventListener('click', (ev) => { ev.stopPropagation(); showPrev(); });
 
-      function closeLightbox(){
-        const v = mediaWrap.querySelector('video');
-        if(v){ v.pause(); v.remove(); }
-        mediaWrap.innerHTML = '';
-        captionEl.textContent = '';
-        lightbox.classList.remove('open');
-        lightbox.setAttribute('aria-hidden','true');
-        document.body.style.overflow = '';
-      }
+    const next = document.createElement('button');
+    next.className = 'gallery-btn';
+    next.setAttribute('aria-label','Next image');
+    next.textContent = '▶';
+    next.style.position='absolute'; next.style.right='14px'; next.style.top='50%';
+    next.style.transform='translateY(-50%)'; next.style.zIndex='3200';
+    next.addEventListener('click', (ev) => { ev.stopPropagation(); showNext(); });
 
-      // attach click handlers to all .art-card buttons
-      const cards = Array.from(document.querySelectorAll('.art-card'));
-      cards.forEach(card => {
-        card.addEventListener('click', () => {
-          const src = card.getAttribute('data-src');
-          const caption = card.getAttribute('data-caption') || '';
-          const alt = card.querySelector('img')?.alt || '';
-          openLightbox(src, caption, alt);
-        });
-        card.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); card.click(); }
-        });
-      });
+    inner.appendChild(prev);
+    inner.appendChild(next);
+    const mark = document.createElement('div'); mark.className='gallery-nav'; mark.style.display='none';
+    inner.appendChild(mark);
+  }
 
-      closeBtn.addEventListener('click', closeLightbox);
-      lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
-      document.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
-      });
+})();
 
-    })();
   </script>
 
 </body>
