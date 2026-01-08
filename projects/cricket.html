@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Reptile Release Feeder — Cricket Crew</title>
+  <title>Slow Invertebrate Release Feeder — Reptile Enrichment</title>
 
   <style>
     :root {
@@ -11,114 +11,394 @@
       --card: #427b76;
       --accent: #b0ab52;
       --content-max: 1100px;
-      --demo-side-margin: 0.5in;
-      --demo-video-w: 360px;
-      --demo-video-h: 640px;
-      --gap: 28px;
+      --gap: 22px;
     }
 
     html,body { height:100%; margin:0; }
     body {
-      margin: 0;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       background: var(--bg);
       color: #111;
       -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* TOPBAR — MATCHES EGR121 / OTHER PAGES */
-    .topbar{
-      position:fixed;
-      top:0; left:0; right:0;
-      height:60px;
-      display:flex;
-      align-items:center;
-      padding:0 20px;
-      z-index:1000;
-      background:rgba(0,0,0,0.25);
-      backdrop-filter:blur(4px);
+    /* TOPBAR */
+    .topbar {
+      position: fixed; inset: 0 0 auto 0; height:60px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 0 20px; z-index:1000;
+      background: rgba(0,0,0,0.22); backdrop-filter: blur(4px);
     }
-    .topbar-left{
-      display:flex;
-      align-items:center;
-      gap:20px;
-    }
-    .brand{
-      color:#fff;
-      font-weight:800;
-      font-size:18px;
-      text-decoration:none;
-      text-shadow:0 2px 8px rgba(0,0,0,.4);
-    }
-    .topnav{
-      display:flex;
-      gap:10px;
-    }
-    .topnav a{
-      color:#fff;
-      text-decoration:none;
-      font-weight:700;
-      padding:8px 10px;
-      border-radius:8px;
-    }
+    .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); text-decoration:none; }
+    .topnav { display:flex; gap:10px; align-items:center; }
+    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 12px; border-radius:8px; background:var(--card); }
 
     .spacer { height:60px; }
 
     /* HERO */
     .hero {
-      position: relative;
-      height: 52vh;
-      background-image: url("../images/reptile/hero_releaser.png");
-      background-size: cover;
-      background-position:center;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      position: relative; height: 56vh; width:100%;
+      background-image: url("../images/reptile/reprilehero.jpg"); /* replace with hero image */
+      background-size: cover; background-position:center; display:flex;
+      align-items:center; justify-content:center;
     }
-    .hero::after {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: rgba(66,123,118,0.35);
+    .hero::after { content:""; position:absolute; inset:0; background: rgba(66,123,118,0.35); }
+    .hero-title { position:relative; z-index:1; color:#fff; font-size:clamp(26px,5vw,44px); font-weight:800; text-shadow:0 8px 24px rgba(0,0,0,0.6); padding:0 20px; text-align:center; }
+
+    /* MAIN */
+    .content { padding: 40px 20px 32px; max-width: var(--content-max); margin: 0 auto; }
+    .project-intro {
+      background: #ffffff; border-radius: 12px; padding: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); margin-bottom: 28px;
     }
-    .hero-title {
-      position:relative;
-      z-index:1;
-      color:#fff;
-      font-size:clamp(28px,5vw,48px);
-      font-weight:800;
-      text-shadow:0 8px 24px rgba(0,0,0,0.6);
-      padding:0 20px;
-      text-align:center;
-    }
+    .project-intro p { margin:0 0 14px; line-height:1.6; color:#333; font-size:16px; }
+
+    /* DEMO */
+    .demo-wrapper { display:flex; justify-content:center; padding-bottom: 24px; }
+    .demo-card { background: #ffffff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); padding: 28px; width:100%; max-width:var(--content-max); box-sizing:border-box; }
+    .demo-grid { display:flex; gap: var(--gap); align-items:flex-start; flex-wrap:wrap; }
+    .video-col { flex:0 0 360px; width:360px; height:240px; display:flex; align-items:stretch; }
+    .project-video { width:100%; height:100%; border-radius:10px; background:#000; object-fit:cover; display:block; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+    .text-col { flex:1; min-width:260px; font-size:16px; line-height:1.6; color:#333; }
+
+    /* FEATURES */
+    .features { margin: 28px auto 60px; max-width: var(--content-max); padding: 0 20px; }
+    .features-heading { font-size: 28px; color: #111; margin: 0 0 16px 0; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    @media (max-width:1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width:720px) { .features-grid { grid-template-columns: 1fr; } }
+
+    .feature-card { background: var(--card); color: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.12); text-decoration: none; display:block; cursor:pointer; }
+    .feature-thumb { width:100%; height:150px; object-fit:cover; display:block; background: rgba(255,255,255,0.06); }
+    .feature-meta { padding: 14px 16px 18px 16px; }
+    .feature-title { font-weight:800; font-size:16px; }
+    .feature-excerpt { font-size:14px; color: rgba(255,255,255,0.95); margin-top:8px; }
+
+    /* FULL IMAGES */
+    .full-images-section { max-width: 1100px; margin: 0 auto; padding: 0 20px 32px; box-sizing:border-box; }
+    .full-images-title { font-size:22px; font-weight:700; color:#111; margin: 0 0 12px; }
+    .cad-row { display:grid; grid-template-columns: repeat(2, 1fr); gap:20px; margin-top:12px; }
+    @media (max-width:900px) { .cad-row { grid-template-columns:1fr; } }
+    .full-img { width:100%; height:auto; display:block; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.06); }
+
+    /* LIGHTBOX */
+    .lightbox { position: fixed; inset: 0; display: none; align-items:center; justify-content:center; background: rgba(0,0,0,0.85); z-index: 3000; padding:20px; }
+    .lightbox.open { display:flex; }
+    .lightbox-inner { max-width: 1400px; width:100%; max-height:92vh; overflow:auto; position:relative; display:flex; flex-direction:column; align-items:center; }
+    .lightbox-inner img, .lightbox-inner video { max-width:100%; max-height: calc(92vh - 80px); object-fit:contain; border-radius:8px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    .lightbox-close { position:absolute; top:18px; right:18px; background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 10px; border-radius:8px; font-size:18px; cursor:pointer; z-index:3100; }
+
+    /* FEATURE MODAL (for feature detail) */
+    .modal-overlay { position: fixed; inset:0; background: rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:4000; padding:28px; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:#fff; width:100%; max-width:1100px; max-height:92vh; border-radius:12px; overflow:auto; box-shadow:0 30px 80px rgba(0,0,0,0.45); }
+    .modal-top { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid rgba(0,0,0,0.06); background: linear-gradient(90deg, rgba(66,123,118,1), rgba(86,153,140,1)); color:#fff; }
+    .modal-title { font-size:20px; font-weight:800; }
+    .modal-body { display:flex; gap:20px; padding:20px; color:#111; }
+    .modal-img { flex:0 0 460px; max-width:52%; border-radius:8px; object-fit:cover; box-shadow:0 10px 30px rgba(0,0,0,0.18); }
+    .modal-text { flex:1; font-size:16px; line-height:1.6; }
+
+    @media (max-width:900px) { .modal-body { flex-direction:column; } .modal-img { max-width:100%; width:100%; } }
+
+    .ack { font-size:13px; color:#444; margin-top:6px; }
+
   </style>
 </head>
-
 <body>
 
-  <!-- UPDATED TOP BAR -->
-  <div class="topbar" role="navigation">
-    <div class="topbar-left">
-      <a class="brand" href="../index.html">Sienna Giuseppi</a>
-      <nav class="topnav">
-        <a href="../about.html">About</a>
-        <a href="../index.html#engineering-projects">Projects</a>
-        <a href="../index.html#experiences">Experiences</a>
-        <a href="../resume.html">Resume</a>
-      </nav>
-    </div>
+  <!-- TOP BAR -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <a class="brand" href="../index.html">Sienna Giuseppi</a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="../about.html">About</a>
+      <a href="../index.html#engineering-projects">Projects</a>
+      <a href="../index.html#experiences">Experiences</a>
+      <a href="../resume.html">Resume</a>
+    </nav>
   </div>
-
   <div class="spacer"></div>
 
   <!-- HERO -->
   <section class="hero" aria-label="Project hero image">
-    <div class="hero-title">Reptile Release Feeder — Cricket Crew</div>
+    <div class="hero-title">Slow Invertebrate Release Feeder — Reptile Enrichment</div>
   </section>
 
-  <!-- EVERYTHING ELSE IN YOUR FILE REMAINS EXACTLY THE SAME BELOW -->
-  <!-- (project intro, demo, features, modals, full images, JS, etc.) -->
+  <!-- MAIN -->
+  <main class="content" aria-labelledby="project-intro-heading">
+    <section class="project-intro" id="project-intro" aria-labelledby="project-intro-heading">
+      <h2 id="project-intro-heading" style="margin-top:0;">Project overview</h2>
+      <p>
+        We built a timed, randomized release feeder that returns natural hunting behavior to reptiles by
+        releasing live crickets in randomized intervals over a user-selected duration (1–12 hours).
+        The device holds ~150+ crickets, keeps them alive, and dispenses 6 independent groups at random times so reptiles must hunt rather than feed from a single bowl.
+      </p>
+
+      <p>
+        The design emphasizes keeper usability (removable rechargeable battery and an accessible lid), animal safety (ventilated lid and gentle trap-door mechanism),
+        low cost (target < $100 BOM), and durability for long-term exhibit use. Key components include an Arduino controller, potentiometer timing control, relays and solenoids driving trap doors, and a modular partitioned hopper for easy cleaning.
+      </p>
+
+      <p class="ack">
+        Project details & poster: team presentation (see acknowledgements). :contentReference[oaicite:0]{index=0}
+      </p>
+    </section>
+
+    <!-- DEMO -->
+    <section class="demo-wrapper" aria-labelledby="project-demo-heading">
+      <div class="demo-card" role="region" aria-label="Project demo card">
+        <h2 id="project-demo-heading">Project demo</h2>
+
+        <div class="demo-grid">
+          <!-- VIDEO column -->
+          <div class="video-col" aria-hidden="false">
+            <!-- Replace with actual demo video or gif -->
+            <video class="project-video" controls preload="metadata" poster="../images/reptile/demo_poster.jpg" playsinline>
+              <source src="../videos/reptile/demo.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <!-- TEXT column -->
+          <div class="text-col">
+            <p><strong>How it works</strong></p>
+            <p>The user selects a total run duration with a potentiometer (1–12 hours) and toggles the device on. Arduino firmware chooses 6 random timestamps within that period and triggers solenoids, each of which retracts to drop a trap door and release a small group of live crickets.</p>
+
+            <p><strong>Design highlights</strong></p>
+            <ul>
+              <li>Partitioned hopper holds >150 crickets and is removable for cleaning.</li>
+              <li>Ventilated lid preserves cricket viability while keeping electronics protected.</li>
+              <li>Timing randomness mimics natural prey availability and encourages natural hunting.</li>
+            </ul>
+
+            <p><strong>Keeper workflow</strong></p>
+            <p>Fill hopper and close lid, slide potentiometer to desired duration, flip power on — device runs autonomously and is designed for weekly recharging and simple maintenance.</p>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="features-heading">Features</h2>
+
+      <div class="features-grid">
+
+        <!-- Feature: Hopper & Lid -->
+        <article class="feature-card" data-index="0" role="button" tabindex="0" aria-pressed="false">
+          <img class="feature-thumb" src="../images/reptile/hopper_thumb.jpg" alt="Partitioned hopper and lid">
+          <div class="feature-meta">
+            <div class="feature-title">Partitioned Hopper & Lid</div>
+            <div class="feature-excerpt">Removable lid with mesh for airflow; partitions for containment and easy cleaning.</div>
+          </div>
+          <div class="feature-body" style="display:none" data-full="../images/reptile/hopper_full.jpg">
+            <p>Partition geometry holds 6 compartments and enough capacity for 150+ crickets; lid is acrylic 'T' style to give access to electronics while keeping insects ventilated.</p>
+          </div>
+        </article>
+
+        <!-- Feature: Random Timing -->
+        <article class="feature-card" data-index="1" role="button" tabindex="0" aria-pressed="false">
+          <img class="feature-thumb" src="../images/reptile/random_thumb.jpg" alt="Random timing concept">
+          <div class="feature-meta">
+            <div class="feature-title">Randomized Release Timing</div>
+            <div class="feature-excerpt">Arduino selects 6 random times across the chosen duration to trigger drops.</div>
+          </div>
+          <div class="feature-body" style="display:none" data-full="../images/reptile/random_full.png">
+            <p>Software chooses non-overlapping random timestamps and serially triggers each output pin to fire solenoids at calculated times.</p>
+          </div>
+        </article>
+
+        <!-- Feature: Solenoids & Doors -->
+        <article class="feature-card" data-index="2" role="button" tabindex="0" aria-pressed="false">
+          <img class="feature-thumb" src="../images/reptile/solenoid_thumb.jpg" alt="Solenoid and trap door">
+          <div class="feature-meta">
+            <div class="feature-title">Solenoids & Trap Doors</div>
+            <div class="feature-excerpt">6 solenoids retract to release individual trap doors that drop groups of insects.</div>
+          </div>
+          <div class="feature-body" style="display:none" data-full="../images/reptile/doors_full.jpg">
+            <p>Trap doors are set to swing but remain above ground clearance to prevent harm. Solenoids chosen for reliability; future iteration explores 5V solenoids to remove relays.</p>
+          </div>
+        </article>
+
+        <!-- Feature: Electronics & Power -->
+        <article class="feature-card" data-index="3" role="button" tabindex="0" aria-pressed="false">
+          <img class="feature-thumb" src="../images/reptile/electronics_thumb.jpg" alt="Electronics box">
+          <div class="feature-meta">
+            <div class="feature-title">Electronics & Power</div>
+            <div class="feature-excerpt">Arduino controller with relays, removable rechargeable battery, accessible electronics box.</div>
+          </div>
+          <div class="feature-body" style="display:none" data-full="../images/reptile/electronics_full.jpg">
+            <p>ESP/Arduino runs the timing algorithm; relays amplify Arduino pins from 5V to 12V where needed. Battery compartment designed for weekly recharge with simple removal.</p>
+          </div>
+        </article>
+
+        <!-- Feature: Animal Safety & Testing -->
+        <article class="feature-card" data-index="4" role="button" tabindex="0" aria-pressed="false">
+          <img class="feature-thumb" src="../images/reptile/testing_thumb.jpg" alt="Testing and safety">
+          <div class="feature-meta">
+            <div class="feature-title">Testing & Animal Safety</div>
+            <div class="feature-excerpt">Temperature, drop height, durability, and keeper usability testing completed.</div>
+          </div>
+          <div class="feature-body" style="display:none" data-full="../images/reptile/testing_full.jpg">
+            <p>Design tests include internal temp checks (target < 90°F), drop tests (doors do not swing below required clearance), and human-factor surveys for ease-of-use (keeper score > 3.5).</p>
+          </div>
+        </article>
+
+        <!-- Feature: Capacity & Maintenance -->
+        <article class="feature-card" data-index="5" role="button" tabindex="0" aria-pressed="false">
+          <img class="feature-thumb" src="../images/reptile/capacity_thumb.jpg" alt="Capacity and maintenance">
+          <div class="feature-meta">
+            <div class="feature-title">Capacity & Maintenance</div>
+            <div class="feature-excerpt">Holds 150+ crickets; modular parts for easy cleaning and serviceability.</div>
+          </div>
+          <div class="feature-body" style="display:none" data-full="../images/reptile/maintenance_full.jpg">
+            <p>Partitions and lid allow quick refill and cleaning. Housing uses sand-texture paint to camouflage in desert exhibit.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- FULL IMAGES / CAD -->
+    <section class="full-images-section" aria-labelledby="full-images-heading">
+      <h2 id="full-images-heading" class="full-images-title">Full images & CAD</h2>
+
+      <div class="cad-row">
+        <img src="../images/reptile/poster_thumb.jpg" alt="Project poster" class="full-img" />
+        <img src="../images/reptile/topview_thumb.jpg" alt="Top view" class="full-img" />
+      </div>
+
+      <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="img-btn" data-src="../images/reptile/sideview.jpg" data-caption="Side view — mechanism">
+          <img src="../images/reptile/sideview_thumb.jpg" alt="Side view" style="width:220px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+        </button>
+
+        <button class="img-btn" data-src="../images/reptile/bottomview.jpg" data-caption="Bottom view — electronics layout">
+          <img src="../images/reptile/bottomview_thumb.jpg" alt="Bottom view" style="width:220px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+        </button>
+
+        <a class="btn" href="../files/cricketcrew_presentation.pdf" style="align-self:center; margin-left:auto;" download>Download team presentation (PDF)</a>
+      </div>
+
+    </section>
+
+    <p style="font-size:13px;color:#555;margin-top:6px;">Acknowledgement: content summarized from team presentation and poster. :contentReference[oaicite:1]{index=1}</p>
+
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox-close" aria-label="Close full image">✕</button>
+    <div class="lightbox-inner">
+      <div id="lightboxMedia"></div>
+    </div>
+  </div>
+
+  <!-- FEATURE MODAL -->
+  <div id="featureModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal" role="document" aria-labelledby="modal-title">
+      <div class="modal-top">
+        <div class="modal-title" id="modal-title">Feature</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button id="modal-prev" class="modal-prev" style="background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">◀ Prev</button>
+          <button id="modal-next" class="modal-next" style="background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Next ▶</button>
+          <button id="modal-close" class="modal-close" style="background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">✕</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <img id="modalImg" class="modal-img" src="" alt="">
+        <div class="modal-text">
+          <div id="modalDesc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  (function(){
+    // LIGHTBOX: images and videos
+    const lightbox = document.getElementById('lightbox');
+    const lightboxMedia = document.getElementById('lightboxMedia');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const imgButtons = Array.from(document.querySelectorAll('.img-btn'));
+
+    function openLight(src){
+      lightboxMedia.innerHTML = '';
+      const isVideo = /\.(mp4|webm|ogg)$/i.test(src);
+      if(isVideo){
+        const v = document.createElement('video');
+        v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata';
+        v.style.maxWidth = '100%'; v.style.maxHeight = 'calc(92vh - 80px)';
+        const s = document.createElement('source'); s.src = src; s.type = 'video/mp4';
+        v.appendChild(s); lightboxMedia.appendChild(v);
+      } else {
+        const img = document.createElement('img'); img.src = src; img.alt = '';
+        img.style.maxWidth='100%'; img.style.maxHeight='calc(92vh - 80px)'; lightboxMedia.appendChild(img);
+      }
+      lightbox.classList.add('open'); lightbox.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus();
+    }
+    function closeLight(){ lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden','true'); lightboxMedia.innerHTML=''; document.body.style.overflow=''; }
+
+    imgButtons.forEach(btn => {
+      btn.addEventListener('click', () => openLight(btn.dataset.src));
+      btn.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openLight(btn.dataset.src); } });
+    });
+
+    lightboxClose.addEventListener('click', closeLight);
+    lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLight(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightbox.classList.contains('open')) closeLight(); });
+
+    // FEATURE MODAL: collect features
+    const featureCards = Array.from(document.querySelectorAll('.feature-card'));
+    const features = featureCards.map(card => {
+      const title = card.querySelector('.feature-title')?.textContent || '';
+      const excerpt = card.querySelector('.feature-excerpt')?.textContent || '';
+      const body = card.querySelector('.feature-body');
+      const full = body?.getAttribute('data-full') || '';
+      return { title, excerpt, full };
+    });
+
+    const modalOverlay = document.getElementById('featureModal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalImg = document.getElementById('modalImg');
+    const modalDesc = document.getElementById('modalDesc');
+    const btnClose = document.getElementById('modal-close');
+    const btnPrev = document.getElementById('modal-prev');
+    const btnNext = document.getElementById('modal-next');
+
+    let currentIndex = 0;
+    function renderFeature(i){
+      const f = features[i] || {};
+      modalTitle.textContent = f.title || '';
+      modalDesc.textContent = f.excerpt || '';
+      modalImg.src = f.full || '';
+      modalImg.style.display = f.full ? 'block' : 'none';
+    }
+    function openModal(i){
+      if(!features.length) return;
+      currentIndex = (i + features.length) % features.length;
+      renderFeature(currentIndex);
+      modalOverlay.classList.add('open');
+      modalOverlay.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      btnClose.focus();
+    }
+    function closeModal(){ modalOverlay.classList.remove('open'); modalOverlay.setAttribute('aria-hidden','true'); document.body.style.overflow=''; modalImg.src = ''; }
+
+    featureCards.forEach((card, idx) => {
+      card.addEventListener('click', () => openModal(idx));
+      card.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openModal(idx); } });
+    });
+
+    btnClose.addEventListener('click', closeModal);
+    btnPrev.addEventListener('click', () => openModal((currentIndex - 1 + features.length) % features.length));
+    btnNext.addEventListener('click', () => openModal((currentIndex + 1) % features.length));
+    modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) closeModal(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal(); });
+
+  })();
+</script>
 
 </body>
 </html>
