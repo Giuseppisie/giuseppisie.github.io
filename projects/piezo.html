@@ -39,6 +39,11 @@
     .intro .meta{color:#666;font-size:14px;margin-bottom:10px}
     .intro p{line-height:1.6;color:#222;margin:0 0 10px}
 
+    /* Poster PDF (full width) */
+    .poster-wrap{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap}
+    .poster-preview{width:100%;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,0.04);height:720px;background:#fafafa}
+    .poster-preview object, .poster-preview iframe{width:100%;height:100%;border:0;display:block}
+
     /* Summary block: horizontal boxes inside one white panel */
     .summary-wrap{display:flex;flex-direction:column;gap:12px}
     .summary-row{
@@ -53,7 +58,7 @@
     .summary-text{flex:1;min-width:0}
     .summary-text h4{margin:0 0 8px;font-size:16px;color:#111}
     .summary-text p{margin:0;color:#333;line-height:1.5}
-    .summary-img{width:160px;flex:0 0 160px;border-radius:8px;overflow:hidden;background:#eee}
+    .summary-img{width:160px;flex:0 0 160px;border-radius:8px;overflow:hidden;background:#eee;cursor:pointer}
     .summary-img img{width:100%;height:100%;object-fit:cover;display:block}
 
     /* Photos row */
@@ -66,13 +71,22 @@
     .video-wrap{background:#000;border-radius:10px;overflow:hidden;height:420px;display:flex;align-items:center;justify-content:center}
     .video-wrap video, .video-wrap iframe{width:100%;height:100%;display:block;border:0}
 
-    /* PDF preview */
+    /* PDF preview & actions */
     .pdf-wrap{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap}
     .pdf-thumb{flex:1 1 480px;border-radius:8px;overflow:hidden;background:#fafafa;border:1px solid rgba(0,0,0,0.04)}
     .pdf-thumb object{width:100%;height:520px;border:0;display:block}
     .pdf-actions{flex:0 0 220px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;justify-content:center}
     .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
     .note{color:#666;font-size:13px}
+
+    /* Image lightbox */
+    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.88);z-index:4000;padding:20px;box-sizing:border-box}
+    .lightbox.open{display:flex}
+    .lightbox-inner{max-width:1400px;width:100%;max-height:92vh;overflow:auto;position:relative;display:flex;flex-direction:column;align-items:center}
+    .lightbox-media{max-width:100%;max-height:calc(92vh - 120px);border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+    .lightbox-close{position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);color:#fff;border:none;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:700;z-index:4100}
+    .lightbox-controls{display:flex;gap:8px;margin-top:12px}
+    .lightbox-controls button{background:rgba(255,255,255,0.12);color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
 
     footer{margin-top:28px;text-align:center;color:#666;font-size:13px}
   </style>
@@ -108,8 +122,32 @@
       </p>
 
       <p>
-        This page summarizes the project’s core sections (Introduction, Methods, Results, Discussion, Limitations & Conclusion) and includes photos, video, and a downloadable copy of the full paper.
+        This page summarizes the project’s core sections (Introduction, Methods, Results, Discussion, Limitations & Conclusion) and includes a poster, photos, video, and a downloadable copy of the full paper.
       </p>
+    </section>
+
+    <!-- === Poster PDF (large) ===
+         Edit only the data-poster attribute on the .pdf-config div below to point to your poster PDF file on GitHub.
+    -->
+    <section class="card" aria-labelledby="poster-heading">
+      <h2 id="poster-heading" style="margin:0 0 12px;font-size:18px">Conference poster (preview)</h2>
+
+      <!-- PDF config: set data-poster and data-paper to your hosted file paths -->
+      <div class="pdf-config" data-poster="../images/projects/piezo/poster_Giuseppi2023.pdf" data-paper="../images/projects/piezo/Giuseppi2023.pdf">
+        <div class="poster-wrap">
+          <div class="poster-preview" id="posterPreview" title="Poster preview">
+            <!-- object/iframe populated by JS for better cross-browser fallback -->
+            <object id="posterObject" type="application/pdf" aria-label="Poster preview">
+              <iframe id="posterIframe" title="Poster" src="" style="width:100%;height:100%;border:0"></iframe>
+            </object>
+          </div>
+
+          <div style="flex:0 0 220px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;justify-content:center">
+            <a id="posterOpen" class="btn" href="#" target="_blank" rel="noopener">Open / Download poster (PDF)</a>
+            <div class="note">If the preview does not render, use the Open button to view the poster in a new tab.</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Summary block (large white box with horizontal sub-boxes) -->
@@ -122,11 +160,11 @@
           <div class="summary-text" id="intro-sec">
             <h4>Introduction</h4>
             <p>
-              The paper motivates using piezoelectric energy harvesting to reduce everyday device dependence on non-renewable electricity. It identifies laptops as a high-impact target (many devices, frequent charging) and frames keystroke mechanical energy as an overlooked, distributed source worth exploring. The study positions a practical proof-of-concept for a self-charging computer via piezoelectric transducers. :contentReference[oaicite:0]{index=0}
+              The paper motivates using piezoelectric energy harvesting to reduce everyday device dependence on non-renewable electricity. It identifies laptops as a high-impact target (many devices, frequent charging) and frames keystroke mechanical energy as an overlooked, distributed source worth exploring.
             </p>
           </div>
-          <div class="summary-img" aria-hidden="true">
-            <img src="../images/projects/piezo/piezoaffect.png" alt="Intro thumbnail">
+          <div class="summary-img" data-full="../images/projects/piezo/intro_full.jpg" title="Open Introduction image">
+            <img src="../images/projects/piezo/intro_thumb.jpg" alt="Intro thumbnail">
           </div>
         </div>
 
@@ -135,11 +173,11 @@
           <div class="summary-text" id="methods-sec">
             <h4>Methods & Key Design Decisions</h4>
             <p>
-              The project ran in two phases. Phase I tested chained piezo disks under a laptop keyboard to capture typing vibrations. Phase II focused on a reproducible single mechanical key: a reworked switch housing, shortened stem, and a piezoelectric plate positioned beneath the stem. Tests used a Vernier force probe and an SG90 servo to apply repeatable keystroke forces; multiple PZT materials were measured for voltage response. Prototype electronics included a bridge rectifier and measurement via Vernier interfaces. 
+              Two phases: Phase I tested chained piezo disks; Phase II engineered a reproducible single-key design with a piezo plate beneath a modified switch stem. Controlled tests used a Vernier force probe and an automated actuator for repeatable keystrokes.
             </p>
           </div>
-          <div class="summary-img" aria-hidden="true">
-            <img src="../images/projects/piezo/motorpress.png" alt="Methods thumbnail">
+          <div class="summary-img" data-full="../images/projects/piezo/methods_full.jpg" title="Open Methods image">
+            <img src="../images/projects/piezo/methods_thumb.jpg" alt="Methods thumbnail">
           </div>
         </div>
 
@@ -148,11 +186,11 @@
           <div class="summary-text" id="results-sec">
             <h4>Results</h4>
             <p>
-              Measurements showed positive voltage generation from piezo elements under keystroke forces. Individual piezos produced peaks from ~0.8–2.4 V in bench tests, but chaining and soldering reduced single-element output (statistically significant drop). The engineered single key (with Item 1738 PZT) produced up to ~0.403 V per keystroke under controlled force. Typing speed had less impact than applied pressure. 
+              Piezo elements produced measurable voltage (bench peaks ~0.8–2.4 V). The single keyed prototype delivered up to ~0.403 V per keystroke under controlled force. Chaining/reworking reduced some outputs; material geometry mattered more than typing speed.
             </p>
           </div>
-          <div class="summary-img" aria-hidden="true">
-            <img src="../images/projects/piezo/materials.png" alt="Results thumbnail">
+          <div class="summary-img" data-full="../images/projects/piezo/results_full.jpg" title="Open Results image">
+            <img src="../images/projects/piezo/results_thumb.jpg" alt="Results thumbnail">
           </div>
         </div>
 
@@ -161,11 +199,11 @@
           <div class="summary-text" id="discussion-sec">
             <h4>Discussion</h4>
             <p>
-              The data support feasibility at proof-of-concept scale: keystrokes can generate measurable voltage, and careful material & geometry choices matter. The study finds that thinner piezo plates performed better for the application, and that assembly methods (soldering/chaining) and material brittleness limit practical output. The project also highlights how reproducible single-key designs enable clearer comparisons across materials. 
+              Feasible at the proof-of-concept level. Thin piezo plates performed better; brittleness and assembly variability limit broader adoption. Reproducible single-key designs improved cross-material comparison.
             </p>
           </div>
-          <div class="summary-img" aria-hidden="true">
-            <img src="../images/projects/piezo/partsfinal.png" alt="Discussion thumbnail">
+          <div class="summary-img" data-full="../images/projects/piezo/discussion_full.jpg" title="Open Discussion image">
+            <img src="../images/projects/piezo/discussion_thumb.jpg" alt="Discussion thumbnail">
           </div>
         </div>
 
@@ -174,11 +212,11 @@
           <div class="summary-text" id="conclusion-sec">
             <h4>Limitations, Future Work & Conclusion</h4>
             <p>
-              Major limitations were access to a wider range of modern flexible piezoelectric materials, brittleness of PZT ceramics, assembly variability, and the aged test laptop. Future work recommends testing newer thin/flexible transducers, optimizing electrode geometry, and improving integration methods. The paper concludes the work is a meaningful step toward self-charging computing, while noting the gap between proof-of-concept output and a fully charging laptop. 
+              Limited by available flexible piezo materials and PZT brittleness. Future work: test modern flexible transducers, optimize electrodes, and refine integration for higher, more reliable energy capture.
             </p>
           </div>
-          <div class="summary-img" aria-hidden="true">
-            <img src="../images/projects/piezo/partsfinal.png" alt="Limitations thumbnail">
+          <div class="summary-img" data-full="../images/projects/piezo/limits_full.jpg" title="Open Limitations image">
+            <img src="../images/projects/piezo/limits_thumb.jpg" alt="Limitations thumbnail">
           </div>
         </div>
 
@@ -204,7 +242,7 @@
 
       <div class="video-wrap" role="region" aria-label="Project presentation video">
         <!-- Replace VIDEO_SRC.mp4 with your uploaded mp4 URL or embed URL -->
-        <video controls preload="metadata" poster="../images/projects/energy/video_poster.jpg">
+        <video id="presentationVideo" controls preload="metadata" poster="../images/projects/energy/video_poster.jpg">
           <source src="VIDEO_SRC.mp4" type="video/mp4">
           Your browser does not support the video element. <a href="VIDEO_SRC.mp4">Download video</a>
         </video>
@@ -213,30 +251,132 @@
       <p class="note" style="margin-top:10px">Replace <code>VIDEO_SRC.mp4</code> with the path/URL to your presentation MP4.</p>
     </section>
 
-    <!-- PDF preview & download -->
+    <!-- Full paper PDF preview & download -->
     <section class="card" aria-labelledby="paper-heading">
       <h2 id="paper-heading" style="margin:0 0 12px;font-size:16px">Full paper (PDF)</h2>
 
       <div class="pdf-wrap" role="region" aria-label="Paper preview and download">
-        <!-- pdf file path; replace with the correct hosted path if necessary -->
-        <div class="pdf-thumb" title="Open full paper">
-          <!-- Many browsers render PDF inline; fallback will provide link -->
-          <object data="./Giuseppi2023.pdf#toolbar=0" type="application/pdf">
-            <p style="padding:16px;color:#444">Preview not supported in this browser — <a href="./Giuseppi2023.pdf" target="_blank" rel="noopener">open the paper</a>.</p>
+        <div class="pdf-thumb" id="paperPreview" title="Paper preview">
+          <object id="paperObject" type="application/pdf" aria-label="Paper preview">
+            <iframe id="paperIframe" title="Paper" src="" style="width:100%;height:100%;border:0"></iframe>
           </object>
         </div>
 
         <div class="pdf-actions">
-          <a class="btn" href="../images/projects/piezo/Giuseppi2023.pdf" target="_blank" rel="noopener">View / Download PDF</a>
-          <div class="note">This page’s summaries were derived from my paper provided (Giuseppi2023.pdf). :contentReference[oaicite:5]{index=5}</div>
+          <a id="paperOpen" class="btn" href="#" target="_blank" rel="noopener">View / Download PDF</a>
+          <div class="note">Set the paper path with the Poster / Paper config above. The preview attempts to render the PDF inline; if your browser blocks inline PDFs, use "View / Download PDF".</div>
         </div>
       </div>
     </section>
 
     <footer>
-      <div class="note">Want different thumbnail images next to each summary or a different layout? Tell me which images to use and I’ll update the HTML.</div>
+      <div class="note">Want thumbnails replaced or different poster sizing? Tell me the poster/paper paths and the exact thumbnail images to use and I’ll update the HTML accordingly.</div>
     </footer>
   </main>
 
+  <!-- Image Lightbox -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button id="lbClose" class="lightbox-close" aria-label="Close full image">✕</button>
+    <div class="lightbox-inner" role="document">
+      <img id="lbImg" class="lightbox-media" src="" alt="">
+      <div class="lightbox-controls" aria-hidden="false">
+        <button id="lbPrev" title="Prev">◀ Prev</button>
+        <button id="lbNext" title="Next">Next ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      // Config: reads data attributes so you can simply update the file path in the HTML
+      const cfg = document.querySelector('.pdf-config');
+      const POSTER_PATH = cfg?.getAttribute('data-poster') || '../images/projects/piezo/poster_Giuseppi2023.pdf';
+      const PAPER_PATH  = cfg?.getAttribute('data-paper')  || '../images/projects/piezo/Giuseppi2023.pdf';
+
+      // Poster preview logic (object -> iframe fallback)
+      const posterObject = document.getElementById('posterObject');
+      const posterIframe = document.getElementById('posterIframe');
+      const posterOpen = document.getElementById('posterOpen');
+
+      // try to set object.data to poster; if browser doesn't render, iframe fallback is present
+      posterObject.data = POSTER_PATH + '#toolbar=0';
+      posterIframe.src = POSTER_PATH;
+      posterOpen.href = POSTER_PATH;
+
+      // Paper preview logic
+      const paperObject = document.getElementById('paperObject');
+      const paperIframe = document.getElementById('paperIframe');
+      const paperOpen = document.getElementById('paperOpen');
+
+      paperObject.data = PAPER_PATH + '#toolbar=0';
+      paperIframe.src = PAPER_PATH;
+      paperOpen.href = PAPER_PATH;
+
+      // --- Summary images: clicking expands in lightbox ---
+      const summaryImages = Array.from(document.querySelectorAll('.summary-img'));
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbClose = document.getElementById('lbClose');
+      const lbPrev = document.getElementById('lbPrev');
+      const lbNext = document.getElementById('lbNext');
+
+      // Build array of image sources from summary rows (use data-full if available to show higher-res)
+      const gallery = summaryImages.map(el => {
+        const full = el.getAttribute('data-full') || el.querySelector('img')?.src;
+        return { el, full };
+      });
+
+      let current = -1;
+      function openLb(index){
+        if(index < 0 || index >= gallery.length) return;
+        current = index;
+        lbImg.src = gallery[index].full;
+        lbImg.alt = gallery[index].el.querySelector('img')?.alt || '';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        lbClose.focus();
+      }
+      function closeLb(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden','true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+        current = -1;
+      }
+      function prevLb(){ if(current > 0) openLb(current - 1); }
+      function nextLb(){ if(current < gallery.length - 1) openLb(current + 1); }
+
+      summaryImages.forEach((wrap, idx) => {
+        wrap.addEventListener('click', () => openLb(idx));
+        wrap.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(idx); }});
+      });
+
+      lbClose.addEventListener('click', closeLb);
+      lbPrev.addEventListener('click', prevLb);
+      lbNext.addEventListener('click', nextLb);
+      lb.addEventListener('click', (e) => { if(e.target === lb) closeLb(); });
+      document.addEventListener('keydown', (e) => {
+        if(lb.classList.contains('open')){
+          if(e.key === 'Escape') closeLb();
+          if(e.key === 'ArrowLeft') prevLb();
+          if(e.key === 'ArrowRight') nextLb();
+        }
+      });
+
+      // If you want to make photos in the photos-grid also open the lightbox, add similar handlers:
+      const photoBtns = Array.from(document.querySelectorAll('.photos-grid img'));
+      photoBtns.forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+          // temporary push into gallery-like view
+          lbImg.src = img.src;
+          lb.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+    })();
+  </script>
 </body>
 </html>
