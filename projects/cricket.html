@@ -24,14 +24,23 @@
 
     /* TOPBAR */
     .topbar {
-      position: fixed; inset: 0 0 auto 0; height:60px;
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 0 20px; z-index:1000;
-      background: rgba(0,0,0,0.22); backdrop-filter: blur(4px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(4px);
     }
+    .topbar-left { display:flex; align-items:center; gap:20px; white-space:nowrap; }
     .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); text-decoration:none; }
-    .topnav { display:flex; gap:10px; align-items:center; }
-    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 12px; border-radius:8px; background:var(--card); }
+    .topnav { display:flex; gap:10px; align-items:center; margin-left:8px; }
+    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 10px; border-radius:8px; transition: background .12s; }
+    .topnav a:hover, .topnav a:focus { background: rgba(255,255,255,0.08); outline:none; }
 
     .spacer { height:60px; }
 
