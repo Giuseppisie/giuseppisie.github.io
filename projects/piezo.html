@@ -1,1 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Energy-harvesting Computer Keys — Project</title>
+  <style>
+    :root{
+      --bg:#a0c0bc;
+      --card:#427b76;
+      --accent:#b0ab52;
+      --content-max:1100px;
+      --pad:20px;
+    }
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial}
+    body{background:var(--bg);color:#111;-webkit-font-smoothing:antialiased}
+    /* Topbar (matches other pages) */
+    .topbar{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 20px;z-index:1000;background:rgba(0,0,0,0.25);backdrop-filter:blur(4px)}
+    .brand{color:#fff;font-weight:800;font-size:18px;text-decoration:none;margin-right:18px}
+    .topnav{display:flex;gap:10px}
+    .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
+    .spacer{height:60px}
+
+    /* Hero */
+    .hero{height:44vh;background-image:url('../images/projects/keys/hero.jpg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;position:relative}
+    .hero::after{content:"";position:absolute;inset:0;background:rgba(66,123,118,0.35)}
+    .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(24px,4vw,40px);font-weight:800;text-shadow:0 8px 24px rgba(0,0,0,.6);padding:0 20px;text-align:center}
+
+    /* Page */
+    .page{max-width:var(--content-max);margin:0 auto;padding:28px var(--pad) 80px;box-sizing:border-box}
+    .card{background:#fff;padding:22px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.06);margin-bottom:20px}
+    h1,h2{margin:0 0 10px}
+    .meta{color:#666;font-size:14px;margin-bottom:12px}
+    p{line-height:1.6;color:#333}
+
+    /* Two-column layout for features + media */
+    .grid{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+
+    /* features list */
+    .features-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+    .features-list li{background:linear-gradient(90deg,var(--card),#3b6f6b);color:#fff;padding:12px;border-radius:10px;font-weight:700}
+
+    /* Photo row */
+    .photo-row{display:flex;gap:12px;flex-wrap:wrap}
+    .photo-row img{width:calc(50% - 6px);border-radius:10px;object-fit:cover;box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+    @media (max-width:700px){.photo-row img{width:100%}}
+
+    /* PDF preview */
+    .pdf-wrap{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,0.12)}
+    .pdf-actions{display:flex;gap:12px;justify-content:flex-end;padding:12px 14px;background:#fafafa}
+    .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700}
+    .pdf-frame{width:100%;height:520px;border:0;display:block}
+
+    /* small note */
+    .note{font-size:13px;color:#666;margin-top:8px}
+  </style>
+</head>
+<body>
+
+  <!-- topbar -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <a class="brand" href="../index.html">Sienna Giuseppi</a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="../about.html">About</a>
+      <a href="../index.html#engineering-projects">Projects</a>
+      <a href="../index.html#experiences">Experiences</a>
+      <a href="../resume.html">Resume</a>
+    </nav>
+  </div>
+  <div class="spacer" aria-hidden="true"></div>
+
+  <!-- hero -->
+  <section class="hero" aria-label="Energy-harvesting keys hero">
+    <div class="hero-title">Energy-harvesting Computer Keys — Research & Prototypes</div>
+  </section>
+
+  <main class="page" role="main" aria-labelledby="project-title">
+
+    <!-- intro / journey -->
+    <article class="card" id="intro" aria-labelledby="project-title">
+      <h1 id="project-title">Revolutionizing typing: harvesting mechanical energy from keystrokes</h1>
+      <div class="meta">Independent research project • multi-year effort • ISEF presenter • provisional patent</div>
+
+      <p>
+        In a science research course I chose to explore energy harvesting because I wanted to work on a practical climate-related problem. What began as a class exercise and a slide-deck grew into a four-year independent research journey: I read dozens of papers, reached out to authors by email and Zoom for feedback, learned physics and 3D printing on my own, sourced components, built test rigs, and iterated prototypes. When internships weren’t available coming out of COVID, I taught myself the tools and techniques needed to test feasibility.
+      </p>
+
+      <p>
+        That work produced a reproducible computer-key design integrating piezoelectric material, multiple rigorous tests (force profiling with a Vernier force probe and an SG90 motor-driven repeatable keystroke), presentations at Regeneron ISEF (2023) and a provisional patent — and ultimately a prototype key that produced measurable voltage from single keystrokes. The full technical paper is available below. :contentReference[oaicite:0]{index=0}
+      </p>
+    </article>
+
+    <!-- main grid: methods/results + media -->
+    <section class="grid" aria-label="Methods and media">
+
+      <!-- left: methods & results -->
+      <div class="card" id="methods">
+        <h2>Summary — methods & results</h2>
+        <p class="meta">Condensed from the project paper (technical details and full datasets in the PDF). :contentReference[oaicite:1]{index=1}</p>
+
+        <ul class="features-list" aria-label="Key methods">
+          <li>Design approach: 3D-printed key housing integrating a piezoelectric plate in the switch base (printed stems/modified housing to press piezo plate).</li>
+          <li>Testing rig: measured average keystroke force with a Vernier force probe (average peak ≈ <strong>1.667 N</strong>) and used an SG90-driven actuator to apply repeatable force. (See equipment/setup in paper.)</li>
+          <li>Material selection: compared multiple APC PZT elements; chose Item 1738 for a balance of voltage and thickness after comparative testing. (Charts in the paper show material comparisons.)</li>
+          <li>Electronics: piezo wiring → bridge rectifier → measurement via Vernier voltage probe and data logging; experiments include chained piezo arrays and single-key tests.</li>
+        </ul>
+
+        <div style="height:12px"></div>
+
+        <ul class="features-list" aria-label="Key results" style="grid-auto-rows: auto;">
+          <li>Maximum measured voltage per keystroke (key prototype): <strong>0.403 V</strong> (test using ~0.6 N in key assembly). :contentReference[oaicite:2]{index=2}</li>
+          <li>Chained piezo elements produced higher open-circuit voltages individually but lost voltage once soldered in chaining (assembly effects noted).</li>
+          <li>Conclusion: feasible proof-of-concept for harvesting typing energy; not yet sufficient to fully self-charge a laptop but promising for incremental energy capture and future material improvements.</li>
+          <li>Awards & IP: ISEF presentation(s) and provisional patent issued during this research. :contentReference[oaicite:3]{index=3}</li>
+        </ul>
+
+        <p class="note">For full experimental graphs, tables, and discussion see the paper (PDF preview and download below). :contentReference[oaicite:4]{index=4}</p>
+      </div>
+
+      <!-- right: media (photos, video, quick highlights) -->
+      <aside class="card" aria-label="Project media">
+        <h2>Media</h2>
+        <p class="meta">Photos & short video — replace placeholder paths with your actual files.</p>
+
+        <!-- 4 photos -->
+        <div class="photo-row" aria-hidden="false">
+          <img src="../images/projects/keys/photo1.jpg" alt="Prototype key assembled — top view">
+          <img src="../images/projects/keys/photo2.jpg" alt="Key internals with piezo element">
+          <img src="../images/projects/keys/photo3.jpg" alt="Test rig: SG90 motor & force probe">
+          <img src="../images/projects/keys/photo4.jpg" alt="Voltage graph / oscilloscope screenshot">
+        </div>
+
+        <div style="height:12px"></div>
+
+        <!-- video placeholder -->
+        <div>
+          <h3 style="margin:8px 0 6px">Presentation video</h3>
+          <!-- Replace src with your mp4 path or Drive embed. Example: /media/keys_presentation.mp4 -->
+          <video controls style="width:100%;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.08)">
+            <source src="../media/keys_presentation.mp4" type="video/mp4">
+            Your browser doesn't support HTML5 video — <a href="../media/keys_presentation.mp4">download the video</a>.
+          </video>
+          <p class="note">If the video is hosted on Google Drive, use the Drive embed URL or download and place the MP4 in your site's media folder and update the `src` above.</p>
+        </div>
+      </aside>
+
+    </section>
+
+    <!-- PDF preview + download -->
+    <section class="card" aria-labelledby="paper-heading">
+      <h2 id="paper-heading">Full paper — preview & download</h2>
+      <p class="meta">Click the preview to open the full PDF (opens in a modal/large viewer). Paper citation: Giuseppi, 2023. :contentReference[oaicite:5]{index=5}</p>
+
+      <div class="pdf-wrap" role="region" aria-label="PDF preview">
+        <div class="pdf-actions">
+          <!-- direct download — update href to your actual hosted PDF if different -->
+          <a class="btn" id="downloadPdf" href="/files/Giuseppi2023.pdf" download>Download PDF</a>
+          <a class="btn" id="openPdf" href="#" style="background:#3b6f6b">Open Preview</a>
+        </div>
+
+        <!-- inline preview (fallback browsers) -->
+        <div style="padding:12px">
+          <!-- Replace '../files/Giuseppi2023.pdf' with the actual relative URL where you host the file -->
+          <object id="paperPreview" data="../files/Giuseppi2023.pdf#page=1" type="application/pdf" class="pdf-frame" aria-label="Paper preview">
+            <p style="padding:20px">PDF preview not available — <a id="fallbackDownload" href="../files/Giuseppi2023.pdf">download the paper</a>.</p>
+          </object>
+        </div>
+      </div>
+
+      <p class="note">If you want the PDF to open in a full-screen modal rather than the embedded object, the "Open Preview" button will do that (script below). The source used here is the uploaded file (Giuseppi2023.pdf). :contentReference[oaicite:6]{index=6}</p>
+    </section>
+
+  </main>
+
+  <!-- Simple full-screen PDF modal -->
+  <div id="pdfModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:5000;align-items:center;justify-content:center;padding:24px;">
+    <div style="width:100%;max-width:1400px;height:calc(100vh - 80px);background:#fff;border-radius:10px;overflow:hidden;position:relative;">
+      <button id="pdfClose" style="position:absolute;top:16px;right:16px;background:rgba(0,0,0,0.5);color:#fff;border:0;padding:10px 12px;border-radius:8px;z-index:10">✕</button>
+      <object id="pdfFull" data="../files/Giuseppi2023.pdf#view=FitH" type="application/pdf" style="width:100%;height:100%;border:0"></object>
+    </div>
+  </div>
+
+  <script>
+    // PDF modal behaviour
+    const openPdfBtn = document.getElementById('openPdf');
+    const pdfModal = document.getElementById('pdfModal');
+    const pdfClose = document.getElementById('pdfClose');
+    openPdfBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      pdfModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+    pdfClose.addEventListener('click', () => {
+      pdfModal.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+    pdfModal.addEventListener('click', (e) => { if(e.target === pdfModal) { pdfModal.style.display = 'none'; document.body.style.overflow=''; } });
+  </script>
+
+</body>
+</html>
 
