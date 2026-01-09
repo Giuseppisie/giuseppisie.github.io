@@ -236,19 +236,65 @@
     </section>
 
     <!-- Video -->
-    <section class="card" aria-labelledby="video-heading">
-      <h2 id="video-heading" style="margin:0 0 12px;font-size:16px">Watch some of my video presentation here!</h2>
+   <!-- Video (use no poster or a tiny placeholder) -->
+<section class="card" aria-labelledby="video-heading">
+  <h2 id="video-heading" style="margin:0 0 12px;font-size:16px">Watch some of my video presentation here!</h2>
 
-      <div class="video-wrap" role="region" aria-label="Project presentation video">
-        <!-- Replace VIDEO_SRC.mp4 with your uploaded mp4 URL or embed URL -->
-        <video id="presentationVideo" controls preload="metadata" poster="../images/projects/piezo/JSHSpractice1.mp4">
-          <source src="../images/projects/piezo/JSHSpractice1.mp4" type="video/mp4">
-          Your browser does not support the video element. <a href="../images/projects/piezo/JSHSpractice1.mp4">Download video</a>
-        </video>
-      </div>
+  <div class="video-wrap" role="region" aria-label="Project presentation video">
+    <video id="presentationVideo" controls preload="metadata">
+      <source src="../images/projects/piezo/JSHSpractice1.mp4" type="video/mp4">
+      Your browser does not support the video element. <a href="../images/projects/piezo/JSHSpractice1.mp4">Download video</a>
+    </video>
+  </div>
+</section>
 
-      <p class="note" style="margin-top:10px">Please excuse audio pauses durring transitions.</p>
-    </section>
+<script>
+/* Generate a poster from the first video frame (same-origin required).
+   If the video file is cross-origin without CORS headers, this will fail —
+   in that case produce a static image and use it as poster. */
+(function(){
+  const vid = document.getElementById('presentationVideo');
+  if(!vid) return;
+
+  // Only run when metadata is loaded so duration/seek works
+  vid.addEventListener('loadedmetadata', tryCaptureFirstFrame, { once: true });
+
+  function tryCaptureFirstFrame(){
+    // Some browsers need the video to be seekable; attempt to seek to 0
+    // and wait for the 'seeked' event before drawing.
+    // If currentTime is already 0 this will still trigger 'seeked'.
+    function onSeeked() {
+      // create a canvas the size of the video frame
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = vid.videoWidth || 640;
+        canvas.height = vid.videoHeight || 360;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+        // convert to data URL and set as poster
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        vid.poster = dataUrl;
+        // cleanup
+        vid.removeEventListener('seeked', onSeeked);
+      } catch (err) {
+        // drawing to canvas can throw a security error if CORS not allowed
+        console.warn('Could not capture video frame (likely CORS).', err);
+      }
+    }
+
+    // if already seekable, try to set currentTime to 0 and wait
+    try {
+      vid.addEventListener('seeked', onSeeked);
+      // some browsers require a tiny positive time to render the first frame reliably
+      // set to 0.01 if 0 doesn't trigger rendering
+      vid.currentTime = 0; // or 0.01
+    } catch (err) {
+      console.warn('Video seeking failed:', err);
+    }
+  }
+})();
+</script>
+
 
     <!-- Full paper PDF preview & download -->
     <section class="card" aria-labelledby="paper-heading">
