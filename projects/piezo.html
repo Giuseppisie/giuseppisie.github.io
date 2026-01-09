@@ -265,14 +265,10 @@
 
         <div class="pdf-actions">
           <a id="paperOpen" class="btn" href="#" target="_blank" rel="noopener">View / Download PDF</a>
-          <div class="note">Set the paper path with the Poster / Paper config above. The preview attempts to render the PDF inline; if your browser blocks inline PDFs, use "View / Download PDF".</div>
         </div>
       </div>
     </section>
 
-    <footer>
-      <div class="note">Want thumbnails replaced or different poster sizing? Tell me the poster/paper paths and the exact thumbnail images to use and I’ll update the HTML accordingly.</div>
-    </footer>
   </main>
 
   <!-- Image Lightbox -->
@@ -291,7 +287,7 @@
     (function(){
       // Config: reads data attributes so you can simply update the file path in the HTML
       const cfg = document.querySelector('.pdf-config');
-      const POSTER_PATH = cfg?.getAttribute('data-poster') || '../images/projects/piezo/poster_Giuseppi2023.pdf';
+      const POSTER_PATH = cfg?.getAttribute('data-poster') || '../images/projects/piezo/2024WESEF.pdf';
       const PAPER_PATH  = cfg?.getAttribute('data-paper')  || '../images/projects/piezo/Giuseppi2023.pdf';
 
       // Poster preview logic (object -> iframe fallback)
