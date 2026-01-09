@@ -29,14 +29,13 @@
     .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
 
     .spacer{height:60px}
-    
 
     /* Page container */
     .page{max-width:var(--content-max);margin:0 auto;padding:36px var(--page-pad) 80px;box-sizing:border-box}
 
     /* HERO */
     .hero{
-      position:relative;border-radius:var(--radius);overflow:dden;
+      position:relative;border-radius:var(--radius);overflow:hidden;
       background-image: url("images/dukeshot.jpg"); /* replace or keep */
       background-size:cover;background-position:center;
       height:28vh; display:flex; align-items:center; justify-content:center; margin-bottom:20px;
@@ -44,11 +43,32 @@
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(66,123,118,0.28), rgba(66,123,118,0.6));}
     .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(22px,3.8vw,36px);font-weight:800;text-align:center;padding:12px 18px}
 
-    /* Intro / two-column */
-    .intro-row{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:start}
-    @media (max-width:880px){ .intro-row{grid-template-columns:1fr} }
+    /* Intro: two-column but structured with grid areas so profile can span rows */
+    .intro-row{
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "profile about"
+        "profile skills";
+      gap:24px;
+      align-items:start;
+    }
+    @media (max-width:880px){
+      .intro-row{
+        grid-template-columns:1fr;
+        grid-template-areas:
+          "profile"
+          "about"
+          "skills";
+      }
+    }
 
     .card{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:0 12px 30px rgba(0,0,0,0.06);}
+
+    .profile { grid-area: profile; }
+    .about   { grid-area: about; }
+    .skills  { grid-area: skills; }
 
     .profile-photo{width:100%;height:320px;background:#eee;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
     .profile-photo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -66,6 +86,13 @@
     .skill-col h4{margin:0 0 8px;font-size:15px;color:#111}
     .chips{display:flex;flex-wrap:wrap;gap:8px}
     .chip{background:rgba(66,123,118,0.09);border:1px solid rgba(66,123,118,0.12);padding:8px 10px;border-radius:999px;font-weight:700;font-size:13px;color:#17443f}
+
+    /* Section-with-image (for the three "Why ..." items) */
+    .section-with-image{display:flex;gap:18px;align-items:center;margin-bottom:12px}
+    .section-with-image .text{flex:1}
+    .section-with-image .img-wrap{flex:0 0 160px;border-radius:10px;overflow:hidden;background:#eee}
+    .section-with-image .img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+    @media (max-width:720px){ .section-with-image{flex-direction:column} .section-with-image .img-wrap{width:100%;height:200px} }
 
     /* Timeline / quick facts */
     .facts{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
@@ -108,6 +135,7 @@
   <main class="page" role="main" aria-labelledby="about-heading">
 
     <div class="intro-row">
+
       <!-- LEFT: Photo / quick facts -->
       <aside class="card profile" aria-labelledby="me-heading">
         <div class="profile-photo" role="img" aria-label="Sienna portrait">
@@ -121,7 +149,6 @@
             <div class="fact">Minors: Visual Arts, Computer Science</div>
             <div class="fact">Class of 2028</div>
             <div class="fact">Based in: Westchester, NY</div>
-            
           </div>
 
           <div class="funline" aria-hidden="true"></div>
@@ -130,131 +157,134 @@
             <a class="btn" href="resume.html">Download resume</a>
             <a class="btn secondary" href="mailto:sienna.giuseppi@duke.edu">Email me</a>
           </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT TOP: About text -->
+      <section class="card about" aria-labelledby="about-me-heading">
+        <h1 id="about-me-heading">About me</h1>
+
+        <!-- WHY MECHANICAL ENGINEERING (with image) -->
+        <div class="section-with-image" aria-labelledby="why-mech">
+          <div class="text">
+            <p id="why-mech" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Mechanical Engineering</p>
+            <p style="margin:0 0 8px;">
+              I love to build. I want to be the person who comes up with solutions — and just as importantly,
+              understands <em>why</em> those solutions work. Engineering is a field where the learning never ends,
+              and that constant discovery is what excites me most.
+            </p>
+            <p style="margin:0 0 8px;">
+              It amazes me how much science and design goes into something as ordinary as a laptop sitting on a desk,
+              let alone the layers of systems required just to turn it on. I’m genuinely happy to be learning the
+              “whys” of the world, and I want a career where I can contribute meaningfully by turning that understanding
+              into real, usable products.
+            </p>
+            <p style="margin:0;">
+              My biggest interest is <strong>product design</strong>, especially in <strong>smart technology</strong>.
+              I’m drawn to product design because it lives at the intersection of building and listening:
+              understanding a user’s needs, identifying real problems, and creating thoughtful, usable solutions.
+            </p>
+          </div>
+
+          <div class="img-wrap">
+            <img src="images/about/engineering.jpg" alt="Engineering sketch or studio">
+          </div>
+        </div>
+
+        <!-- WHY VISUAL ART (with image) -->
+        <div class="section-with-image" aria-labelledby="why-art">
+          <div class="text">
+            <p id="why-art" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Visual Art</p>
+            <p style="margin:0 0 8px;">
+              I’ve loved art from a young age — the desire to create has always brought me immense joy.
+              I see engineering as art projects, just with more numbers at the end of the day.
+              Products don’t only need to function; great design requires an artistic eye to create something
+              a user <em>wants</em> to use.
+            </p>
+            <p style="margin:0;">
+              Visual art has trained me to think about form, texture, balance, and emotion. It’s taught me how to
+              create things that look good, feel good, and work holistically to solve a problem — sometimes one the
+              user didn’t even realize they had.
+            </p>
+          </div>
+
+          <div class="img-wrap">
+            <img src="images/about/art.jpg" alt="Artwork or sketchbook">
+          </div>
+        </div>
+
+        <!-- WHY COMPUTER SCIENCE (with image) -->
+        <div class="section-with-image" aria-labelledby="why-cs">
+          <div class="text">
+            <p id="why-cs" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Computer Science</p>
+            <p style="margin:0 0 8px;">
+              I began taking computer science courses at Duke because computational systems are everywhere in modern
+              engineering, and I want to understand them. I don’t necessarily want to be the person writing every line
+              of code, but I want to understand how software, computer architecture, and AI work so I can design hardware
+              that integrates seamlessly.
+            </p>
+            <p style="margin:0;">
+              I built this website using HTML on GitHub — a language I hadn’t used before — because my curiosity pushed me
+              to learn the tools needed to bring a design vision to life. I want to continue exploring the digital world
+              alongside my engineering work.
+            </p>
+          </div>
+
+          <div class="img-wrap">
+            <img src="images/about/code.jpg" alt="Code or laptop">
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT BOTTOM: Skills card (sits under the about card on the right, and beside the profile) -->
+      <aside class="card skills" aria-labelledby="skills-heading">
+        <h3 id="skills-heading" style="margin:0 0 10px">Skillsets</h3>
+
+        <div class="skills-grid" role="list" aria-label="Skills">
+
+          <!-- Technical -->
+          <div class="skill-col" role="listitem">
+            <h4>Technical</h4>
+            <div class="chips">
+              <span class="chip">Arduino</span>
+              <span class="chip">C</span>
+              <span class="chip">CAD (SolidWorks)</span>
+              <span class="chip">Circuitry</span>
+              <span class="chip">Data Acquisition</span>
+              <span class="chip">Java</span>
+              <span class="chip">Laser Cutting</span>
+              <span class="chip">Python</span>
+              <span class="chip">Tolerance Analysis</span>
+            </div>
+          </div>
+
+          <!-- Creative -->
+          <div class="skill-col" role="listitem">
+            <h4>Creative</h4>
+            <div class="chips">
+              <span class="chip">Adobe Illustrator</span>
+              <span class="chip">Photoshop</span>
+              <span class="chip">Rapid Prototyping</span>
+              <span class="chip">Visual Artistry</span>
+            </div>
+          </div>
+
+          <!-- Communicative -->
+          <div class="skill-col" role="listitem">
+            <h4>Communicative</h4>
+            <div class="chips">
+              <span class="chip">PowerPoint</span>
+              <span class="chip">Presentational Speaking</span>
+              <span class="chip">Product Management</span>
+              <span class="chip">Storyboarding</span>
+              <span class="chip">Technical Writing</span>
+            </div>
+          </div>
 
         </div>
       </aside>
 
-      <!-- RIGHT: About text, story, skills -->
-    <section class="card intro" aria-labelledby="about-me-heading">
-  <h1 id="about-me-heading">About me</h1>
-
-   <p style="font-style:italic;font-weight:700;margin-top:20px;color:#2d4b48;">
-    Why Mechanical Engineering
-  </p>
-      
-    I love to build. I want to be the person who comes up with solutions — and just as importantly,
-    understands <em>why</em> those solutions work. Engineering is a field where the learning never ends,
-    and that constant discovery is what excites me most.
-  </p>
-
-  <p>
-    It amazes me how much science and design goes into something as ordinary as a laptop sitting on a desk,
-    let alone the layers of systems required just to turn it on. I’m genuinely happy to be learning the
-    “whys” of the world, and I want a career where I can contribute meaningfully by turning that understanding
-    into real, usable products.
-  </p>
-
-  <p>
-    My biggest interest is <strong>product design</strong>, especially in <strong>smart technology</strong>.
-    Modern tech fascinates me; the ability to combine advanced science, creativity, and usability into
-    objects we carry in our pockets, wear on our wrists, or build into our homes. I’m drawn to product design
-    because it lives at the intersection of building and listening: understanding a user’s needs,
-    identifying a real problem, and then creating something thoughtful, functional, and genuinely exciting.
-  </p>
-
-  <p style="font-style:italic;font-weight:700;margin-top:20px;color:#2d4b48;">
-    Why Visual Art
-  </p>
-
-  <p>
-    I’ve loved art from a young age, and the desire to create has always brought me immense joy.
-    I see engineering as art projects, just with more numbers at the end of the day.
-    Products don’t only need to function; great design requires an artistic eye to create something
-    a user <em>wants</em> to use.
-  </p>
-
-      
-  <p>
-    Visual art has trained me to think about form, texture, balance, and emotion. It’s taught me how to
-    create things that look good, feel good, and work together holistically to solve a problem —
-    sometimes one the user didn’t even realize they had.
-  </p>
-
-   <p style="font-style:italic;font-weight:700;margin-top:20px;color:#2d4b48;">
-    Why Computer Science
-  </p>
-      
-    I began taking computer science courses at Duke because computational systems are everywhere in modern
-    engineering, and I want to understand them. I don’t necessarily want to be the person writing the Java
-    program, but I do want to understand how code, computer architecture, and AI work so I can design
-    products that integrate seamlessly with software.
-  </p>
-
-  <p>
-    I want to communicate thoughtfully and knowledgeably with software engineers, understand what’s possible,
-    and design hardware that complements digital systems rather than fighting them.
-  </p>
-
-  <p>
-    I built this entire website using HTML and GitHub, a language I had never worked with before.
-    My curiosity and desire to understand how code works pushed me to learn enough to bring a design
-    vision to life. That same curiosity is what drives me forward, and I’m excited to keep exploring
-    the digital world alongside my engineering career.
-  </p>
-</section>
-
-
-        <div class="funline" aria-hidden="true"></div>
-
-        <!-- Skills -->
-<section class="card" aria-labelledby="skills-heading">
-  <h3 id="skills-heading" style="margin:0 0 10px">Skillsets</h3>
-
-  <div class="skills-grid" role="list" aria-label="Skills">
-
-    <!-- Technical -->
-    <div class="skill-col" role="listitem">
-      <h4>Technical</h4>
-      <div class="chips">
-        <span class="chip">Arduino</span>
-        <span class="chip">C</span>
-        <span class="chip">CAD (SolidWorks)</span>
-        <span class="chip">Circuitry</span>
-        <span class="chip">Data Acquisition</span>
-        <span class="chip">Java</span>
-        <span class="chip">Laser Cutting</span>
-        <span class="chip">Python</span>
-        <span class="chip">Tolerance Analysis</span>
-      </div>
-    </div>
-
-    <!-- Creative -->
-    <div class="skill-col" role="listitem">
-      <h4>Creative</h4>
-      <div class="chips">
-        <span class="chip">Adobe Illustrator</span>
-        <span class="chip">Photoshop</span>
-        <span class="chip">Rapid Prototyping</span>
-        <span class="chip">Visual Artistry</span>
-      </div>
-    </div>
-
-    <!-- Communicative -->
-    <div class="skill-col" role="listitem">
-      <h4>Communicative</h4>
-      <div class="chips">
-        <span class="chip">PowerPoint</span>
-        <span class="chip">Presentational Speaking</span>
-        <span class="chip">Product Management</span>
-        <span class="chip">Storyboarding</span>
-        <span class="chip">Technical Writing</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
+    </div> <!-- end intro-row -->
 
     <div style="height:22px"></div>
 
@@ -283,7 +313,6 @@
         <a class="btn secondary" href="projects/WavGuard.html">See projects</a>
         <a class="btn secondary" href="experiences/art.html">See art</a>
       </div>
-
     </section>
 
   </main>
