@@ -198,8 +198,6 @@
   .section-subtitle{ font-size:14px; margin-bottom:20px; }
 }
 
-    
-    
     /* Tablet: 2 columns */
     @media (max-width: 1024px) {
       .projects { grid-template-columns: repeat(2, 1fr); }
@@ -229,90 +227,57 @@
     .contact-right a { color: #fff; font-weight:700; margin-left:14px; text-decoration:underline; }
 
     footer { text-align:center; color:#333; margin:40px 0 80px; }
+
+    /* ---------- TOPBAR STYLES (matches Projects/Experiences pages) ---------- */
+    .topbar{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:60px;
+      display:flex;
+      align-items:center;
+      padding:0 20px;
+      z-index:1000;
+      background:rgba(0,0,0,0.25);
+      backdrop-filter:blur(4px);
+    }
+    .topbar-left{display:flex;align-items:center;gap:20px}
+    .brand{
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      text-decoration:none;
+      text-shadow:0 2px 8px rgba(0,0,0,.4);
+    }
+    .topnav{display:flex;gap:10px}
+    .topnav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:8px 10px;
+      border-radius:8px;
+    }
+    .spacer{height:60px}
+    /* END topbar styles */
   </style>
 </head>
 
 <body>
 
- <!-- START: SITE TOPBAR (copy this to the top of every page, right after <body>) -->
-<style>
-  .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      z-index: 1000;
-      background: rgba(0,0,0,0.25);
-      backdrop-filter: blur(4px);
-    }
-    .topbar-left { display:flex; align-items:center; gap:20px; white-space:nowrap; }
-    .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); text-decoration:none; }
-    .topnav { display:flex; gap:10px; align-items:center; margin-left:8px; }
-    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 10px; border-radius:8px; transition: background .12s; }
-    .topnav a:hover, .topnav a:focus { background: rgba(255,255,255,0.08); outline:none; }
+  <!-- TOPBAR: now matches Projects/Experiences pages -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <div class="topbar-left">
+      <a class="brand" href="index.html">Sienna Giuseppi</a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="about.html">About</a>
+        <a href="#engineering-projects">Projects</a>
+        <a href="#experiences">Experiences</a>
+        <a href="resume.html">Resume</a>
+      </nav>
+    </div>
+  </div>
 
-    .spacer { height:60px; }
-  
-<script>
-  // Topbar behavior: mark active link and smooth-scroll same-page anchors on index.html
-  (function () {
-    const links = Array.from(document.querySelectorAll('.site-topbar .nav-link'));
-
-    // Highlight an active link if its href matches current pathname or hash.
-    function updateActive() {
-      links.forEach(a => a.classList.remove('active'));
-      const curPath = window.location.pathname.split('/').pop() || 'index.html';
-      const curHash = window.location.hash || '';
-      links.forEach(a => {
-        const href = a.getAttribute('href') || '';
-        // If href is an anchor on the current page or an index hash
-        if (href.startsWith('#') && href === curHash) {
-          a.classList.add('active');
-        } else if (href.includes('#') && href.split('#')[0].endsWith('index.html')) {
-          // link to index.html#section
-          if (curPath === 'index.html' || curPath === '') {
-            if (('#' + href.split('#')[1]) === curHash) a.classList.add('active');
-          }
-        } else {
-          // normal page-to-page matching
-          const linkPath = href.split('#')[0].split('/').pop() || '';
-          if (linkPath === curPath) a.classList.add('active');
-        }
-      });
-    }
-
-    // Smooth scroll for same-page anchors (index.html). If you click Projects on index.html,
-    // it will smooth-scroll instead of reloading the page.
-    links.forEach(a => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href') || '';
-        // If a hash for index anchor and we're on index page, smooth scroll
-        if ((href.startsWith('#') || href.includes('index.html#')) &&
-            (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/'))) {
-          const hash = href.includes('#') ? '#' + href.split('#')[1] : href;
-          if (hash && document.querySelector(hash)) {
-            e.preventDefault();
-            document.querySelector(hash).scrollIntoView({ behavior: 'smooth', block: 'start' });
-            history.replaceState(null, '', (window.location.pathname.includes('index.html') ? 'index.html' : '') + hash);
-            setTimeout(updateActive, 300);
-            return;
-          }
-        }
-        // Otherwise allow normal navigation (go to page)
-      });
-    });
-
-    window.addEventListener('hashchange', updateActive);
-    window.addEventListener('popstate', updateActive);
-    updateActive();
-  })();
-</script>
-<!-- END: SITE TOPBAR -->
-
+  <!-- keep same spacer to avoid content jumping under fixed topbar -->
+  <div class="spacer" aria-hidden="true"></div>
 
   <!-- HERO -->
   <header class="hero" role="banner" aria-label="Hero image of Duke University">
@@ -340,13 +305,11 @@
       </div>
     </header>
 
-
     <!-- Projects -->
-<h2 id="engineering-projects" class="section-title">Engineering Projects</h2>
-<p id="engineering-projects-subtitle" class="section-subtitle">
-  Click below to see more details on some projects showcasing my technical skills
-</p>
-
+    <h2 id="engineering-projects" class="section-title">Engineering Projects</h2>
+    <p id="engineering-projects-subtitle" class="section-subtitle">
+      Click below to see more details on some projects showcasing my technical skills
+    </p>
 
     <section class="projects" id="projects-grid">
       <a class="card" href="projects/WavGuard.html">
@@ -367,7 +330,7 @@
         </div>
       </a>
 
-         <a class="card" href="projects/Vroom-mate.html">
+      <a class="card" href="projects/Vroom-mate.html">
         <img src="images/projects/vroomate/productvroom.jpg" alt="vroom-mate preview">
         <div class="card-content">
           <div class="meta"><div class="year">Fall 2025</div><div class="status done">Done</div></div>
@@ -419,18 +382,16 @@
       Click below to see some of my extracurricular involvements 
     </p>
 
-      <section id="experiences" class="projects experiences">
+    <section id="experiences" class="projects experiences">
+      <a class="card" href="experiences/art.html">
+        <img src="images/experiences/art/mepencil.jpeg" alt="Art preview">
+        <div class="card-content">
+          <div class="meta"><div class="year">2022-2026</div><div class="status in-progress">In progress</div></div>
+          <div class="card-title">Art Projects</div>
+          <div class="card-desc">Some of my artistic portfolio.</div>
+        </div>
+      </a>
 
-        <a class="card" href="experiences/art.html">
-            <img src="images/experiences/art/mepencil.jpeg" alt="Art preview">
-            <div class="card-content">
-              <div class="meta"><div class="year">2022-2026</div><div class="status in-progress">In progress</div></div>
-              <div class="card-title">Art Projects</div>
-              <div class="card-desc">Some of my artistic portfolio.</div>
-            </div>
-          </a>
-
-        
       <a class="card" href="experiences/gladiatorallegiance.html">
         <img src="images/experiences/productlab/k9leash.jpg" alt="Product Manager preview">
         <div class="card-content">
@@ -466,9 +427,6 @@
           <div class="card-desc">Founder of Pelham's first free afterschool engineering program for 3rd–5th graders.</div>
         </div>
       </a>
-
-    
-        
     </section>
 
     <!-- contact block  -->
@@ -480,8 +438,8 @@
       </div>
     </div>
 
-   
   </div>
 
 </body>
 </html>
+
