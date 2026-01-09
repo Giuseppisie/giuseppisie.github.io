@@ -10,10 +10,11 @@
       --bg:#a0c0bc;
       --card:#427b76;
       --accent:#b0ab52;
-      --content-max:1100px;
-      --page-pad:20px;
+      --content-max:1200px;   /* increased to allow more horizontal room */
+      --page-pad:16px;        /* smaller side padding */
       --radius:12px;
       --gap:18px;
+      --left-col:380px;      /* explicit left column width so profile and skills align */
     }
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#111}
     body{background:var(--bg); -webkit-font-smoothing:antialiased;}
@@ -30,7 +31,7 @@
 
     .spacer{height:60px}
 
-    /* Page container */
+    /* Page container: wider, smaller side padding */
     .page{max-width:var(--content-max);margin:0 auto;padding:36px var(--page-pad) 80px;box-sizing:border-box}
 
     /* HERO */
@@ -43,59 +44,55 @@
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(66,123,118,0.28), rgba(66,123,118,0.6));}
     .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(22px,3.8vw,36px);font-weight:800;text-align:center;padding:12px 18px}
 
-    /* Intro: left profile + right about; profile column stacks photo then skills */
+    /* Intro Grid: explicit left column width + flexible right column */
     .intro-row{
       display:grid;
-      grid-template-columns: 360px 1fr;
-      gap:24px;
+      grid-template-columns: var(--left-col) 1fr;
+      gap:28px;
       align-items:start;
       grid-auto-rows: auto;
     }
-    @media (max-width:880px){
-      .intro-row{ grid-template-columns:1fr; }
+    @media (max-width:980px){
+      .intro-row{ grid-template-columns:1fr; gap:20px; }
     }
 
     .card{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:0 12px 30px rgba(0,0,0,0.06);}
 
-    .profile-col { display:flex; flex-direction:column; gap:16px; } /* left column container */
+    .profile-col { display:flex; flex-direction:column; gap:16px; }
 
-    .profile-photo{width:100%;height:320px;background:#eee;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    /* Make the profile-photo match the explicit left column width visually */
+    .profile-photo{width:100%;height:360px;background:#eee;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
     .profile-photo img{width:100%;height:100%;object-fit:cover;display:block}
 
     .intro h1{margin:0 0 8px;font-size:20px}
     .intro p{margin:0 0 12px;line-height:1.6;color:#222}
 
-    /* Story / fun tone */
     .story{margin-top:8px;color:#333;line-height:1.6}
     .lead { font-weight:700; color:var(--card); }
 
-    /* Skills chips */
+    /* Skills chips kept the same look; skill columns now sit inside .card (left column) */
     .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
     @media (max-width:720px){ .skills-grid{grid-template-columns:1fr} }
     .skill-col h4{margin:0 0 8px;font-size:15px;color:#111}
     .chips{display:flex;flex-wrap:wrap;gap:8px}
     .chip{background:rgba(66,123,118,0.09);border:1px solid rgba(66,123,118,0.12);padding:8px 10px;border-radius:999px;font-weight:700;font-size:13px;color:#17443f}
 
-    /* Section-with-image (for the three "Why ..." items) */
+    /* Section-with-image: add left padding to right column so it shifts right slightly */
+    .right-column { padding-left: 8px; } /* subtle nudge to the right */
     .section-with-image{display:flex;gap:18px;align-items:center;margin-bottom:12px}
-    .section-with-image .text{flex:1}
+    .section-with-image .text{flex:1;min-width:0}
     .section-with-image .img-wrap{flex:0 0 160px;border-radius:10px;overflow:hidden;background:#eee}
     .section-with-image .img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
     @media (max-width:720px){ .section-with-image{flex-direction:column} .section-with-image .img-wrap{width:100%;height:200px} }
 
-    /* Timeline / quick facts */
     .facts{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
     .fact{background:linear-gradient(180deg,#fff,#f7f9f8);padding:10px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.04);font-weight:700;color:#2d4b48}
 
-    /* Contact / CTA */
     .cta{display:flex;gap:12px;align-items:center;margin-top:16px}
     .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800}
     .btn.secondary{background:transparent;color:#111;border:2px solid rgba(0,0,0,0.06)}
 
-    /* Footer note */
     .note{margin-top:12px;color:#444;font-size:13px}
-
-    /* decorative flourish */
     .funline{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--card),var(--accent));margin:18px 0}
   </style>
 </head>
@@ -125,7 +122,7 @@
 
     <div class="intro-row">
 
-      <!-- LEFT COLUMN: profile-photo + skills stacked -->
+      <!-- LEFT COLUMN: profile-photo + skills stacked, width matches --left-col -->
       <div class="profile-col">
         <aside class="card profile" aria-labelledby="me-heading">
           <div class="profile-photo" role="img" aria-label="Sienna portrait">
@@ -154,8 +151,7 @@
           <h3 id="skills-heading-left" style="margin-top:0;margin-bottom:10px">Skillsets</h3>
 
           <div class="skills-grid" role="list" aria-label="Skills">
-            <!-- each column is a small white card to match previous style -->
-            <div class="skill-col card" role="listitem">
+            <div class="skill-col card" role="listitem" style="padding:12px">
               <h4 style="margin-top:0">Technical</h4>
               <div class="chips">
                 <span class="chip">Arduino</span>
@@ -170,7 +166,7 @@
               </div>
             </div>
 
-            <div class="skill-col card" role="listitem">
+            <div class="skill-col card" role="listitem" style="padding:12px">
               <h4 style="margin-top:0">Creative</h4>
               <div class="chips">
                 <span class="chip">Adobe Illustrator</span>
@@ -180,7 +176,7 @@
               </div>
             </div>
 
-            <div class="skill-col card" role="listitem">
+            <div class="skill-col card" role="listitem" style="padding:12px">
               <h4 style="margin-top:0">Communicative</h4>
               <div class="chips">
                 <span class="chip">PowerPoint</span>
@@ -194,8 +190,8 @@
         </aside>
       </div>
 
-      <!-- RIGHT COLUMN: about text with images -->
-      <section class="card" aria-labelledby="about-me-heading">
+      <!-- RIGHT COLUMN: about text with images; nudged slightly right by .right-column padding -->
+      <section class="card right-column" aria-labelledby="about-me-heading">
         <h1 id="about-me-heading" style="margin-top:0">About me</h1>
 
         <div class="section-with-image" aria-labelledby="why-mech">
