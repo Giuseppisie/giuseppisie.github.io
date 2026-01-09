@@ -14,7 +14,7 @@
       --page-pad:16px;        /* smaller side padding */
       --radius:12px;
       --gap:18px;
-      --left-col:380px;      /* explicit left column width so profile and skills align */
+      --left-col: 460px;    /* explicit left column width so profile and skills align */
     }
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#111}
     body{background:var(--bg); -webkit-font-smoothing:antialiased;}
@@ -71,8 +71,8 @@
     .lead { font-weight:700; color:var(--card); }
 
     /* Skills chips kept the same look; skill columns now sit inside .card (left column) */
-    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
-    @media (max-width:720px){ .skills-grid{grid-template-columns:1fr} }
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+    @media (max-width:520px){ .skills-grid{grid-template-columns:1fr} }
     .skill-col h4{margin:0 0 8px;font-size:15px;color:#111}
     .chips{display:flex;flex-wrap:wrap;gap:8px}
     .chip{background:rgba(66,123,118,0.09);border:1px solid rgba(66,123,118,0.12);padding:8px 10px;border-radius:999px;font-weight:700;font-size:13px;color:#17443f}
