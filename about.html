@@ -58,6 +58,24 @@
 
     .card{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:0 12px 30px rgba(0,0,0,0.06);}
 
+    /* Detached "What I care about" card (standalone, centered) */
+.detached-care{
+  background:#fff;
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.06);
+  max-width:900px;        /* sits visually aligned with content column width */
+  margin:20px auto;       /* centers it beneath intro-row */
+}
+
+/* if you want a subtle accent header in the detached card */
+.detached-care h2{ margin:0 0 10px; font-size:18px; color:#111; }
+.detached-care .fact-list{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+@media (max-width:880px){
+  .detached-care{ max-width:100%; margin:18px 12px; }
+}
+
+
     .profile-col { display:flex; flex-direction:column; gap:16px; }
 
     /* Make the profile-photo match the explicit left column width visually */
