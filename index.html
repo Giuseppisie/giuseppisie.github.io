@@ -236,94 +236,27 @@
 
  <!-- START: SITE TOPBAR (copy this to the top of every page, right after <body>) -->
 <style>
-  /* Topbar core styles — paste on every page once (keeps styles local to topbar) */
-  .site-topbar {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 1200;
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-  }
-  .topbar-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
+  .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(4px);
+    }
+    .topbar-left { display:flex; align-items:center; gap:20px; white-space:nowrap; }
+    .brand { color:#fff; font-weight:800; font-size:18px; text-shadow:0 2px 8px rgba(0,0,0,0.4); text-decoration:none; }
+    .topnav { display:flex; gap:10px; align-items:center; margin-left:8px; }
+    .topnav a { color:#fff; text-decoration:none; font-weight:700; padding:8px 10px; border-radius:8px; transition: background .12s; }
+    .topnav a:hover, .topnav a:focus { background: rgba(255,255,255,0.08); outline:none; }
 
-  .topbar-brand a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 18px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
-  }
-
-  /* Horizontal nav that never stacks; on small screens it scrolls horizontally */
-  .topbar-nav {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    overflow-x: auto;           /* scroll horizontally when narrow */
-    white-space: nowrap;        /* keep items on one line */
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-  }
-
-  .topbar-nav::-webkit-scrollbar { height: 8px; }
-  .topbar-nav::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 8px; }
-
-  .topbar-nav a {
-    display: inline-block;
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-weight: 700;
-    transition: background .14s ease, box-shadow .14s ease;
-  }
-
-  .topbar-nav a:hover,
-  .topbar-nav a:focus {
-    background: var(--card);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-    outline: none;
-  }
-
-  /* Active state helper */
-  .topbar-nav a.active {
-    background: var(--card);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-  }
-
-  /* Make sure topbar doesn't cover the hero text — add top spacing variable if you want:
-     You can add `body { padding-top: 64px; }` to your global CSS on pages that include this bar
-     if you prefer the content pushed down (optional). */
-</style>
-
-<header class="site-topbar" role="banner" aria-label="Primary navigation">
-  <div class="topbar-inner">
-    <div class="topbar-brand">
-      <a href="index.html" aria-label="Home — Sienna Giuseppi">Sienna Giuseppi</a>
-    </div>
-
-    <nav class="topbar-nav" role="navigation" aria-label="Main site navigation">
-      <!-- About is a separate page; Projects/Experiences anchor to index.html hash; Resume -> resume.html -->
-      <a class="nav-link" href="about.html">About</a>
-      <a class="nav-link" href="index.html#engineering-projects">Projects</a>
-      <a class="nav-link" href="index.html#experiences">Experiences</a>
-      <a class="nav-link" href="resume.html">Resume</a>
-    </nav>
-  </div>
-</header>
-
+    .spacer { height:60px; }
+  
 <script>
   // Topbar behavior: mark active link and smooth-scroll same-page anchors on index.html
   (function () {
