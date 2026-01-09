@@ -4,58 +4,231 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — Sienna Giuseppi</title>
+
   <style>
-    :root { --bg:#a0c0bc; --card:#427b76; --accent:#b0ab52; }
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;}
-    body{background:var(--bg); color:#111; -webkit-font-smoothing:antialiased;}
-    main { max-width:1100px; margin: 28px auto; padding: 20px; }
-    .about-box { background:#fff; border-radius:12px; padding:28px; box-shadow:0 12px 40px rgba(0,0,0,0.08); }
-    h1{ margin:0 0 12px; font-size:32px; }
-    p.lead { margin:0 0 16px; font-size:17px; line-height:1.6; color:#333; }
+    :root{
+      --bg:#a0c0bc;
+      --card:#427b76;
+      --accent:#b0ab52;
+      --content-max:1100px;
+      --page-pad:20px;
+      --radius:12px;
+      --gap:18px;
+    }
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#111}
+    body{background:var(--bg); -webkit-font-smoothing:antialiased;}
+
+    /* Topbar (same as other pages) */
+    .topbar{
+      position:fixed; top:0; left:0; right:0; height:60px; display:flex; align-items:center;
+      padding:0 20px; z-index:1000; background:rgba(0,0,0,0.25); backdrop-filter:blur(4px);
+    }
+    .topbar-left{display:flex;align-items:center;gap:20px}
+    .brand{color:#fff;font-weight:800;font-size:18px;text-decoration:none;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+    .topnav{display:flex;gap:10px}
+    .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
+
+    .spacer{height:60px}
+
+    /* Page container */
+    .page{max-width:var(--content-max);margin:0 auto;padding:36px var(--page-pad) 80px;box-sizing:border-box}
+
+    /* HERO */
+    .hero{
+      position:relative;border-radius:var(--radius);overflow:hidden;
+      background-image: url("images/headshot-hero.jpg"); /* replace or keep */
+      background-size:cover;background-position:center;
+      height:28vh; display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+    }
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(66,123,118,0.28), rgba(66,123,118,0.6));}
+    .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(22px,3.8vw,36px);font-weight:800;text-align:center;padding:12px 18px}
+
+    /* Intro / two-column */
+    .intro-row{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:start}
+    @media (max-width:880px){ .intro-row{grid-template-columns:1fr} }
+
+    .card{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:0 12px 30px rgba(0,0,0,0.06);}
+
+    .profile-photo{width:100%;height:320px;background:#eee;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .profile-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .intro h1{margin:0 0 8px;font-size:20px}
+    .intro p{margin:0 0 12px;line-height:1.6;color:#222}
+
+    /* Story / fun tone */
+    .story{margin-top:8px;color:#333;line-height:1.6}
+    .lead { font-weight:700; color:var(--card); }
+
+    /* Skills chips */
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+    @media (max-width:720px){ .skills-grid{grid-template-columns:1fr} }
+    .skill-col h4{margin:0 0 8px;font-size:15px;color:#111}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:rgba(66,123,118,0.09);border:1px solid rgba(66,123,118,0.12);padding:8px 10px;border-radius:999px;font-weight:700;font-size:13px;color:#17443f}
+
+    /* Timeline / quick facts */
+    .facts{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .fact{background:linear-gradient(180deg,#fff,#f7f9f8);padding:10px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.04);font-weight:700;color:#2d4b48}
+
+    /* Contact / CTA */
+    .cta{display:flex;gap:12px;align-items:center;margin-top:16px}
+    .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800}
+    .btn.secondary{background:transparent;color:#111;border:2px solid rgba(0,0,0,0.06)}
+
+    /* Footer note */
+    .note{margin-top:12px;color:#444;font-size:13px}
+
+    /* decorative flourish */
+    .funline{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--card),var(--accent));margin:18px 0}
   </style>
 </head>
 <body>
 
-  <!-- PASTE TOPBAR SNIPPET HERE (exactly the same block from step 1) -->
-  <!-- START: SITE TOPBAR -->
-  <header class="site-topbar" role="banner" aria-label="Primary navigation">
-    <div class="topbar-inner">
-      <div class="brand"><a href="index.html" aria-label="Go to home">Sienna Giuseppi</a></div>
-
-      <nav class="main-nav" role="navigation" aria-label="Main">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Open menu">
-          ☰
-        </button>
-
-        <ul id="nav-list" class="nav-list">
-          <li><a class="nav-link" href="about.html">About</a></li>
-          <li><a class="nav-link" href="index.html#engineering-projects">Projects</a></li>
-          <li><a class="nav-link" href="index.html#experiences">Experiences</a></li>
-          <li><a class="nav-link" href="resume.html">Resume</a></li>
-        </ul>
+  <!-- Topbar -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <div class="topbar-left">
+      <a class="brand" href="index.html">Sienna Giuseppi</a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="about.html">About</a>
+        <a href="index.html#engineering-projects">Projects</a>
+        <a href="index.html#experiences">Experiences</a>
+        <a href="resume.html">Resume</a>
       </nav>
     </div>
-  </header>
+  </div>
 
-  <!-- paste the CSS + JS from the topbar block too (for brevity: copy same style/script from step 1) -->
-  <style>
-    /* -- copy the same topbar CSS here from the topbar snippet -- */
-    /* (omitted in this snippet to avoid duplication in this message; paste the CSS from step 1) */
-  </style>
-  <script>
-    /* -- copy the same topbar JS here from the topbar snippet -- */
-  </script>
-  <!-- END TOPBAR -->
+  <div class="spacer" aria-hidden="true"></div>
 
-  <main>
-    <div class="about-box" role="document">
-      <h1>About</h1>
-      <p class="lead">Hi — I’m Sienna Giuseppi, a mechanical engineer at Duke University (Class of 2028) studying Mechanical Engineering with minors in Computer Science and Visual Arts. I design hardware with a focus on user-centered consumer electronics and love solving hands-on challenges from prototyping to product delivery.</p>
+  <!-- Hero -->
+  <section class="hero" aria-label="About hero">
+    <div class="hero-title">Hi — I make things that look nice and work well</div>
+  </section>
 
-      <p>I combine rigorous engineering practice with a creative design mindset. I enjoy fast iteration, fabrication, and working across disciplines — whether that's embedded systems, PCB layout, CAD, or industrial design. I’m currently interested in product design for consumer electronics and embedded systems, and I’m always learning new tools and techniques to make better, more delightful products.</p>
+  <main class="page" role="main" aria-labelledby="about-heading">
 
-      <p>If you'd like to get in touch, use the contact block on the main page or email: <strong>sienna.giuseppi@duke.edu</strong>.</p>
+    <div class="intro-row">
+      <!-- LEFT: Photo / quick facts -->
+      <aside class="card profile" aria-labelledby="me-heading">
+        <div class="profile-photo" role="img" aria-label="Sienna portrait">
+          <!-- replace this src with your headshot -->
+          <img src="images/headshot.jpg" alt="Headshot — Sienna Giuseppi">
+        </div>
+
+        <div style="margin-top:12px">
+          <div class="facts" aria-hidden="false">
+            <div class="fact">Duke University — Mechanical Engineering</div>
+            <div class="fact">Minors: Visual Arts, Computer Science</div>
+            <div class="fact">Class of 2028</div>
+          </div>
+
+          <div class="funline" aria-hidden="true"></div>
+
+          <div style="margin-top:12px">
+            <a class="btn" href="resume.html">Download resume</a>
+            <a class="btn secondary" href="mailto:sienna.giuseppi@duke.edu">Email me</a>
+          </div>
+
+          <p class="note">Fun fact: I usually prototype ideas with paper, hot glue, and a big cup of stubbornness.</p>
+        </div>
+      </aside>
+
+      <!-- RIGHT: About text, story, skills -->
+      <section class="card intro" aria-labelledby="me-heading">
+        <h1 id="me-heading">About me</h1>
+
+        <p class="lead">Artist turned tinkerer — I use visual storytelling to design better engineering.</p>
+
+        <p class="story">
+          My earliest workshop was a sketchbook: drawing faces, experimenting with texture and light, and telling stories with images.
+          Art taught me to observe, simplify, and iterate — skills that translate directly to product design. I care about how things feel in someone’s hands and how a tiny detail can change an entire experience.
+        </p>
+
+        <p class="story">
+          That creative curiosity nudged me toward mechanical engineering: I wanted to make things that both behave well and look like they belong in the world. I study mechanical engineering to learn how to design reliable systems and materials — and I minor in Visual Arts so my prototypes don't just function; they communicate.
+        </p>
+
+        <p class="story">
+          I also minor in Computer Science — not because I'm chasing syntax, but because I want to speak the language of the people who build the software my hardware will live with. Knowing CS helps me collaborate with engineers and make designs that bridge hardware, firmware, and user experience.
+        </p>
+
+        <div class="funline" aria-hidden="true"></div>
+
+        <!-- Skills -->
+        <h3 style="margin-top:12px;margin-bottom:8px">Skillsets</h3>
+
+        <div class="skills-grid" role="list" aria-label="Skills">
+          <div class="skill-col card" role="listitem">
+            <h4>Technical</h4>
+            <div class="chips">
+              <span class="chip">Arduino</span>
+              <span class="chip">C</span>
+              <span class="chip">CAD (SolidWorks)</span>
+              <span class="chip">Circuitry</span>
+              <span class="chip">Data Acquisition</span>
+              <span class="chip">Java</span>
+              <span class="chip">Laser Cutting</span>
+              <span class="chip">Python</span>
+              <span class="chip">Tolerance Analysis</span>
+            </div>
+          </div>
+
+          <div class="skill-col card" role="listitem">
+            <h4>Creative</h4>
+            <div class="chips">
+              <span class="chip">Adobe Illustrator</span>
+              <span class="chip">Photoshop</span>
+              <span class="chip">Rapid Prototyping</span>
+              <span class="chip">Visual Artistry</span>
+            </div>
+          </div>
+
+          <div class="skill-col card" role="listitem">
+            <h4>Communicative</h4>
+            <div class="chips">
+              <span class="chip">PowerPoint</span>
+              <span class="chip">Presentational Speaking</span>
+              <span class="chip">Product Management</span>
+              <span class="chip">Storyboarding</span>
+              <span class="chip">Technical Writing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="note">If you want these organized differently (icons, proficiency bars, or downloadable skill PDF), I can update it.</div>
+      </section>
     </div>
+
+    <div style="height:22px"></div>
+
+    <!-- What I care about -->
+    <section class="card" aria-labelledby="care-heading">
+      <h2 id="care-heading" style="margin:0 0 8px">What I care about</h2>
+      <p style="margin:0 0 8px;color:#333;line-height:1.6">
+        I design with people in mind — accessibility, durability, and delight matter. I love projects that sit at the intersection of hardware and human behavior: consumer products, sustainable design, and playful interfaces that encourage discovery.
+      </p>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+        <div class="fact">Human-centered design</div>
+        <div class="fact">Sustainable materials</div>
+        <div class="fact">Rapid iteration</div>
+        <div class="fact">Cross-disciplinary teams</div>
+      </div>
+    </section>
+
+    <div style="height:12px"></div>
+
+    <!-- Footer / contact -->
+    <section class="card" aria-label="Contact and links">
+      <strong>Let's build something:</strong>
+      <div style="margin-top:10px" class="cta">
+        <a class="btn" href="mailto:sienna.giuseppi@duke.edu">sienna.giuseppi@duke.edu</a>
+        <a class="btn secondary" href="projects/WavGuard.html">See projects</a>
+        <a class="btn secondary" href="experiences/art.html">See art</a>
+      </div>
+
+      <p class="note" style="margin-top:12px">Want a shorter blurb for applications or a crisp bio for LinkedIn? I can make a 100-word and 40-word version.</p>
+    </section>
+
   </main>
 </body>
 </html>
