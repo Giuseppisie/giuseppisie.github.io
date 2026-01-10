@@ -70,6 +70,22 @@
 
     .funline{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--card),var(--accent));margin:18px 0}
 
+          /* Care section emphasis */
+      .care-facts {
+        display: flex;
+        flex-direction: column;   /* one per line */
+        gap: 14px;
+        margin-top: 16px;
+      }
+      
+      .care-facts .fact {
+        font-size: 26px;          /* ~2× previous size */
+        font-weight: 800;
+        padding: 14px 18px;
+        border-radius: 12px;
+      }
+
+
     /* Skills layout  */
     .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
     @media (max-width:520px){ .skills-grid{grid-template-columns:1fr} }
@@ -252,18 +268,21 @@
 
         <!-- Care card directly under about card -->
         <section class="card care-card" id="careCard" aria-labelledby="care-heading">
-          <h2 id="care-heading" style="margin:0 0 8px">What I care about</h2>
-          <p style="margin:0 0 8px;color:#333;line-height:1.6">
-            I design with people in mind; accessibility, durability, and delight matter. I love projects that sit at the intersection of hardware and human behavior: consumer products, sustainable design, and playful interfaces that encourage discovery.
-          </p>
+  <h2 id="care-heading" style="margin:0 0 8px">What I care about</h2>
 
-          <div style="display:flex;gap:22px;flex-wrap:wrap;margin-top:12px">
-            <div class="fact">Human-centered design</div>
-            <div class="fact">Sustainable materials</div>
-            <div class="fact">Rapid iteration</div>
-            <div class="fact">Cross-disciplinary teams</div>
-          </div>
-        </section>
+  <p style="margin:0 0 8px;color:#333;line-height:1.6">
+    I design with people in mind — accessibility, durability, and delight matter. I love projects that sit at the intersection of hardware and human behavior: consumer products, sustainable design, and playful interfaces that encourage discovery.
+  </p>
+
+  <!-- ADD class here -->
+  <div class="care-facts">
+    <div class="fact">Human-centered design</div>
+    <div class="fact">Sustainable materials</div>
+    <div class="fact">Rapid iteration</div>
+    <div class="fact">Cross-disciplinary teams</div>
+  </div>
+</section>
+
       </div>
 
     </div> <!-- end intro-row -->
