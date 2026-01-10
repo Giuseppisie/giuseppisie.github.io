@@ -10,16 +10,16 @@
       --bg:#a0c0bc;
       --card:#427b76;
       --accent:#b0ab52;
-      --content-max:1200px;   /* increased to allow more horizontal room */
-      --page-pad:16px;        /* smaller side padding */
+      --content-max:1200px;
+      --page-pad:16px;
       --radius:12px;
       --gap:18px;
-      --left-col: 460px;    /* explicit left column width so profile and skills align */
+      --left-col: 460px;
     }
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#111}
     body{background:var(--bg); -webkit-font-smoothing:antialiased;}
 
-    /* Topbar (same as other pages) */
+    /* Topbar */
     .topbar{
       position:fixed; top:0; left:0; right:0; height:60px; display:flex; align-items:center;
       padding:0 20px; z-index:1000; background:rgba(0,0,0,0.25); backdrop-filter:blur(4px);
@@ -31,10 +31,8 @@
 
     .spacer{height:60px}
 
-    /* Page container: wider, smaller side padding */
     .page{max-width:var(--content-max);margin:0 auto;padding:36px var(--page-pad) 80px;box-sizing:border-box}
 
-    /* HERO */
     .hero{
       position:relative;border-radius:var(--radius);overflow:hidden;
       background-image: url("images/dukeshot.jpg");
@@ -44,83 +42,62 @@
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(66,123,118,0.28), rgba(66,123,118,0.6));}
     .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(22px,3.8vw,36px);font-weight:800;text-align:center;padding:12px 18px}
 
-    /* Intro Grid: explicit left column width + flexible right column */
+    /* NEW: intro-row as 2x2 grid (left column fixed, right flexible) */
     .intro-row{
       display:grid;
       grid-template-columns: var(--left-col) 1fr;
+      grid-template-rows: auto auto; /* top row = profile/about, bottom row = skills/care */
       gap:28px;
       align-items:start;
-      grid-auto-rows: auto;
     }
     @media (max-width:980px){
-      .intro-row{ grid-template-columns:1fr; gap:20px; }
+      .intro-row{
+        grid-template-columns:1fr;
+        grid-template-rows: auto; /* single column on small screens; items will stack */
+      }
     }
 
     .card{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:0 12px 30px rgba(0,0,0,0.06);}
 
-    /* Detached "What I care about" card (standalone, centered) */
-    .detached-care{
-      background:#fff;
-      border-radius:var(--radius);
-      padding:20px;
-      box-shadow:0 12px 30px rgba(0,0,0,0.06);
-      max-width:900px;        /* sits visually aligned with content column width */
-      margin:20px auto;       /* centers it beneath intro-row */
+    /* place elements explicitly (for clarity) */
+    .profile-card { grid-column: 1; grid-row: 1; }
+    .about-card   { grid-column: 2; grid-row: 1; }
+    .skills-card  { grid-column: 1; grid-row: 2; }
+    .care-card    { grid-column: 2; grid-row: 2; }
+
+    /* mobile stacking adjustments */
+    @media (max-width:980px){
+      .profile-card, .about-card, .skills-card, .care-card {
+        grid-column: 1;
+        grid-row: auto;
+      }
     }
 
-    .detached-care h2{ margin:0 0 10px; font-size:18px; color:#111; }
-    .detached-care .fact-list{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
-    @media (max-width:880px){
-      .detached-care{ max-width:100%; margin:18px 12px; }
-    }
-
-    .profile-col { display:flex; flex-direction:column; gap:16px; }
-
-    /* Make the profile-photo match the explicit left column width visually */
     .profile-photo{width:100%;height:360px;background:#eee;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
     .profile-photo img{width:100%;height:100%;object-fit:cover;display:block}
 
-    .intro h1{margin:0 0 8px;font-size:20px}
-    .intro p{margin:0 0 12px;line-height:1.6;color:#222}
+    .facts{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .fact{background:linear-gradient(180deg,#fff,#f7f9f8);padding:10px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.04);font-weight:700;color:#2d4b48}
 
-    .story{margin-top:8px;color:#333;line-height:1.6}
-    .lead { font-weight:700; color:var(--card); }
+    .funline{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--card),var(--accent));margin:18px 0}
 
-    /* Skills chips kept the same look; skill columns now sit inside .card (left column) */
+    /* Skills layout (kept as you requested) */
     .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
     @media (max-width:520px){ .skills-grid{grid-template-columns:1fr} }
     .skill-col h4{margin:0 0 8px;font-size:15px;color:#111}
     .chips{display:flex;flex-wrap:wrap;gap:8px}
     .chip{background:rgba(66,123,118,0.09);border:1px solid rgba(66,123,118,0.12);padding:8px 10px;border-radius:999px;font-weight:700;font-size:13px;color:#17443f}
 
-    /* Section-with-image: add left padding to right column so it shifts right slightly */
-    .right-column { padding-left: 8px; } /* subtle nudge to the right */
+    /* Right column content (about) */
+    .right-column { padding-left: 8px; }
     .section-with-image{display:flex;gap:18px;align-items:center;margin-bottom:12px}
     .section-with-image .text{flex:1;min-width:0}
     .section-with-image .img-wrap{flex:0 0 160px;border-radius:10px;overflow:hidden;background:#eee}
     .section-with-image .img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
     @media (max-width:720px){ .section-with-image{flex-direction:column} .section-with-image .img-wrap{width:100%;height:200px} }
 
-    .facts{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-    .fact{background:linear-gradient(180deg,#fff,#f7f9f8);padding:10px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.04);font-weight:700;color:#2d4b48}
-
-    .cta{display:flex;gap:12px;align-items:center;margin-top:16px}
     .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800}
     .btn.secondary{background:transparent;color:#111;border:2px solid rgba(0,0,0,0.06)}
-
-    .note{margin-top:12px;color:#444;font-size:13px}
-    .funline{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--card),var(--accent));margin:18px 0}
-
-    /* NEW: "What I love" styles */
-    .love-card { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
-    .love-list { flex:1; min-width:220px; }
-    .love-list p { margin:0 0 8px; color:#333; line-height:1.5; }
-    .love-grid { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
-    .love-item { background:linear-gradient(180deg,#fff,#f7f9f8); padding:10px 12px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); display:flex; gap:10px; align-items:center; min-width:180px; }
-    .love-item img { width:42px; height:42px; object-fit:cover; border-radius:8px; }
-    .love-item .label { font-weight:700; color:#17443f; font-size:14px; }
-    @media (max-width:720px){ .love-card{flex-direction:column} .love-item{min-width:140px} }
-
   </style>
 </head>
 <body>
@@ -147,78 +124,35 @@
 
   <main class="page" role="main" aria-labelledby="about-heading">
 
+    <!-- 2x2 grid: profile | about
+                    skills  | care -->
     <div class="intro-row">
 
-      <!-- LEFT COLUMN: profile-photo + skills stacked, width matches --left-col -->
-      <div class="profile-col">
-        <aside class="card profile" aria-labelledby="me-heading">
-          <div class="profile-photo" role="img" aria-label="Sienna portrait">
-            <img src="images/meeswatini.jpeg" alt="Headshot — Sienna Giuseppi">
+      <!-- LEFT TOP: profile -->
+      <aside class="card profile-card" aria-labelledby="me-heading">
+        <div class="profile-photo" role="img" aria-label="Sienna portrait">
+          <img src="images/meeswatini.jpeg" alt="Headshot — Sienna Giuseppi">
+        </div>
+
+        <div style="margin-top:12px">
+          <div class="facts" aria-hidden="false">
+            <div class="fact">Duke University — Mechanical Engineering</div>
+            <div class="fact">Minors: Visual Arts, Computer Science</div>
+            <div class="fact">Class of 2028</div>
+            <div class="fact">Based in: Westchester, NY</div>
           </div>
+
+          <div class="funline" aria-hidden="true"></div>
 
           <div style="margin-top:12px">
-            <div class="facts" aria-hidden="false">
-              <div class="fact">Duke University — Mechanical Engineering</div>
-              <div class="fact">Minors: Visual Arts, Computer Science</div>
-              <div class="fact">Class of 2028</div>
-              <div class="fact">Based in: Westchester, NY</div>
-            </div>
-
-            <div class="funline" aria-hidden="true"></div>
-
-            <div style="margin-top:12px">
-              <a class="btn" href="resume.html">Download resume</a>
-              <a class="btn secondary" href="mailto:sienna.giuseppi@duke.edu">Email me</a>
-            </div>
+            <a class="btn" href="resume.html">Download resume</a>
+            <a class="btn secondary" href="mailto:sienna.giuseppi@duke.edu">Email me</a>
           </div>
-        </aside>
+        </div>
+      </aside>
 
-        <!-- SKILLS block under the profile photo (left column) -->
-        <aside class="card" aria-labelledby="skills-heading-left">
-          <h3 id="skills-heading-left" style="margin-top:0;margin-bottom:10px">Skillsets</h3>
-
-          <div class="skills-grid" role="list" aria-label="Skills">
-            <div class="skill-col card" role="listitem" style="padding:12px">
-              <h4 style="margin-top:0">Technical</h4>
-              <div class="chips">
-                <span class="chip">Arduino</span>
-                <span class="chip">C</span>
-                <span class="chip">CAD (SolidWorks)</span>
-                <span class="chip">Circuitry</span>
-                <span class="chip">Data Acquisition</span>
-                <span class="chip">Java</span>
-                <span class="chip">Laser Cutting</span>
-                <span class="chip">Python</span>
-                <span class="chip">Tolerance Analysis</span>
-              </div>
-            </div>
-
-            <div class="skill-col card" role="listitem" style="padding:12px">
-              <h4 style="margin-top:0">Creative</h4>
-              <div class="chips">
-                <span class="chip">Adobe Illustrator</span>
-                <span class="chip">Photoshop</span>
-                <span class="chip">Rapid Prototyping</span>
-                <span class="chip">Visual Artistry</span>
-              </div>
-            </div>
-
-            <div class="skill-col card" role="listitem" style="padding:12px">
-              <h4 style="margin-top:0">Communicative</h4>
-              <div class="chips">
-                <span class="chip">PowerPoint</span>
-                <span class="chip">Presentational Speaking</span>
-                <span class="chip">Product Management</span>
-                <span class="chip">Storyboarding</span>
-                <span class="chip">Technical Writing</span>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
-
-      <!-- RIGHT COLUMN: about text with images; nudged slightly right by .right-column padding -->
-      <section class="card right-column" aria-labelledby="about-me-heading">
+      <!-- RIGHT TOP: about -->
+      <section class="card about-card right-column" aria-labelledby="about-me-heading">
         <h1 id="about-me-heading" style="margin-top:0">About me</h1>
 
         <div class="section-with-image" aria-labelledby="why-mech">
@@ -280,78 +214,72 @@
             <img src="images/computerbaby.png" alt="Code or laptop">
           </div>
         </div>
+      </section>
 
+      <!-- LEFT BOTTOM: skills -->
+      <aside class="card skills-card" aria-labelledby="skills-heading-left">
+        <h3 id="skills-heading-left" style="margin-top:0;margin-bottom:10px">Skillsets</h3>
+
+        <div class="skills-grid" role="list" aria-label="Skills">
+          <div class="skill-col card" role="listitem" style="padding:12px">
+            <h4 style="margin-top:0">Technical</h4>
+            <div class="chips">
+              <span class="chip">Arduino</span>
+              <span class="chip">C</span>
+              <span class="chip">CAD (SolidWorks)</span>
+              <span class="chip">Circuitry</span>
+              <span class="chip">Data Acquisition</span>
+              <span class="chip">Java</span>
+              <span class="chip">Laser Cutting</span>
+              <span class="chip">Python</span>
+              <span class="chip">Tolerance Analysis</span>
+            </div>
+          </div>
+
+          <div class="skill-col card" role="listitem" style="padding:12px">
+            <h4 style="margin-top:0">Creative</h4>
+            <div class="chips">
+              <span class="chip">Adobe Illustrator</span>
+              <span class="chip">Photoshop</span>
+              <span class="chip">Rapid Prototyping</span>
+              <span class="chip">Visual Artistry</span>
+            </div>
+          </div>
+
+          <div class="skill-col card" role="listitem" style="padding:12px">
+            <h4 style="margin-top:0">Communicative</h4>
+            <div class="chips">
+              <span class="chip">PowerPoint</span>
+              <span class="chip">Presentational Speaking</span>
+              <span class="chip">Product Management</span>
+              <span class="chip">Storyboarding</span>
+              <span class="chip">Technical Writing</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT BOTTOM: What I care about (now under the about card and same width as right column) -->
+      <section class="card care-card" aria-labelledby="care-heading">
+        <h2 id="care-heading" style="margin:0 0 8px">What I care about</h2>
+        <p style="margin:0 0 8px;color:#333;line-height:1.6">
+          I design with people in mind — accessibility, durability, and delight matter. I love projects that sit at the intersection of hardware and human behavior: consumer products, sustainable design, and playful interfaces that encourage discovery.
+        </p>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+          <div class="fact">Human-centered design</div>
+          <div class="fact">Sustainable materials</div>
+          <div class="fact">Rapid iteration</div>
+          <div class="fact">Cross-disciplinary teams</div>
+        </div>
       </section>
 
     </div> <!-- end intro-row -->
 
-    <div style="height:22px"></div>
-
-    <!-- WHAT I LOVE (new card) -->
-    <section class="card" aria-labelledby="love-heading">
-      <h2 id="love-heading" style="margin:0 0 12px">What I love</h2>
-
-      <div class="love-card">
-        <div class="love-list">
-          <p style="margin:0 0 6px;">Small, human moments of design and craft — the tactile click of a button, the weight of an object in hand, or a sketch that suddenly makes everything clearer. These are the things that excite me.</p>
-          <p style="margin:0 0 8px;">Below are some of the things I love to work with and explore:</p>
-
-          <div class="love-grid" role="list">
-            <div class="love-item" role="listitem">
-              <img src="images/icons/sketch.png" alt="Sketch icon">
-              <div class="label">Sketching & Storyboarding</div>
-            </div>
-
-            <div class="love-item" role="listitem">
-              <img src="images/icons/3dprint.png" alt="3D print icon">
-              <div class="label">3D Printing & Prototyping</div>
-            </div>
-
-            <div class="love-item" role="listitem">
-              <img src="images/icons/electronics.png" alt="Electronics icon">
-              <div class="label">Circuitry & Embedded Systems</div>
-            </div>
-
-            <div class="love-item" role="listitem">
-              <img src="images/icons/travel.png" alt="Travel icon">
-              <div class="label">Travel Sketches & Cultural Study</div>
-            </div>
-
-            <div class="love-item" role="listitem">
-              <img src="images/icons/presentation.png" alt="Presentation icon">
-              <div class="label">Storytelling & Presentations</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- optional illustrative image -->
-        <div style="flex:0 0 220px; border-radius:10px; overflow:hidden; background:#eee;">
-          <img src="images/experiences/art/mepencil.jpeg" alt="Sketch example" style="width:100%;height:100%;object-fit:cover;display:block">
-        </div>
-      </div>
-    </section>
-
-    <div style="height:12px"></div>
-
-    <!-- What I care about -->
-    <section class="card" aria-labelledby="care-heading">
-      <h2 id="care-heading" style="margin:0 0 8px">What I care about</h2>
-      <p style="margin:0 0 8px;color:#333;line-height:1.6">
-        I design with people in mind — accessibility, durability, and delight matter. I love projects that sit at the intersection of hardware and human behavior: consumer products, sustainable design, and playful interfaces that encourage discovery.
-      </p>
-
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-        <div class="fact">Human-centered design</div>
-        <div class="fact">Sustainable materials</div>
-        <div class="fact">Rapid iteration</div>
-        <div class="fact">Cross-disciplinary teams</div>
-      </div>
-    </section>
-
     <div style="height:12px"></div>
 
     <!-- Footer / contact -->
-    <section class="card" aria-label="Contact and links">
+    <section class="card" aria-label="Contact and links" style="margin-top:18px">
       <strong>Let's build something:</strong>
       <div style="margin-top:10px" class="cta">
         <a class="btn" href="mailto:sienna.giuseppi@duke.edu">sienna.giuseppi@duke.edu</a>
