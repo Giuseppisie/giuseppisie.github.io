@@ -1,1 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ePortfolio — Sienna Giuseppi</title>
+
+  <style>
+    :root{
+      --bg:#a0c0bc;
+      --card:#427b76;
+      --accent:#b0ab52;
+      --content-max:1100px;
+      --pad:20px;
+      --radius:12px;
+    }
+
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#111}
+    body{background:var(--bg);-webkit-font-smoothing:antialiased}
+
+    /* Topbar (matching your other pages) */
+    .topbar{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 20px;z-index:1000;background:rgba(0,0,0,0.25);backdrop-filter:blur(4px)}
+    .topbar-left{display:flex;align-items:center;gap:20px}
+    .brand{color:#fff;font-weight:800;font-size:18px;text-decoration:none;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+    .topnav{display:flex;gap:10px}
+    .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px;border-radius:8px}
+    .spacer{height:60px}
+
+    /* Hero */
+    .hero{position:relative;height:36vh;background-image:url("images/dukeshot.jpg");background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
+    .hero::after{content:"";position:absolute;inset:0;background:rgba(66,123,118,0.35)}
+    .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(22px,4vw,36px);font-weight:800;text-shadow:0 8px 24px rgba(0,0,0,.6);padding:0 20px;text-align:center}
+
+    /* Page container */
+    .page{max-width:var(--content-max);margin:0 auto;padding:28px var(--pad) 80px;box-sizing:border-box}
+
+    /* Card */
+    .card{background:#fff;border-radius:var(--radius);padding:22px;box-shadow:0 12px 30px rgba(0,0,0,0.06);margin-bottom:18px}
+    h1,h2{margin:0 0 10px}
+    p{color:#333;line-height:1.6;margin:0 0 12px}
+
+    /* GitHub thumbnail */
+    .readme-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+    .readme-thumb{width:340px;max-width:100%;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);box-shadow:0 8px 20px rgba(0,0,0,0.04);display:block}
+    .readme-thumb img{display:block;width:100%;height:auto;object-fit:cover}
+    .readme-actions{flex:1;min-width:220px}
+    .btn{display:inline-block;background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800}
+    .note{color:#666;font-size:14px;margin-top:8px}
+
+    /* small responsive tweaks */
+    @media (max-width:760px){
+      .readme-row{flex-direction:column;align-items:flex-start}
+    }
+
+    footer{margin-top:22px;text-align:center;color:#666;font-size:13px}
+  </style>
+</head>
+<body>
+
+  <!-- topbar -->
+  <div class="topbar" role="navigation" aria-label="Top navigation">
+    <div class="topbar-left">
+      <a class="brand" href="../index.html">Sienna Giuseppi</a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../about.html">About</a>
+        <a href="../index.html#engineering-projects">Projects</a>
+        <a href="../index.html#experiences">Experiences</a>
+        <a href="../resume.html">Resume</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="spacer" aria-hidden="true"></div>
+
+  <!-- hero -->
+  <section class="hero" aria-label="ePortfolio hero">
+    <div class="hero-title">ePortfolio — Site & Design</div>
+  </section>
+
+  <main class="page" role="main" aria-labelledby="ep-title">
+
+    <!-- intro card -->
+    <section class="card" id="ep-title" aria-labelledby="ep-heading">
+      <h1 id="ep-heading">About this ePortfolio</h1>
+
+      <p>
+        I learned HTML to build this site from scratch so I could make every design decision myself.
+        I started in early December 2025 and have been iterating on it since — choosing colors, font sizes,
+        and how each box is placed so the site shows my projects the way I want them shown.
+      </p>
+
+      <p>
+        The process included a lot of experimentation: lots of Google/YouTube tutorials, questions to ChatGPT,
+        and hands-on trial-and-error. Building this site taught me a lot about layout, accessibility, and how a small
+        design change can change the whole feel of a page.
+      </p>
+
+      <p class="note"><strong>I would love feedback.</strong> Please tell me what works well and what doesn’t so I can continue improving this site.</p>
+    </section>
+
+    <!-- GitHub README thumbnail -->
+    <section class="card" aria-labelledby="readme-heading">
+      <h2 id="readme-heading" style="font-size:18px;margin-bottom:10px;">Project source & README</h2>
+
+      <div class="readme-row" role="region" aria-label="GitHub README">
+        <!-- Replace href below with your actual GitHub README URL -->
+        <a href="GITHUB_README_URL" target="_blank" rel="noopener" class="readme-thumb" title="Open README on GitHub">
+          <!-- Replace src with the path to a small thumbnail image of your README or repo -->
+          <img src="../images/github_readme_thumb.png" alt="Thumbnail preview of project README on GitHub">
+        </a>
+
+        <div class="readme-actions">
+          <p style="margin-top:4px;margin-bottom:12px;color:#333">
+            See my GitHub for this project here:
+          </p>
+          <a class="btn" href="GITHUB_README_URL" target="_blank" rel="noopener">Open GitHub README</a>
+
+          <p class="note">If you’d like the thumbnail to be auto-generated from the README, I can show you the recommended GitHub URL or a tiny script to take a screenshot and produce a thumbnail.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="note">Thanks for checking out my ePortfolio — feedback really helps!</div>
+    </footer>
+  </main>
+
+</body>
+</html>
 
