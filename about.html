@@ -107,6 +107,22 @@
     /* ensure bottom boxes can expand as needed */
     .skills-card, .care-card { transition: min-height 160ms ease; }
 
+    /* Footer CTA */
+      .footer-cta {
+        background: var(--card);
+        color: #fff;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+        padding: 26px 20px;
+        margin-top: 24px;
+      }
+      
+      .footer-cta em {
+        font-style: italic;
+      }
+
+
   </style>
 </head>
 <body>
@@ -289,11 +305,11 @@
 
     <div style="height:12px"></div>
 
-    <!-- Footer  -->
-    <section class="card" aria-label="Contact and links" style="margin-top:18px">
-      <strong>Let's build something together</strong>
-      </div>
-    </section>
+ <!-- Footer -->
+<section class="card footer-cta" aria-label="Contact call to action">
+  <em>Let’s build something together</em>
+</section>
+
 
   </main>
 
