@@ -10,16 +10,16 @@
       --bg:#a0c0bc;
       --card:#427b76;
       --accent:#b0ab52;
-      --content-max:1200px;
-      --page-pad:16px;
+      --content-max:1200px;   /* allow more horizontal room */
+      --page-pad:16px;        /* smaller side padding */
       --radius:12px;
       --gap:18px;
-      --left-col: 460px;
+      --left-col: 460px;    /* explicit left column width so profile and skills align */
     }
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#111}
     body{background:var(--bg); -webkit-font-smoothing:antialiased;}
 
-    /* Topbar */
+    /* Topbar (same as other pages) */
     .topbar{
       position:fixed; top:0; left:0; right:0; height:60px; display:flex; align-items:center;
       padding:0 20px; z-index:1000; background:rgba(0,0,0,0.25); backdrop-filter:blur(4px);
@@ -31,8 +31,10 @@
 
     .spacer{height:60px}
 
+    /* Page container: wider, smaller side padding */
     .page{max-width:var(--content-max);margin:0 auto;padding:36px var(--page-pad) 80px;box-sizing:border-box}
 
+    /* HERO */
     .hero{
       position:relative;border-radius:var(--radius);overflow:hidden;
       background-image: url("images/dukeshot.jpg");
@@ -42,36 +44,23 @@
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(66,123,118,0.28), rgba(66,123,118,0.6));}
     .hero-title{position:relative;z-index:1;color:#fff;font-size:clamp(22px,3.8vw,36px);font-weight:800;text-align:center;padding:12px 18px}
 
-    /* NEW: intro-row as 2x2 grid (left column fixed, right flexible) */
-    .intro-row{
-      display:grid;
-      grid-template-columns: var(--left-col) 1fr;
-      grid-template-rows: auto auto; /* top row = profile/about, bottom row = skills/care */
+    /* NEW: two-column layout using flex so each column stacks naturally */
+    .intro-row {
+      display:flex;
       gap:28px;
-      align-items:start;
+      align-items:flex-start;
+      /* ensure both columns can stretch to align bottoms */
+      align-items:stretch;
     }
+    .left-col { width: var(--left-col); min-width:280px; display:flex; flex-direction:column; gap:16px; }
+    .right-col { flex:1; display:flex; flex-direction:column; gap:16px; }
+
     @media (max-width:980px){
-      .intro-row{
-        grid-template-columns:1fr;
-        grid-template-rows: auto; /* single column on small screens; items will stack */
-      }
+      .intro-row { flex-direction:column; }
+      .left-col, .right-col { width:100%; }
     }
 
     .card{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:0 12px 30px rgba(0,0,0,0.06);}
-
-    /* place elements explicitly (for clarity) */
-    .profile-card { grid-column: 1; grid-row: 1; }
-    .about-card   { grid-column: 2; grid-row: 1; }
-    .skills-card  { grid-column: 1; grid-row: 2; }
-    .care-card    { grid-column: 2; grid-row: 2; }
-
-    /* mobile stacking adjustments */
-    @media (max-width:980px){
-      .profile-card, .about-card, .skills-card, .care-card {
-        grid-column: 1;
-        grid-row: auto;
-      }
-    }
 
     .profile-photo{width:100%;height:360px;background:#eee;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
     .profile-photo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -81,7 +70,7 @@
 
     .funline{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--card),var(--accent));margin:18px 0}
 
-    /* Skills layout (kept as you requested) */
+    /* Skills layout (keep look you requested) */
     .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
     @media (max-width:520px){ .skills-grid{grid-template-columns:1fr} }
     .skill-col h4{margin:0 0 8px;font-size:15px;color:#111}
@@ -98,6 +87,10 @@
 
     .btn{background:var(--card);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800}
     .btn.secondary{background:transparent;color:#111;border:2px solid rgba(0,0,0,0.06)}
+
+    /* ensure bottom boxes can expand as needed */
+    .skills-card, .care-card { transition: min-height 160ms ease; }
+
   </style>
 </head>
 <body>
@@ -124,155 +117,154 @@
 
   <main class="page" role="main" aria-labelledby="about-heading">
 
-    <!-- 2x2 grid: profile | about
-                    skills  | care -->
+    <!-- Two columns: left-column stacks profile then skills; right-column stacks about then care -->
     <div class="intro-row">
 
-      <!-- LEFT TOP: profile -->
-      <aside class="card profile-card" aria-labelledby="me-heading">
-        <div class="profile-photo" role="img" aria-label="Sienna portrait">
-          <img src="images/meeswatini.jpeg" alt="Headshot — Sienna Giuseppi">
-        </div>
-
-        <div style="margin-top:12px">
-          <div class="facts" aria-hidden="false">
-            <div class="fact">Duke University — Mechanical Engineering</div>
-            <div class="fact">Minors: Visual Arts, Computer Science</div>
-            <div class="fact">Class of 2028</div>
-            <div class="fact">Based in: Westchester, NY</div>
+      <!-- LEFT COLUMN -->
+      <div class="left-col">
+        <!-- profile card -->
+        <aside class="card profile-card" id="profileCard" aria-labelledby="me-heading">
+          <div class="profile-photo" role="img" aria-label="Sienna portrait">
+            <img src="images/meeswatini.jpeg" alt="Headshot — Sienna Giuseppi">
           </div>
-
-          <div class="funline" aria-hidden="true"></div>
 
           <div style="margin-top:12px">
-            <a class="btn" href="resume.html">Download resume</a>
-            <a class="btn secondary" href="mailto:sienna.giuseppi@duke.edu">Email me</a>
-          </div>
-        </div>
-      </aside>
+            <div class="facts" aria-hidden="false">
+              <div class="fact">Duke University — Mechanical Engineering</div>
+              <div class="fact">Minors: Visual Arts, Computer Science</div>
+              <div class="fact">Class of 2028</div>
+              <div class="fact">Based in: Westchester, NY</div>
+            </div>
 
-      <!-- RIGHT TOP: about -->
-      <section class="card about-card right-column" aria-labelledby="about-me-heading">
-        <h1 id="about-me-heading" style="margin-top:0">About me</h1>
+            <div class="funline" aria-hidden="true"></div>
 
-        <div class="section-with-image" aria-labelledby="why-mech">
-          <div class="text">
-            <p id="why-mech" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Mechanical Engineering</p>
-            <p style="margin:0 0 8px;">
-              I love to build. I want to be the person who comes up with solutions, and just as importantly,
-              understands <em>why</em> those solutions work. Engineering is a field where the learning never ends,
-              and that constant discovery is what excites me most.
-            </p>
-            <p style="margin:0 0 8px;">
-              It amazes me how much science and design goes into something as ordinary as a laptop sitting on a desk,
-              let alone the layers of systems required just to turn it on. I’m genuinely happy to be learning the
-              “whys” of the world, and I want a career where I can contribute meaningfully by turning that understanding
-              into real, usable products.
-            </p>
-            <p style="margin:0;">
-              My biggest interest is <strong>product design</strong>, especially in <strong>smart technology</strong>.
-              I’m drawn to product design because it lives at the intersection of building and listening:
-              understanding a user’s needs and creating thoughtful, usable solutions.
-            </p>
+            <div style="margin-top:12px">
+              <a class="btn" href="resume.html">Download resume</a>
+              <a class="btn secondary" href="mailto:sienna.giuseppi@duke.edu">Email me</a>
+            </div>
           </div>
-          <div class="img-wrap">
-            <img src="images/babywesef.jpg" alt="Engineering sketch or studio">
-          </div>
-        </div>
+        </aside>
 
-        <div class="section-with-image" aria-labelledby="why-art">
-          <div class="text">
-            <p id="why-art" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Visual Art</p>
-            <p style="margin:0 0 8px;">
-              I’ve loved art from a young age; the desire to create has always brought me immense joy.
-              I see engineering as art projects, just with more numbers at the end of the day.
-            </p>
-            <p style="margin:0;">
-              Visual art has trained me to think about form, texture, balance, and emotion. It’s taught me how to
-              create things that look good, feel good, and work holistically to solve a problem.
-            </p>
-          </div>
-          <div class="img-wrap">
-            <img src="images/drawbaby.JPG" alt="Artwork or sketchbook">
-          </div>
-        </div>
+        <!-- skills card — sits immediately after profile (no extra vertical gap beyond the gap between column items) -->
+        <aside class="card skills-card" id="skillsCard" aria-labelledby="skills-heading-left">
+          <h3 id="skills-heading-left" style="margin-top:0;margin-bottom:10px">Skillsets</h3>
 
-        <div class="section-with-image" aria-labelledby="why-cs">
-          <div class="text">
-            <p id="why-cs" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Computer Science</p>
-            <p style="margin:0 0 8px;">
-              I took computer science because computational systems are everywhere in modern engineering.
-              I don’t necessarily want to write every line of code, but I want to understand what software can do
-              so I can design hardware that integrates seamlessly.
-            </p>
-            <p style="margin:0;">
-              I built this website using HTML and GitHub, a language I hadn’t used before, because curiosity led me
-              to learn the tools needed to bring a design vision to life.
-            </p>
-          </div>
-          <div class="img-wrap">
-            <img src="images/computerbaby.png" alt="Code or laptop">
-          </div>
-        </div>
-      </section>
+          <div class="skills-grid" role="list" aria-label="Skills">
+            <div class="skill-col card" role="listitem" style="padding:12px">
+              <h4 style="margin-top:0">Technical</h4>
+              <div class="chips">
+                <span class="chip">Arduino</span>
+                <span class="chip">C</span>
+                <span class="chip">CAD (SolidWorks)</span>
+                <span class="chip">Circuitry</span>
+                <span class="chip">Data Acquisition</span>
+                <span class="chip">Java</span>
+                <span class="chip">Laser Cutting</span>
+                <span class="chip">Python</span>
+                <span class="chip">Tolerance Analysis</span>
+              </div>
+            </div>
 
-      <!-- LEFT BOTTOM: skills -->
-      <aside class="card skills-card" aria-labelledby="skills-heading-left">
-        <h3 id="skills-heading-left" style="margin-top:0;margin-bottom:10px">Skillsets</h3>
+            <div class="skill-col card" role="listitem" style="padding:12px">
+              <h4 style="margin-top:0">Creative</h4>
+              <div class="chips">
+                <span class="chip">Adobe Illustrator</span>
+                <span class="chip">Photoshop</span>
+                <span class="chip">Rapid Prototyping</span>
+                <span class="chip">Visual Artistry</span>
+              </div>
+            </div>
 
-        <div class="skills-grid" role="list" aria-label="Skills">
-          <div class="skill-col card" role="listitem" style="padding:12px">
-            <h4 style="margin-top:0">Technical</h4>
-            <div class="chips">
-              <span class="chip">Arduino</span>
-              <span class="chip">C</span>
-              <span class="chip">CAD (SolidWorks)</span>
-              <span class="chip">Circuitry</span>
-              <span class="chip">Data Acquisition</span>
-              <span class="chip">Java</span>
-              <span class="chip">Laser Cutting</span>
-              <span class="chip">Python</span>
-              <span class="chip">Tolerance Analysis</span>
+            <div class="skill-col card" role="listitem" style="padding:12px">
+              <h4 style="margin-top:0">Communicative</h4>
+              <div class="chips">
+                <span class="chip">PowerPoint</span>
+                <span class="chip">Presentational Speaking</span>
+                <span class="chip">Product Management</span>
+                <span class="chip">Storyboarding</span>
+                <span class="chip">Technical Writing</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-col">
+        <section class="card about-card right-column" id="aboutCard" aria-labelledby="about-me-heading">
+          <h1 id="about-me-heading" style="margin-top:0">About me</h1>
+
+          <div class="section-with-image" aria-labelledby="why-mech">
+            <div class="text">
+              <p id="why-mech" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Mechanical Engineering</p>
+              <p style="margin:0 0 8px;">
+                I love to build. I want to be the person who comes up with solutions, and just as importantly,
+                understands <em>why</em> those solutions work. Engineering is a field where the learning never ends,
+                and that constant discovery is what excites me most.
+              </p>
+              <p style="margin:0 0 8px;">
+                It amazes me how much science and design goes into something as ordinary as a laptop sitting on a desk,
+                let alone the layers of systems required just to turn it on. I’m genuinely happy to be learning the
+                “whys” of the world, and I want a career where I can contribute meaningfully by turning that understanding
+                into real, usable products.
+              </p>
+            </div>
+            <div class="img-wrap">
+              <img src="images/babywesef.jpg" alt="Engineering sketch or studio">
             </div>
           </div>
 
-          <div class="skill-col card" role="listitem" style="padding:12px">
-            <h4 style="margin-top:0">Creative</h4>
-            <div class="chips">
-              <span class="chip">Adobe Illustrator</span>
-              <span class="chip">Photoshop</span>
-              <span class="chip">Rapid Prototyping</span>
-              <span class="chip">Visual Artistry</span>
+          <div class="section-with-image" aria-labelledby="why-art">
+            <div class="text">
+              <p id="why-art" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Visual Art</p>
+              <p style="margin:0 0 8px;">
+                I’ve loved art from a young age; the desire to create has always brought me immense joy.
+                I see engineering as art projects, just with more numbers at the end of the day.
+              </p>
+              <p style="margin:0;">
+                Visual art has trained me to think about form, texture, balance, and emotion. It’s taught me how to
+                create things that look good, feel good, and work holistically to solve a problem.
+              </p>
+            </div>
+            <div class="img-wrap">
+              <img src="images/drawbaby.JPG" alt="Artwork or sketchbook">
             </div>
           </div>
 
-          <div class="skill-col card" role="listitem" style="padding:12px">
-            <h4 style="margin-top:0">Communicative</h4>
-            <div class="chips">
-              <span class="chip">PowerPoint</span>
-              <span class="chip">Presentational Speaking</span>
-              <span class="chip">Product Management</span>
-              <span class="chip">Storyboarding</span>
-              <span class="chip">Technical Writing</span>
+          <div class="section-with-image" aria-labelledby="why-cs">
+            <div class="text">
+              <p id="why-cs" style="font-style:italic;font-weight:700;margin:0 0 8px;color:#2d4b48;">Why Computer Science</p>
+              <p style="margin:0 0 8px;">
+                I took computer science because computational systems are everywhere in modern engineering.
+                I don’t necessarily want to write every line of code, but I want to understand what software can do
+                so I can design hardware that integrates seamlessly.
+              </p>
+              <p style="margin:0;">
+                I built this website using HTML and GitHub, a language I hadn’t used before, because curiosity led me
+                to learn the tools needed to bring a design vision to life.
+              </p>
+            </div>
+            <div class="img-wrap">
+              <img src="images/computerbaby.png" alt="Code or laptop">
             </div>
           </div>
-        </div>
-      </aside>
+        </section>
 
-      <!-- RIGHT BOTTOM: What I care about (now under the about card and same width as right column) -->
-      <section class="card care-card" aria-labelledby="care-heading">
-        <h2 id="care-heading" style="margin:0 0 8px">What I care about</h2>
-        <p style="margin:0 0 8px;color:#333;line-height:1.6">
-          I design with people in mind — accessibility, durability, and delight matter. I love projects that sit at the intersection of hardware and human behavior: consumer products, sustainable design, and playful interfaces that encourage discovery.
-        </p>
+        <!-- Care card directly under about card -->
+        <section class="card care-card" id="careCard" aria-labelledby="care-heading">
+          <h2 id="care-heading" style="margin:0 0 8px">What I care about</h2>
+          <p style="margin:0 0 8px;color:#333;line-height:1.6">
+            I design with people in mind — accessibility, durability, and delight matter. I love projects that sit at the intersection of hardware and human behavior: consumer products, sustainable design, and playful interfaces that encourage discovery.
+          </p>
 
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-          <div class="fact">Human-centered design</div>
-          <div class="fact">Sustainable materials</div>
-          <div class="fact">Rapid iteration</div>
-          <div class="fact">Cross-disciplinary teams</div>
-        </div>
-      </section>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+            <div class="fact">Human-centered design</div>
+            <div class="fact">Sustainable materials</div>
+            <div class="fact">Rapid iteration</div>
+            <div class="fact">Cross-disciplinary teams</div>
+          </div>
+        </section>
+      </div>
 
     </div> <!-- end intro-row -->
 
@@ -289,5 +281,60 @@
     </section>
 
   </main>
+
+  <script>
+    // Keep bottom edges aligned by expanding the lower boxes (skills & care) as needed.
+    (function alignBottoms() {
+      const profile = document.getElementById('profileCard');
+      const skills = document.getElementById('skillsCard');
+      const about = document.getElementById('aboutCard');
+      const care = document.getElementById('careCard');
+
+      if (!profile || !skills || !about || !care) return;
+
+      function update() {
+        // reset min-heights first (let content size naturally)
+        skills.style.minHeight = '';
+        care.style.minHeight = '';
+
+        // compute totals
+        const leftTop = profile.offsetHeight;
+        const leftBottom = skills.offsetHeight;
+        const leftTotal = leftTop + leftBottom;
+
+        const rightTop = about.offsetHeight;
+        const rightBottom = care.offsetHeight;
+        const rightTotal = rightTop + rightBottom;
+
+        // target total (the larger of the two) — we expand the lower boxes to reach this
+        const targetTotal = Math.max(leftTotal, rightTotal);
+
+        // compute needed min-heights for bottom boxes to match target
+        const neededSkills = Math.max(0, targetTotal - leftTop);
+        const neededCare = Math.max(0, targetTotal - rightTop);
+
+        // apply (small buffer to avoid 1px rounding issues)
+        skills.style.minHeight = Math.ceil(neededSkills) + 'px';
+        care.style.minHeight = Math.ceil(neededCare) + 'px';
+      }
+
+      // run on load and resize, and after fonts/images load
+      window.addEventListener('load', update);
+      window.addEventListener('resize', () => {
+        // debounce a bit
+        clearTimeout(window._alignTimeout);
+        window._alignTimeout = setTimeout(update, 120);
+      });
+
+      // if images load later, ensure update runs
+      const imgs = document.querySelectorAll('img');
+      imgs.forEach(img => {
+        if (!img.complete) img.addEventListener('load', update);
+      });
+
+      // initial call
+      update();
+    })();
+  </script>
 </body>
 </html>
