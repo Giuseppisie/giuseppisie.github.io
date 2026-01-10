@@ -59,22 +59,20 @@
     .card{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:0 12px 30px rgba(0,0,0,0.06);}
 
     /* Detached "What I care about" card (standalone, centered) */
-.detached-care{
-  background:#fff;
-  border-radius:var(--radius);
-  padding:20px;
-  box-shadow:0 12px 30px rgba(0,0,0,0.06);
-  max-width:900px;        /* sits visually aligned with content column width */
-  margin:20px auto;       /* centers it beneath intro-row */
-}
+    .detached-care{
+      background:#fff;
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.06);
+      max-width:900px;        /* sits visually aligned with content column width */
+      margin:20px auto;       /* centers it beneath intro-row */
+    }
 
-/* if you want a subtle accent header in the detached card */
-.detached-care h2{ margin:0 0 10px; font-size:18px; color:#111; }
-.detached-care .fact-list{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
-@media (max-width:880px){
-  .detached-care{ max-width:100%; margin:18px 12px; }
-}
-
+    .detached-care h2{ margin:0 0 10px; font-size:18px; color:#111; }
+    .detached-care .fact-list{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+    @media (max-width:880px){
+      .detached-care{ max-width:100%; margin:18px 12px; }
+    }
 
     .profile-col { display:flex; flex-direction:column; gap:16px; }
 
@@ -112,6 +110,17 @@
 
     .note{margin-top:12px;color:#444;font-size:13px}
     .funline{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--card),var(--accent));margin:18px 0}
+
+    /* NEW: "What I love" styles */
+    .love-card { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+    .love-list { flex:1; min-width:220px; }
+    .love-list p { margin:0 0 8px; color:#333; line-height:1.5; }
+    .love-grid { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+    .love-item { background:linear-gradient(180deg,#fff,#f7f9f8); padding:10px 12px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); display:flex; gap:10px; align-items:center; min-width:180px; }
+    .love-item img { width:42px; height:42px; object-fit:cover; border-radius:8px; }
+    .love-item .label { font-weight:700; color:#17443f; font-size:14px; }
+    @media (max-width:720px){ .love-card{flex-direction:column} .love-item{min-width:140px} }
+
   </style>
 </head>
 <body>
@@ -277,6 +286,52 @@
     </div> <!-- end intro-row -->
 
     <div style="height:22px"></div>
+
+    <!-- WHAT I LOVE (new card) -->
+    <section class="card" aria-labelledby="love-heading">
+      <h2 id="love-heading" style="margin:0 0 12px">What I love</h2>
+
+      <div class="love-card">
+        <div class="love-list">
+          <p style="margin:0 0 6px;">Small, human moments of design and craft — the tactile click of a button, the weight of an object in hand, or a sketch that suddenly makes everything clearer. These are the things that excite me.</p>
+          <p style="margin:0 0 8px;">Below are some of the things I love to work with and explore:</p>
+
+          <div class="love-grid" role="list">
+            <div class="love-item" role="listitem">
+              <img src="images/icons/sketch.png" alt="Sketch icon">
+              <div class="label">Sketching & Storyboarding</div>
+            </div>
+
+            <div class="love-item" role="listitem">
+              <img src="images/icons/3dprint.png" alt="3D print icon">
+              <div class="label">3D Printing & Prototyping</div>
+            </div>
+
+            <div class="love-item" role="listitem">
+              <img src="images/icons/electronics.png" alt="Electronics icon">
+              <div class="label">Circuitry & Embedded Systems</div>
+            </div>
+
+            <div class="love-item" role="listitem">
+              <img src="images/icons/travel.png" alt="Travel icon">
+              <div class="label">Travel Sketches & Cultural Study</div>
+            </div>
+
+            <div class="love-item" role="listitem">
+              <img src="images/icons/presentation.png" alt="Presentation icon">
+              <div class="label">Storytelling & Presentations</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- optional illustrative image -->
+        <div style="flex:0 0 220px; border-radius:10px; overflow:hidden; background:#eee;">
+          <img src="images/experiences/art/mepencil.jpeg" alt="Sketch example" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+      </div>
+    </section>
+
+    <div style="height:12px"></div>
 
     <!-- What I care about -->
     <section class="card" aria-labelledby="care-heading">
