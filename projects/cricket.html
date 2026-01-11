@@ -273,59 +273,179 @@
     </section>
 
     <!-- FULL IMAGES / CAD -->
-    <section class="full-images-section" aria-labelledby="full-images-heading">
-      <h2 id="full-images-heading" class="full-images-title">Full images & CAD</h2>
+    <!-- FULL IMAGES / CAD (PDF-friendly) -->
+<section class="full-images-section" aria-labelledby="full-images-heading">
+  <h2 id="full-images-heading" class="full-images-title">Full images & CAD</h2>
 
-      <div class="cad-row">
-        <img src="../images/reptile/cricketcrewpresent.pdf" alt="Project poster" class="full-img" />
-        <img src="../images/reptile/feederfull.png" alt="Top view" class="full-img" />
-      </div>
-
-      <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
-        <button class="img-btn" data-src="../images/reptile/sideview.jpg" data-caption="Side view — mechanism">
-          <img src="../images/reptile/sideview_thumb.jpg" alt="Side view" style="width:220px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
-        </button>
-
-        <button class="img-btn" data-src="../images/reptile/bottomview.jpg" data-caption="Bottom view — electronics layout">
-          <img src="../images/reptile/bottomview_thumb.jpg" alt="Bottom view" style="width:220px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
-        </button>
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-  <!-- LIGHTBOX -->
-  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="lightbox-close" aria-label="Close full image">✕</button>
-    <div class="lightbox-inner">
-      <div id="lightboxMedia"></div>
+  <div class="cad-row" style="align-items:start;">
+    <!-- Poster block: show a PNG thumbnail and store PDF path in data attributes -->
+    <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+      <button class="img-btn poster-btn" data-src="../images/reptile/cricketcrewpresent.pdf"
+              data-thumb="../images/reptile/cricketcrewpresent.png"
+              data-caption="Project poster — click to preview (PDF)">
+        <img src="../images/reptile/cricketcrewpresent.png" alt="Project poster (click to open PDF)" class="full-img" />
+      </button>
     </div>
+
+    <!-- regular full board image -->
+    <img src="../images/reptile/feederfull.png" alt="Top view" class="full-img" />
   </div>
 
-  <!-- FEATURE MODAL -->
-  <div id="featureModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal" role="document" aria-labelledby="modal-title">
-      <div class="modal-top">
-        <div class="modal-title" id="modal-title">Feature</div>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <button id="modal-prev" class="modal-prev" style="background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">◀ Prev</button>
-          <button id="modal-next" class="modal-next" style="background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Next ▶</button>
-          <button id="modal-close" class="modal-close" style="background: rgba(255,255,255,0.12); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">✕</button>
-        </div>
-      </div>
-      <div class="modal-body">
-        <img id="modalImg" class="modal-img" src="" alt="">
-        <div class="modal-text">
-          <div id="modalDesc"></div>
-        </div>
-      </div>
-    </div>
+  <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+    <button class="img-btn" data-src="../images/reptile/sideview.jpg" data-caption="Side view — mechanism">
+      <img src="../images/reptile/sideview_thumb.jpg" alt="Side view" style="width:220px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+    </button>
+
+    <button class="img-btn" data-src="../images/reptile/bottomview.jpg" data-caption="Bottom view — electronics layout">
+      <img src="../images/reptile/bottomview_thumb.jpg" alt="Bottom view" style="width:220px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.06);">
+    </button>
   </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+  <button class="lightbox-close" aria-label="Close full media">✕</button>
+  <div class="lightbox-inner" id="lightboxInner" style="width:100%;max-width:1200px;">
+    <!-- content injected here -->
+  </div>
+</div>
 
 <script>
+(function(){
+  const lightbox = document.getElementById('lightbox');
+  const lightboxInner = document.getElementById('lightboxInner');
+  const lightboxClose = document.querySelector('.lightbox-close');
+  const imgButtons = Array.from(document.querySelectorAll('.img-btn'));
+
+  function createCaption(text){
+    if(!text) return null;
+    const c = document.createElement('div');
+    c.className = 'img-caption';
+    c.style.marginTop = '12px';
+    c.style.color = '#fff';
+    c.style.fontStyle = 'italic';
+    c.style.textAlign = 'center';
+    c.textContent = text;
+    return c;
+  }
+
+  // Attempt to embed PDF via <object>. If embedding is blocked, the <object> content will
+  // show fallback HTML (link to open in new tab).
+  function openPDF(src, caption) {
+    lightboxInner.innerHTML = '';
+    const container = document.createElement('div');
+    container.style.width = '100%';
+    container.style.height = 'calc(92vh - 80px)';
+    container.style.display = 'flex';
+    container.style.alignItems = 'stretch';
+    container.style.justifyContent = 'center';
+    container.style.background = '#000';
+
+    const obj = document.createElement('object');
+    obj.type = 'application/pdf';
+    obj.data = src;
+    obj.width = '100%';
+    obj.height = '100%';
+    obj.style.border = '0';
+
+    // fallback HTML inside the <object> if embedding fails
+    obj.innerHTML = `
+      <div style="padding:24px; text-align:center; color:#fff;">
+        <p style="font-size:18px; margin:0 0 12px;">Inline PDF preview may be blocked by your browser or server.</p>
+        <a href="${src}" target="_blank" rel="noopener" style="display:inline-block;padding:10px 14px;border-radius:8px;background:rgba(176,171,82,1);color:#111;font-weight:800;text-decoration:none;">
+          Open poster (PDF) in new tab
+        </a>
+        <p style="color:#ddd;margin-top:12px;font-size:13px;">If you host on GitHub, use the raw file URL (raw.githubusercontent...) or serve the PDF from the same origin to allow inline previews.</p>
+      </div>
+    `;
+    container.appendChild(obj);
+    lightboxInner.appendChild(container);
+
+    const cap = createCaption(caption);
+    if(cap) lightboxInner.appendChild(cap);
+
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  }
+
+  function openImage(src, caption) {
+    lightboxInner.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = caption || '';
+    img.style.maxWidth = '100%';
+    img.style.maxHeight = 'calc(92vh - 80px)';
+    img.style.objectFit = 'contain';
+    img.style.borderRadius = '8px';
+    lightboxInner.appendChild(img);
+    const cap = createCaption(caption);
+    if(cap) lightboxInner.appendChild(cap);
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  }
+
+  function openVideo(src, caption) {
+    lightboxInner.innerHTML = '';
+    const v = document.createElement('video');
+    v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata';
+    v.style.maxWidth = '100%'; v.style.maxHeight = 'calc(92vh - 80px)';
+    v.style.borderRadius = '8px';
+    const s = document.createElement('source'); s.src = src; s.type = 'video/mp4';
+    v.appendChild(s);
+    lightboxInner.appendChild(v);
+    const cap = createCaption(caption);
+    if(cap) lightboxInner.appendChild(cap);
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  }
+
+  function openMedia(src, caption){
+    const lower = (src || '').toLowerCase();
+    if(/\.pdf$/.test(lower)){
+      openPDF(src, caption);
+    } else if(/\.(mp4|webm|ogg)$/.test(lower)){
+      openVideo(src, caption);
+    } else {
+      openImage(src, caption);
+    }
+  }
+
+  // Main click handler for buttons
+  imgButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const src = btn.dataset.src || btn.getAttribute('data-src') || btn.querySelector('img')?.src;
+      const caption = btn.dataset.caption || btn.getAttribute('data-caption') || btn.querySelector('img')?.alt || '';
+      // special case: poster buttons may include a data-thumb but data-src is the PDF
+      openMedia(src, caption);
+    });
+    btn.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); } });
+  });
+
+  function closeLight(){
+    // stop any playing media
+    const v = lightboxInner.querySelector('video');
+    if(v){ v.pause(); v.src = ''; }
+    lightboxInner.innerHTML = '';
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  lightboxClose.addEventListener('click', closeLight);
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLight(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightbox.classList.contains('open')) closeLight(); });
+
+})();
+</script>
+
+
+
   (function(){
     // LIGHTBOX: images and videos
     const lightbox = document.getElementById('lightbox');
