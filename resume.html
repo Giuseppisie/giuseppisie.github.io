@@ -25,6 +25,58 @@
       min-height:100vh;
     }
 
+    /* Contact box above resume */
+.contact-box{
+  background:#ffffff;
+  border-radius:12px;
+  padding:20px 24px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.10);
+  margin: 0 auto 22px;
+  max-width: var(--max-width);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.contact-box p{
+  margin:0;
+  color:#333;
+  font-size:16px;
+  line-height:1.55;
+}
+
+.contact-actions{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.contact-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  color:#fff;
+  background:var(--card);
+  padding:10px 14px;
+  border-radius:8px;
+  text-decoration:none;
+}
+
+.contact-link.secondary{
+  background:transparent;
+  color:#111;
+  border:2px solid rgba(0,0,0,0.08);
+}
+
+@media (max-width:720px){
+  .contact-box{
+    padding:18px;
+  }
+}
+
+
   .topbar{
       position:fixed;
       top:0; left:0; right:0;
@@ -164,6 +216,28 @@
   </div>
 
   <main class="page" role="main" aria-labelledby="resume-title">
+
+    <section class="contact-box" aria-label="Contact information">
+  <p>
+    Please feel free to reach out if you’re interested in my work, would like to get in touch,
+    or think I could be a good addition to your team — I’d love to connect.
+  </p>
+
+  <div class="contact-actions">
+    <a class="contact-link"
+       href="mailto:sienna.giuseppi@duke.edu">
+      Email me
+    </a>
+
+    <a class="contact-link secondary"
+       href="https://www.linkedin.com/in/siennagiuseppi"
+       target="_blank"
+       rel="noopener">
+      LinkedIn
+    </a>
+  </div>
+</section>
+
     <header style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
       <div>
         <h1 id="resume-title">Resume</h1>
