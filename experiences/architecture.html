@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -13,7 +12,6 @@
       --accent:#b0ab52;
       --content-max:1100px;
       --page-pad:20px;
-      --gap:18px;
     }
 
     html,body{height:100%;margin:0}
@@ -64,16 +62,7 @@
       padding:28px var(--page-pad) 80px;
     }
 
-    /* Intro */
-    .content{
-      background:#fff;
-      padding:24px;
-      border-radius:12px;
-      box-shadow:0 8px 20px rgba(0,0,0,.06);
-      margin-bottom:22px;
-    }
-
-    /* Architecture project */
+    /* Project */
     .arch-project{
       background:#fff;
       border-radius:12px;
@@ -82,15 +71,10 @@
       box-shadow:0 8px 20px rgba(0,0,0,.06);
     }
 
-
-    
-
-   .arch-title{
-  font-size:28px;
-  font-weight:800;
-  margin-bottom:14px;
-  letter-spacing:0.2px;
-}
+    .arch-title{
+      font-size:32px;
+      font-weight:800;
+      margin-bottom:14px;
     }
 
     .arch-row{
@@ -116,9 +100,24 @@
     }
 
     .arch-desc{
-      margin-top:12px;
+      margin-top:14px;
       line-height:1.6;
       color:#333;
+    }
+
+    .deliverables-title{
+      font-weight:800;
+      margin-top:16px;
+      margin-bottom:6px;
+    }
+
+    .deliverables-list{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .deliverables-list li{
+      margin-bottom:6px;
     }
 
     /* Lightbox */
@@ -151,13 +150,11 @@
     }
 
   </style>
-
 </head>
 
 <body>
 
   <!-- TOP BAR -->
-
   <div class="topbar">
     <a class="brand" href="../index.html">Sienna Giuseppi</a>
     <nav class="topnav">
@@ -171,84 +168,52 @@
   <div class="spacer"></div>
 
   <!-- HERO -->
-
   <section class="hero">
     <div class="hero-title">Architecture</div>
   </section>
 
   <main class="page">
 
-```
-<!-- INTRO -->
-<section class="content">
-  <h2>Design Work</h2>
-  <p>
-    A collection of architectural projects exploring spatial relationships,
-    materiality, and human-centered design.
-  </p>
-</section>
+    <!-- PROJECT -->
+    <section class="arch-project">
 
-<!-- PROJECT 1 -->
-<section class="arch-project">
+      <div class="arch-title">Micro Apartment</div>
 
+      <div class="arch-row">
+        <div class="arch-img" onclick="openLightbox(this)">
+          <img src="../images/experiences/arch/plans.jpg" alt="">
+        </div>
+        <div class="arch-img" onclick="openLightbox(this)">
+          <img src="../images/experiences/arch/sections.jpg" alt="">
+        </div>
+        <div class="arch-img" onclick="openLightbox(this)">
+          <img src="../images/experiences/arch/sky.jpg" alt="">
+        </div>
+        <div class="arch-img" onclick="openLightbox(this)">
+          <img src="../images/experiences/arch/views.jpg" alt="">
+        </div>
+        <div class="arch-img" onclick="openLightbox(this)">
+          <img src="../images/experiences/arch/out.jpg" alt="">
+        </div>
+      </div>
 
-  <div class="arch-title">MICRO apartment </div>
+      <div class="arch-desc">
+        This project explores new possibilities for micro-scale housing in New York City in response to the ongoing shortage of affordable living space. Commissioned by NYCHA, the design challenges conventional ideas of domesticity within a compact 380–420 square foot footprint. Rather than relying on standard layouts or furniture, the project rethinks how living, sleeping, cooking, bathing, and working can coexist through inventive spatial strategies. Emphasis is placed on movement, spatial hierarchy, and sectional thinking to create a dwelling that feels expansive, dignified, and responsive to the occupant’s daily life.
 
-  <div class="arch-row">
-    <div class="arch-img" onclick="openLightbox(this)">
-      <img src="../images/experiences/arch/plans.jpg" alt="">
-    </div>
-    <div class="arch-img" onclick="openLightbox(this)">
-      <img src="../images/experiences/arch/sections.jpg" alt="">
-    </div>
-    <div class="arch-img" onclick="openLightbox(this)">
-      <img src="../images/experiences/arch/sky.jpg" alt="">
-    </div>
-    <div class="arch-img" onclick="openLightbox(this)">
-      <img src="../images/experiences/arch/views.jpg" alt="">
-    </div>
-    <div class="arch-img" onclick="openLightbox(this)">
-      <img src="../images/experiences/arch/out.jpg" alt="">
-    </div>
-  </div>
+        <div class="deliverables-title">Deliverables</div>
+        <ul class="deliverables-list">
+          <li>1–2 apartment plans @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
+          <li>2 sections (longitudinal and latitudinal) @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
+          <li>1 plan oblique (axonometric) drawing @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
+          <li>3 SketchUp 3D model perspectives (not to scale), printed on 11” × 17” paper</li>
+        </ul>
+      </div>
 
-  <div class="arch-desc">
-    This project explores transitions between interior and exterior space.
-    Through layered planes and controlled light, the design creates a gradual
-    shift in perception and privacy.
-  </div>
-
-</section>
-
-<!-- PROJECT 2 -->
-<section class="arch-project">
-
-
-
-  <div class="arch-title">Modular Habitat</div>
-
-  <div class="arch-row">
-    <div class="arch-img" onclick="openLightbox(this)">
-      <img src="../images/architecture/p2-1.jpg" alt="">
-    </div>
-    <div class="arch-img" onclick="openLightbox(this)">
-      <img src="../images/architecture/p2-2.jpg" alt="">
-    </div>
-  </div>
-
-  <div class="arch-desc">
-    A modular housing system designed for adaptability and rapid assembly.
-    The structure balances efficiency with spatial quality through repeated
-    geometric units.
-  </div>
-
-</section>
-```
+    </section>
 
   </main>
 
   <!-- LIGHTBOX -->
-
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
     <img id="lightbox-img" src="">
@@ -268,4 +233,3 @@
 
 </body>
 </html>
-
