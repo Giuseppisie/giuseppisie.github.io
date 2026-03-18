@@ -139,6 +139,15 @@ or<!DOCTYPE html>
       justify-content: center;
       flex: 1;
     }
+
+    <div class="update-box">
+  <div class="update-title">Latest Update</div>
+  <div class="update-text">
+    <strong>March 18 2026:</strong> Added new architecture portfolio work including 
+    <a href="experiences/architecture.html">Micro Apartment + Bus Stop projects</a>.
+  </div>
+</div>
+    
     .subtitle { color:#666; margin:0 0 8px 0; font-size:14px; }
     .intro { color:#333; margin:0; font-size:18px; line-height:1.5; }
 
@@ -227,6 +236,38 @@ or<!DOCTYPE html>
     .contact-right a { color: #fff; font-weight:700; margin-left:14px; text-decoration:underline; }
 
     footer { text-align:center; color:#333; margin:40px 0 80px; }
+
+
+    /* ---------- update box ---------- */
+
+    .update-box{
+  background: rgba(255,255,255,0.85);
+  border-left: 4px solid var(--accent);
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin: 18px auto 0;
+  max-width: 900px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.update-title{
+  font-weight: 700;
+  font-size: 14px;
+  color:#333;
+  margin-bottom:4px;
+  letter-spacing:0.5px;
+}
+
+.update-text{
+  font-size: 14px;
+  color:#444;
+}
+
+.update-text a{
+  color:#111;
+  font-weight:600;
+  text-decoration: underline;
+}
 
     /* ---------- TOPBAR STYLES (matches Projects/Experiences pages) ---------- */
     .topbar{
