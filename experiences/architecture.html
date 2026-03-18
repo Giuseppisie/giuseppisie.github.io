@@ -8,183 +8,6 @@
   <style>
     :root{
       --bg:#a0c0bc;
-      --card:#427b76;
-      --accent:#b0ab52;
-      --content-max:1100px;
-      --page-pad:20px;
-    }
-
-    html,body{height:100%;margin:0}
-    body{
-      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-      background:var(--bg);
-      color:#111;
-    }
-
-    /* Top bar */
-    .topbar{
-      position:fixed;top:0;left:0;right:0;height:60px;
-      display:flex;align-items:center;padding:0 20px;
-      z-index:1000;background:rgba(0,0,0,0.25);
-      backdrop-filter:blur(4px)
-    }
-    .brand{color:#fff;font-weight:800;font-size:18px;text-decoration:none}
-    .topnav{display:flex;gap:10px;margin-left:20px}
-    .topnav a{color:#fff;text-decoration:none;font-weight:700;padding:8px 10px}
-    .spacer{height:60px}
-
-    /* Hero */
-    .hero{
-      height:36vh;
-      background-image:url("../images/experiences/arch/pinup.jpg");
-      background-size:cover;
-      background-position:center;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-    }
-    .hero::after{
-      content:"";
-      position:absolute;inset:0;
-      background:rgba(66,123,118,0.4);
-    }
-    .hero-title{
-      position:relative;
-      color:#fff;
-      font-size:clamp(22px,4vw,36px);
-      font-weight:800;
-    }
-
-    .page{
-      max-width:var(--content-max);
-      margin:0 auto;
-      padding:28px var(--page-pad) 80px;
-    }
-
-    /* Project */
-    .arch-project{
-      background:#fff;
-      border-radius:12px;
-      padding:20px;
-      margin-bottom:28px;
-      box-shadow:0 8px 20px rgba(0,0,0,.06);
-    }
-
-    .arch-title{
-      font-size:32px;
-      font-weight:800;
-      margin-bottom:14px;
-    }
-
-    .arch-row{
-      display:flex;
-      gap:12px;
-      overflow-x:auto;
-      padding-bottom:8px;
-    }
-
-    .arch-img{
-      flex:0 0 auto;
-      width:220px;
-      border-radius:10px;
-      overflow:hidden;
-      cursor:pointer;
-      box-shadow:0 6px 14px rgba(0,0,0,0.08);
-    }
-
-    .arch-img img{
-      width:100%;
-      height:160px;
-      object-fit:cover;
-    }
-
-    .arch-desc{
-      margin-top:14px;
-      line-height:1.6;
-      color:#333;
-    }
-
-    .deliverables-title{
-      font-weight:800;
-      margin-top:16px;
-      margin-bottom:6px;
-    }
-
-    .deliverables-list{
-      margin:0;
-      padding-left:18px;
-    }
-
-    .deliverables-list li{
-      margin-bottom:6px;
-    }
-
-    /* Lightbox */
-    .lightbox{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background:rgba(0,0,0,0.9);
-      z-index:3000;
-    }
-    .lightbox.open{display:flex;}
-
-    .lightbox img{
-      max-width:90%;
-      max-height:80vh;
-      border-radius:8px;
-    }
-
-    .lightbox-close{
-      position:absolute;
-      top:20px;
-      right:20px;
-      background:none;
-      color:#fff;
-      font-size:24px;
-      border:none;
-      cursor:pointer;
-    }
-
-  </style>
-</head>
-
-<body>
-
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <a class="brand" href="../index.html">Sienna Giuseppi</a>
-    <nav class="topnav">
-      <a href="../about.html">About</a>
-      <a href="../index.html#engineering-projects">Projects</a>
-      <a href="../index.html#experiences">Experiences</a>
-      <a href="../resume.html">Resume + Contact</a>
-    </nav>
-  </div>
-
-  <div class="spacer"></div>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-title">Architecture</div>
-  </section>
-
-  <main class="page">
-
-   <!DOCTYPE html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Architecture — Sienna Giuseppi</title>
-
-  <style>
-    :root{
-      --bg:#a0c0bc;
       --content-max:1100px;
       --page-pad:20px;
     }
@@ -258,6 +81,15 @@
       padding:28px var(--page-pad) 80px;
     }
 
+    /* INTRO BOX */
+    .content{
+      background:#fff;
+      padding:24px;
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
+      margin-bottom:28px;
+    }
+
     /* PROJECT */
     .arch-project{
       background:#fff;
@@ -270,13 +102,19 @@
     .arch-title{
       font-size:32px;
       font-weight:800;
-      margin-bottom:16px;
+      margin-bottom:4px;
     }
 
-    /* IMAGE VIEWER */
+    .arch-meta{
+      font-size:14px;
+      color:#666;
+      margin-bottom:14px;
+    }
+
+    /* MAIN IMAGE */
     .arch-main{
       width:100%;
-      height:520px; /* BIG IMAGE */
+      height:520px;
       border-radius:12px;
       overflow:hidden;
       margin-bottom:12px;
@@ -288,7 +126,6 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      display:block;
     }
 
     /* THUMBNAILS */
@@ -307,7 +144,7 @@
       overflow:hidden;
       cursor:pointer;
       opacity:0.6;
-      transition:all 0.2s ease;
+      transition:0.2s;
       border:2px solid transparent;
     }
 
@@ -317,10 +154,7 @@
       object-fit:cover;
     }
 
-    .arch-thumb:hover{
-      opacity:1;
-    }
-
+    .arch-thumb:hover{opacity:1;}
     .arch-thumb.active{
       opacity:1;
       border:2px solid #111;
@@ -340,12 +174,7 @@
     }
 
     .deliverables-list{
-      margin:0;
       padding-left:18px;
-    }
-
-    .deliverables-list li{
-      margin-bottom:6px;
     }
 
     /* LIGHTBOX */
@@ -358,10 +187,7 @@
       background:rgba(0,0,0,0.9);
       z-index:3000;
     }
-
-    .lightbox.open{
-      display:flex;
-    }
+    .lightbox.open{display:flex;}
 
     .lightbox img{
       max-width:90%;
@@ -381,13 +207,11 @@
     }
 
   </style>
-
 </head>
 
 <body>
 
   <!-- TOP BAR -->
-
   <div class="topbar">
     <a class="brand" href="../index.html">Sienna Giuseppi</a>
     <nav class="topnav">
@@ -401,60 +225,111 @@
   <div class="spacer"></div>
 
   <!-- HERO -->
-
   <section class="hero">
     <div class="hero-title">Architecture</div>
   </section>
 
   <main class="page">
 
-```
-<!-- PROJECT 1 -->
-<section class="arch-project">
+    <!-- INTRO -->
+    <section class="content">
+      <h2>Design Work</h2>
+      <p>
+        A collection of architectural projects exploring spatial relationships,
+        materiality, and human-centered design.
+      </p>
+    </section>
 
-  <div class="arch-title">Micro Apartment</div>
+    <!-- PROJECT 1 -->
+    <section class="arch-project">
 
-  <div class="arch-main" onclick="openLightbox(this)">
-    <img src="../images/experiences/arch/plans.jpg">
-  </div>
+      <div class="arch-title">Micro Apartment</div>
+      <div class="arch-meta">Fall 2025 — Residential Design</div>
 
-  <div class="arch-thumbs">
-    <div class="arch-thumb active" onclick="swapImage(this)">
-      <img src="../images/experiences/arch/plans.jpg">
-    </div>
-    <div class="arch-thumb" onclick="swapImage(this)">
-      <img src="../images/experiences/arch/sections.jpg">
-    </div>
-    <div class="arch-thumb" onclick="swapImage(this)">
-      <img src="../images/experiences/arch/sky.jpg">
-    </div>
-    <div class="arch-thumb" onclick="swapImage(this)">
-      <img src="../images/experiences/arch/views.jpg">
-    </div>
-    <div class="arch-thumb" onclick="swapImage(this)">
-      <img src="../images/experiences/arch/out.jpg">
-    </div>
-  </div>
+      <div class="arch-main" onclick="openLightbox(this)">
+        <img src="../images/experiences/arch/plans.jpg">
+      </div>
 
-  <div class="arch-desc">
-    This project explores new possibilities for micro-scale housing in New York City in response to the ongoing shortage of affordable living space.
+      <div class="arch-thumbs">
+        <div class="arch-thumb active" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/plans.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/sections.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/sky.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/views.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/out.jpg">
+        </div>
+      </div>
 
-    <div class="deliverables-title">Deliverables</div>
-    <ul class="deliverables-list">
-      <li>Apartment plans</li>
-      <li>Sections</li>
-      <li>Axonometric drawing</li>
-      <li>3D perspectives</li>
-    </ul>
-  </div>
+      <div class="arch-desc">
+        <p>
+          This project explores new possibilities for micro-scale housing in New York City 
+          in response to the ongoing shortage of affordable living space.
+        </p>
 
-</section>
-```
+        <div class="deliverables-title">Deliverables</div>
+        <ul class="deliverables-list">
+          <li>Apartment plans</li>
+          <li>Sections</li>
+          <li>Axonometric drawing</li>
+          <li>3D perspectives</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- PROJECT 2 -->
+    <section class="arch-project">
+
+      <div class="arch-title">Bus Stop</div>
+      <div class="arch-meta">Spring 2026 — Public Installation</div>
+
+      <div class="arch-main" onclick="openLightbox(this)">
+        <img src="../images/experiences/arch/sections.jpg">
+      </div>
+
+      <div class="arch-thumbs">
+        <div class="arch-thumb active" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/sections.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/plans.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/views.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/out.jpg">
+        </div>
+      </div>
+
+      <div class="arch-desc">
+        <p>
+          This project reimagines the bus stop as an active, multi-functional public space.
+        </p>
+
+        <div class="deliverables-title">Deliverables</div>
+        <ul class="deliverables-list">
+          <li>Site plan</li>
+          <li>Plan + elevations</li>
+          <li>Section</li>
+          <li>Figures + diagrams</li>
+          <li>Physical model</li>
+        </ul>
+      </div>
+
+    </section>
 
   </main>
 
   <!-- LIGHTBOX -->
-
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
     <img id="lightbox-img" src="">
@@ -471,67 +346,6 @@
       el.classList.add("active");
     }
 
-    function openLightbox(el){
-      const img = el.querySelector("img");
-      document.getElementById("lightbox-img").src = img.src;
-      document.getElementById("lightbox").classList.add("open");
-    }
-
-    function closeLightbox(){
-      document.getElementById("lightbox").classList.remove("open");
-    }
-  </script>
-
-</body>
-</html>
-
-     <section class="arch-project">
-
-      <div class="arch-title">Bus Stop</div>
-
-      <div class="arch-row">
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/plans.jpg" alt="">
-        </div>
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/sections.jpg" alt="">
-        </div>
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/sky.jpg" alt="">
-        </div>
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/views.jpg" alt="">
-        </div>
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/out.jpg" alt="">
-        </div>
-      </div>
-
-      <div class="arch-desc">
-    This project reimagines the bus stop at Duke University’s Smith Warehouse as an active, multi-functional space rather than a purely utilitarian structure. Responding to the diversity of bodies, behaviors, and daily routines on campus, the design proposes a single continuous form that accommodates a range of activities and poses. Rejecting conventional ideas of enclosure and standard bus stop typologies, the project explores how form alone can support sitting, leaning, gathering, resting, and movement. Emphasis is placed on inclusivity, adaptability, and the relationship between the body and spatial geometry to create a dynamic and engaging public environment.
-        <div class="deliverables-title">Deliverables</div>
-        <ul class="deliverables-list">
-          <li>1 site plan @ 1/8” = 1’0”</li>
-          <li>1 plan @ 1/2” = 1’0”</li>
-          <li>2 elevations @ 1/2” = 1’0”</li>
-          <li>3 1 section @ 1/2” = 1’0”</li>
-          <li>Drawings incorporating figures/diagrams to demonstrate poses and activities</li>
-          <li>Properly scaled physical model of the design</li>
-        </ul>
-      </div>
-
-    </section>
-
-
-  </main>
-
-  <!-- LIGHTBOX -->
-  <div id="lightbox" class="lightbox">
-    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <img id="lightbox-img" src="">
-  </div>
-
-  <script>
     function openLightbox(el){
       const img = el.querySelector("img");
       document.getElementById("lightbox-img").src = img.src;
