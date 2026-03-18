@@ -174,42 +174,316 @@
 
   <main class="page">
 
-    <!-- PROJECT -->
-    <section class="arch-project">
+   <!DOCTYPE html>
 
-      <div class="arch-title">Micro Apartment</div>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Architecture — Sienna Giuseppi</title>
 
-      <div class="arch-row">
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/plans.jpg" alt="">
-        </div>
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/sections.jpg" alt="">
-        </div>
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/sky.jpg" alt="">
-        </div>
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/views.jpg" alt="">
-        </div>
-        <div class="arch-img" onclick="openLightbox(this)">
-          <img src="../images/experiences/arch/out.jpg" alt="">
-        </div>
-      </div>
+  <style>
+    :root{
+      --bg:#a0c0bc;
+      --content-max:1100px;
+      --page-pad:20px;
+    }
 
-      <div class="arch-desc">
-        This project explores new possibilities for micro-scale housing in New York City in response to the ongoing shortage of affordable living space. Commissioned by NYCHA, the design challenges conventional ideas of domesticity within a compact 380–420 square foot footprint. Rather than relying on standard layouts or furniture, the project rethinks how living, sleeping, cooking, bathing, and working can coexist through inventive spatial strategies. Emphasis is placed on movement, spatial hierarchy, and sectional thinking to create a dwelling that feels expansive, dignified, and responsive to the occupant’s daily life.
+    html,body{height:100%;margin:0}
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background:var(--bg);
+      color:#111;
+    }
 
-        <div class="deliverables-title">Deliverables</div>
-        <ul class="deliverables-list">
-          <li>1–2 apartment plans @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
-          <li>2 sections (longitudinal and latitudinal) @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
-          <li>1 plan oblique (axonometric) drawing @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
-          <li>3 SketchUp 3D model perspectives (not to scale), printed on 11” × 17” paper</li>
-        </ul>
-      </div>
+    /* TOP BAR */
+    .topbar{
+      position:fixed;
+      top:0;left:0;right:0;
+      height:60px;
+      display:flex;
+      align-items:center;
+      padding:0 20px;
+      z-index:1000;
+      background:rgba(0,0,0,0.25);
+      backdrop-filter:blur(4px);
+    }
+    .brand{
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      text-decoration:none;
+    }
+    .topnav{
+      display:flex;
+      gap:10px;
+      margin-left:20px;
+    }
+    .topnav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:8px 10px;
+    }
+    .spacer{height:60px}
 
-    </section>
+    /* HERO */
+    .hero{
+      height:36vh;
+      background-image:url("../images/experiences/arch/pinup.jpg");
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(66,123,118,0.4);
+    }
+    .hero-title{
+      position:relative;
+      color:#fff;
+      font-size:clamp(24px,4vw,38px);
+      font-weight:800;
+    }
+
+    /* PAGE */
+    .page{
+      max-width:var(--content-max);
+      margin:0 auto;
+      padding:28px var(--page-pad) 80px;
+    }
+
+    /* PROJECT */
+    .arch-project{
+      background:#fff;
+      border-radius:12px;
+      padding:24px;
+      margin-bottom:34px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
+    }
+
+    .arch-title{
+      font-size:32px;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    /* IMAGE VIEWER */
+    .arch-main{
+      width:100%;
+      height:520px; /* BIG IMAGE */
+      border-radius:12px;
+      overflow:hidden;
+      margin-bottom:12px;
+      box-shadow:0 10px 26px rgba(0,0,0,0.15);
+      cursor:pointer;
+    }
+
+    .arch-main img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* THUMBNAILS */
+    .arch-thumbs{
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      padding-bottom:8px;
+    }
+
+    .arch-thumb{
+      flex:0 0 auto;
+      width:140px;
+      height:90px;
+      border-radius:8px;
+      overflow:hidden;
+      cursor:pointer;
+      opacity:0.6;
+      transition:all 0.2s ease;
+      border:2px solid transparent;
+    }
+
+    .arch-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .arch-thumb:hover{
+      opacity:1;
+    }
+
+    .arch-thumb.active{
+      opacity:1;
+      border:2px solid #111;
+    }
+
+    /* DESCRIPTION */
+    .arch-desc{
+      margin-top:16px;
+      line-height:1.6;
+      color:#333;
+    }
+
+    .deliverables-title{
+      font-weight:800;
+      margin-top:14px;
+      margin-bottom:6px;
+    }
+
+    .deliverables-list{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .deliverables-list li{
+      margin-bottom:6px;
+    }
+
+    /* LIGHTBOX */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.9);
+      z-index:3000;
+    }
+
+    .lightbox.open{
+      display:flex;
+    }
+
+    .lightbox img{
+      max-width:90%;
+      max-height:80vh;
+      border-radius:8px;
+    }
+
+    .lightbox-close{
+      position:absolute;
+      top:20px;
+      right:20px;
+      background:none;
+      color:#fff;
+      font-size:26px;
+      border:none;
+      cursor:pointer;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+
+  <div class="topbar">
+    <a class="brand" href="../index.html">Sienna Giuseppi</a>
+    <nav class="topnav">
+      <a href="../about.html">About</a>
+      <a href="../index.html#engineering-projects">Projects</a>
+      <a href="../index.html#experiences">Experiences</a>
+      <a href="../resume.html">Resume + Contact</a>
+    </nav>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="hero-title">Architecture</div>
+  </section>
+
+  <main class="page">
+
+```
+<!-- PROJECT 1 -->
+<section class="arch-project">
+
+  <div class="arch-title">Micro Apartment</div>
+
+  <div class="arch-main" onclick="openLightbox(this)">
+    <img src="../images/experiences/arch/plans.jpg">
+  </div>
+
+  <div class="arch-thumbs">
+    <div class="arch-thumb active" onclick="swapImage(this)">
+      <img src="../images/experiences/arch/plans.jpg">
+    </div>
+    <div class="arch-thumb" onclick="swapImage(this)">
+      <img src="../images/experiences/arch/sections.jpg">
+    </div>
+    <div class="arch-thumb" onclick="swapImage(this)">
+      <img src="../images/experiences/arch/sky.jpg">
+    </div>
+    <div class="arch-thumb" onclick="swapImage(this)">
+      <img src="../images/experiences/arch/views.jpg">
+    </div>
+    <div class="arch-thumb" onclick="swapImage(this)">
+      <img src="../images/experiences/arch/out.jpg">
+    </div>
+  </div>
+
+  <div class="arch-desc">
+    This project explores new possibilities for micro-scale housing in New York City in response to the ongoing shortage of affordable living space.
+
+    <div class="deliverables-title">Deliverables</div>
+    <ul class="deliverables-list">
+      <li>Apartment plans</li>
+      <li>Sections</li>
+      <li>Axonometric drawing</li>
+      <li>3D perspectives</li>
+    </ul>
+  </div>
+
+</section>
+```
+
+  </main>
+
+  <!-- LIGHTBOX -->
+
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="">
+  </div>
+
+  <script>
+    function swapImage(el){
+      const project = el.closest(".arch-project");
+      const mainImg = project.querySelector(".arch-main img");
+
+      mainImg.src = el.querySelector("img").src;
+
+      project.querySelectorAll(".arch-thumb").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    function openLightbox(el){
+      const img = el.querySelector("img");
+      document.getElementById("lightbox-img").src = img.src;
+      document.getElementById("lightbox").classList.add("open");
+    }
+
+    function closeLightbox(){
+      document.getElementById("lightbox").classList.remove("open");
+    }
+  </script>
+
+</body>
+</html>
 
      <section class="arch-project">
 
