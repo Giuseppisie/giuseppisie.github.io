@@ -1,240 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Architecture — Sienna Giuseppi</title>
 
   <style>
-    :root {
-      --bg: #a0c0bc;
-      --content-max: 1100px;
-      --page-pad: 20px;
-      --accent: #5f8f8b;
+    :root{
+      --bg:#a0c0bc;
+      --content-max:1100px;
+      --page-pad:20px;
     }
 
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      background: var(--bg);
-      color: #111;
+    html,body{height:100%;margin:0}
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background:var(--bg);
+      color:#111;
     }
 
     /* TOP BAR */
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(4px);
+    .topbar{
+      position:fixed;
+      top:0;left:0;right:0;
+      height:60px;
+      display:flex;
+      align-items:center;
+      padding:0 20px;
+      z-index:1000;
+      background:rgba(0,0,0,0.25);
+      backdrop-filter:blur(4px);
     }
-
-    .brand {
-      color: #fff;
-      font-weight: 800;
-      font-size: 18px;
-      text-decoration: none;
+    .brand{
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      text-decoration:none;
     }
-
-    .topnav {
-      display: flex;
-      gap: 10px;
-      margin-left: 20px;
+    .topnav{
+      display:flex;
+      gap:10px;
+      margin-left:20px;
     }
-
-    .topnav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      padding: 8px 10px;
+    .topnav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:8px 10px;
     }
-
-    .spacer {
-      height: 60px;
-    }
+    .spacer{height:60px}
 
     /* HERO */
-    .hero {
-      height: 36vh;
-      background-image: url("../images/experiences/arch/pinup.jpg");
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+    .hero{
+      height:36vh;
+      background-image:url("../images/experiences/arch/pinup.jpg");
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
     }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(66, 123, 118, 0.4);
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(66,123,118,0.4);
     }
-
-    .hero-title {
-      position: relative;
-      color: #fff;
-      font-size: clamp(24px, 4vw, 38px);
-      font-weight: 800;
+    .hero-title{
+      position:relative;
+      color:#fff;
+      font-size:clamp(24px,4vw,38px);
+      font-weight:800;
     }
 
     /* PAGE */
-    .page {
-      max-width: var(--content-max);
-      margin: 0 auto;
-      padding: 28px var(--page-pad) 80px;
+    .page{
+      max-width:var(--content-max);
+      margin:0 auto;
+      padding:28px var(--page-pad) 80px;
     }
 
-    /* CONTENT + PROJECT */
-    .content,
-    .arch-project {
-      background: #fff;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 28px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, .06);
+    /* INTRO BOX */
+    .content{
+      background:#fff;
+      padding:24px;
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
+      margin-bottom:28px;
     }
 
-    .arch-title {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 4px;
+    /* PROJECT */
+    .arch-project{
+      background:#fff;
+      border-radius:12px;
+      padding:24px;
+      margin-bottom:34px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
     }
 
-    .arch-meta {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 14px;
+    .arch-title{
+      font-size:32px;
+      font-weight:800;
+      margin-bottom:4px;
+    }
+
+    .arch-meta{
+      font-size:14px;
+      color:#666;
+      margin-bottom:14px;
     }
 
     /* MAIN IMAGE */
-    .arch-main {
-      width: 100%;
-      height: 520px;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 12px;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
-      cursor: pointer;
+    .arch-main{
+      width:100%;
+      height:520px;
+      border-radius:12px;
+      overflow:hidden;
+      margin-bottom:12px;
+      box-shadow:0 10px 26px rgba(0,0,0,0.15);
+      cursor:pointer;
     }
 
-    .arch-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .arch-main img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
 
     /* THUMBNAILS */
-    .arch-thumbs {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 8px;
+    .arch-thumbs{
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      padding-bottom:8px;
     }
 
-    .arch-thumb {
-      width: 140px;
-      height: 90px;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      opacity: 0.6;
-      border: 2px solid transparent;
-      transition: 0.2s;
+    .arch-thumb{
+      flex:0 0 auto;
+      width:140px;
+      height:90px;
+      border-radius:8px;
+      overflow:hidden;
+      cursor:pointer;
+      opacity:0.6;
+      transition:0.2s;
+      border:2px solid transparent;
     }
 
-    .arch-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .arch-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
 
-    .arch-thumb.active {
-      opacity: 1;
-      border: 2px solid #111;
+    .arch-thumb:hover{opacity:1;}
+    .arch-thumb.active{
+      opacity:1;
+      border:2px solid #111;
     }
 
     /* DESCRIPTION */
-    .arch-desc {
-      margin-top: 16px;
-      line-height: 1.6;
-      color: #333;
+    .arch-desc{
+      margin-top:16px;
+      line-height:1.6;
+      color:#333;
     }
 
-    /* 🔥 REFLECTION BOX */
-    .reflection-box {
-      margin-top: 20px;
-      padding: 16px 18px;
-      background: rgba(95, 143, 139, 0.15);
-      border-left: 6px solid var(--accent);
-      border-radius: 10px;
+    .deliverables-title{
+      font-weight:800;
+      margin-top:14px;
+      margin-bottom:6px;
     }
 
-    .reflection-title {
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    /* DELIVERABLES */
-    .deliverables-title {
-      font-weight: 800;
-      margin-top: 18px;
-      margin-bottom: 6px;
-    }
-
-    .deliverables-list {
-      padding-left: 18px;
+    .deliverables-list{
+      padding-left:18px;
     }
 
     /* LIGHTBOX */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 3000;
+    .lightbox{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.9);
+      z-index:3000;
+    }
+    .lightbox.open{display:flex;}
+
+    .lightbox img{
+      max-width:90%;
+      max-height:80vh;
+      border-radius:8px;
     }
 
-    .lightbox.open {
-      display: flex;
+    .lightbox-close{
+      position:absolute;
+      top:20px;
+      right:20px;
+      background:none;
+      color:#fff;
+      font-size:26px;
+      border:none;
+      cursor:pointer;
     }
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 8px;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      color: #fff;
-      font-size: 26px;
-      border: none;
-      cursor: pointer;
-    }
   </style>
 </head>
 
 <body>
 
+  <!-- TOP BAR -->
   <div class="topbar">
     <a class="brand" href="../index.html">Sienna Giuseppi</a>
     <nav class="topnav">
@@ -247,79 +225,189 @@
 
   <div class="spacer"></div>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-title">Architecture</div>
   </section>
 
   <main class="page">
 
-    <!-- NEW PROJECT -->
+    <!-- INTRO -->
+    <section class="content">
+      <h2>Intro to Architectural Design</h2>
+   <p>
+  Introduction to Architectural Design is a one-semester studio course focused on space-making, with an emphasis on process, abstraction, and representation. The course explores drawing conventions, orthographic projection, model building, rendering, and digital tools as methods of visual inquiry. Projects engage concepts of tectonics, scale, material, and spatial relationships, culminating in investigations of architectural themes such as threshold, view, and entry.
+</p>
+
+<p>
+  Architecture is approached as a discipline capable of critical cultural thinking. Through an iterative studio model, students develop formal and spatial design skills across multiple scales while refining their individual approach to contemporary architectural practice through hands-on experimentation.
+</p>
+    
+    </section>
+
+    <!-- PROJECT 3 -->
     <section class="arch-project">
 
-      <div class="arch-title">Sport — Fencing Facility</div>
-      <div class="arch-meta">Architectural Design, Spatial Systems</div>
+      <div class="arch-title">Micro Apartment</div>
+      <div class="arch-meta">Sketchup Modeling, Scaled drawings </div>
 
       <div class="arch-main" onclick="openLightbox(this)">
-        <img src="../images/experiences/arch/sport1.jpg">
+        <img src="../images/experiences/arch/sky.jpg">
       </div>
 
       <div class="arch-thumbs">
-        <div class="arch-thumb active" onclick="swapImage(this)"><img src="../images/experiences/arch/sport1.jpg"></div>
-        <div class="arch-thumb" onclick="swapImage(this)"><img src="../images/experiences/arch/sport2.jpg"></div>
-        <div class="arch-thumb" onclick="swapImage(this)"><img src="../images/experiences/arch/sport3.jpg"></div>
-        <div class="arch-thumb" onclick="swapImage(this)"><img src="../images/experiences/arch/sport4.jpg"></div>
-        <div class="arch-thumb" onclick="swapImage(this)"><img src="../images/experiences/arch/sport5.jpg"></div>
-        <div class="arch-thumb" onclick="swapImage(this)"><img src="../images/experiences/arch/sport6.jpg"></div>
-        <div class="arch-thumb" onclick="swapImage(this)"><img src="../images/experiences/arch/sport7.jpg"></div>
-        <div class="arch-thumb" onclick="swapImage(this)"><img src="../images/experiences/arch/sport8.jpg"></div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/sky.jpg">
+        </div>
+         <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/sky1.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/views.jpg">
+        </div>
+          <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/views1.jpg">
+        </div>
+        <div class="arch-thumb active" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/1plan.jpg">
+        </div>
+         <div class="arch-thumb active" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/plans.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/sections.jpg">
+        </div>
+         <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/sections1.jpg">
+        </div>
       </div>
 
       <div class="arch-desc">
         <p>
-          This project explores the design of a fencing facility at Duke University that makes the intensity and precision of the sport visible through architecture.
+This project explores new possibilities for micro-scale housing in New York City in response to the ongoing shortage of affordable living space. Commissioned by NYCHA, the design challenges conventional ideas of domesticity within a compact 380–420 square foot footprint. Rather than relying on standard layouts or furniture, the project rethinks how living, sleeping, cooking, bathing, and working can coexist through inventive spatial strategies. Emphasis is placed on movement, spatial hierarchy, and sectional thinking to create a dwelling that feels expansive, dignified, and responsive to the occupant’s daily life.        </p>
+
+        <div class="deliverables-title">Deliverables</div>
+        <ul class="deliverables-list">
+          <li>1–2 apartment plans @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
+          <li>2 sections (longitudinal and latitudinal) @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
+          <li>1 plan oblique (axonometric) drawing @ 1/2” = 1’0” (or 1/4” = 1’0”)</li>
+          <li>3 SketchUp 3D model perspectives (not to scale), printed on 11” × 17” paper</li>
+        </ul>
+      </div>
+
+    </section>
+
+     <!-- PROJECT 2 -->
+    <section class="arch-project">
+
+      <div class="arch-title">Garden Pavillion</div>
+      <div class="arch-meta">Sketchup Exploration</div>
+
+      <div class="arch-main" onclick="openLightbox(this)">
+        <img src="../images/experiences/arch/gardenperspective1.jpg">
+      </div>
+
+      <div class="arch-thumbs">
+            <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/gardenperspective1.jpg.png">
+        </div>
+         <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/gardenperspective2.jpg.png">
+        </div>
+         <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/gardenperspectivetop.jpg.png">
+        </div>
+        <div class="arch-thumb active" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/gardenparallelfront.jpg">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/gardenparallelleft.jpg.png">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/gardenparalleltop.jpg.png">
+        </div>
+     
+      </div>
+
+      <div class="arch-desc">
+        <p>
+The Sarah Duke Gardens has hired you to design a simple, geometric pavilion to be built on the great lawn of the gardens. The pavilion must allow visitors to view the gardens and must provide shelter from rain/snow. The pavilion design is not to include any furniture, lights, doors or moveable elements. The pavilion design may not have any stacking floors, there must be only one continuous “floor” to the design. You have been asked to provide digital image files captured from a SketchUp Digital 3D design model.         </p>
+
+        <div class="deliverables-title">Deliverables</div>
+        <ul class="deliverables-list">
+          <li>1 JPG Digital image files from the camera Top in a Parallel and Perspective projections.</li>
+         </li>
+        </ul>
+      </div>
+
+    </section>
+
+
+    <!-- PROJECT 1 -->
+    <section class="arch-project">
+
+      <div class="arch-title">Bus Stop</div>
+      <div class="arch-meta">Site survey, scaled drawings</div>
+
+      <div class="arch-main" onclick="openLightbox(this)">
+        <img src="../images/experiences/arch/stopfront.png">
+      </div>
+
+      <div class="arch-thumbs">
+        <div class="arch-thumb active" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/stopfront.png">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/stopside.png">
+        </div>
+        <div class="arch-thumb" onclick="swapImage(this)">
+          <img src="../images/experiences/arch/stoptop.png">
+        </div>
+      </div>
+
+      <div class="arch-desc">
+        <p>
+          This project reimagines the bus stop at Duke University’s Smith Warehouse as an active, multi-functional space rather than a purely utilitarian structure. Responding to the diversity of bodies, behaviors, and daily routines on campus, the design proposes a single continuous form that accommodates a range of activities and poses. Rejecting conventional ideas of enclosure and standard bus stop typologies, the project explores how form alone can support sitting, leaning, gathering, resting, and movement. Emphasis is placed on inclusivity, adaptability, and the relationship between the body and spatial geometry to create a dynamic and engaging public environment.
         </p>
-      </div>
 
-      <div class="reflection-box">
-        <div class="reflection-title">Personal Reflection</div>
-        <p>explanation pending</p>
+        <div class="deliverables-title">Deliverables</div>
+        <ul class="deliverables-list">
+          <li>1 site plan @ 1/8” = 1’0”</li>
+          <li>1 plan @ 1/2” = 1’0”</li>
+          <li>2 elevations @ 1/2” = 1’0”</li>
+          <li>1 section @ 1/2” = 1’0”</li>
+          <li>Drawings incorporating figures/diagrams to demonstrate poses and activities</li>
+        </ul>
       </div>
-
-      <div class="deliverables-title">Deliverables</div>
-      <ul class="deliverables-list">
-        <li>Plans per level</li>
-        <li>2 Sections</li>
-        <li>4 Exterior elevations</li>
-        <li>3 Interior perspectives</li>
-        <li>3 Exterior perspectives</li>
-      </ul>
 
     </section>
 
   </main>
 
+  <!-- LIGHTBOX -->
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
     <img id="lightbox-img" src="">
   </div>
 
   <script>
-    function swapImage(el) {
+    function swapImage(el){
       const project = el.closest(".arch-project");
       const mainImg = project.querySelector(".arch-main img");
+
       mainImg.src = el.querySelector("img").src;
 
       project.querySelectorAll(".arch-thumb").forEach(t => t.classList.remove("active"));
       el.classList.add("active");
     }
 
-    function openLightbox(el) {
+    function openLightbox(el){
       const img = el.querySelector("img");
       document.getElementById("lightbox-img").src = img.src;
       document.getElementById("lightbox").classList.add("open");
     }
 
-    function closeLightbox() {
+    function closeLightbox(){
       document.getElementById("lightbox").classList.remove("open");
     }
   </script>
