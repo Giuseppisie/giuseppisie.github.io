@@ -56,34 +56,35 @@ or<!DOCTYPE html>
       body::before { display: none; }
     }
 
-    /* FAVORITE BADGE */
+    /* FAVORITE BADGE (like screenshot) */
 .card{
-  position:relative; /* required for positioning badge */
+  position:relative; /* needed for positioning */
 }
 
 .favorite-badge{
   position:absolute;
-  top:10px;
-  left:10px;
-
-  width:36px;
-  height:36px;
-  border-radius:50%;
-
-  background:rgba(0,0,0,0.6);
-  color:#fff;
+  top:12px;
+  left:12px;
 
   display:flex;
   align-items:center;
-  justify-content:center;
+  gap:6px;
 
-  font-size:16px;
+  background:#f68b2c; /* 🔥 orange */
+  color:#fff;
+
+  font-size:13px;
   font-weight:700;
 
-  backdrop-filter:blur(6px);
+  padding:6px 12px;
+  border-radius:999px;
+
   box-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
 
+.favorite-badge .star{
+  font-size:14px;
+}
     /* hero overlay mask so grid/noise is less visible under the hero */
     .hero::after {
       content: "";
@@ -431,7 +432,10 @@ or<!DOCTYPE html>
       </a>
 
       <a class="card" href="projects/WavGuard.html">
-        <div class="favorite-badge">★</div>
+        <div class="favorite-badge">
+            <span class="star">★</span>
+            Favorite Project
+          </div>
         <img src="images/wavguard/wavguardfull.png" alt="WavGuard preview">
         <div class="card-content">
           <div class="meta"><div class="year">Fall 2025</div><div class="status done">Done</div></div>
@@ -459,7 +463,10 @@ or<!DOCTYPE html>
       </a>
 
       <a class="card" href="projects/Eswatini.html">
-        <div class="favorite-badge">★</div>
+        <div class="favorite-badge">
+        <span class="star">★</span>
+        Favorite Project
+      </div>
         <img src="images/eswatini/full.jpeg" alt="Nyakuza bridge preview">
         <div class="card-content">
           <div class="meta"><div class="year">Summer 2025</div><div class="status done">Done</div></div>
