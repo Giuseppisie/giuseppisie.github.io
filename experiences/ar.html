@@ -82,6 +82,37 @@
       padding:28px var(--page-pad) 80px;
     }
 
+    /* FULLSCREEN MODAL */
+.project-detail{
+  <div class="close-btn" onclick="closeProject()">✕</div>
+  position:fixed;
+  inset:0;
+  background:#fff;
+  z-index:5000;
+
+  display:none;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+
+  padding:60px 40px;
+  overflow-y:auto;
+}
+
+.project-detail.active{
+  display:grid;
+}
+
+/* CLOSE BUTTON */
+.close-btn{
+  position:fixed;
+  top:20px;
+  right:30px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:6000;
+}
+
     /* INTRO BOX */
     .content{
       background:#fff;
@@ -492,27 +523,35 @@ The Sarah Duke Gardens has hired you to design a simple, geometric pavilion to b
     <img id="lightbox-img" src="">
   </div>
 
-  <script>
-    function swapImage(el){
-      const project = el.closest(".arch-project");
-      const mainImg = project.querySelector(".arch-main img");
+<script>
+function openProject(id){
+  document.querySelectorAll(".project-detail").forEach(p=>{
+    p.classList.remove("active");
+  });
 
-      mainImg.src = el.querySelector("img").src;
+  document.getElementById(id).classList.add("active");
 
-      project.querySelectorAll(".arch-thumb").forEach(t => t.classList.remove("active"));
-      el.classList.add("active");
-    }
+  // lock background scroll
+  document.body.style.overflow = "hidden";
+}
 
-    function openLightbox(el){
-      const img = el.querySelector("img");
-      document.getElementById("lightbox-img").src = img.src;
-      document.getElementById("lightbox").classList.add("open");
-    }
+function closeProject(){
+  document.querySelectorAll(".project-detail").forEach(p=>{
+    p.classList.remove("active");
+  });
 
-    function closeLightbox(){
-      document.getElementById("lightbox").classList.remove("open");
-    }
-  </script>
+  // restore scroll
+  document.body.style.overflow = "auto";
+}
 
-</body>
-</html>
+function swapDetail(id, el){
+  const container = document.getElementById(id);
+  const main = container.querySelector("img[id$='-main']");
+  main.src = el.src;
+
+  container.querySelectorAll(".detail-thumbs img").forEach(img=>{
+    img.classList.remove("active");
+  });
+  el.classList.add("active");
+}
+</script>
