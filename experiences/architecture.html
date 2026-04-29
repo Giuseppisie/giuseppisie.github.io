@@ -141,16 +141,22 @@ body{
    PROJECT DETAIL VIEW
 ========================= */
 .project-detail{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  z-index:5000;
+
   display:none;
-  margin-top:30px;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+
+  padding:60px 40px;
+  overflow-y:auto;
 }
 
 .project-detail.active{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
 }
-
 /* LEFT SIDE IMAGES */
 .detail-images img{
   width:100%;
@@ -205,7 +211,16 @@ body{
   font-weight:800;
   margin-bottom:6px;
 }
-
+.close-btn{
+  position:fixed;
+  top:20px;
+  right:30px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:6000;
+}
+  
 /* LIGHTBOX (OPTIONAL KEEP) */
 .lightbox{
   position:fixed;
@@ -255,7 +270,7 @@ body{
 </section>
 
 
-<main class="page
+<main class="page>
 
   <!-- INTRO -->
 <section class="content">
@@ -304,6 +319,7 @@ body{
 
   
 <div id="fencing" class="project-detail">
+  <div class="close-btn" onclick="closeProject()">✕</div>
 
   <!-- LEFT SIDE -->
   <div class="detail-images">
@@ -374,6 +390,7 @@ body{
 
     
 <div id="micro" class="project-detail">
+  <div class="close-btn" onclick="closeProject()">✕</div>
 
   <!-- LEFT SIDE -->
   <div class="detail-images">
@@ -431,6 +448,7 @@ body{
 </div>
 
   <div id="garden" class="project-detail">
+    <div class="close-btn" onclick="closeProject()">✕</div>
 
   <!-- LEFT SIDE -->
   <div class="detail-images">
@@ -475,6 +493,7 @@ body{
 </div>
 
   <div id="bus" class="project-detail">
+    <div class="close-btn" onclick="closeProject()">✕</div>
 
   <!-- LEFT SIDE -->
   <div class="detail-images">
@@ -518,13 +537,23 @@ body{
   </div>
 
 </div>
-
-  <script>
+<script>
 function openProject(id){
   document.querySelectorAll(".project-detail").forEach(p=>{
     p.classList.remove("active");
   });
+
   document.getElementById(id).classList.add("active");
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeProject(){
+  document.querySelectorAll(".project-detail").forEach(p=>{
+    p.classList.remove("active");
+  });
+
+  document.body.style.overflow = "auto";
 }
 
 function swapDetail(id, el){
