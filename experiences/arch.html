@@ -1,0 +1,142 @@
+
+/* STYYKE */
+
+/* GRID */
+.project-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:20px;
+}
+
+.project-card{
+  cursor:pointer;
+  text-align:center;
+}
+
+.project-thumb{
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 16px rgba(0,0,0,0.1);
+}
+
+.project-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.project-name{
+  margin-top:10px;
+  font-weight:700;
+}
+
+/* DETAIL VIEW */
+.project-detail{
+  display:none;
+  margin-top:30px;
+}
+
+.project-detail.active{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+
+/* LEFT SIDE */
+.detail-images img{
+  width:100%;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.detail-thumbs{
+  display:flex;
+  gap:8px;
+}
+
+.detail-thumbs img{
+  width:80px;
+  height:60px;
+  object-fit:cover;
+  border-radius:6px;
+  cursor:pointer;
+  opacity:0.6;
+}
+
+.detail-thumbs img.active{
+  opacity:1;
+  border:2px solid #111;
+}
+
+/* RIGHT SIDE */
+.detail-text{
+  line-height:1.6;
+}
+
+/* REFLECTION */
+.reflection-box{
+  margin-top:16px;
+  padding:14px;
+  background:rgba(95,143,139,0.15);
+  border-left:6px solid #5f8f8b;
+  border-radius:8px;
+}
+
+
+
+/* PROJECTS */
+
+<div class="project-grid">
+
+  <div class="project-card" onclick="openProject('fencing')">
+    <div class="project-thumb">
+      <img src="../images/experiences/arch/fencing1.jpg">
+    </div>
+    <div class="project-name">Fencing Facility</div>
+  </div>
+
+  <div class="project-card" onclick="openProject('micro')">
+    <div class="project-thumb">
+      <img src="../images/experiences/arch/sky.jpg">
+    </div>
+    <div class="project-name">Micro Apartment</div>
+  </div>
+
+  <div class="project-card" onclick="openProject('garden')">
+    <div class="project-thumb">
+      <img src="../images/experiences/arch/gardenperspective1.jpg">
+    </div>
+    <div class="project-name">Garden Pavilion</div>
+  </div>
+
+  <div class="project-card" onclick="openProject('bus')">
+    <div class="project-thumb">
+      <img src="../images/experiences/arch/stopfront.png">
+    </div>
+    <div class="project-name">Bus Stop</div>
+  </div>
+
+</div>
+
+
+<script>
+function openProject(id){
+  document.querySelectorAll(".project-detail").forEach(p=>{
+    p.classList.remove("active");
+  });
+  document.getElementById(id).classList.add("active");
+}
+
+function swapDetail(id, el){
+  const container = document.getElementById(id);
+  const main = container.querySelector("img[id$='-main']");
+  main.src = el.src;
+
+  container.querySelectorAll(".detail-thumbs img").forEach(img=>{
+    img.classList.remove("active");
+  });
+  el.classList.add("active");
+}
+</script>
