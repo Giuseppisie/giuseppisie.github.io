@@ -1,7 +1,93 @@
 
-/* STYYKE */
+<style>
+:root{
+  --bg:#a0c0bc;
+  --content-max:1100px;
+  --page-pad:20px;
+  --accent:#5f8f8b;
+}
 
-/* GRID */
+html,body{height:100%;margin:0}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+  background:var(--bg);
+  color:#111;
+}
+
+/* TOP BAR */
+.topbar{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:60px;
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  z-index:1000;
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(4px);
+}
+.brand{
+  color:#fff;
+  font-weight:800;
+  font-size:18px;
+  text-decoration:none;
+}
+.topnav{
+  display:flex;
+  gap:10px;
+  margin-left:20px;
+}
+.topnav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  padding:8px 10px;
+}
+.spacer{height:60px}
+
+/* HERO */
+.hero{
+  height:36vh;
+  background-image:url("../images/experiences/arch/pinup.jpg");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(66,123,118,0.4);
+}
+.hero-title{
+  position:relative;
+  color:#fff;
+  font-size:clamp(24px,4vw,38px);
+  font-weight:800;
+}
+
+/* PAGE */
+.page{
+  max-width:var(--content-max);
+  margin:0 auto;
+  padding:28px var(--page-pad) 80px;
+}
+
+/* INTRO */
+.content{
+  background:#fff;
+  padding:24px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.06);
+  margin-bottom:28px;
+}
+
+/* =========================
+   PROJECT GRID (NEW)
+========================= */
 .project-grid{
   display:grid;
   grid-template-columns:repeat(2, 1fr);
@@ -19,6 +105,7 @@
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 6px 16px rgba(0,0,0,0.1);
+  transition:0.25s;
 }
 
 .project-thumb img{
@@ -27,12 +114,18 @@
   object-fit:cover;
 }
 
+.project-card:hover .project-thumb{
+  transform:scale(1.03);
+}
+
 .project-name{
   margin-top:10px;
   font-weight:700;
 }
 
-/* DETAIL VIEW */
+/* =========================
+   PROJECT DETAIL VIEW
+========================= */
 .project-detail{
   display:none;
   margin-top:30px;
@@ -44,7 +137,7 @@
   gap:30px;
 }
 
-/* LEFT SIDE */
+/* LEFT SIDE IMAGES */
 .detail-images img{
   width:100%;
   border-radius:12px;
@@ -54,6 +147,7 @@
 .detail-thumbs{
   display:flex;
   gap:8px;
+  flex-wrap:wrap;
 }
 
 .detail-thumbs img{
@@ -63,6 +157,7 @@
   border-radius:6px;
   cursor:pointer;
   opacity:0.6;
+  transition:0.2s;
 }
 
 .detail-thumbs img.active{
@@ -70,24 +165,64 @@
   border:2px solid #111;
 }
 
-/* RIGHT SIDE */
+/* RIGHT SIDE TEXT */
 .detail-text{
   line-height:1.6;
 }
 
-/* REFLECTION */
+.detail-text h2{
+  margin-top:0;
+}
+
+.detail-text h3{
+  margin-top:20px;
+}
+
+/* PERSONAL REFLECTION */
 .reflection-box{
   margin-top:16px;
   padding:14px;
   background:rgba(95,143,139,0.15);
-  border-left:6px solid #5f8f8b;
+  border-left:6px solid var(--accent);
   border-radius:8px;
 }
 
+.reflection-title{
+  font-weight:800;
+  margin-bottom:6px;
+}
 
+/* LIGHTBOX (OPTIONAL KEEP) */
+.lightbox{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.9);
+  z-index:3000;
+}
+.lightbox.open{display:flex;}
 
-/* PROJECTS */
+.lightbox img{
+  max-width:90%;
+  max-height:80vh;
+  border-radius:8px;
+}
 
+.lightbox-close{
+  position:absolute;
+  top:20px;
+  right:20px;
+  background:none;
+  color:#fff;
+  font-size:26px;
+  border:none;
+  cursor:pointer;
+}
+</style>
+
+<main class="page">
 <div class="project-grid">
 
   <div class="project-card" onclick="openProject('fencing')">
@@ -120,8 +255,107 @@
 
 </div>
 
+  
+<!-- PROJECT FENCING -->
 
-<script>
+  <div id="fencing" class="project-detail">
+
+  <!-- LEFT SIDE -->
+  <div class="detail-images">
+    <img id="fencing-main" src="../images/experiences/arch/fencing1.jpg">
+
+    <div class="detail-thumbs">
+      <img src="../images/experiences/arch/fencing1.jpg" onclick="swapDetail('fencing', this)" class="active">
+      <img src="../images/experiences/arch/fencing2.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing3.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing4.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing5.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing6.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing7.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing8.jpg" onclick="swapDetail('fencing', this)">
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="detail-text">
+    <h2>Fencing Facility</h2>
+
+    <p>
+      This project explores how architecture can draw public attention to a sport that is inherently dynamic but often hidden from view. The design aims to lure the outside into fencing, making its movement and intensity visible rather than enclosed.
+    </p>
+
+    <p>
+      Within a constrained program, the project organizes circulation to separate public spectators and private athlete movement without relying on enclosed boundaries. Spectators are brought directly into elevated viewing areas, while more embedded pathways allow fencers to move discreetly from locker rooms to the competition floor.
+    </p>
+
+    <div class="reflection-box">
+      <div class="reflection-title">Personal Reflection</div>
+      <p>yay fencing</p>
+    </div>
+
+    <h3>Deliverables</h3>
+    <ul>
+      <li>1 plan per level</li>
+      <li>2 sections</li>
+      <li>4 exterior elevations</li>
+      <li>3 interior perspectives</li>
+      <li>3 exterior perspectives</li>
+    </ul>
+  </div>
+
+</div>
+
+    
+<!-- PROJECT TINY HOME -->
+
+  <div id="fencing" class="project-detail">
+
+  <!-- LEFT SIDE -->
+  <div class="detail-images">
+    <img id="fencing-main" src="../images/experiences/arch/fencing1.jpg">
+
+    <div class="detail-thumbs">
+      <img src="../images/experiences/arch/fencing1.jpg" onclick="swapDetail('fencing', this)" class="active">
+      <img src="../images/experiences/arch/fencing2.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing3.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing4.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing5.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing6.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing7.jpg" onclick="swapDetail('fencing', this)">
+      <img src="../images/experiences/arch/fencing8.jpg" onclick="swapDetail('fencing', this)">
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="detail-text">
+    <h2>Fencing Facility</h2>
+
+    <p>
+      This project explores how architecture can draw public attention to a sport that is inherently dynamic but often hidden from view. The design aims to lure the outside into fencing, making its movement and intensity visible rather than enclosed.
+    </p>
+
+    <p>
+      Within a constrained program, the project organizes circulation to separate public spectators and private athlete movement without relying on enclosed boundaries. Spectators are brought directly into elevated viewing areas, while more embedded pathways allow fencers to move discreetly from locker rooms to the competition floor.
+    </p>
+
+    <div class="reflection-box">
+      <div class="reflection-title">Personal Reflection</div>
+      <p>yay fencing</p>
+    </div>
+
+    <h3>Deliverables</h3>
+    <ul>
+      <li>1 plan per level</li>
+      <li>2 sections</li>
+      <li>4 exterior elevations</li>
+      <li>3 interior perspectives</li>
+      <li>3 exterior perspectives</li>
+    </ul>
+  </div>
+
+</div>
+
+  <script>
 function openProject(id){
   document.querySelectorAll(".project-detail").forEach(p=>{
     p.classList.remove("active");
@@ -140,3 +374,6 @@ function swapDetail(id, el){
   el.classList.add("active");
 }
 </script>
+
+
+
