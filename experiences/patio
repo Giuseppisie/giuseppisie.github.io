@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Patio Redesign</title>
+
+  <style>
+    :root {
+      --bg: #a0c0bc;
+      --card: #427b76;
+      --accent: #b0ab52;
+      --content-max: 1100px;
+      --gap: 24px;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
+      color: #111;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(4px);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      white-space: nowrap;
+    }
+
+    .brand {
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      text-decoration: none;
+    }
+
+    .topnav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-left: 8px;
+    }
+
+    .topnav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background .12s;
+    }
+
+    .topnav a:hover,
+    .topnav a:focus {
+      background: rgba(255,255,255,0.08);
+      outline: none;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      background-image: url("../images/patio/patio-hero.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(66,123,118,0.35);
+    }
+
+    .hero-title {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 800;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    /* MAIN CONTENT */
+    .content {
+      padding: 40px 20px 80px;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .project-intro,
+    .section-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      margin: 0 auto 28px;
+      max-width: 1000px;
+      box-sizing: border-box;
+    }
+
+    .project-intro h2,
+    .section-card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: #111;
+    }
+
+    .meta {
+      margin-bottom: 14px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .project-intro p,
+    .section-card p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+      margin: 0 0 18px;
+    }
+
+    .project-intro p:last-child,
+    .section-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-intro a,
+    .section-card a {
+      color: #2f6863;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .project-intro a:hover,
+    .section-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* IMAGE GRID */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      margin-top: 18px;
+    }
+
+    .image-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-caption {
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #333;
+      font-style: italic;
+    }
+
+    /* LARGE IMAGE */
+    .large-image {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+      margin-top: 18px;
+      object-fit: contain;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      background: #f5f5f5;
+    }
+
+    /* SKETCHUP EMBED */
+    .sketchup-frame {
+      width: 100%;
+      height: 620px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      background: #f5f5f5;
+    }
+
+    /* NEXT STEPS */
+    .next-steps {
+      background: var(--card);
+      color: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      max-width: 1000px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .next-steps h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .next-steps p {
+      font-size: 17px;
+      line-height: 1.7;
+      margin: 0;
+      color: rgba(255,255,255,0.95);
+    }
+
+    @media (max-width: 900px) {
+      .image-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-card img {
+        height: auto;
+      }
+
+      .sketchup-frame {
+        height: 420px;
+      }
+
+      .topbar {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <a class="brand" href="../index.html">Sienna Giuseppi</a>
+      <nav class="topnav">
+        <a href="../about.html">About</a>
+        <a href="../index.html#engineering-projects">Projects</a>
+        <a href="../index.html#experiences">Experiences</a>
+        <a href="../resume.html">Resume + Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Patio redesign hero image">
+    <div class="hero-title">Patio Redesign</div>
+  </section>
+
+  <main class="content">
+
+    <!-- PROJECT OVERVIEW -->
+    <section class="project-intro" aria-labelledby="project-overview-heading">
+      <h2 id="project-overview-heading">Project Overview</h2>
+
+      <div class="meta">
+        Personal Design-Build Project · Tools: SketchUp, masonry, site measurement, 3D rendering
+      </div>
+
+      <p>
+        My dad has always wanted a fire pit for our home, and after completing
+        extensive masonry work last summer on my
+        <a href="eswatini-bridge.html">Eswatini Bridge Project</a>
+        and taking an
+        <a href="architecture.html">Architecture course</a>
+        at Duke, I offered to design and build one in our yard.
+      </p>
+
+      <p>
+        So far, I have worked with him to document the existing backyard,
+        collect dimensions, and create a SketchUp mockup of the yard layout.
+        This helped us visualize the placement of the fire pit, patio base,
+        and surrounding space before beginning construction.
+      </p>
+
+      <p>
+        The stone fire pit has now been built, and the project is continuing as
+        I prepare the surrounding patio surface and refine the final layout.
+        This project has been a meaningful opportunity to combine architecture,
+        engineering, and hands-on construction in a personal design-build
+        setting.
+      </p>
+    </section>
+
+    <!-- CURRENT BACKYARD SETUP -->
+    <section class="section-card" aria-labelledby="backyard-heading">
+      <h2 id="backyard-heading">Current Backyard Setup</h2>
+
+      <p>
+        These photos show the existing backyard conditions and the space where
+        the patio redesign is taking shape.
+      </p>
+
+      <div class="image-grid">
+        <figure class="image-card">
+          <img src="../images/patio/backyard-1.jpg" alt="Current backyard setup view 1">
+          <figcaption class="image-caption">Current backyard condition — view 1</figcaption>
+        </figure>
+
+        <figure class="image-card">
+          <img src="../images/patio/backyard-2.jpg" alt="Current backyard setup view 2">
+          <figcaption class="image-caption">Current backyard condition — view 2</figcaption>
+        </figure>
+
+        <figure class="image-card">
+          <img src="../images/patio/backyard-3.jpg" alt="Current backyard setup view 3">
+          <figcaption class="image-caption">Current backyard condition — view 3</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SKETCHUP MODEL -->
+    <section class="section-card" aria-labelledby="sketchup-heading">
+      <h2 id="sketchup-heading">SketchUp Site Model</h2>
+
+      <p>
+        To plan the redesign, I created a SketchUp model of the backyard using
+        measured site dimensions. This allowed us to evaluate the fire pit
+        location, surrounding patio layout, circulation space, and how the
+        finished design would fit into the existing yard.
+      </p>
+
+      <!-- Replace the src below with your actual SketchUp embed link -->
+      <iframe
+        class="sketchup-frame"
+        src="YOUR-SKETCHUP-EMBED-LINK-HERE"
+        title="Patio redesign SketchUp model"
+        allowfullscreen>
+      </iframe>
+    </section>
+
+    <!-- RENDERED DESIGN -->
+    <section class="section-card" aria-labelledby="render-heading">
+      <h2 id="render-heading">Rendered Design</h2>
+
+      <p>
+        I also created a rendered view of the proposed patio redesign to study
+        the layout, material choices, and overall atmosphere of the finished
+        space. The rendering helps communicate the design intent before the
+        remaining construction steps are completed.
+      </p>
+
+      <img
+        src="../images/patio/patio-render.jpg"
+        alt="3D rendered image of the patio redesign"
+        class="large-image"
+      >
+    </section>
+
+    <!-- NEXT STEPS -->
+    <section class="next-steps" aria-labelledby="next-steps-heading">
+      <h2 id="next-steps-heading">Next Steps</h2>
+
+      <p>
+        My next steps are leveling the ground and cutting slabs for the patio
+        base. Come back for updates later!
+      </p>
+    </section>
+
+  </main>
+
+</body>
+</html>
