@@ -5,6 +5,53 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gladiator Allegiance — Product Management Experience</title>
 
+  /* ---------- UNDER CONSTRUCTION POPUP ---------- */
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+  padding:20px;
+  box-sizing:border-box;
+}
+
+.popup-box{
+  position:relative;
+  max-width:520px;
+  background:#fff;
+  border-radius:14px;
+  padding:34px 30px 28px;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  text-align:center;
+}
+
+.popup-box h2{
+  margin:0 0 12px;
+  font-size:28px;
+  color:#111;
+}
+
+.popup-box p{
+  margin:0;
+  line-height:1.6;
+  color:#333;
+}
+
+.popup-close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  border:none;
+  background:transparent;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  color:#333;
+}
+
   <style>
     :root{
       --bg:#a0c0bc;
@@ -131,6 +178,19 @@
 </head>
 
 <body>
+
+  <!-- UNDER CONSTRUCTION POPUP -->
+<div class="popup-overlay" id="constructionPopup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()" aria-label="Close popup">&times;</button>
+    <h2>Page under construction!</h2>
+    <p>
+      This project is under NDA and I am releasing details as allowed.
+      Please forgive the lack of detail — I can't wait to share this design
+      process with you soon!
+    </p>
+  </div>
+</div>
 
   <!-- TOP BAR -->
   <div class="topbar" role="navigation">
