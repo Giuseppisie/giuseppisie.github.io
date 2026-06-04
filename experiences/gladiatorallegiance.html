@@ -5,53 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gladiator Allegiance — Product Management Experience</title>
 
-  /* ---------- UNDER CONSTRUCTION POPUP ---------- */
-.popup-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.55);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:2000;
-  padding:20px;
-  box-sizing:border-box;
-}
-
-.popup-box{
-  position:relative;
-  max-width:520px;
-  background:#fff;
-  border-radius:14px;
-  padding:34px 30px 28px;
-  box-shadow:0 12px 30px rgba(0,0,0,.25);
-  text-align:center;
-}
-
-.popup-box h2{
-  margin:0 0 12px;
-  font-size:28px;
-  color:#111;
-}
-
-.popup-box p{
-  margin:0;
-  line-height:1.6;
-  color:#333;
-}
-
-.popup-close{
-  position:absolute;
-  top:12px;
-  right:14px;
-  border:none;
-  background:transparent;
-  font-size:28px;
-  font-weight:700;
-  cursor:pointer;
-  color:#333;
-}
-
   <style>
     :root{
       --bg:#a0c0bc;
@@ -61,7 +14,10 @@
       --page-pad:20px;
     }
 
-    html,body{height:100%}
+    html,body{
+      height:100%;
+    }
+
     body{
       margin:0;
       font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
@@ -70,10 +26,65 @@
       -webkit-font-smoothing:antialiased;
     }
 
+    /* ---------- UNDER CONSTRUCTION POPUP ---------- */
+    .popup-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      padding:20px;
+      box-sizing:border-box;
+    }
+
+    .popup-box{
+      position:relative;
+      max-width:600px;
+      width:100%;
+      background:#fff;
+      border-radius:14px;
+      padding:34px 30px 28px;
+      box-shadow:0 12px 30px rgba(0,0,0,.25);
+      text-align:center;
+    }
+
+    .popup-box h2{
+      margin:0 0 14px;
+      font-size:32px;
+      color:#111;
+    }
+
+    .popup-box p{
+      margin:0;
+      line-height:1.7;
+      color:#333;
+      font-size:16px;
+    }
+
+    .popup-close{
+      position:absolute;
+      top:10px;
+      right:15px;
+      border:none;
+      background:none;
+      font-size:30px;
+      font-weight:700;
+      cursor:pointer;
+      color:#444;
+    }
+
+    .popup-close:hover{
+      color:#000;
+    }
+
     /* ---------- TOP BAR ---------- */
     .topbar{
       position:fixed;
-      top:0; left:0; right:0;
+      top:0;
+      left:0;
+      right:0;
       height:60px;
       display:flex;
       align-items:center;
@@ -82,7 +93,13 @@
       background:rgba(0,0,0,0.25);
       backdrop-filter:blur(4px);
     }
-    .topbar-left{display:flex;align-items:center;gap:20px}
+
+    .topbar-left{
+      display:flex;
+      align-items:center;
+      gap:20px;
+    }
+
     .brand{
       color:#fff;
       font-weight:800;
@@ -90,7 +107,12 @@
       text-decoration:none;
       text-shadow:0 2px 8px rgba(0,0,0,.4);
     }
-    .topnav{display:flex;gap:10px}
+
+    .topnav{
+      display:flex;
+      gap:10px;
+    }
+
     .topnav a{
       color:#fff;
       text-decoration:none;
@@ -99,25 +121,29 @@
       border-radius:8px;
     }
 
-    .spacer{height:60px}
+    .spacer{
+      height:60px;
+    }
 
     /* ---------- HERO ---------- */
     .hero{
       position:relative;
       height:52vh;
-      background-image:url("../images/experiences/productlab/k9leash.jpg"); 
+      background-image:url("../images/experiences/productlab/k9leash.jpg");
       background-size:cover;
       background-position:center;
       display:flex;
       align-items:center;
       justify-content:center;
     }
+
     .hero::after{
       content:"";
       position:absolute;
       inset:0;
       background:rgba(66,123,118,0.35);
     }
+
     .hero-title{
       position:relative;
       z-index:1;
@@ -163,7 +189,7 @@
       margin-bottom:14px;
     }
 
-        /* ---------- IMAGE SECTION ---------- */
+    /* ---------- IMAGE SECTION ---------- */
     .feature-image{
       width:100%;
       display:block;
@@ -173,10 +199,30 @@
       max-height:600px;
       box-shadow:0 4px 12px rgba(0,0,0,.12);
     }
-    
   </style>
 </head>
 
+<body>
+
+  <!-- UNDER CONSTRUCTION POPUP -->
+  <div class="popup-overlay" id="constructionPopup">
+    <div class="popup-box">
+      <button class="popup-close" onclick="closePopup()" aria-label="Close popup">
+        &times;
+      </button>
+
+      <h2>Page Under Construction!</h2>
+
+      <p>
+        This project is currently under NDA and I am releasing details as they
+        become available. Please forgive the lack of detail — I can't wait to
+        share the complete design process, engineering decisions, and lessons
+        learned from this project with you soon!
+      </p>
+    </div>
+  </div>
+
+  
 <body>
 
   <!-- UNDER CONSTRUCTION POPUP -->
@@ -277,11 +323,11 @@
 
         <p>
           The device is an RF-controlled mechanical release system designed to securely connect and detach two separate components. A servo motor actuates a lock-and-key mechanism in which a cylindrical key engages with a hook element to maintain the connection between Container A and Container B. When a signal is received from the RF remote, the servo rotates, retracting the key and releasing the hook. This allows the connected component to detach quickly and reliably.
-        <p>
+        </p>
 
           <p>
             The mechanism was designed for both strength and reusability. Following release, the system can be reattached by reconnecting the hook element and returning the servo-driven key to its locked position. The locking component is capable of rotating through 180°, enabling a wide range of attachment orientations while maintaining secure engagement. The final design is able to withstand over 300 pounds of lateral force, providing a robust solution for applications requiring both high load capacity and remote-release functionality.
-        <p>
+        </p>
 
       <p>
         Further details of the design process and prototype remain confidential
@@ -291,6 +337,12 @@
     </section>
 
   </div>
+
+  <script>
+  function closePopup() {
+    document.getElementById("constructionPopup").style.display = "none";
+  }
+</script>
 
 </body>
 </html>
