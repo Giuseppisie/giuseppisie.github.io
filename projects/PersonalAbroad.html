@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
-
-
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>Abroad Personal Projects</title>
 
   <style>
+
     :root{
       --bg:#a0c0bc;
       --card:#427b76;
@@ -29,17 +31,25 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* ---------- TOP BAR ---------- */
+
+    /* =========================================================
+       TOP BAR
+       ========================================================= */
+
     .topbar{
       position:fixed;
       top:0;
       left:0;
       right:0;
       height:60px;
+
       display:flex;
       align-items:center;
+
       padding:0 20px;
+
       z-index:1000;
+
       background:rgba(0,0,0,0.25);
       backdrop-filter:blur(4px);
     }
@@ -69,8 +79,11 @@
       color:#fff;
       text-decoration:none;
       font-weight:700;
+
       padding:8px 10px;
+
       border-radius:8px;
+
       transition:background .12s;
     }
 
@@ -84,27 +97,21 @@
       height:60px;
     }
 
-    .google-doc-wrapper {
-  width: 100%;
-  background: #f5f5f5;
-  overflow: hidden;
-}
 
-.google-doc-wrapper iframe {
-  display: block;
-  width: 100%;
-  height: 900px;
-  border: none;
-}
+    /* =========================================================
+       HERO
+       ========================================================= */
 
-    /* ---------- HERO ---------- */
     .hero{
       position:relative;
+
       height:52vh;
       width:100%;
-      background-image:url("../images/projects/MadridPersonal/dolomitescomputer.jpeg");
+
+      background-image:url("../images/abroad/abroadhero.jpg");
       background-size:cover;
       background-position:center;
+
       display:flex;
       align-items:center;
       justify-content:center;
@@ -112,48 +119,74 @@
 
     .hero::after{
       content:"";
+
       position:absolute;
       inset:0;
+
       background:rgba(66,123,118,0.35);
     }
 
     .hero-title{
       position:relative;
       z-index:1;
+
       color:#fff;
+
       font-size:clamp(28px,5vw,48px);
       font-weight:800;
+
       text-shadow:0 8px 24px rgba(0,0,0,0.6);
+
       text-align:center;
+
       padding:0 20px;
     }
 
-    /* ---------- PAGE ---------- */
+
+    /* =========================================================
+       PAGE
+       ========================================================= */
+
     .page{
       max-width:var(--content-max);
+
       margin:0 auto;
+
       padding:36px var(--page-pad) 80px;
+
       box-sizing:border-box;
     }
 
-    /* ---------- INTRO CARD ---------- */
+
+    /* =========================================================
+       INTRODUCTION
+       ========================================================= */
+
     .content{
       background:#fff;
+
       padding:28px;
+
       border-radius:12px;
+
       box-shadow:0 8px 20px rgba(0,0,0,.06);
+
       margin-bottom:28px;
     }
 
     .content h2{
       margin:0 0 10px;
+
       font-size:22px;
+
       color:#111;
     }
 
     .content p{
       line-height:1.6;
+
       color:#333;
+
       margin-bottom:14px;
     }
 
@@ -163,45 +196,69 @@
 
     .meta{
       color:#666;
+
       font-size:14px;
+
       margin-bottom:14px;
     }
 
-    /* ---------- WEEKLY EXPLORATIONS ---------- */
+
+    /* =========================================================
+       EXPLORATION TILES
+       ========================================================= */
+
     .explorations-heading{
       font-size:26px;
+
       margin:10px 0 18px;
+
       color:#111;
     }
 
     .exploration-tile{
       background:#fff;
+
       border-radius:12px;
+
       box-shadow:0 8px 20px rgba(0,0,0,.06);
+
       margin-bottom:22px;
-      transition:transform .15s, box-shadow .15s;
+
+      transition:
+        transform .15s,
+        box-shadow .15s;
+
       cursor:pointer;
+
       overflow:hidden;
     }
 
     .exploration-tile:hover{
       transform:translateY(-4px);
+
       box-shadow:0 18px 36px rgba(0,0,0,.15);
     }
 
     .exploration-row{
       display:flex;
+
       gap:22px;
+
       padding:20px;
+
       align-items:center;
     }
 
     .exploration-img{
       flex:0 0 220px;
+
       height:170px;
+
       border-radius:10px;
+
       background-size:cover;
       background-position:center;
+
       background-color:#ddd;
     }
 
@@ -211,49 +268,57 @@
 
     .exploration-week{
       font-size:13px;
+
       font-weight:700;
+
       color:#427b76;
+
       text-transform:uppercase;
+
       letter-spacing:.05em;
+
       margin-bottom:5px;
     }
 
     .exploration-title{
       font-size:21px;
+
       font-weight:800;
+
       margin:0 0 8px;
+
       color:#111;
     }
 
     .exploration-desc{
       color:#444;
+
       line-height:1.55;
+
       margin:0;
     }
 
-    @media (max-width:800px){
-      .exploration-row{
-        flex-direction:column;
-        align-items:stretch;
-      }
 
-      .exploration-img{
-        width:100%;
-        height:220px;
-        flex:none;
-      }
-    }
+    /* =========================================================
+       MODAL
+       ========================================================= */
 
-    /* ---------- DETAIL MODAL ---------- */
     .detail-modal{
       position:fixed;
+
       inset:0;
+
       display:none;
+
       align-items:center;
       justify-content:center;
+
       background:rgba(0,0,0,0.85);
+
       z-index:11000;
-      padding:64px 20px;
+
+      padding:40px 20px;
+
       box-sizing:border-box;
     }
 
@@ -263,441 +328,396 @@
 
     .detail-inner{
       width:100%;
-      max-width:1300px;
-      max-height:calc(100vh - 128px);
+
+      max-width:1200px;
+
+      height:calc(100vh - 80px);
+
       background:#fff;
+
       border-radius:12px;
-      overflow:auto;
+
+      overflow:hidden;
+
       display:flex;
+
       flex-direction:column;
+
       box-shadow:0 30px 80px rgba(0,0,0,.45);
     }
 
+
+    /* ---------- MODAL HEADER ---------- */
+
     .detail-header{
       display:flex;
+
       justify-content:space-between;
+
       align-items:center;
+
       padding:14px 18px;
-      background:linear-gradient(90deg,#427b76,#5a9b93);
+
+      background:linear-gradient(
+        90deg,
+        #427b76,
+        #5a9b93
+      );
+
       color:#fff;
+
       flex:0 0 auto;
     }
 
     .detail-title{
       font-size:19px;
+
       font-weight:800;
     }
 
     .modal-close{
       background:rgba(255,255,255,0.12);
+
       color:#fff;
+
       border:0;
+
       padding:8px 12px;
+
       border-radius:8px;
+
       cursor:pointer;
+
       font-weight:700;
+
       font-size:16px;
     }
 
     .modal-close:hover{
-      background:rgba(255,255,255,0.2);
+      background:rgba(255,255,255,0.22);
     }
 
-    .detail-body{
-      display:flex;
-      gap:20px;
-      padding:20px;
-      align-items:flex-start;
-    }
 
-    .media-col{
-      flex:0 0 48%;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
+    /* =========================================================
+       GOOGLE DOC
+       ========================================================= */
 
-    .info-col{
-      
+    .google-doc-wrapper{
       flex:1;
-      min-width:260px;
-    }
 
-    .media-player{
-      background:#f2f2f2;
-      border-radius:10px;
-      min-height:300px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      width:100%;
+
+      background:#e8e8e8;
+
       overflow:hidden;
     }
 
-    .media-player img{
-      max-width:100%;
-      max-height:60vh;
+    .google-doc-wrapper iframe{
       display:block;
-      object-fit:contain;
-      border-radius:8px;
+
+      width:100%;
+      height:100%;
+
+      border:none;
+
+      background:white;
     }
 
-    .carousel-thumbs{
-      display:flex;
-      gap:8px;
-      overflow-x:auto;
-      padding-top:4px;
-    }
 
-    .carousel-thumbs img{
-      width:82px;
-      height:58px;
-      object-fit:cover;
-      border-radius:6px;
-      cursor:pointer;
-      opacity:.65;
-      transition:opacity .12s, transform .12s;
-      flex:none;
-    }
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
 
-    .carousel-thumbs img:hover{
-      opacity:1;
-    }
+    @media(max-width:800px){
 
-    .carousel-caption{
-      font-size:13px;
-      color:#555;
-      font-style:italic;
-    }
-
-    .info-title{
-      font-size:20px;
-      font-weight:800;
-      margin-bottom:10px;
-      color:#111;
-    }
-
-    .info-text{
-      color:#333;
-      line-height:1.65;
-      font-size:16px;
-    }
-
-    .info-text p{
-      margin-top:0;
-      margin-bottom:14px;
-    }
-
-    .info-text ul{
-      padding-left:20px;
-    }
-
-    .info-text li{
-      margin-bottom:8px;
-    }
-
-    @media (max-width:900px){
-      .detail-body{
+      .exploration-row{
         flex-direction:column;
+
+        align-items:stretch;
       }
 
-      .media-col{
+      .exploration-img{
         width:100%;
+
+        height:220px;
+
         flex:none;
       }
 
-      .media-player img{
-        max-height:50vh;
+      .detail-modal{
+        padding:20px 10px;
       }
+
+      .detail-inner{
+        height:calc(100vh - 40px);
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <!-- ---------- TOP BAR ---------- -->
+
+  <!-- =========================================================
+       TOP NAVIGATION
+       ========================================================= -->
+
   <div class="topbar" role="navigation">
+
     <div class="topbar-left">
-      <a class="brand" href="../index.html">Sienna Giuseppi</a>
+
+      <a
+        class="brand"
+        href="../index.html">
+        Sienna Giuseppi
+      </a>
 
       <nav class="topnav">
-        <a href="../about.html">About</a>
-        <a href="../index.html#engineering-projects">Projects</a>
-        <a href="../index.html#experiences">Experiences</a>
-        <a href="../resume.html">Resume + Contact</a>
+
+        <a href="../about.html">
+          About
+        </a>
+
+        <a href="../index.html#engineering-projects">
+          Projects
+        </a>
+
+        <a href="../index.html#experiences">
+          Experiences
+        </a>
+
+        <a href="../resume.html">
+          Resume + Contact
+        </a>
+
       </nav>
+
     </div>
+
   </div>
+
 
   <div class="spacer"></div>
 
-  <!-- ---------- HERO ---------- -->
-  <section class="hero" aria-label="Personal abroad hero image">
-    <div class="hero-title">Personal Abroad</div>
+
+  <!-- =========================================================
+       HERO
+       ========================================================= -->
+
+  <section
+    class="hero"
+    aria-label="Personal abroad projects hero image"
+  >
+
+    <div class="hero-title">
+      Personal Abroad Projects
+    </div>
+
   </section>
+
+
+  <!-- =========================================================
+       PAGE CONTENT
+       ========================================================= -->
 
   <div class="page">
 
-    <!-- ---------- INTRO ---------- -->
-    <section class="content" aria-labelledby="overview-heading">
 
-      <h2 id="overview-heading">My Semester Abroad</h2>
+    <!-- =======================================================
+         INTRO
+         ======================================================= -->
+
+    <section
+      class="content"
+      aria-labelledby="overview-heading"
+    >
+
+      <h2 id="overview-heading">
+        Personal Projects Abroad
+      </h2>
 
       <div class="meta">
-        Madrid, Spain · Fall 2026 · Personal Exploration
+        Madrid, Spain · Fall 2026 · Independent Exploration
       </div>
 
       <p>
-        Studying abroad in Madrid has given me the opportunity to explore
-        far beyond the classroom. Throughout the semester, I have been
-        documenting the places I visit, the things I learn, and the
-        experiences that shape my time in Spain and around Europe.
+        Studying abroad in Madrid has given me the opportunity to continue
+        exploring engineering and design outside of the classroom. Throughout
+        the semester, I am using my time abroad to investigate problems,
+        experiment with ideas, and develop small independent projects.
       </p>
 
       <p>
-        Rather than treating these experiences as a traditional travel diary,
-        I am using this page as an evolving collection of small explorations.
-        Each week highlights something different — from architecture and art
-        to food, travel, culture, and the unexpected moments that have made
-        living abroad feel different from simply visiting.
+        This page serves as an evolving collection of those explorations.
+        Each project documents the problem, research, design process,
+        iterations, and lessons learned as the work develops.
       </p>
 
       <p>
-        Click through the explorations below to see photos, sketches,
-        observations, and reflections from my semester abroad.
+        Click a project below to open its full design report.
       </p>
 
     </section>
 
-    <!-- ---------- EXPLORATIONS ---------- -->
-    <h2 class="explorations-heading">Weekly Explorations</h2>
 
-   <!-- WEEK 1 -->
-<article
-  class="exploration-tile"
-  id="week1Tile"
-  tabindex="0"
-  role="button"
->
-  <div class="exploration-row">
+    <!-- =======================================================
+         PROJECTS
+         ======================================================= -->
 
-    <div
-      class="exploration-img"
-      style="background-image:url('../images/abroad/week1.jpg')">
-    </div>
+    <h2 class="explorations-heading">
+      Projects & Explorations
+    </h2>
 
-    <div class="exploration-text">
 
-      <div class="exploration-week">
-        Week 01
+    <!-- =======================================================
+         PROJECT 1 — OXYGEN TUBE REEL
+         ======================================================= -->
+
+    <article
+      class="exploration-tile"
+      id="week1Tile"
+      tabindex="0"
+      role="button"
+      aria-label="Open Oxygen Tube Reel Redesign report"
+    >
+
+      <div class="exploration-row">
+
+
+        <!-- PROJECT IMAGE -->
+
+        <div
+          class="exploration-img"
+          style="
+            background-image:
+            url('../images/abroad/week1.jpg');
+          "
+        >
+        </div>
+
+
+        <!-- PROJECT TEXT -->
+
+        <div class="exploration-text">
+
+          <div class="exploration-week">
+            Personal Project 01
+          </div>
+
+          <h3 class="exploration-title">
+            Oxygen Tube Reel Redesign
+          </h3>
+
+          <p class="exploration-desc">
+            Exploring a compact mechanical system for managing and
+            retracting oxygen tubing through product research,
+            mechanism decomposition, concept development, and CAD.
+          </p>
+
+        </div>
+
       </div>
 
-      <h3 class="exploration-title">
-        Arrival in Madrid
-      </h3>
-
-      <p class="exploration-desc">
-        My first impressions of Madrid and the beginning of my semester abroad.
-      </p>
-
-    </div>
-
-  </div>
-</article>
+    </article>
 
 
-<!-- WEEK 1 GOOGLE DOC MODAL -->
-<div
-  id="week1Modal"
-  class="detail-modal"
-  aria-hidden="true"
-  role="dialog"
-  aria-modal="true"
->
+    <!-- =======================================================
+         PROJECT 2 — PLACEHOLDER
+         ======================================================= -->
 
-  <div class="detail-inner">
-
-    <div class="detail-header">
-
-      <div class="detail-title">
-        Week 01 — Oxygen Tube Reel Redesign
-      </div>
-
-      <button
-        id="week1Close"
-        class="modal-close"
-        aria-label="Close details"
-      >
-        ✕
-      </button>
-
-    </div>
-
-    <div class="google-doc-wrapper">
-
-      <iframe
-        src="https://docs.google.com/document/d/e/2PACX-1vQdnYdF5X1lfJ35ZwsfBiKUfZ3An9I9lueHyJlB8FJ5UXyYF3aediqnW8F5WGCexg/pub?embedded=true"
-        width="100%"
-        height="900"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-    <!-- WEEK 2 -->
     <article
       class="exploration-tile"
       id="week2Tile"
       tabindex="0"
       role="button"
     >
+
       <div class="exploration-row">
 
         <div
           class="exploration-img"
-          style="background-image:url('../images/abroad/week2.jpg')">
+          style="
+            background-image:
+            url('../images/abroad/week2.jpg');
+          "
+        >
         </div>
 
         <div class="exploration-text">
 
           <div class="exploration-week">
-            Week 02
+            Personal Project 02
           </div>
 
           <h3 class="exploration-title">
-            Madrid Architecture
+            Project Coming Soon
           </h3>
 
           <p class="exploration-desc">
-            Exploring Madrid through its buildings, streets, plazas,
-            and architectural details.
+            Another independent engineering and design exploration
+            developed during my semester abroad.
           </p>
 
         </div>
+
       </div>
+
     </article>
 
 
-    <!-- WEEK 3 -->
+    <!-- =======================================================
+         PROJECT 3 — PLACEHOLDER
+         ======================================================= -->
+
     <article
       class="exploration-tile"
       id="week3Tile"
       tabindex="0"
       role="button"
     >
+
       <div class="exploration-row">
 
         <div
           class="exploration-img"
-          style="background-image:url('../images/abroad/week3.jpg')">
+          style="
+            background-image:
+            url('../images/abroad/week3.jpg');
+          "
+        >
         </div>
 
         <div class="exploration-text">
 
           <div class="exploration-week">
-            Week 03
+            Personal Project 03
           </div>
 
           <h3 class="exploration-title">
-            Art & Museums
+            Project Coming Soon
           </h3>
 
           <p class="exploration-desc">
-            Observations and sketches from Madrid's museums, galleries,
-            and historic art spaces.
+            Future design exploration.
           </p>
 
         </div>
+
       </div>
+
     </article>
-
-
-    <!-- WEEK 4 -->
-    <article
-      class="exploration-tile"
-      id="week4Tile"
-      tabindex="0"
-      role="button"
-    >
-      <div class="exploration-row">
-
-        <div
-          class="exploration-img"
-          style="background-image:url('../images/abroad/week4.jpg')">
-        </div>
-
-        <div class="exploration-text">
-
-          <div class="exploration-week">
-            Week 04
-          </div>
-
-          <h3 class="exploration-title">
-            Travel & Exploration
-          </h3>
-
-          <p class="exploration-desc">
-            A collection of places, experiences, and discoveries from
-            traveling beyond Madrid.
-          </p>
-
-        </div>
-      </div>
-    </article>
-
-
-    <!-- WEEK 5 -->
-    <article
-      class="exploration-tile"
-      id="week5Tile"
-      tabindex="0"
-      role="button"
-    >
-      <div class="exploration-row">
-
-        <div
-          class="exploration-img"
-          style="background-image:url('../images/abroad/week5.jpg')">
-        </div>
-
-        <div class="exploration-text">
-
-          <div class="exploration-week">
-            Week 05
-          </div>
-
-          <h3 class="exploration-title">
-            Food & Everyday Life
-          </h3>
-
-          <p class="exploration-desc">
-            Small observations from daily life in Madrid, including
-            food, markets, neighborhoods, and routines.
-          </p>
-
-        </div>
-      </div>
-    </article>
-
-
-    <!-- ---------- MORE WEEKS ---------- -->
-    <!--
-      Duplicate one of the exploration tiles above when you want
-      to add another week.
-    -->
 
 
   </div>
 
 
-  <!-- ========================================================= -->
-  <!-- WEEK 1 MODAL                                               -->
-  <!-- ========================================================= -->
+  <!-- =========================================================
+       PROJECT 1 GOOGLE DOC MODAL
+       ========================================================= -->
 
   <div
     id="week1Modal"
@@ -705,510 +725,183 @@
     aria-hidden="true"
     role="dialog"
     aria-modal="true"
+    aria-labelledby="week1ModalTitle"
   >
 
     <div class="detail-inner">
 
+
+      <!-- MODAL HEADER -->
+
       <div class="detail-header">
 
-        <div class="detail-title">
-          Week 01 — Arrival in Madrid
+        <div
+          class="detail-title"
+          id="week1ModalTitle"
+        >
+          Oxygen Tube Reel Redesign — Design Report
         </div>
+
 
         <button
           id="week1Close"
           class="modal-close"
-          aria-label="Close details"
+          type="button"
+          aria-label="Close report"
         >
           ✕
         </button>
 
       </div>
 
-      <div class="detail-body">
 
-        <div class="media-col">
+      <!-- LIVE GOOGLE DOC -->
 
-          <div
-            class="media-player"
-            id="week1MainMedia"
-          >
-            <img
-              src="../images/abroad/week1.jpg"
-              alt="Week 1 in Madrid"
-            >
-          </div>
+      <div class="google-doc-wrapper">
 
-          <div
-            class="carousel-thumbs"
-            id="week1Thumbs"
-          ></div>
-
-          <div
-            class="carousel-caption"
-            id="week1Caption"
-          >
-            Week 1
-          </div>
-
-        </div>
-
-        <div class="info-col">
-
-          <div class="info-title">
-            Arrival in Madrid
-          </div>
-
-          <div class="info-text">
-
-            <p>
-              This first exploration documents my arrival in Madrid
-              and the process of beginning to build a life in a new city.
-            </p>
-
-            <p>
-              I wanted to pay attention to the small details that are
-              easy to overlook when arriving somewhere unfamiliar —
-              the streets, buildings, transportation, food, and rhythms
-              of everyday life.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ========================================================= -->
-  <!-- WEEK 2 MODAL                                               -->
-  <!-- ========================================================= -->
-
-  <div
-    id="week2Modal"
-    class="detail-modal"
-    aria-hidden="true"
-    role="dialog"
-    aria-modal="true"
-  >
-
-    <div class="detail-inner">
-
-      <div class="detail-header">
-
-        <div class="detail-title">
-          Week 02 — Madrid Architecture
-        </div>
-
-        <button
-          id="week2Close"
-          class="modal-close"
-          aria-label="Close details"
+        <iframe
+          src="https://docs.google.com/document/d/e/2PACX-1vQdnYdF5X1lfJ35ZwsfBiKUfZ3An9I9lueHyJlB8FJ5UXyYF3aediqnW8F5WGCexg/pub?embedded=true"
+          title="Oxygen Tube Reel Redesign Design Report"
+          loading="lazy"
         >
-          ✕
-        </button>
+        </iframe>
 
       </div>
 
-      <div class="detail-body">
 
-        <div class="media-col">
-
-          <div
-            class="media-player"
-            id="week2MainMedia"
-          >
-            <img
-              src="../images/abroad/week2.jpg"
-              alt="Madrid architecture"
-            >
-          </div>
-
-          <div
-            class="carousel-thumbs"
-            id="week2Thumbs"
-          ></div>
-
-          <div
-            class="carousel-caption"
-            id="week2Caption"
-          >
-            Madrid architecture
-          </div>
-
-        </div>
-
-        <div class="info-col">
-
-          <div class="info-title">
-            Madrid Architecture
-          </div>
-
-          <div class="info-text">
-
-            <p>
-              This exploration looks at the architecture I encountered
-              while walking through Madrid and how the built environment
-              changes from neighborhood to neighborhood.
-            </p>
-
-            <p>
-              I focused particularly on details that connect architecture
-              to everyday use: facades, balconies, windows, plazas,
-              materials, and the relationship between old and new buildings.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
     </div>
+
   </div>
 
 
-  <!-- ========================================================= -->
-  <!-- WEEK 3 MODAL                                               -->
-  <!-- ========================================================= -->
-
-  <div
-    id="week3Modal"
-    class="detail-modal"
-    aria-hidden="true"
-    role="dialog"
-    aria-modal="true"
-  >
-
-    <div class="detail-inner">
-
-      <div class="detail-header">
-
-        <div class="detail-title">
-          Week 03 — Art & Museums
-        </div>
-
-        <button
-          id="week3Close"
-          class="modal-close"
-          aria-label="Close details"
-        >
-          ✕
-        </button>
-
-      </div>
-
-      <div class="detail-body">
-
-        <div class="media-col">
-
-          <div
-            class="media-player"
-            id="week3MainMedia"
-          >
-            <img
-              src="../images/abroad/week3.jpg"
-              alt="Art and museums in Madrid"
-            >
-          </div>
-
-          <div
-            class="carousel-thumbs"
-            id="week3Thumbs"
-          ></div>
-
-          <div
-            class="carousel-caption"
-            id="week3Caption"
-          >
-            Art & museums
-          </div>
-
-        </div>
-
-        <div class="info-col">
-
-          <div class="info-title">
-            Art & Museums
-          </div>
-
-          <div class="info-text">
-
-            <p>
-              Madrid has given me the opportunity to spend significant
-              time studying artwork in person rather than only seeing it
-              through reproductions.
-            </p>
-
-            <p>
-              These explorations collect sketches, observations,
-              and photographs from museums and exhibitions throughout
-              the semester.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ========================================================= -->
-  <!-- WEEK 4 MODAL                                               -->
-  <!-- ========================================================= -->
-
-  <div
-    id="week4Modal"
-    class="detail-modal"
-    aria-hidden="true"
-    role="dialog"
-    aria-modal="true"
-  >
-
-    <div class="detail-inner">
-
-      <div class="detail-header">
-
-        <div class="detail-title">
-          Week 04 — Travel & Exploration
-        </div>
-
-        <button
-          id="week4Close"
-          class="modal-close"
-          aria-label="Close details"
-        >
-          ✕
-        </button>
-
-      </div>
-
-      <div class="detail-body">
-
-        <div class="media-col">
-
-          <div
-            class="media-player"
-            id="week4MainMedia"
-          >
-            <img
-              src="../images/abroad/week4.jpg"
-              alt="Travel and exploration"
-            >
-          </div>
-
-          <div
-            class="carousel-thumbs"
-            id="week4Thumbs"
-          ></div>
-
-          <div
-            class="carousel-caption"
-            id="week4Caption"
-          >
-            Travel & exploration
-          </div>
-
-        </div>
-
-        <div class="info-col">
-
-          <div class="info-title">
-            Travel & Exploration
-          </div>
-
-          <div class="info-text">
-
-            <p>
-              Living in Europe has made it possible to explore places
-              outside Madrid throughout the semester.
-            </p>
-
-            <p>
-              These entries document the places I visit and the ways
-              each trip changes my perspective on architecture,
-              landscape, culture, and everyday life.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ========================================================= -->
-  <!-- WEEK 5 MODAL                                               -->
-  <!-- ========================================================= -->
-
-  <div
-    id="week5Modal"
-    class="detail-modal"
-    aria-hidden="true"
-    role="dialog"
-    aria-modal="true"
-  >
-
-    <div class="detail-inner">
-
-      <div class="detail-header">
-
-        <div class="detail-title">
-          Week 05 — Food & Everyday Life
-        </div>
-
-        <button
-          id="week5Close"
-          class="modal-close"
-          aria-label="Close details"
-        >
-          ✕
-        </button>
-
-      </div>
-
-      <div class="detail-body">
-
-        <div class="media-col">
-
-          <div
-            class="media-player"
-            id="week5MainMedia"
-          >
-            <img
-              src="../images/abroad/week5.jpg"
-              alt="Food and everyday life in Madrid"
-            >
-          </div>
-
-          <div
-            class="carousel-thumbs"
-            id="week5Thumbs"
-          ></div>
-
-          <div
-            class="carousel-caption"
-            id="week5Caption"
-          >
-            Food & everyday life
-          </div>
-
-        </div>
-
-        <div class="info-col">
-
-          <div class="info-title">
-            Food & Everyday Life
-          </div>
-
-          <div class="info-text">
-
-            <p>
-              Some of the most interesting parts of studying abroad
-              happen in ordinary moments rather than major trips.
-            </p>
-
-            <p>
-              This exploration focuses on food, markets, neighborhoods,
-              routines, and the small cultural differences that become
-              increasingly noticeable while living somewhere new.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ========================================================= -->
-  <!-- JAVASCRIPT                                                  -->
-  <!-- ========================================================= -->
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
 
   <script>
 
-    function setupModal(tileId, modalId, closeId) {
+    /* ---------------------------------------------------------
+       PROJECT 1 MODAL
+       --------------------------------------------------------- */
 
-      const tile = document.getElementById(tileId);
-      const modal = document.getElementById(modalId);
-      const close = document.getElementById(closeId);
+    const project1Tile =
+      document.getElementById("week1Tile");
 
-      function openModal() {
-        modal.classList.add("open");
-        modal.setAttribute("aria-hidden","false");
-        document.body.style.overflow = "hidden";
-      }
+    const project1Modal =
+      document.getElementById("week1Modal");
 
-      function closeModal() {
-        modal.classList.remove("open");
-        modal.setAttribute("aria-hidden","true");
-        document.body.style.overflow = "";
-      }
+    const project1Close =
+      document.getElementById("week1Close");
 
-      tile.addEventListener("click", openModal);
 
-      tile.addEventListener("keydown", function(e) {
-        if(e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openModal();
-        }
-      });
+    /* OPEN */
 
-      close.addEventListener("click", closeModal);
+    function openProject1(){
 
-      modal.addEventListener("click", function(e) {
-        if(e.target === modal) {
-          closeModal();
-        }
-      });
+      project1Modal.classList.add("open");
 
-      return closeModal;
+      project1Modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
     }
 
 
-    const closeWeek1 =
-      setupModal("week1Tile","week1Modal","week1Close");
+    /* CLOSE */
 
-    const closeWeek2 =
-      setupModal("week2Tile","week2Modal","week2Close");
+    function closeProject1(){
 
-    const closeWeek3 =
-      setupModal("week3Tile","week3Modal","week3Close");
+      project1Modal.classList.remove("open");
 
-    const closeWeek4 =
-      setupModal("week4Tile","week4Modal","week4Close");
+      project1Modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
 
-    const closeWeek5 =
-      setupModal("week5Tile","week5Modal","week5Close");
+      document.body.style.overflow =
+        "";
+
+    }
 
 
-    /* ---------- ESCAPE KEY ---------- */
+    /* CLICK TILE */
 
-    document.addEventListener("keydown", function(e){
+    project1Tile.addEventListener(
+      "click",
+      openProject1
+    );
 
-      if(e.key !== "Escape") return;
 
-      document
-        .querySelectorAll(".detail-modal.open")
-        .forEach(function(modal){
+    /* KEYBOARD ACCESS */
 
-          modal.classList.remove("open");
-          modal.setAttribute("aria-hidden","true");
+    project1Tile.addEventListener(
+      "keydown",
+      function(event){
 
-        });
+        if(
+          event.key === "Enter" ||
+          event.key === " "
+        ){
 
-      document.body.style.overflow = "";
+          event.preventDefault();
 
-    });
+          openProject1();
+
+        }
+
+      }
+    );
+
+
+    /* CLOSE BUTTON */
+
+    project1Close.addEventListener(
+      "click",
+      closeProject1
+    );
+
+
+    /* CLICK DARK BACKGROUND TO CLOSE */
+
+    project1Modal.addEventListener(
+      "click",
+      function(event){
+
+        if(event.target === project1Modal){
+
+          closeProject1();
+
+        }
+
+      }
+    );
+
+
+    /* ESCAPE KEY */
+
+    document.addEventListener(
+      "keydown",
+      function(event){
+
+        if(
+          event.key === "Escape" &&
+          project1Modal.classList.contains("open")
+        ){
+
+          closeProject1();
+
+        }
+
+      }
+    );
 
   </script>
 
+
 </body>
+
 </html>
