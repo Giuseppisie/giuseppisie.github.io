@@ -1,4 +1,4 @@
-or<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -149,25 +149,98 @@ or<!DOCTYPE html>
     header.small { text-align: center; padding: 24px 20px 6px 20px; margin-top: 0; }
 
     /* PROFILE ROW (photo left, bio box right) */
-    .profile-row {
-      display: flex;
-      align-items: stretch;
-      gap: 24px;
-      max-width: 1000px;
-      margin: 30px auto 0;
-    }
-    .profile-photo { flex: 0 0 240px; display:flex; align-items:center; justify-content:center; }
-    .headshot { width: 240px; height:240px; border-radius:50%; object-fit:cover; display:block; border:3px solid rgba(255,255,255,0.12); box-shadow:0 6px 20px rgba(0,0,0,0.12); }
-    .bio-box {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 24px 24px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex: 1;
-    }
+   /* ---------- PROFILE ROW ---------- */
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 30px auto 0;
+}
+
+/* HEADSHOT */
+
+.profile-photo {
+  flex: 0 0 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headshot {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 3px solid rgba(255,255,255,0.12);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* RIGHT SIDE: BUBBLE + BIO */
+
+.bio-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 16px;
+}
+
+/* MADRID SPEECH BUBBLE */
+
+.madrid-bubble {
+  position: relative;
+  background: #427b76;
+  color: white;
+  border-radius: 16px;
+  padding: 16px 22px;
+  max-width: 460px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  align-self: flex-start;
+}
+
+/* TRIANGLE POINTING LEFT TOWARD HEADSHOT */
+
+.madrid-bubble::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 35px;
+  width: 0;
+  height: 0;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-right: 20px solid #427b76;
+}
+
+.madrid-bubble h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: #e5df9a;
+}
+
+.madrid-bubble p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: white;
+}
+
+/* MAIN BIO BOX */
+
+.bio-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 </div>
     
@@ -175,12 +248,58 @@ or<!DOCTYPE html>
     .intro { color:#333; margin:0; font-size:18px; line-height:1.5; }
 
     @media (max-width: 768px) {
-      .profile-row { flex-direction: column; align-items: center; }
-      .profile-photo { flex: none; }
-      .headshot { width: 200px; height:200px; }
-      .bio-box { width: 100%; padding: 20px; max-width: 820px; margin: 20px auto 0; }
-      .hero { height: 60vh; }
-      .page-inner { padding: 20px; transform: translateY(-20px); }
+
+  .profile-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-photo {
+    flex: none;
+  }
+
+  .headshot {
+    width: 200px;
+    height: 200px;
+  }
+
+  .bio-content {
+    width: 100%;
+  }
+
+  .madrid-bubble {
+    align-self: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 12px;
+  }
+
+  /* On mobile, pointer faces upward toward photo */
+
+  .madrid-bubble::before {
+    left: 50%;
+    top: -18px;
+    transform: translateX(-50%);
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-bottom: 20px solid #427b76;
+    border-top: 0;
+  }
+
+  .bio-box {
+    width: 100%;
+    padding: 20px;
+    margin: 0;
+  }
+
+  .hero {
+    height: 60vh;
+  }
+
+  .page-inner {
+    padding: 20px;
+    transform: translateY(-20px);
+  }
     }
 
     /* Section title */
@@ -376,28 +495,54 @@ or<!DOCTYPE html>
     <!-- PROFILE ROW -->
    <header class="small">
 
-  <!-- PROFILE ROW -->
-  <div class="profile-row">
-    <div class="profile-photo">
-      <img src="images/headshot.jpg" alt="Headshot" class="headshot">
+<!-- PROFILE SECTION -->
+
+<div class="profile-row">
+
+  <!-- LEFT: HEADSHOT -->
+  <div class="profile-photo">
+    <img
+      src="images/headshot.jpg"
+      alt="Sienna Giuseppi"
+      class="headshot"
+    >
+  </div>
+
+  <!-- RIGHT: SPEECH BUBBLE + BIO -->
+  <div class="bio-content">
+
+    <!-- MADRID SPEECH BUBBLE -->
+    <div class="madrid-bubble">
+
+      <h3>Currently in Madrid, Spain!</h3>
+
+      <p>
+        I'm studying abroad this fall! My portfolio updates
+        may be a little slower, but I'm always happy to connect
+        and will respond as soon as I can.
+      </p>
+
     </div>
 
- <div class="bio-box">
-  <p class="intro">
-    Hi, I’m <strong>Sienna Giuseppi</strong>, a third-year Mechanical Engineering
-    student at Duke University, minoring in Computer Science and Visual Arts. I
-    combine creative problem-solving with hands-on engineering to design
-    thoughtful products, and I’m especially passionate about consumer electronics
-    and user-centered hardware. I love learning new tools and techniques,
-    collaborating across disciplines, and turning ambitious ideas into elegant,
-    usable products.
-  </p>
+    <!-- MAIN BIOGRAPHY -->
+    <div class="bio-box">
 
-  <p>
-    I’m currently studying abroad in <strong>Madrid, Spain</strong> for the fall
-    semester, so I apologize that my updates are less active than usual. I’m
-    still eager to connect and welcome messages—I’ll respond as soon as I can!
-  </p>
+      <p class="intro">
+        Hi, I’m <strong>Sienna Giuseppi</strong>, a third-year
+        Mechanical Engineering student at Duke University,
+        minoring in Computer Science and Visual Arts.
+        I combine creative problem-solving with hands-on
+        engineering to design thoughtful products, and
+        I’m especially passionate about consumer electronics
+        and user-centered hardware. I love learning new tools
+        and techniques, collaborating across disciplines,
+        and turning ambitious ideas into elegant, usable products.
+      </p>
+
+    </div>
+
+  </div>
+
 </div>
 
   <!-- UPDATE BOX (completely separate) 
